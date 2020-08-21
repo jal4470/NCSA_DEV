@@ -1,0 +1,65 @@
+div#guidelines
+{
+	margin: 10px 0;
+	background-color: #FFFF99;
+	
+	border-color: #CC9900;
+	border-width: 1px;
+	border-style: solid;
+	
+	padding: 5px;
+}
+
+div#guidelines ul
+{
+	padding: 0;
+	padding-left: 15px;
+}
+
+div#guidelines h3
+{
+	color: #000000;
+	font-size: 1.3em;
+}
+span#sysmsg
+{	
+	padding: 10px;
+	border-width: 1px;
+	border-style: solid;
+	
+	margin: 10px 0;
+}
+
+span.success
+{
+	color: #006600 !important;
+	border-color: #006600 !important;
+	background-color: #A6FFBC !important;
+	
+}
+
+span.error
+{
+	color: #900 !important;
+	border-color: #900 !important;
+	background-color: #F6C4BB !important;
+	
+}
+span.yellow-card{ 
+	display:none;
+}
+
+@media screen and (min-width:1000px) {
+	span.yellow-card {
+	    background-color: yellow;
+	    border: 1px solid #900;
+	    color: #900;
+	    display: block;
+	    padding: 5px;
+	    position: absolute;
+	    right: 99px;
+	    text-align: center;
+	    top: 0;
+	    width: 674px;
+	}
+}

@@ -1,0 +1,875 @@
+#menucontainer {
+	text-align: left;
+	margin: 0px;
+	width: 748px;
+	height: auto;
+}
+#printcontainer {
+	text-align: left;
+	margin-left: 15px;
+	margin-top: 10px;
+	width: 600px;
+	height: auto;
+	border: 1px Solid #000000;
+}
+#menuleft {
+	text-align: left;
+	width: 300px;
+	height: 400px;
+	float: left;
+}
+#menuright {
+	text-align: left;
+	width: 428px;
+	height: 400px;
+	margin-left: 310;
+}
+#menuheaderbar {
+	width: auto;
+	background-color: #EAE7E7;
+	text-align: left;
+	height: 20px;
+}
+#instructions {
+	width: auto;
+	background-color: #FFFFFF;
+	text-align: left;
+	height: auto;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 10px;
+	padding-bottom: 15px;
+}
+#message {
+	width: auto;
+	background-color: #FFFFFF;
+	text-align: left;
+	height: auto;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #FF0000;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+#bodybox {
+	width: auto;
+	height: auto;
+	border: 1px Solid #A1A1A1;
+	margin-left: 15px;
+	margin-right: 20px;
+	padding: 3px;
+}
+.homerow {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	text-align: left;
+	color: #6661A7;
+	background-color: #EEEEF0;
+	height: 22px;
+	vertical-align: middle;
+	cursor: hand;
+}
+.homerowwhite {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: left;
+	color: #636363;
+	background-color: #FFFFFF;
+}
+.buttonbar {
+	font-family: century gothic, verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+	height: 20px;
+	border-right: 1px Solid #6D6996;
+	background-image: url(assets/images/buttonbar_back.jpg);
+	background-repeat: repeat-x;
+}
+.buttonbaract {
+	font-family: century gothic, verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+	height: 20px;
+	border-right: 1px Solid #6D6996;
+	background-image: url(assets/images/buttonbar_back.jpg);
+	background-repeat: repeat-x;
+	cursor:pointer;
+}
+.formhead {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #403F3F;
+	border-bottom: 1px Solid #403F3F;
+}
+.formsubhead {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: left;
+	color: #403F3F;
+	background-color: #C9C9CB;
+	padding-left: 3px;
+}
+.formitemlabel {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: right;
+	color: #676666;
+	background-color: #EEEEF0;
+	width: 150px;
+}
+.formitemfield {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: center;
+	color: #676666;
+	background-color: #EEEEF0;
+	width: 20px;
+}
+.formitem {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	text-align: left;
+	color: #403F3F;
+	background-color: #EEEEF0;
+}
+.formitemlabelwh {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: right;
+	color: #676666;
+	width: 150px;
+}
+.formitemfieldwh {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: center;
+	color: #676666;
+	width: 20px;
+}
+.newsformboxitem {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: right;
+	color: #676666;
+	width: 170px;
+}
+.newsformboxitemlabel {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	text-align: left;
+	color: #676666;
+}
+.newsformtopic {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: left;
+	color: #676666;
+}
+.formitemwh {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	text-align: left;
+}
+.formitemlabelwhfull {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: left;
+	color: #676666;
+}
+.rowhead {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: left;
+	color: #403F3F;
+	background-color: #D7D7D7;
+	padding-left: 3px;
+}
+.rowheadcenter {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: center;
+	color: #403F3F;
+	background-color: #D7D7D7;
+	padding-left: 3px;
+}
+.rowitem {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #403F3F;
+	background-color: #EEEEF0;
+}
+.blankrowitem {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #403F3F;
+	cursor:pointer;
+	padding-top:4px;
+	padding-bottom:4px;
+	border-bottom:1px Solid #EBEAEA;
+}
+.formlink {
+	color: #AF2424;
+	text-decoration: none;
+}
+.formlink a {
+	color: #AF2424;
+	text-decoration: none;
+}
+.formlink a:hover {
+	color: #AF2424;
+	text-decoration: none;
+}
+.formlink a:visited {
+	color: #AF2424;
+	text-decoration: none;
+}
+.formlink a:active {
+	color: #AF2424;
+	text-decoration: none;
+}
+.buttonlink {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.buttonlink a {
+	color: #FFFFFF;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+.buttonlink a:hover {
+	text-decoration: none;
+	color: #6D6996;
+}
+.buttonlink a:visited {
+	text-decoration: none;
+}
+.buttonlink a:active {
+	color: #848BAF;
+	text-decoration: none;
+}
+/* ============================= */
+.buttonholder {
+	border-top: 1px Solid #403F3F;
+}
+.textarea {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	height: 60px;
+	width: 400px;
+	border: 1px Solid #403F3F;
+}
+.regularfield {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	border: 1px Solid #403F3F;
+}
+.field200 {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	border: 1px Solid #403F3F;
+	width: 200px;
+}
+.field75 {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	border: 1px Solid #403F3F;
+	width: 75px;
+}
+.widefield {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	width: 400px;
+	border: 1px Solid #403F3F;
+}
+.imagefield {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	border: 1px Solid #403F3F;
+}
+.aeformlabel {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #636363;
+	vertical-align: top;
+	text-align: right;
+}
+.aeformfield {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #636363;
+	vertical-align: top;
+	text-align: left;
+}
+.required {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #FF0000;
+}
+.redtext {
+	color: #FF0000;
+}
+.bigfield {
+	width: 250px;
+}
+.mediumfield {
+	width: 175px;
+}
+.smallfield {
+	width: 75px;
+}
+/* ============================= */
+.emailnavtopleft {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	border-top: 1px Solid #A1A1A1;
+	border-left: 1px Solid #A1A1A1;
+	border-bottom: 1px Solid #A1A1A1;
+	width: 25px;
+	height: 20px;
+	text-align: right;
+	vertical-align: middle;
+	background-color: #EEEEF0;
+}
+.emailnavtopright {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	border-top: 1px Solid #A1A1A1;
+	border-right: 1px Solid #A1A1A1;
+	width: 125px;
+	height: 20px;
+	text-align: left;
+	vertical-align: middle;
+	background-color: #EEEEF0;
+	border-bottom: 1px Solid #A1A1A1;
+	cursor: pointer;
+}
+.emailnavtopleftact {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	border-top: 1px Solid #A1A1A1;
+	border-left: 1px Solid #A1A1A1;
+	border-bottom: 1px Solid #A1A1A1;
+	width: 25px;
+	height: 20px;
+	text-align: right;
+	vertical-align: middle;
+	background-color: #D7D7D7;
+}
+.emailnavtoprightact {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	border-top: 1px Solid #A1A1A1;
+	border-right: 1px Solid #A1A1A1;
+	width: 125px;
+	height: 20px;
+	text-align: left;
+	vertical-align: middle;
+	background-color: #D7D7D7;
+	border-bottom: 1px Solid #A1A1A1;
+	font-weight: bold;
+		cursor: pointer;
+}
+.emailnavbotleft {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	border-left: 1px Solid #A1A1A1;
+	border-bottom: 1px Solid #A1A1A1;
+	width: 25px;
+	height: 20px;
+	text-align: right;
+	vertical-align: middle;
+	background-color: #EEEEF0;
+}
+.emailnavbotright {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	border-right: 1px Solid #A1A1A1;
+	width: 125px;
+	height: 20px;
+	text-align: left;
+	vertical-align: middle;
+	background-color: #EEEEF0;
+	border-bottom: 1px Solid #A1A1A1;
+	cursor: pointer;
+}
+.emailnavbotleftact {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	border-left: 1px Solid #A1A1A1;
+	border-bottom: 1px Solid #A1A1A1;
+	width: 25px;
+	height: 20px;
+	text-align: right;
+	vertical-align: middle;
+	background-color: #D7D7D7;
+}
+.emailnavbotrightact {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	border-right: 1px Solid #A1A1A1;
+	width: 125px;
+	height: 20px;
+	text-align: left;
+	vertical-align: middle;
+	background-color: #D7D7D7;
+	border-bottom: 1px Solid #A1A1A1;
+	font-weight: bold;
+}
+.controlbar {
+	border-top: 1px Solid #A1A1A1;
+	border-left: 1px Solid #A1A1A1;
+	border-right: 1px Solid #A1A1A1;
+	height: 30px;
+	text-align: left;
+	vertical-align: middle;
+	background-color: #EEEEF0;
+	border-bottom: 1px Solid #A1A1A1;
+	background-image: url(assets/images/emailbarback.jpg);
+	background-repeat: repeat-x;
+}
+.controlbartext {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	padding-left: 5px;
+	cursor: pointer;
+}
+.emailpropbar {
+	border-left: 1px Solid #A1A1A1;
+	border-right: 1px Solid #A1A1A1;
+	height: auto;
+	text-align: left;
+	vertical-align: middle;
+	background-color: #EEEEF0;
+	border-bottom: 1px Solid #A1A1A1;
+}
+.emailtablebar {
+	border-left: 1px Solid #A1A1A1;
+	border-right: 1px Solid #A1A1A1;
+	height: auto;
+	text-align: left;
+	vertical-align: middle;
+	border-bottom: 1px Solid #A1A1A1;
+}
+.emailproplabel {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	text-align: right;
+	color: #000000;
+	background-color: #EEEEF0;
+	width: 100px;
+}
+.emailpropfield {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	width: 100%;
+	height: 18px;
+	border: 1px Solid #143793;
+}
+.emailtolabel {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	text-align: right;
+	color: #000000;
+	background-color: #EEEEF0;
+	width: 100px;
+	padding-top:4px;
+}
+.emailtofield {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	background-color: #FFFFFF;
+	width: 100%;
+	height: auto;
+	border: 1px Solid #143793;
+}
+.emailpropitem {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #403F3F;
+	background-color: #EEEEF0;
+}
+.emaillistbox {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	width: 140px;
+	border: 1px Solid #A1A1A1;
+	cursor: pointer;
+}
+.emailsendbut {
+	width: 68px;
+	height: 28px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	text-align: right;
+	vertical-align: middle;
+	background-color: transparent;
+	border-style: none;
+	cursor: pointer;
+}
+.emaileditbut {
+	width: 68px;
+	height: 28px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	text-align: right;
+	vertical-align: middle;
+	background-color: transparent;
+	border-style: none;
+	cursor: pointer;
+}
+.emaildraftsavebut {
+	width: 87px;
+	height: 28px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	text-align: right;
+	vertical-align: middle;
+	background-color: transparent;
+	border-style: none;
+	cursor: pointer;
+}
+.emailspellbut {
+	width: 95px;
+	height: 28px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	text-align: right;
+	vertical-align: middle;
+	background-color: transparent;
+	border-style: none;
+	cursor: pointer;
+}
+.emailprevbut {
+	width: 69px;
+	height: 28px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	text-align: right;
+	vertical-align: middle;
+	background-color: transparent;
+	border-style: none;
+	cursor: pointer;
+}
+.emaildelbut {
+	width: 69px;
+	height: 28px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	text-align: right;
+	vertical-align: middle;
+	background-color: transparent;
+	border-style: none;
+	cursor: pointer;
+}
+.emailnewbut {
+	width: 62px;
+	height: 28px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	text-align: right;
+	vertical-align: middle;
+	background-color: transparent;
+	border-style: none;
+	cursor: pointer;
+}
+.searchbut {
+	width: 80px;
+	height: 28px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	text-align: right;
+	vertical-align: middle;
+	background-color: transparent;
+	border-style: none;
+	cursor: pointer;
+}
+.tablebasenav {
+	height: 20px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #403F3F;
+	vertical-align: middle;
+	background-color: #EEEEF0;
+}
+.basenavsection {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #403F3F;
+}
+.basenavlink {
+	color: #AF2424;
+	text-decoration: none;
+}
+.basenavlink a {
+	color: #AF2424;
+	text-decoration: none;
+}
+.basenavlink a:hover {
+	color: #AF2424;
+	text-decoration: none;
+}
+.basenavlink a:visited {
+	color: #AF2424;
+	text-decoration: none;
+}
+.basenavlink a:active {
+	color: #AF2424;
+	text-decoration: none;
+}
+.mceEditor {
+	background-color: #FFFFFF;
+}
+.tobut {
+	height: 18px;
+	width: 75px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	vertical-align: middle;
+	background-color: #FFFFFF;
+	border: 1px Solid #143793;
+}
+.frombut {
+	height: 18px;
+	width: 75px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	vertical-align: middle;
+	background-color: #A1A1A1;
+	border: 1px Solid #143793;
+}
+.topicselect {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #000000;
+	padding-top: 3px;
+}
+.emailalert {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FF0000;
+	padding-left: 30px;
+}
+.emailpreviewbox {
+	background-color: #FFFFFF;
+	width: 800px;
+	height: auto;
+	padding-bottom: 30px;
+	border: 1px Solid #A1A1A1;
+	padding: 5px;
+}
+.bartitle {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;
+	padding-left: 5px;
+}
+.emailgrid {
+	border-top: 1px Solid #A1A1A1;
+	border-left: 1px Solid #A1A1A1;
+}
+.emailgridhead {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;
+	padding: 3px;
+	background-color: #E9E7F3;
+	border-right: 1px Solid #A1A1A1;
+	border-bottom: 1px Solid #A1A1A1;
+}
+.emailgridrecord {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	padding: 3px;
+	background-color: #FFFFFF;
+	border-right: 1px Solid #A1A1A1;
+	border-bottom: 1px Solid #A1A1A1;
+}
+.sortbox {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	border: 1px Solid #A1A1A1;
+	width: 400px;
+	height: 140px;
+}
+.perfield {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	width: 150px;
+	height: 18px;
+	border: 1px Solid #143793;
+}
+.sendbox {
+	background-color: #FFFFFF;
+	border: 1px Solid #A1A1A1;
+	height: 100px;
+}
+.conf_title {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FF0000;
+}
+.conf_desc {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+}
+.conf_field {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	background-color: #FFFFFF;
+	width: 130px;
+	height: 16px;
+	border: 1px Solid #143793;
+}
+.conf_example {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	font-style: italic;
+	color: #A1A1A1;
+}
+.conf_but_send {
+	width: 72px;
+	height: 17px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	text-align: center;
+	vertical-align: middle;
+	background-color: transparent;
+	border-style: none;
+	cursor: pointer;
+	background-image: url(assets/images/but_conf_blank.gif);
+	background-repeat: no-repeat;
+}
+.conf_but_schedule {
+	width: 72px;
+	height: 17px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	text-align: center;
+	vertical-align: middle;
+	background-color: transparent;
+	border-style: none;
+	cursor: pointer;
+	background-image: url(assets/images/but_conf_blank.gif);
+	background-repeat: no-repeat;
+}
+.email_instructions {
+	width: auto;
+	height: 75px;
+	background-color: #FCF8E2;
+	text-align: left;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: 1px Solid #A1A1A1;
+}

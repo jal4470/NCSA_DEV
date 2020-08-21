@@ -1,0 +1,382 @@
+<!------------------------------------->
+<!---  Capturepoint.com          	--->
+<!---  CRS Action Page		   		--->
+<!------------------------------------->
+<!---  Created:  10.24.2006 by		--->
+<!---	         Pat Waters			--->
+<!---  
+MODIFICATIONS
+2008-02-21, J. Oriente
+- replaced variable for storing incoming topic and program string with valuelist() function to convert the query result set for topics and programs into a comma separated string.
+12/15/2009 P Waters
+- Commented out "Track Opens"
+--->
+
+ 
+ <!--- validate login --->
+ <cfmodule template="../_checkLogin.cfm">
+ 
+<cflock scope="application" type="readonly" timeout="10">
+	<cfset dsn = application.dsn>
+</cflock>
+
+
+<!----------------------->
+<!--- Local variables --->
+<!----------------------->
+<cfif isdefined("form.message_id")>
+	<cfset message_id  = form.message_id>
+<cfelseif isdefined("url.message_id")>
+	<cfset message_id = url.message_id>
+<cfelse>
+	<cfset message_id = "">	
+</cfif>
+
+<CFIF HTTP_USER_AGENT CONTAINS "Windows">
+	<CFSET emaillistheight = "49">
+<CFELSE>
+	<CFSET emaillistheight = "44">
+</CFIF>
+
+<cfset email_to_string = "">
+<cfset email_to_id_string = "">
+<cfset email_coded_id_string = "">
+
+<!---------------->
+<!--- Get data --->
+<!---------------->
+<cftry>
+	<!--- New message --->
+	<cfif message_id EQ "">
+		<cfquery name="getOrgDefaults" datasource="#dsn#">
+		SELECT DEF_NEWS_FROM_EMAIL,
+		       DEF_NEWS_FROM_ALIAS,
+		       DEF_NEWS_REPLYTO_EMAIL,
+		       DEF_NEWS_REPLYTO_ALIAS,
+		       DEF_TRACK_OPENS
+		  FROM V_ORGANIZATION
+		 WHERE ORGANIZATION_ID = <CFQUERYPARAM VALUE="#ORGANIZATION_ID#">
+		</cfquery>
+		<cfset message_desc = "">
+		<cfset from_email_address = getOrgDefaults.def_news_from_email>
+		<cfset from_email_alias = getOrgDefaults.def_news_from_alias>
+		<cfset replyto_email_address = getOrgDefaults.def_news_replyto_email>
+		<cfset replyto_email_alias = getOrgDefaults.def_news_replyto_alias>
+		<cfset track_opens = getOrgDefaults.def_track_opens>
+		<cfset subject = "">
+		<cfset cc_emails = "">
+		<cfset bcc_emails = "">
+		<cfset html_copy = "">
+
+	<!--- Edit message --->
+	<cfelse>
+		<cfquery name="getMessage" datasource="#dsn#">
+		SELECT MESSAGE_DESC,
+		       FROM_EMAIL_ADDRESS,
+		       FROM_EMAIL_ALIAS,
+		       REPLYTO_EMAIL_ADDRESS,
+		       REPLYTO_EMAIL_ALIAS,
+		       SUBJECT,
+		       CC_EMAILS,
+		       BCC_EMAILS,
+		       HTML_COPY,
+		       TRACK_OPENS_FLAG
+		  FROM V_MESSAGE
+		 WHERE MESSAGE_ID = <CFQUERYPARAM VALUE="#MESSAGE_ID#">
+		 </cfquery>
+
+		
+		<cfset message_desc = getMessage.message_desc>
+		<cfset from_email_address = getMessage.from_email_address>
+		<cfset from_email_alias = getMessage.from_email_alias>
+		<cfset replyto_email_address = getMessage.replyto_email_address>
+		<cfset replyto_email_alias = getMessage.replyto_email_alias>
+		<cfset subject = getMessage.subject>
+		<cfset cc_emails = getMessage.cc_emails>
+		<cfset bcc_emails = getMessage.bcc_emails>
+		<cfset html_copy = getMessage.html_copy>
+		<cfset track_opens = getMessage.track_opens_flag>
+	</cfif>
+
+	<cfcatch>
+		<cfdump var="#cfcatch#"><cfabort>
+	</cfcatch>
+</cftry>
+<cfquery name="getRecipients" datasource="#dsn#">
+
+select email + ';' as email from tbl_message_recipient where message_id = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#message_id#">
+
+</cfquery>
+<CFSET toString = "">
+<cfloop query="getRecipients">
+<CFSET toString = toString & email>
+</cfloop>
+
+<!--- <CFIF LEN(toString) GT 0>
+	<CFSET newlen = LEN(toString) - 1>
+	<CFSET toString = LEFT(toString,newlen)>
+</CFIF> --->
+
+<CFTRY>
+	<CFINVOKE component="#application.MM_API_Path#GetMessage" method="GetPerFields" returnvariable="perfields">
+		<cfinvokeargument name="message_id" value="#message_id#">
+	</CFINVOKE>
+	<CFCATCH type="any">
+			<cfdump var="#cfcatch#"><cfabort>	
+	</CFCATCH>			
+</CFTRY>
+
+<!----------------->
+<!--- Page body --->
+<!----------------->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<title>Message Manager</title>
+	<link rel="stylesheet" type="text/css" href="style.css" media="print,screen">
+	<link  href="_newsletter_style.css" type="text/css" media="print,screen" rel="stylesheet" >
+	<link  href="_tooltip_style.css" type="text/css" media="print,screen" rel="stylesheet" >
+	<link rel="stylesheet" type="text/css" href="assets/stylesheets/_mailto.css" media="print,screen">
+	<CFIF http_user_agent CONTAINS "Firefox">
+	<link rel="stylesheet" type="text/css" href="assets/stylesheets/_mailto_firefox.css" media="print,screen">
+	</CFIF>
+	<script type="text/javascript" src="assets/js/hide.js"></script>
+	<script type="text/javascript" src="assets/js/scroll.js"></script>
+	<!-- tinyMCE -->
+	<script language="javascript" type="text/javascript" src="assets/jscripts/tiny_mce/tiny_mce.js"></script>
+	<script language="javascript" type="text/javascript">
+	tinyMCE.init({
+		mode : "textareas",
+		editor_selector : "mceEditor",
+		theme : "advanced",
+		plugins : "preview",
+		theme_advanced_buttons1 : ",fontselect,fontsizeselect,bold,italic,underline,separator,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,|,outdent,indent,|,preview,|,forecolor,backcolor,|,undo,redo,link,unlink",
+		theme_advanced_buttons2 : "",
+		theme_advanced_buttons3 : "",
+		theme_advanced_toolbar_location : "top",
+		theme_advanced_toolbar_align : "left",
+		theme_advanced_path_location : "bottom",
+		extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"
+	});
+	</script>
+	<!-- /tinyMCE -->
+
+<script language="JavaScript1.3" type="text/javascript">
+function scbg(objRef, state) {
+	objRef.style.backgroundColor = (1 == state) ? '#D3D8ED' : '#EEEEF0';
+	return;
+}
+</script>
+<script language="JavaScript1.3" type="text/javascript">
+function scbg2(objRef, state) {
+	objRef.style.backgroundColor = (1 == state) ? '#6661A7' : '#848BAF';
+	return;
+}
+</script>
+<script language="JavaScript1.3" type="text/javascript">
+function scbg3(objRef, state) {
+	objRef.style.backgroundColor = (1 == state) ? '#6661A7' : '#B0B1B3';
+	return;
+}
+</script>
+
+<script type="text/javascript">
+function populateaddremove(item){
+var intext = item.options[item.selectedIndex].value
+var clipplace = intext.indexOf("~")
+var stringone = intext.slice(0,clipplace)
+var stringtwo = intext.slice(clipplace)
+var oldtext = item.form.emailto.value
+var oldid = item.form.topic_choice_id_str.value
+if (oldtext.indexOf(stringone)!=-1) {
+		item.form.emailto.value= oldtext.replace(stringone,'');
+		item.form.topic_choice_id_str.value= oldid.replace(stringtwo,'');
+	}
+	else {
+		item.form.emailto.value= item.form.emailto.value +
+		stringone;
+		item.form.topic_choice_id_str.value= item.form.topic_choice_id_str.value +
+		stringtwo;
+	}
+}
+</script>
+
+<script type="text/javascript">
+function populateaddremovelink(topic){
+var intext = topic
+var clipplace = intext.indexOf("~")
+var stringone = intext.slice(0,clipplace)
+var stringtwo = intext.slice(clipplace)
+var oldtext = document.forms[0].emailto.value
+var oldid = document.forms[0].topic_choice_id_str.value
+if (oldtext.indexOf(stringone)!=-1) {
+		document.forms[0].emailto.value= oldtext.replace(stringone,'');
+		document.forms[0].topic_choice_id_str.value= oldid.replace(stringtwo,'');
+	}
+	else {
+		document.forms[0].emailto.value= document.forms[0].emailto.value +
+		stringone;
+		document.forms[0].topic_choice_id_str.value= document.forms[0].topic_choice_id_str.value +
+		stringtwo;
+	}
+}
+</script>
+
+
+<SCRIPT LANGUAGE="JavaScript">
+
+function expandTextArea(textarealabel, e){
+
+if ((textarealabel.textLength % 45 == 0) && (textarealabel.textLength > 1 ))
+if (e.which == 8)
+textarealabel.rows = textarealabel.rows-1;
+else
+textarealabel.rows = textarealabel.rows+1;
+}
+</SCRIPT>
+
+
+<script language="javascript">
+  function toggleDiv(divid){
+    if(document.getElementById(divid).style.display == 'none'){
+      document.getElementById(divid).style.display = 'block';
+    }else{
+      document.getElementById(divid).style.display = 'none';
+    }
+  }
+</script>
+
+<script language="javascript">
+  function toggleDiv2(divid){
+  var splitplace = divid.indexOf("|")
+  var div1 =  divid.slice(0,splitplace)
+  var splitplaceplus = splitplace + 1
+  var div2 = divid.slice(splitplaceplus)
+    if(document.getElementById(div1).style.display == 'none'){
+      document.getElementById(div1).style.display = 'block';
+      document.getElementById(div2).style.display = 'none';
+    }else{
+      document.getElementById(div1).style.display = 'none';
+      document.getElementById(div2).style.display = 'block';
+    }
+  }
+</script>
+
+
+<script type="text/javascript">
+function populateper(item){
+item.form.displayper.value= item.options[item.selectedIndex].value;
+}
+</script>
+
+</head>
+
+<body topmargin="0" leftmargin="0" rightmargin="0" marginheight="0" marginwidth="0" bgcolor="#FFFFFF" onLoad="prepLyr(); vis('hidden');">
+
+<CFINCLUDE TEMPLATE="assets/js/tooltip.js">
+
+<!--- Header --->
+<CFINCLUDE TEMPLATE="header_nltr.cfm">
+<!---
+<table border="0" cellspacing="0" cellpadding="2" width="100%" bgcolor="#6661A7">
+	<tr>
+		<td width="50%" align="left" class="whitebold12" style="padding-left: 15px; height: 20px;">Newsletter Management - New Message</td>
+		<td width="50%" align="right" class="whitebold12" style="padding-right: 10px; height: 20px;"><cfoutput>#organization_desc#</cfoutput></td>
+	</tr>
+</table>
+--->
+<!--- BODY --->
+
+<table border="0" cellspacing="0" cellpadding="2" width="100%">
+	<tr>
+		<td style="padding-left: 15px; padding-top: 10px;" valign="top" width="150">
+		
+		<!--- LEFT NAVIGATION --->
+		<CF_nltr_navigation location="newmessage">
+		
+		</td>
+		<td style="padding-top: 10px;padding-right: 10px;" valign="top">
+		<table border="0" cellspacing="0" cellpadding="0" width="100%">
+			<tr>
+				<td class="controlbar">
+				<table border="0" cellspacing="0" cellpadding="0" width="100%">
+					<CFOUTPUT>
+					<form method="post" action="nltr_save_message_action.cfm">
+					<tr>
+						<td width="402" align="left" valign="middle" style="background-image: url(assets/images/emailprevbutton.jpg);background-repeat: no-repeat;height:28px;">
+						<table border="0" cellspacing="0" cellpadding="0" width="100%">
+							<tr>
+								<td width="72" align="left" valign="middle"><input type="button" name="submit" value="View" class="emailprevbut" onclick="javascript:tinyMCE.execInstanceCommand('mce_editor_0','mcePreview')"></td>
+							</tr>
+						</table>
+						</td>
+						<td><img src="assets/images/spcrimg.gif" alt="" width="1" height="3" border="0"></td>
+						<td width="50" align="right" valign="middle"><img src="assets/icons/admin.gif" alt="" width="21" height="17" border="0"></td>
+						<td width="30" align="left" valign="middle"><img src="assets/icons/ques3.gif" alt="" width="21" height="17" border="0"></td>
+					</tr>
+					</CFOUTPUT>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td class="emailpropbar" valign="top">
+				
+				<CFOUTPUT>
+				<div id="mydiv1" style="display:block;padding:0px;margin:2px;width:100%;">
+				<table border="0" cellspacing="2" cellpadding="2" width="100%">
+					<tr>
+						<td colspan="2"><img src="assets/images/spcrimg.gif" alt="" width="1" height="1" border="0"></td>
+					</tr>
+					<tr>
+						<td class="emailtolabel" valign="top" width="150">To:</td>
+						<td class="emailpropitem" align="left" width="90%">#toString#</td>
+					</tr>
+					<tr>
+						<td class="emailproplabel">From Email:</td>
+						<td class="emailpropitem">#from_email_address#</td>
+					</tr>
+					<tr>
+						<td class="emailproplabel">From Name:</td>
+						<td class="emailpropitem">#from_email_alias#</td>
+					</tr>
+					<tr>
+						<td class="emailproplabel">Subject:</td>
+						<td class="emailpropitem" align="left">#subject#</td>
+					</tr>
+<!---
+					<tr>
+						<td class="emailproplabel">Track Opens:</td>
+						<td class="emailpropitem" align="left"><CFIF track_opens EQ 1>Yes<CFELSE>No</CFIF></td>
+					</tr>
+--->
+					<tr>
+						<td colspan="2"><img src="assets/images/spcrimg.gif" alt="" width="1" height="1" border="0"></td>
+					</tr>
+				</table>
+				</div>
+				
+				
+				<div id="bottom" style="display:block;padding:0px;margin:2px;width:100%;">
+				<table border="0" cellspacing="2" cellpadding="2" width="100%">
+					<tr>
+						<td class="emailpropitem" colspan="2" align="center"><div><textarea name="html_copy" cols="80" rows="30" class="mceEditor" style="width:100%;" DISABLED>#html_copy#</textarea></div></td>
+					</tr>
+					<tr>
+						<td class="emailpropitem" colspan="2"><img src="assets/images/spcrimg.gif" alt="" width="1" height="15" border="0"></td>
+					</tr>
+				</table>
+				</div>
+				</CFOUTPUT>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+<!--- END BODY --->
+
+
+</form>
+</body>
+</html>

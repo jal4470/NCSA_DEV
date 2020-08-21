@@ -1,0 +1,448 @@
+<!--- 
+	FileName:	_refereepage.css
+	Created on: mm/dd/2008
+	Created by: 
+	
+	Purpose: css styling used by the refereePage.inc
+	
+MODS: mm/dd/yyyy - filastname - comments
+ --->
+ 
+<style>
+
+@charset "UTF-8";
+/* CSS Document */
+
+/* main page contruction */
+
+#wrapper {
+	text-align:left;
+	width:800px;
+	position:relative;
+	text-align: left;
+	height: 600px;
+	margin-right: 10px;
+	margin-left: 5px;
+}
+
+/* holds the home page title image */
+#topContainer{
+	background-image: url(assets/images/homeTitle.png);
+	background-repeat: no-repeat;
+	background-position: top;
+	height: 45px;
+	padding: 5px 0px 5px 0px;
+	margin: 5px 5px 0px 5px;
+}
+	
+#rightContainer {
+	width:385px;
+	float:right;
+	margin-top: 6px;
+	padding-top: 3px;
+	margin-right: 10px;
+}
+	
+	#leftContainer {
+	width: 380;
+	float: left;
+	float: left;
+	width: 390px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	margin-left: 5px;
+	padding-top: 3px;
+}
+	
+#footer { 
+  clear: both; 
+} 
+
+
+#footer {
+	padding: 1px 20px;
+	/*	background-image: url(assets/images/lightBlueBG.gif);*/
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+
+/* main elements styled
+
+h1 {
+  font-size: 2.4em;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 2.0em;
+  font-weight: normal;
+} , li */
+
+p{
+	font-size: 1.2em;
+}
+
+h1, h2, p {
+  margin: 1em 0;
+}
+
+ /* home page */
+
+.bluebox {
+	border-top-width: thin;
+	border-bottom-width: thin;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	height: 100px;
+	width: 380px;
+	background-image: url(assets/images/lightBlueBG.jpg);
+	background-repeat: repeat;
+}
+
+.lowerLeft-bluebox {
+	border-top-width: thin;
+	border-bottom-width: thin;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	height: 95px;
+	width: 380px;
+	background-image: url(assets/images/lightBlueBG.gif);
+	background-repeat: repeat;
+	margin-top: 5px;
+}
+.lowerRight-bluebox {
+	border-top-width: thin;
+	border-bottom-width: thin;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	height: 95px;
+	width: 375px;
+	background-image: url(assets/images/lightBlueBG.gif);
+	background-repeat: repeat;
+	margin-top: 13px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+ .whitebox{
+	border-bottom-width: thin;
+	border-bottom-style: solid;
+	border-bottom-color: #CCCCCC;
+	height: 95px;
+	width: 380px;
+ }
+ 
+ .soccerball {
+	background-image: url(assets/images/soccerOrange.jpg);
+	background-repeat: no-repeat;
+	background-position: right;
+	height: 200px;
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-top: 6px;
+}
+
+.box-titles {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	/*text-transform: uppercase;*/
+	color: #006699;
+	margin: 10px;
+}
+
+.box-text {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #333333;
+	vertical-align: 20%;
+	line-height: 1.4em;
+	margin-right: 5px;
+	margin-bottom: 8px;
+	margin-left: 10px;
+}
+
+
+.home-image {
+	border: 2px solid #003366;
+	height: 200px;
+	width: 378px;
+	background-image: url(assets/images/kickintogoal.jpg);
+	background-repeat: no-repeat;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+ /* Other page styles */
+
+.smaller-title {
+	background-image:url(assets/images/playerSideline.png);
+	background-repeat: no-repeat;
+	height: 55px;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 17px;
+	margin-left: 8px;
+}
+
+ .whitebox2 {
+	height: 100px;
+	width: 380px;
+ }
+ .greenbox {
+	border-top-width: thin;
+	border-bottom-width: thin;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	height: 100px;
+	width: 380px;
+	background-image: url(assets/images/green_bg.jpg);
+	background-repeat: repeat;
+}
+
+/* new */
+.greybox {
+	border-top-width: thin;
+	border-bottom-width: thin;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	height: 100px;
+	width: 380px;
+	background-image: url(assets/images/referee_table_bg.gif);
+	background-repeat: repeat;
+}
+
+/*  --------------------------------------------------------------------------------- */
+.player-image {
+	border: 2px solid #003366;
+	height: 249px;
+	width: 377px;
+	background-repeat: no-repeat;
+	margin-top: 10px;
+	margin-bottom: 32px;
+	background-image: url(assets/images/coaches.jpg);
+}
+
+/* new */
+.parents-image {
+	border: 2px solid #003366;
+	height: 249px;
+	width: 377px;
+	background-repeat: no-repeat;
+	margin-top: 10px;
+	margin-bottom: 32px;
+	background-image:url(assets/images/parents_main.jpg);
+}
+
+/* new */
+.players-image {
+	border: 2px solid #003366;
+	height: 249px;
+	width: 377px;
+	background-repeat: no-repeat;
+	margin-top: 10px;
+	margin-bottom: 32px;
+	background-image:url(assets/images/player_main.jpg);
+}
+
+/* new */
+.referee-image {
+	border: 2px solid #003366;
+	height: 249px;
+	width: 377px;
+	background-repeat: no-repeat;
+	margin-top: 10px;
+	margin-bottom: 32px;    /* new  changed from 32 doe to 10px */
+	background-image:url(assets/images/referee_main.jpg);
+}
+
+.coaches-image {
+	border: 2px solid #003366;
+	height: 249px;
+	width: 377px;
+	background-repeat: no-repeat;
+	margin-top: 10px;
+	margin-bottom: 32px;    /* new  changed from 32 doe to 10px */
+	background-image:url(assets/images/coaches.jpg);
+}
+
+.club-image {
+	border: 2px solid #003366;
+	height: 249px;
+	width: 377px;
+	background-repeat: no-repeat;
+	margin-top: 10px;
+	margin-bottom: 32px;    /* new  changed from 32 doe to 10px */
+	background-image: url(assets/images/club_main.jpg);
+}
+
+/*  --------------------------------------------------------------------------------- */
+
+/* contains two images and text do not change because it will shit the desgin, */
+.two-imageContainer {
+	border-top-width: thin;
+	border-bottom-width: thin;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	float: left;
+}
+
+.small-img-container {
+	float: left;
+	margin: 15px 15px 15px 0px;
+	width: 178px;
+}
+ 
+.small-image-outline { border: thin solid #003366;}
+
+.clearboth { clear: both; }
+
+/*.small-title {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	text-transform: uppercase;
+	color: #006699;
+	width: 175px;
+	float: left;
+	margin-top: 8px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+}*/
+.small-title {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	/*text-transform: uppercase;*/
+	color: #006699;
+	width: 175px;
+	float: left;
+	margin-top: 8px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+}
+
+.short-text {
+	width: 175px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #333333;
+	vertical-align: 20%;
+	line-height: 1.4em;
+	margin-top: 5px;
+	margin-right: 5px;
+	margin-bottom: 10px;
+	float: left;
+}
+
+.informationtext {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color: #333333;
+	float: left;
+	width: 380px;
+	margin-top: 15px;
+	margin-right: 15px;
+	margin-bottom: 15px;
+}
+
+.title {
+	background-image:url(assets/images/parents_title.jpg);
+	background-repeat: no-repeat;
+	height: 60px;
+	
+	}
+/*  New players */ 
+.players-title {
+	background-image: url(assets/images/playerSideline.png);
+	background-repeat: no-repeat;
+	height: 60px;
+}
+/*  New  */
+.referee-title {
+	background-image:url(assets/images/referee_title.png);
+	background-repeat: no-repeat;
+	height: 60px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+/*  New  */ 
+.coaches-title {
+	background-image: url(assets/images/coaches_title.png);
+	background-repeat: no-repeat;
+	height: 60px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.club-title {
+	background-image:url(assets/images/club_title.png);
+	background-repeat: no-repeat;
+	height: 60px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+
+/*  table starts here on the home page */
+
+.stripetable {
+	height: 380px;
+	margin-right: 8px;
+	margin-bottom: 15px;
+	margin-left: 8px;
+}
+
+#hor-zebra
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	width: 367px;
+	text-align: left;
+	border-collapse: collapse;
+}
+#hor-zebra th
+{
+	padding: 5px;
+}
+#hor-zebra td
+{
+	padding: 7px;
+	border-top-width: thin;
+	border-bottom-width: thin;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+}
+#hor-zebra .odd
+{
+	background-color: #e8edff;
+	background-image: url(assets/images/lightBlueBG.gif);
+	background-repeat: repeat;
+}
+
+.leftcol {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	text-transform: uppercase;
+	color: #FF6600;
+	float: right;
+}
+
+.rightcol {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #003399;
+}
+
+/*  table ends */ 
+
+</style>

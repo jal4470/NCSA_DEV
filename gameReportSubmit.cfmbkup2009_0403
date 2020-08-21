@@ -1,0 +1,972 @@
+<!--- 
+	FileName:	gameReportSubmit.cfm
+	Created on: 10/21/2008
+	Created by: aarnone@capturepoint.com
+	
+	Purpose: [purpose of the file]
+	
+MODS: mm/dd/yyyy - filastname - comments
+02/19/2009 - aarnone - redirected back to list of game after rport was submitted.
+					 - removed refPaid and refAmount from being inserted. refs will now use claim unpaid fees page.
+03/31/2009 - aarnone - fixed error wen adding misconds and inj when missing  value
+
+ --->
+ 
+<cfset mid = 0> <!--- optional =menu id ---> 
+<cfinclude template="_header.cfm">
+<cfinclude template="_checkLogin.cfm">
+<cfoutput>
+<div id="contentText">
+<H1 class="pageheading">NCSA - Submit Game Report</H1>     <!--- <br> <h2>yyyyyy </h2> --->
+
+<CFIF isDefined("URL.GID") AND isNumeric(URL.GID)>
+	<CFSET gameID = URL.GID>
+<CFELSEIF isDefined("FORM.gameID") AND isNumeric(FORM.gameID)>
+	<CFSET gameID = FORM.gameID>
+<CFELSE>
+	<CFSET gameID = 0>
+</CFIF>
+<CFSET MSG = "">
+
+<!--- initialize MISCONDUCTS AND INJURIES to hold values while processing forms  --->
+<cfset stMisconducts = structNew()>
+<Cfloop from="1" to="10" index="ix">
+	<cfset stMisconducts[ix] = structNew()>
+	<cfset stMisconducts[ix].MISCONDUCT = "">
+	<cfset stMisconducts[ix].MISCONPASSNO = "">
+	<cfset stMisconducts[ix].MISCONPLAYERNAME = "">
+	<cfset stMisconducts[ix].MISCONTEAM = "">
+</CFLOOP>	<!--- <cfdump var="#stMisconducts#">  --->
+
+<cfset stInjuries = structNew()>
+<Cfloop from="1" to="10" index="ix">
+	<cfset stInjuries[ix] = structNew()>
+	<cfset stInjuries[ix].INJURY = "">
+	<cfset stInjuries[ix].INJURYPASSNO = "">
+	<cfset stInjuries[ix].INJURYPLAYERNAME = "">
+	<cfset stInjuries[ix].INJURYTEAM = "">
+</CFLOOP>	<!--- <cfdump var="#stInjuries#">  --->
+ 
+
+
+<CFIF isDefined("FORM") AND structCount(FORM) AND FORM.MODE EQ "ADD">
+	<!--- validate form fields --->
+	<cfset ctErrors = 0>
+	<CFIF FORM.GAMESTATUS EQ "P">
+		<cfif NOT ( len(trim(FORM.scoreHomeHT)) AND isNumeric(trim(FORM.scoreHomeHT)) )>
+			<cfset ctErrors = ctErrors + 1>
+			<cfset MSG = MSG & "Home team HALF time score is required and must be a number.<br>">
+		</cfif>
+		<cfif NOT ( len(trim(FORM.scoreVisitorHT)) AND isNumeric(trim(FORM.scoreVisitorHT)) )>
+			<cfset ctErrors = ctErrors + 1>
+			<cfset MSG = MSG & "Visiting team HALF time score is required and must be a number.<br>">
+		</cfif>
+		<cfif NOT ( len(trim(FORM.scoreHomeFT)) AND isNumeric(trim(FORM.scoreHomeFT)) )>
+			<cfset ctErrors = ctErrors + 1>
+			<cfset MSG = MSG & "Home team FULL time score is required and must be a number.<br>">
+		</cfif>
+		<cfif NOT ( len(trim(FORM.scoreVisitorFT)) AND isNumeric(trim(FORM.scoreVisitorFT)) )>
+			<cfset ctErrors = ctErrors + 1>
+			<cfset MSG = MSG & "Visiting team FULL time score is required and must be a number.<br>">
+		</cfif>
+	</CFIF>
+	<cfif FORM.OnTimeHome EQ 0>
+		<cfif NOT ( len(trim(FORM.HTHowLate)) AND isNumeric(FORM.HTHowLate) )>
+			<cfset ctErrors = ctErrors + 1>
+			<cfset MSG = MSG & "If Home team was late, then ""how late"" must be specified.<br>">
+		</cfif>
+	</cfif>
+	<cfif FORM.OnTimeVisitor EQ 0>
+		<cfif NOT ( len(trim(FORM.VTHowLate)) AND isNumeric(FORM.VTHowLate) )>
+			<cfset ctErrors = ctErrors + 1>
+			<cfset MSG = MSG & "If Visiting team was late, then ""how late"" must be specified.<br>">
+		</cfif>
+	</cfif>
+
+	<!--- Look for Injuries --->
+	<cfloop list="#FORM.FIELDNAMES#" index="ij">
+		<cfif UCASE(listFirst(ij,"_")) EQ "INJURY">
+			<cfset stInjuries[listLast(ij,"_")].INJURY 			 = evaluate(ij) >
+		</cfif>
+		<cfif UCASE(listFirst(ij,"_")) EQ "INJURYPASSNO">
+			<cfset stInjuries[listLast(ij,"_")].INJURYPASSNO 	 = evaluate(ij) >
+		</cfif>
+		<cfif UCASE(listFirst(ij,"_")) EQ "INJURYPLAYERNAME">
+			<cfset stInjuries[listLast(ij,"_")].INJURYPLAYERNAME = evaluate(ij) >
+		</cfif>
+		<cfif UCASE(listFirst(ij,"_")) EQ "INJURYTEAM">
+			<cfset stInjuries[listLast(ij,"_")].INJURYTEAM		 = evaluate(ij) >
+		</cfif>
+	</cfloop> <!--- <cfdump var="#stInjuries#"> --->
+
+	<cfif NOT structIsEmpty(stInjuries)>
+		<!--- INJURY data was entered, were all 4 fields entered? --->
+		<cfloop collection="#stInjuries#" item="ij">
+			<cfset ctValues = 0>
+			<cfif stInjuries[ij].INJURY GT 0> <!--- injury id --->
+				<cfset ctValues = ctValues + 1> 
+			</cfif> 			<!--- <BR>[#trim(stInjuries[ij].INJURY)#][#len(trim(stInjuries[ij].INJURY))#]-- --->
+			<cfif len(trim(stInjuries[ij].INJURYPASSNO)) GT 0> 
+				<cfset ctValues = ctValues + 1> 
+			</cfif>				<!--- [#trim(stInjuries[ij].INJURYPASSNO)#][#len(trim(stInjuries[ij].INJURYPASSNO))#]-- --->
+			<cfif len(trim(stInjuries[ij].INJURYPLAYERNAME)) GT 0> 
+				<cfset ctValues = ctValues + 1> 
+			</cfif>				<!--- [#trim(stInjuries[ij].INJURYPLAYERNAME)#][#len(trim(stInjuries[ij].INJURYPLAYERNAME))#]-- --->
+			<cfif stInjuries[ij].INJURYTEAM GT 0> <!--- team id --->
+				<cfset ctValues = ctValues + 1> 
+			</cfif>		    	<!--- [#trim(stInjuries[ij].INJURYTEAM)#][#len(trim(stInjuries[ij].INJURYTEAM))#]-- --->
+			<!--- =[#ctValues#] --->
+			<cfif ctValues GT 0 AND ctValues LT 4>
+				<cfset ctErrors = ctErrors + 1>
+				<cfset MSG = MSG & "Information may be missing from one or more of the INJURY entries.<br>">
+				<cfbreak>
+			</cfif>		
+
+		</cfloop>
+	</cfif>
+
+ 	<!--- look for misconduct values that were entered --->
+	<cfloop list="#FORM.FIELDNAMES#" index="iM">
+		<cfif UCASE(listFirst(im,"_")) EQ "MISCONDUCT">
+			<cfset stMisconducts[listLast(im,"_")].MISCONDUCT 		 = evaluate(iM) >
+		</cfif>
+		<cfif UCASE(listFirst(im,"_")) EQ "MISCONPASSNO">
+			<cfset stMisconducts[listLast(im,"_")].MISCONPASSNO 	 = evaluate(iM) >
+		</cfif>
+		<cfif UCASE(listFirst(im,"_")) EQ "MISCONPLAYERNAME">
+			<cfset stMisconducts[listLast(im,"_")].MISCONPLAYERNAME = evaluate(iM) >
+		</cfif>
+		<cfif UCASE(listFirst(im,"_")) EQ "MISCONTEAM">
+			<cfset stMisconducts[listLast(im,"_")].MISCONTEAM		 = evaluate(iM) >
+		</cfif>
+	</cfloop> <!--- <cfdump var="#stMisconducts#"> --->
+
+	<cfif NOT structIsEmpty(stMisconducts)>
+		<!--- Misconduct data was entered were all 4 fields entered? --->
+		<cfloop collection="#stMisconducts#" item="im">
+			<cfset ctValues = 0>
+			<cfif stMisconducts[im].MISCONDUCT GT 0> <!--- misconduct id --->
+				<cfset ctValues = ctValues + 1> 
+			</cfif>  				<!--- <BR>[#trim(stMisconducts[im].MISCONDUCT)#][#len(trim(stMisconducts[im].MISCONDUCT))#]-- --->
+			<cfif len(trim(stMisconducts[im].MISCONPASSNO)) GT 0> 
+				<cfset ctValues = ctValues + 1> 
+			</cfif>			 		<!--- [#trim(stMisconducts[im].MISCONPASSNO)#][#len(trim(stMisconducts[im].MISCONPASSNO))#]-- --->
+			<cfif len(trim(stMisconducts[im].MISCONPLAYERNAME)) GT 0> 
+				<cfset ctValues = ctValues + 1> 
+			</cfif>		 			<!--- [#trim(stMisconducts[im].MISCONPLAYERNAME)#][#len(trim(stMisconducts[im].MISCONPLAYERNAME))#]-- --->
+			<cfif stMisconducts[im].MISCONTEAM GT 0> <!--- team id --->
+				<cfset ctValues = ctValues + 1> 
+			</cfif> 				<!--- [#trim(stMisconducts[im].MISCONTEAM)#][#len(trim(stMisconducts[im].MISCONTEAM))#]-- --->
+			<cfif ctValues GT 0 AND ctValues LT 4>
+				<cfset ctErrors = ctErrors + 1>
+				<cfset MSG = MSG & "Information may be missing from one or more of the MISCONDUCT entries.<br>">
+				<cfbreak>
+			</cfif>		
+			<!--- =[#ctValues#] --->
+		</cfloop>
+	</cfif>
+	
+	<cfif ctErrors EQ 0>
+		<!--- Passed validation, insert report... --->
+
+		<!--- <cfdump var="#FORM#"> <cfdump var="#stMisconducts#"> <cfdump var="#stInjuries#">
+			  <cfloop collection="#stMisconducts#" item="M"> <CFIF stMisconducts[m].MISCONDUCT GT 0> <br> MISC: #stMisconducts[m].MISCONPLAYERNAME# - #stMisconducts[m].MISCONPASSNO#   - #stMisconducts[m].MISCONTEAM# - #stMisconducts[m].MISCONDUCT# </CFIF> </cfloop>
+			  <cfloop collection="#stInjuries#" item="j">    <CFIF stInjuries[j].INJURY GT 0> 		 <br> INJ: #stInjuries[j].INJURYPLAYERNAME# 	- #stInjuries[j].INJURYPASSNO# 		- #stInjuries[j].INJURYTEAM#    - #stInjuries[j].INJURY#		</CFIF>	</cfloop>
+		--->
+
+		<cfinvoke component="#SESSION.SITEVARS.cfcPath#REPORT" method="AddRefReport" returnvariable="addReportValue">
+			<cfinvokeargument name="formFields" value="#FORM#" >
+			<cfinvokeargument name="contactID"  value="#SESSION.USER.CONTACTid#" >
+			<cfinvokeargument name="stMisConducts"  value="#stMisconducts#" >
+			<cfinvokeargument name="stInjuries" 	value="#stInjuries#" >
+		</cfinvoke>
+
+		<cfif len(trim(addReportValue)) AND isNumeric(addReportValue) AND addReportValue GT 0>
+			<cfset MSG = "This report was submitted successfully.">
+			<!--- <cflocation url="gameRefReportPrint.cfm?gid=#gameID#"> --->
+			<cflocation url="GameRefReportList.cfm">
+		<CFELSE>
+			<cfset MSG = addReportValue>
+		</cfif> 
+	</cfif>
+</CFIF>
+
+
+<cfinvoke component="#SESSION.SITEVARS.cfcPath#REPORT" method="getRefRPTHeader" returnvariable="qRefRptHeader">
+	<cfinvokeargument name="gameID" value="#VARIABLES.gameID#" >
+</cfinvoke>  <!--- <cfdump var="#qRefRptHeader#"> --->
+
+<cfif qRefRptHeader.RECORDCOUNT>
+	<cfset Mode		= "EDIT">
+	<cfset pageTitle	= "Edit Game Report" >
+	<cfset btnVal		= "Update" >
+	<cfset PrintBtnSts = "" >
+
+	<cfset refRptHeaderID	= qRefRptHeader.referee_rpt_header_ID >
+	<cfset GameSts			= qRefRptHeader.GameSts >
+	<cfset scoreHomeHT		= qRefRptHeader.HalfTimeScore_Home >
+	<cfset scoreVisitorHT	= qRefRptHeader.HalfTimeScore_Visitor >
+	<cfset scoreHomeFT		= qRefRptHeader.FullTimeScore_Home >
+	<cfset scoreVisitorFT	= qRefRptHeader.FullTimeScore_Visitor >
+	<cfset OnTimeHome		= qRefRptHeader.IsOnTime_Home >
+	<cfset OnTimeVisitor	= qRefRptHeader.IsOnTime_Visitor >
+	<cfset HTHowLate		= qRefRptHeader.HowLate_Home >
+	<cfset VTHowLate		= qRefRptHeader.HowLate_Visitor >
+	<cfset LineUpHome		= qRefRptHeader.LineUP_Home >
+	<cfset LineUpVisitor	= qRefRptHeader.LineUP_Visitor >
+	<cfset PassesHome		= qRefRptHeader.Passes_Home >
+	<cfset PassesVisitor	= qRefRptHeader.Passes_Visitor >
+	<cfset Weather			= qRefRptHeader.weather >
+	<cfset FieldCondition	= qRefRptHeader.fieldCond >
+	<cfset FieldMarking		= qRefRptHeader.fieldMarking >
+	<cfset SpectatorCount	= qRefRptHeader.spectatorCount >
+	<cfset Comments			= qRefRptHeader.Comments >
+	<cfset ConductOfficial	= qRefRptHeader.conductOfficials >
+	<cfset ConductPlayers	= qRefRptHeader.conductPlayers >
+	<cfset ConductSpectators = qRefRptHeader.conductSpectators >
+	<cfset xrefGameOfficialID = qRefRptHeader.xref_game_official_id >
+	<cfset RefPaid			= qRefRptHeader.refPaid_YN >
+	<cfset RefAmount		= qRefRptHeader.refPaid_Amount >
+	<cfset RefId			= qRefRptHeader.REFEREEID >
+	<cfset AsstRefId1		= qRefRptHeader.contact_id_asstRef1 >
+	<cfset AsstRefId2		= qRefRptHeader.contact_id_asstRef2 >
+	<cfset AsstRef1			= qRefRptHeader.ASSISTANTREF1_WRITEIN >
+	<cfset AsstRef2			= qRefRptHeader.ASSISTANTREF2_WRITEIN >
+	<cfset Official4th		= qRefRptHeader.contact_id_official4th >
+	<cfset Official4thLog	= qRefRptHeader.Official4thLog >
+	<cfset RefereeDRoom		= qRefRptHeader.refereeDroom >
+	<cfset PlayerDRoom		= qRefRptHeader.playerDroom >
+	<!--- AssistantRef1_WriteIn, AssistantRef2_WriteIn  --->
+
+	<cfset rptStartTime		= timeFormat(qRefRptHeader.STARTTIME,"hh:mm tt")>
+	<cfset rptStartHour		= listFirst(VARIABLES.rptStartTime,":")>
+	<cfset rptStartMinute	= Minute(VARIABLES.rptStartTime)>
+	<cfset rptStartMeridian	= listLast(VARIABLES.rptStartTime," ")>
+
+	<cfset rptEndTime		= timeFormat(qRefRptHeader.ENDTIME,"hh:mm tt")>
+	<cfset rptEndHour		= listFirst(VARIABLES.rptEndTime,":")>
+	<cfset rptEndMinute		= Minute(VARIABLES.rptEndTime)>
+	<cfset rptEndMeridian	= listLast(VARIABLES.rptEndTime," ")>
+		
+	
+	
+	<cfinvoke component="#SESSION.SITEVARS.cfcPath#REPORT" method="getRefRPTDetails" returnvariable="qRefRptDetails">
+		<cfinvokeargument name="refRptHeaderID" value="#VARIABLES.refRptHeaderID#" >
+	</cfinvoke><!--- <cfdump var="#qRefRptDetails#"> --->
+
+	<cfquery name="qGameMisconducts" dbtype="query">
+		Select PlayerName, EventType, PassNo, TeamID, MisConduct_ID
+		  from qRefRptDetails
+		 Where EventType = 1
+	</cfquery>
+
+	<cfquery name="qGameInjuries" dbtype="query">
+		Select PlayerName, EventType, PassNo, TeamID, MisConduct_ID
+		  from qRefRptDetails
+		 Where EventType = 2
+	</cfquery>
+
+<cfelse>
+	<cfset Mode		= "ADD" >
+	<cfset RefereeID	= "" >
+	<cfset btnVal		= "Submit" >
+	<cfset pageTitle	= "Submit Game Report" >
+	<cfset DisplayOnly  = "" >
+	<cfset Official4th = "none" >
+
+	<cfset xrefGameOfficialID = 0 >
+	<cfset RefID			= 0 >
+	<cfset RefId			= 0 >
+	<cfset AsstRefId1		= 0 >
+	<cfset AsstRefId2		= 0 >
+	<cfset Official4th		= "" >
+	<cfset Official4thLog	= "" >
+	<cfset RefereeDRoom		= "" >
+	<cfset PlayerDRoom		= "" >
+
+	<cfset StartTime		= "" >
+	<cfset HTHowLate		= 0 >
+	<cfset VTHowLate		= 0 >
+	<cfset GameSts			= "" >
+	<cfset scoreHomeHT		= "" >
+	<cfset scoreVisitorHT	= "" >
+	<cfset scoreHomeFT		= "" >
+	<cfset scoreVisitorFT	= "" >
+	<cfset OnTimeHome		= "" >
+	<cfset OnTimeVisitor	= "" >
+	<cfset HTHowLate		= "" >
+	<cfset VTHowLate		= "" >
+	<cfset LineUpHome		= "" >
+	<cfset LineUpVisitor	= "" >
+	<cfset PassesHome		= "" >
+	<cfset PassesVisitor	= "" >
+	<cfset Weather			= "" >
+	<cfset FieldCondition	= "" >
+	<cfset FieldMarking		= "" >
+	<cfset SpectatorCount	= "" >
+	<cfset Comments			= "" >
+	<cfset ConductOfficial	= "" >
+	<cfset ConductPlayers	= "" >
+	<cfset ConductSpectators = "" >
+	<cfset RefPaid			= "" >
+	<cfset RefAmount		= "" >
+	<cfset AsstRef1			= "" >
+	<cfset AsstRef2			= "" >
+	<cfset startTime		= "">
+	<cfset StartHour		= "">
+	<cfset StartMinute		= "">
+	<cfset StartMeridian	= "">
+	<cfset endTime			= "">
+	<cfset endHour			= "">
+	<cfset endMinute		= "">
+	<cfset endMeridian		= "">
+</cfif>
+
+
+<CFIF xrefGameOfficialID EQ 0 >
+	<cfquery name="qGetOfficialID" datasource="#SESSION.DSN#">
+		Select xref_game_official_id 
+		  from xref_Game_official
+		 Where Game_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.gameID#">
+		   AND game_official_type_id = 1
+	</cfquery> <!--- <cfdump var="#qMisconducts#"> --->
+	<cfset xrefGameOfficialID = qGetOfficialID.xref_game_official_id >
+</CFIF>
+
+<cfquery name="qMisconducts" datasource="#SESSION.DSN#">
+	SELECT Misconduct_ID, Misconduct_DESCR, Misconduct_EVENT
+	  FROM TLKP_Misconduct
+	 ORDER BY MisConduct_Descr
+</cfquery> <!--- <cfdump var="#qMisconducts#"> --->
+
+<cfinvoke component="#SESSION.SITEVARS.cfcPath#GAME" method="getGameSchedule" returnvariable="qGameInfo">
+	<cfinvokeargument name="gameID"		value="#VARIABLES.GameID#">
+</cfinvoke> <!--- <cfdump var="#qGameInfo#"> --->
+<cfif qGameInfo.RECORDCOUNT>
+	<cfset GameDate		= dateFormat(qGameInfo.game_date,"mm/dd/yyyy") >
+	<cfset GameTime		= timeFormat(qGameInfo.game_time,"hh:mm tt") >
+	<cfset HomeScore	= qGameInfo.Score_Home >
+	<cfset VisitorScore	= qGameInfo.Score_visitor >
+	<cfset HomeTeam		= qGameInfo.Home_TeamName >
+	<cfset VisitorTeam	= qGameInfo.Visitor_TeamName >
+	<cfset HomeTeamID	= qGameInfo.Home_Team_ID >
+	<cfset VisitorTeamID = qGameInfo.Visitor_Team_ID >
+	<cfset PlayField	 = qGameInfo.fieldAbbr >
+	<cfset Division		 = qGameInfo.Division >
+	<cfset RefID		 = qGameInfo.RefID >
+	<cfset AsstRefID1	 = qGameInfo.AsstRefID1 >
+	<cfset AsstRefID2	 = qGameInfo.AsstRefID2 >
+
+	<cfset GameStartTime		= timeFormat(qGameInfo.Game_Time,"hh:mm tt") >
+	<cfset GameStartHour		= listFirst(VARIABLES.GameStartTime,":")>
+	<cfset GameStartMinute		= Minute(VARIABLES.GameStartTime)>
+	<cfset GameStartMeridian	= listLast(VARIABLES.GameStartTime," ")>
+
+	<cfset GameEndTime		 	= DateAdd("n", 90, qGameInfo.Game_Time)>
+	<cfset GameEndTime		 	= timeFormat(variables.GameEndTime,"hh:mm tt") >
+	<cfset GameEndHour			= listFirst(VARIABLES.GameEndTime,":")>
+	<cfset GameEndMinute		= Minute(VARIABLES.GameEndTime)>
+	<cfset GameEndMeridian		= listLast(VARIABLES.GameEndTime," ")>
+
+<cfelse>
+	<cfset GameDate		= "" >
+	<cfset GameTime		= "" >
+	<cfset HomeScore	= "" >
+	<cfset VisitorScore	= "" >
+	<cfset HomeTeam		= "" >
+	<cfset VisitorTeam	= "" >
+	<cfset HomeTeamID	= 0 >
+	<cfset VisitorTeamID = 0 >
+	<cfset PlayField	 = "" >
+	<cfset Division		 = "" >
+	<cfset RefID		 = 0 >
+	<cfset AsstRefID1	 = 0 >
+	<cfset AsstRefID2	 = 0 >
+	<cfset GameStartTime	 = "" >
+	<cfset GameEndTime		 = "" >
+	<cfset GameStartHour	 = "" >
+	<cfset GameStartMinute	 = "" >
+	<cfset GameStartMeridian = "" >
+	<cfset GameEndHour		 = "" >
+	<cfset GameEndMinute	 = "" >
+	<cfset GameEndMeridian	 = "" >
+</cfif>
+
+
+
+
+
+<!--- set form vars to previously entered values if form fails validation --->
+<cfif isDefined("FORM.StartTime")>			<cfset StartTime = FORM.StartTime>		</cfif>
+<cfif isDefined("FORM.HTHowLate")>			<cfset HTHowLate = FORM.HTHowLate>		</cfif>
+<cfif isDefined("FORM.VTHowLate")>			<cfset VTHowLate = FORM.VTHowLate>		</cfif>
+<cfif isDefined("FORM.GAMESTATUS")>			<cfset GameSts = FORM.GAMESTATUS>			</cfif>
+<cfif isDefined("FORM.scoreHomeHT")>		<cfset scoreHomeHT = FORM.scoreHomeHT>	</cfif>
+<cfif isDefined("FORM.scoreVisitorHT")>		<cfset scoreVisitorHT = FORM.scoreVisitorHT></cfif>
+<cfif isDefined("FORM.scoreHomeFT")>		<cfset scoreHomeFT = FORM.scoreHomeFT>	</cfif>
+<cfif isDefined("FORM.scoreVisitorFT")>		<cfset scoreVisitorFT = FORM.scoreVisitorFT></cfif>
+<cfif isDefined("FORM.OnTimeHome")>			<cfset OnTimeHome = FORM.OnTimeHome>	</cfif>
+<cfif isDefined("FORM.OnTimeVisitor")>		<cfset OnTimeVisitor = FORM.OnTimeVisitor>	</cfif>
+<cfif isDefined("FORM.HTHowLate")>			<cfset HTHowLate = FORM.HTHowLate>		</cfif>
+<cfif isDefined("FORM.VTHowLate")>			<cfset VTHowLate = FORM.VTHowLate>		</cfif>
+<cfif isDefined("FORM.LineUpHome")>			<cfset LineUpHome = FORM.LineUpHome>	</cfif>
+<cfif isDefined("FORM.LineUpVisitor")>		<cfset LineUpVisitor = FORM.LineUpVisitor>	</cfif>
+<cfif isDefined("FORM.PassesHome")>			<cfset PassesHome = FORM.PassesHome>	</cfif>
+<cfif isDefined("FORM.PassesVisitor")>		<cfset PassesVisitor = FORM.PassesVisitor>	</cfif>
+<cfif isDefined("FORM.Weather")>			<cfset Weather = FORM.Weather>			</cfif>
+<cfif isDefined("FORM.FieldCondition")>		<cfset FieldCondition = FORM.FieldCondition></cfif>
+<cfif isDefined("FORM.FieldMarking")>		<cfset FieldMarking = FORM.FieldMarking></cfif>
+<cfif isDefined("FORM.SpectatorCount")>		<cfset SpectatorCount = FORM.SpectatorCount></cfif>
+<cfif isDefined("FORM.Comments")>			<cfset Comments = FORM.Comments>		</cfif>
+<cfif isDefined("FORM.ConductOfficial")>	<cfset ConductOfficial = FORM.ConductOfficial>	</cfif>
+<cfif isDefined("FORM.ConductPlayers")>		<cfset ConductPlayers = FORM.ConductPlayers>	</cfif>
+<cfif isDefined("FORM.ConductSpectators")>	<cfset ConductSpectators = FORM.ConductSpectators></cfif>
+<cfif isDefined("FORM.RefPaid")>			<cfset RefPaid = FORM.RefPaid>			</cfif>
+<cfif isDefined("FORM.RefAmount")>			<cfset RefAmount = FORM.RefAmount>		</cfif>
+<cfif isDefined("FORM.AsstRef1WriteIN")>	<cfset AsstRef1 = FORM.AsstRef1WriteIN>	</cfif>
+<cfif isDefined("FORM.AsstRef2WriteIN")>	<cfset AsstRef2 = FORM.AsstRef2WriteIN>	</cfif>
+<cfif isDefined("FORM.startTime")>			<cfset startTime = FORM.startTime>		</cfif>
+<cfif isDefined("FORM.endTime")>			<cfset endTime = FORM.endTime>			</cfif>
+<cfif isDefined("FORM.fieldSpecifics")>		<cfset FieldCondition = FORM.fieldSpecifics>		</cfif>
+<!--- 
+<cfif isDefined("FORM.injury")>				<cfset injury = FORM.injury>				</cfif>
+<cfif isDefined("FORM.injuryPassNO")>		<cfset injuryPassNO = FORM.injuryPassNO>	</cfif>
+<cfif isDefined("FORM.injuryPlayerName")>	<cfset injuryPlayerName = FORM.injuryPlayerName>	</cfif>
+<cfif isDefined("FORM.injuryTeam")>			<cfset injuryTeam = FORM.injuryTeam>		</cfif>
+<cfif isDefined("FORM.misconduct")>			<cfset misconduct = FORM.misconduct>		</cfif>
+<cfif isDefined("FORM.misconPassNO")>		<cfset misconPassNO = FORM.misconPassNO>	</cfif>
+<cfif isDefined("FORM.misconPlayerName")>	<cfset misconPlayerName = FORM.misconPlayerName>	</cfif>
+<cfif isDefined("FORM.misconTeam")>			<cfset misconTeam = FORM.misconTeam>		</cfif> 
+--->
+
+
+
+
+<cfinvoke component="#SESSION.SITEVARS.cfcpath#globalVars" method="getListX" returnvariable="arrGameStatus">
+	<cfinvokeargument name="listType" value="GAMESTATUS"> 
+</cfinvoke> 
+<cfinvoke component="#SESSION.SITEVARS.cfcpath#globalVars" method="getListX" returnvariable="stTimeParams">
+	<cfinvokeargument name="listType" value="DDHHMMTT"> 
+</cfinvoke> 
+<cfinvoke component="#SESSION.SITEVARS.cfcpath#globalVars" method="getListX" returnvariable="arrWeather">
+	<cfinvokeargument name="listType" value="WEATHER"> 
+</cfinvoke> 
+<cfinvoke component="#SESSION.SITEVARS.cfcpath#globalVars" method="getListX" returnvariable="arrRatings1">
+	<cfinvokeargument name="listType" value="RATINGS1"> 
+</cfinvoke> 
+<cfinvoke component="#SESSION.SITEVARS.cfcpath#globalVars" method="getListX" returnvariable="arrInjury">
+	<cfinvokeargument name="listType" value="INJURY"> 
+</cfinvoke> 
+						
+<FORM name="RefRpt" action="gameReportSubmit.cfm"  method="post" >
+<input type="hidden" name="GameID"		value="#VARIABLES.gameID#"	>
+<input type="hidden" name="GameDate"	value="#VARIABLES.GameDate#"	>
+<input type="hidden" name="Mode"		value="#VARIABLES.Mode#"	>
+<input type="hidden" name="xrefGameOfficialID"	value="#VARIABLES.xrefGameOfficialID#"	>
+<input type="hidden" name="AsstRefId1"	value="#VARIABLES.AsstRefId1#"	>
+<input type="hidden" name="AsstRefId2"	value="#VARIABLES.AsstRefId2#"	>
+
+<!--- 
+<input type="hidden" name="PageURL"		value="#PageURL#"	>
+<input type="hidden" name="DivID"		value="#DivID#"		>
+<input type="hidden" name="Weekend"		value="#Weekend#"	>
+<input type="hidden" name="RefereeID"	value="#SelRefId#"	>
+<input type="hidden" name="SortOrder"	value="#SortOrder#" >
+<input type="hidden" name="SelBy"		value="#SelBy#" 	>
+<input type="hidden" name="ClubID"		value="#SelClubID#" >
+<input type="hidden" name="RefID"		value="#SelRefID#" >
+<input type="hidden" name="ListType"	value="#ListType#" >
+<input type="hidden" name="SelDivision"	value="#SelDivision#" >
+<input type="hidden" name="SelWeekend"	value="#SelWeekend#" >
+ --->
+
+
+
+<CFIF len(trim(MSG))>
+	<span class="red">#MSG#</span>
+</CFIF>
+
+
+
+<span class="red">
+	Fields marked with * are required 
+	<br>- <b>Scroll to bottom of form to submit.</b>
+</span>
+<CFSET required = "<FONT color=red>*</FONT>">
+<table cellspacing="0" cellpadding="5" align="center" border="0" width="820px"> 
+	<tr class="tblHeading">
+		<TD>&nbsp;</td>
+	</tr>
+	<tr><TD><b>Game:</b> 		#(GameID)#					#repeatString("&nbsp;",10)#
+			<b>Date/Time:</b>   #GameDate# - #GameTime#		#repeatString("&nbsp;",10)#
+ 			<b>Field:</b> 		#(PlayField)#
+		</td>
+	</tr>
+	<tr><td><b>Division:</b> #Division#	 								#repeatString("&nbsp;",10)#
+			<b>Home:</b> 	 #HomeTeam# vs. <b>Visitor:</b> #VisitorTeam#	#repeatString("&nbsp;",10)#
+			<b>Score:</b> (H) #HomeScore# - (V) #VisitorScore#
+		</TD>
+	</TR>
+	<TR><TD><b>Referee:</B>
+			<cfinvoke component="#SESSION.SITEVARS.cfcPath#CONTACT" method="getReferees" returnvariable="qRefInfo">
+				<cfinvokeargument name="refereeID" value="#VARIABLES.refID#">
+			</cfinvoke>
+			<CFIF qRefInfo.RECORDCOUNT>
+				#qRefInfo.LastName#, #qRefInfo.FirstName# &nbsp;&nbsp; <b>Grade:</b> #qRefInfo.Grade#
+			</CFIF>
+			#repeatString("&nbsp;",10)#
+
+			<b>Asst Ref 1:</b>
+			<cfif len(trim(AsstRefId1)) EQ 0 OR AsstRefId1 EQ 0>
+				<input type="text" name="AsstRef1WriteIn" value="#AsstRef1#" >
+			<cfelse>
+				<cfinvoke component="#SESSION.SITEVARS.cfcPath#CONTACT" method="getReferees" returnvariable="qRefInfo1">
+					<cfinvokeargument name="refereeID" value="#VARIABLES.AsstRefId1#">
+				</cfinvoke>
+				<CFIF qRefInfo1.RECORDCOUNT>
+					#qRefInfo1.LastName#, #qRefInfo1.FirstName# &nbsp;&nbsp; <b>Grade:</b> #qRefInfo1.Grade#
+				</CFIF>
+			</cfif>	
+			#repeatString("&nbsp;",10)#
+
+			<b>Asst Ref 2:</b> 
+			<cfif len(trim(AsstRefId2)) eq 0 OR AsstRefId2 EQ 0>
+				<input type="text" name="AsstRef2WriteIN" value="#AsstRef2#" >
+			<cfelse>
+				<cfinvoke component="#SESSION.SITEVARS.cfcPath#CONTACT" method="getReferees" returnvariable="qRefInfo2">
+					<cfinvokeargument name="refereeID" value="#VARIABLES.AsstRefId2#">
+				</cfinvoke>
+				<CFIF qRefInfo2.RECORDCOUNT>
+					#qRefInfo2.LastName#, #qRefInfo2.FirstName# &nbsp;&nbsp; <b>Grade:</b> #qRefInfo2.Grade#
+				</CFIF>
+			</cfif>	
+		</TD>
+	</TR>
+</table><!--- end top table --->
+<!--- <div style="overflow:auto; height:500px; border:1px ##cccccc solid;"> --->
+<table cellspacing="2" cellpadding="5" align="left" border="0" width="800px">
+	<TR><TD>
+			<b>Game Played/cancelled?</b>
+			<SELECT name="GameStatus" > 
+				<cfloop from="1" to="#arrayLen(arrGameStatus)#" index="ix">
+					<OPTION value="#arrGameStatus[ix][1]#" <cfif GameSts EQ arrGameStatus[ix][1]>selected</cfif> >#arrGameStatus[ix][2]#</OPTION>
+				</cfloop>
+			</SELECT>
+			
+
+			#repeatString("&nbsp;",10)#
+			<b>Weather:</B>
+			<SELECT name="Weather" class="TextEntry"  >
+				<cfloop from="1" to="#arrayLen(arrWeather)#" index="idx">
+					<OPTION value="#arrWeather[idx][1]#" <cfif Weather EQ arrWeather[idx][1]>selected</cfif> >#arrWeather[idx][2]#</OPTION>
+				</cfloop>
+			</SELECT>
+		</td>
+	</tr>
+
+	</TR>
+	<TR><TD><cfif qRefRptHeader.RECORDCOUNT>
+				<!--- report was submitted, use report's time --->
+				<cfset StartHour	 = rptStartHour>
+				<cfset StartMinute	 = rptStartMinute>
+				<cfset StartMeridian = rptStartMeridian>
+				<cfset EndHour		 = rptEndHour>
+				<cfset EndMinute	 = rptEndMinute>
+				<cfset EndMeridian	 = rptEndMeridian>
+			<cfelseif isDefined("FORM") and StructCount(FORM) >
+				<!--- form was submitted, use those values --->
+				<cfset StartHour	 = FORM.StartHour>
+				<cfset StartMinute	 = FORM.StartMinute>
+				<cfset StartMeridian = FORM.StartMeridian>
+				<cfset endHour		 = FORM.endHour>
+				<cfset endMinute	 = FORM.endMinute>
+				<cfset endMeridian	 = FORM.endMeridian>
+			<cfelse>
+				<!--- use Game start time plus 90 min til end --->
+				<cfset StartHour	 = gameStartHour>
+				<cfset StartMinute	 = gameStartMinute>
+				<cfset StartMeridian = gameStartMeridian>
+				<cfset EndHour		 = gameEndHour>
+				<cfset EndMinute	 = gameEndMinute>
+				<cfset EndMeridian	 = gameEndMeridian>
+			</cfif>
+			#REQUIRED# <B>ACTUAL Start Time</B>
+			<SELECT name="StartHour"> 
+			    <CFLOOP list="#stTimeParams.hour#" index="iHr">
+					<OPTION value="#iHr#" <cfif VARIABLES.StartHour EQ iHr>selected</cfif> >#iHr#</OPTION>
+				</CFLOOP>
+			</SELECT>
+			<SELECT name="StartMinute"> 
+				<CFLOOP list="#stTimeParams.min#" index="iMn">
+					<OPTION value="#iMn#" <cfif VARIABLES.StartMinute EQ iMn>selected</cfif>  >#iMn#</OPTION>
+				</CFLOOP>
+			</SELECT>
+			<SELECT name="StartMeridian">
+				<CFLOOP list="#stTimeParams.tt#" index="iTT">
+					<OPTION value="#iTT#" <cfif VARIABLES.StartMeridian EQ iTT>selected</cfif>  >#iTT#</OPTION>
+				</CFLOOP>
+			</SELECT>  
+		#repeatString("&nbsp;",10)#
+			#REQUIRED# <B>ACTUAL End Time</B>
+			<SELECT name="EndHour"> 
+			    <CFLOOP list="#stTimeParams.hour#" index="iHr">
+					<OPTION value="#iHr#" <cfif VARIABLES.EndHour EQ iHr>selected</cfif> >#iHr#</OPTION>
+				</CFLOOP>
+			</SELECT>
+			<SELECT name="EndMinute"> 
+				<!--- <OPTION value="" selected>MN</OPTION> --->
+				<CFLOOP list="#stTimeParams.min#" index="iMn">
+					<OPTION value="#iMn#" <cfif VARIABLES.EndMinute EQ iMn>selected</cfif>  >#iMn#</OPTION>
+				</CFLOOP>
+			</SELECT>
+			<SELECT name="EndMeridian">
+				<CFLOOP list="#stTimeParams.tt#" index="iTT">
+					<OPTION value="#iTT#" <cfif VARIABLES.EndMeridian EQ iTT>selected</cfif>  >#iTT#</OPTION>
+				</CFLOOP>
+			</SELECT>  
+		</TD>
+	</TR>
+	<TR><td class="tdUnderLine">
+			#repeatString("&nbsp;",10)#
+			#REQUIRED#<B>Half-Time Score:</B> 
+				(H)<input class="TextEntry" type=text name="scoreHomeHT"    value="#scoreHomeHT#" 	   size="2">
+			  - (V)<input class="TextEntry" type=text name="scoreVisitorHT" value="#scoreVisitorHT#"  size="2">
+			#repeatString("&nbsp;",10)#
+			#REQUIRED#<B>Full-Time Score</B> 
+				(H)<input class="TextEntry" type=text name="scoreHomeFT"	 value="#scoreHomeFT#"	   size="2">
+			  - (V)<input class="TextEntry" type=text name="scoreVisitorFT" value="#scoreVisitorFT#"  size="2">
+		</td>
+	</TR>
+	<TR><td align="left" valign="top" class="tdUnderLine">
+				<table cellpadding="2" cellspacing="2" border="0">
+					<tr><td valign="top">
+							<b>Overall Field Conditions:</b>
+							<SELECT name="FieldMarking" >
+								<cfloop from="1" to="#arrayLen(arrRatings1)#" index="idx">
+									<OPTION value="#arrRatings1[idx][1]#" <cfif FieldMarking EQ arrRatings1[idx][1]>selected</cfif> >#arrRatings1[idx][2]#</OPTION>
+								</cfloop>
+							</SELECT>
+						</td>
+						<td align="left" valign="top">
+							<cfif Len(Trim(FieldCondition))>
+								<!--- we have a value, is it from the form "A,B,C" or the DB "ABC" --->
+								<cfif listLen(FieldCondition) EQ 1 AND Len(Trim(FieldCondition)) GT 1>
+									<!--- we have a string "ABC" that needs to be converted to a list --->
+									<cfset lTemp = "">
+									<cfloop from="1" to="#len(FieldCondition)#" index="ii">
+										<cfset lTemp = listAppend(lTemp, Mid(FieldCondition, ii, 1), ",")>
+									</cfloop>
+									<cfset FieldCondition = lTemp>
+								</cfif>
+							</cfif>
+							<b>Specifics:</b>(Check all that apply)
+							<BR><input type="checkbox" NAME="fieldSpecifics" <cfif listFindNoCase(FieldCondition,"A") >checked</cfif> value="A"> <B>Inadequate field marking</B>
+							<BR><input type="checkbox" NAME="fieldSpecifics" <cfif listFindNoCase(FieldCondition,"B") >checked</cfif> value="B"> <B>Missing Goal Nets</B>
+							<BR><input type="checkbox" NAME="fieldSpecifics" <cfif listFindNoCase(FieldCondition,"C") >checked</cfif> value="C"> <B>Missing Corner Flags</B>
+							<BR><input type="checkbox" NAME="fieldSpecifics" <cfif listFindNoCase(FieldCondition,"D") >checked</cfif> value="D"> <B>Dangerous Field Conditions</B>
+						</td>
+						<td>	 &nbsp;
+							<BR><input type="checkbox" NAME="fieldSpecifics" <cfif listFindNoCase(FieldCondition,"E") >checked</cfif> value="E"> <B>No Game Ball and/or Substitute Game Ball</B>
+							<BR><input type="checkbox" NAME="fieldSpecifics" <cfif listFindNoCase(FieldCondition,"F") >checked</cfif> value="F"> <B>Goals not secure</B>
+							<BR><input type="checkbox" NAME="fieldSpecifics" <cfif listFindNoCase(FieldCondition,"G") >checked</cfif> value="G"> <B>Home team not ready to play within the designated time</B>
+							<BR><input type="checkbox" NAME="fieldSpecifics" <cfif listFindNoCase(FieldCondition,"N") >checked</cfif> value="N"> <B>Visiting team not ready to play within the designated time</B>
+						</td>
+					</tr>
+				</table>
+		</TD>
+	</TR>
+
+	<TR><td align="left" class="tdUnderLine">
+			<b>Was the Home team on the field on time?</B>
+			<SELECT name="OnTimeHome"  >
+				<OPTION value="1" <cfif OnTimeHome EQ "1">selected</cfif>  >Yes</OPTION>
+				<OPTION value="0" <cfif OnTimeHome EQ "0">selected</cfif>  >No </OPTION>
+			</SELECT>
+			<B>How Late?</B><input type=text name="HTHowLate" value="#HTHowLate#" size="2"  >(in Mins)
+		<br>
+			<b>Was the visiting team on the field on time?</b>
+			<SELECT name="OnTimeVisitor"  >
+				<OPTION value="1" <cfif OnTimeVisitor EQ "1">selected</cfif>  >Yes</OPTION>
+				<OPTION value="0" <cfif OnTimeVisitor EQ "0">selected</cfif>  >No </OPTION>
+			</SELECT>
+			<B>How Late?</B><input type=text name="VTHowLate" value="#VTHowLate#"  size="2"  >(in Mins)
+		</TD>
+	</TR>
+	<TR><TD align="left" class="tdUnderLine">
+			<b>Conduct of Officials: </b>
+			<SELECT name="ConductOfficial"   > 
+				<cfloop from="1" to="#arrayLen(arrRatings1)#" index="idx">
+					<OPTION value="#arrRatings1[idx][1]#" <cfif ConductOfficial EQ arrRatings1[idx][1]>selected</cfif> >#arrRatings1[idx][2]#</OPTION>
+				</cfloop>
+			</SELECT>
+			#repeatString("&nbsp;",7)#
+			<b>of Players:</b>
+			<SELECT name="ConductPlayers"   > 
+				<cfloop from="1" to="#arrayLen(arrRatings1)#" index="idx">
+					<OPTION value="#arrRatings1[idx][1]#" <cfif ConductPlayers EQ arrRatings1[idx][1]>selected</cfif> >#arrRatings1[idx][2]#</OPTION>
+				</cfloop>
+			</SELECT>
+			#repeatString("&nbsp;",7)#
+			<b>of Spectators:</b>
+			<SELECT name="ConductSpectators"   > 
+				<cfloop from="1" to="#arrayLen(arrRatings1)#" index="idx">
+					<OPTION value="#arrRatings1[idx][1]#" <cfif ConductSpectators EQ arrRatings1[idx][1]>selected</cfif> >#arrRatings1[idx][2]#</OPTION>
+				</cfloop>
+			</SELECT>
+			No.of Spectators <input type="text" name="SpectatorCount" value="#SpectatorCount#"  size="2"  >Approx.
+		</TD>
+	</TR>
+	<tr><td align="left">
+			<!--- <b>Referee Paid?</b>
+			<SELECT class="TextEntry" name="RefPaid"   > 
+				<OPTION value="Y" <cfif RefPaid EQ "Y">selected</cfif>  >Yes</OPTION>
+				<OPTION value="N" <cfif RefPaid EQ "N">selected</cfif>  >No </OPTION>
+			</SELECT>
+			<b>Amount</b><input type="text" name="RefAmount" value="#RefAmount#" > --->
+			
+			<span class="red">Use the "Claim Unpaid Fees" page to submit any unpaid fees.</span>
+			
+		</td>
+	</tr>
+	<tr><td align="right" class="tdUnderLine">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr><td align="right">
+						<b>Player passes of the home team were received and checked</b>
+						<SELECT name="PassesHome"  > 
+							<OPTION value="1" <cfif PassesHome EQ "1">selected</cfif>  >Yes</OPTION>
+							<OPTION value="0" <cfif PassesHome EQ "0">selected</cfif>  >No </OPTION>
+						</SELECT>
+					</td>
+					<td align="right">
+						<b>Line up of home team enclosed, available</b>
+						<SELECT name="LineUpHome"   >
+							<OPTION value="1" <cfif LineUpHome EQ "1">selected</cfif>  >Yes</OPTION>
+							<OPTION value="0" <cfif LineUpHome EQ "0">selected</cfif>  >No </OPTION>
+						</SELECT>
+					</td>
+				</tr>
+				<tr><td align="right">
+						<b>Player passes of the Visiting team were received and checked</b>
+						<SELECT name="PassesVisitor"  > 
+							<OPTION value="1" <cfif PassesVisitor EQ "1">selected</cfif>  >Yes</OPTION>
+							<OPTION value="0" <cfif PassesVisitor EQ "0">selected</cfif>  >No </OPTION>
+						</SELECT>
+					</td>
+					<td align="right">
+						<b>Line up of visiting team enclosed, available</b>
+						<SELECT name="LineUpVisitor"  > 
+							<OPTION value="1" <cfif LineUpVisitor EQ "1">selected</cfif>  >Yes</OPTION>
+							<OPTION value="0" <cfif LineUpVisitor EQ "0">selected</cfif>  >No </OPTION>
+						</SELECT>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr><td class="tdUnderLine">
+			<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0 >
+				<tr class="tblHeading">
+					<td colspan=4><b>MISCONDUCTS DURING THE GAME</b></td>
+					</tr>
+				<tr class="tblHeading">
+					<td >Player <br> (First & Last Name)</td>
+					<td >Pass ##		</td>
+					<td >Team		</td>
+					<td >Misconduct	</td>
+				</tr>
+				<CFIF isDefined("qGameMisconducts") AND qGameMisconducts.RECORDCOUNT>
+					<cfloop query="qGameMisconducts">
+						<cfset misconductID = Misconduct_ID>
+						<tr><td><input type="text" name="misConPlayerName_#currentRow#" value="#PlayerName#"   size="17" ></td>
+							<td><input type="text" name="misConPassNo_#currentRow#"     value="#PassNo#" 	   size="8" >						</td>
+							<td><SELECT name="misConTeam_#currentRow#"   style="font-size:11px;" >
+									<option value="0" selected>Select Team</option>
+									<option value="#HomeTeamID#"	<cfif TeamID EQ HomeTeamID>selected</cfif> > #HomeTeam#    </option>
+									<option value="#VisitorTeamID#"	<cfif TeamID EQ VisitorTeamID>selected</cfif> > #VisitorTeam# </option>
+								</select>
+							</td>
+							<td><SELECT name="MisConduct_#currentRow#"  style="font-size:11px;" >
+									<option value="0" selected>Select Misconduct</option>
+									<cfloop query="qMisconducts">
+										<option value="#Misconduct_ID#" <cfif MisConductID EQ Misconduct_ID>selected</cfif> >#lCase(Misconduct_DESCR)# - #ucase(Misconduct_EVENT)#</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+				<cfelse> 	
+					<cfloop from="1" to="10" index="idx">
+						<tr><td><input type="text" name="misConPlayerName_#idx#" value="#stMisconducts[idx].MISCONPLAYERNAME#" size="17" > </td>
+							<td><input type="text" name="misConPassNo_#idx#"     value="#stMisconducts[idx].MISCONPASSNO#" size="8" >	</td>
+							<td><SELECT name="misConTeam_#idx#"  style="font-size:11px;">
+									<option value="0" selected>Select Team</option>
+									<option value="#HomeTeamID#"	<cfif stMisconducts[idx].MISCONTEAM EQ HomeTeamID>selected</cfif> > #HomeTeam#    </option>
+									<option value="#VisitorTeamID#"	<cfif stMisconducts[idx].MISCONTEAM EQ VisitorTeamID>selected</cfif> > #VisitorTeam# </option>
+								</select><!--- <cfif TeamID EQ HomeTeamID>selected</cfif> <cfif TeamID EQ VisitorTeamID>selected</cfif> --->
+							</td>
+							<td><SELECT name="MisConduct_#idx#" style="font-size:11px;" >
+									<option value="0"  selected>Select Misconduct</option>
+									<cfloop query="qMisconducts">
+										<option value="#Misconduct_ID#" <cfif stMisconducts[idx].MISCONDUCT EQ Misconduct_ID>selected</cfif> >#uCase(Misconduct_DESCR)# - <b>#Misconduct_EVENT#</b></option>
+									</cfloop><!---  --->
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+				</CFIF>				
+			</table>
+		</td>
+	</tr>
+		<tr><td class="tdUnderLine">
+			<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0 >
+				<tr class="tblHeading">
+					<td colspan=4> SERIOUS INJURIES DURING THE GAME (Describe injury details in comments) </td>
+					</tr>
+				<tr class="tblHeading">
+					<td >Player <br> (First & Last Name)</td>
+					<td >Pass ##		</td>
+					<td >Team		</td>
+					<td >Nature of Injury	</td>
+				</tr>
+				<CFIF isDefined("qGameInjuries") AND qGameInjuries.RECORDCOUNT>
+					<cfloop query="qGameInjuries">
+						<tr><td><input type="text" name="injuryPlayerName_#currentRow#" value="#PlayerName#"  size="17" ></td>
+							<td><input type="text" name="injuryPassNo_#currentRow#"     value="#PassNo#" 	   size="8" >						</td>
+							<td><SELECT name="injuryTeam_#currentRow#"   style="font-size:11px;" >
+									<option value="0" selected>Select Team</option>
+									<option value="#HomeTeamID#"	<cfif TeamID EQ HomeTeamID>selected</cfif> > #HomeTeam#    </option>
+									<option value="#VisitorTeamID#"	<cfif TeamID EQ VisitorTeamID>selected</cfif> > #VisitorTeam# </option>
+								</select>
+							</td>
+							<td><SELECT name="Injury_#currentRow#">
+									<option value="0" selected>Select Injury</option>
+									<cfloop from="1" to="#arrayLen(arrInjury)#" index="iJ">
+										<option value="#arrInjury[iJ][1]#" <cfif arrInjury[iJ][1] EQ Misconduct_ID>selected</cfif> >#arrInjury[iJ][2]# - INJURY</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+				<cfelse>
+					<cfloop from="1" to="10" index="idx">
+						<tr><td><input type="text" name="injuryPlayerName_#idx#" value="#stInjuries[idx].INJURYPLAYERNAME#" size="17" > </td>
+							<td><input type="text" name="injuryPassNo_#idx#"     value="#stInjuries[idx].INJURYPASSNO#" size="8" >	</td>
+							<td><SELECT name="injuryTeam_#idx#"  style="font-size:11px;">
+									<option value="0" selected>Select Team</option>
+									<option value="#HomeTeamID#"	<cfif stInjuries[idx].INJURYTEAM EQ HomeTeamID>selected</cfif> > #HomeTeam#    </option>
+									<option value="#VisitorTeamID#"	<cfif stInjuries[idx].INJURYTEAM EQ VisitorTeamID>selected</cfif> > #VisitorTeam# </option>
+								</select><!---   --->
+							</td>
+							<td><SELECT name="Injury_#idx#">
+									<option value="0" selected>Select Injury</option>
+									<cfloop from="1" to="#arrayLen(arrInjury)#" index="iJ">
+										<option value="#arrInjury[iJ][1]#" <cfif arrInjury[iJ][1] EQ stInjuries[idx].INJURY>selected</cfif> >#arrInjury[iJ][2]# - INJURY</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+				</CFIF>				
+			</table>
+		</td>
+	</tr>
+	<tr><td align="left" class="tdUnderLine">
+			<b>Comments</b> <br>
+			<TEXTAREA name="Comments" rows=10  cols=80 >#Trim(Comments)#</TEXTAREA>
+		</td>
+	</tr>
+	<tr><td align="center">
+			<span class="red">NOTE: Printed referee report with roster still needs to be mailed as before.</span>
+			<br>
+			 <!--- if DisplayOnly = "" then # --->
+					<INPUT type="Button" name="SubmitReport" value="Submit"   onclick="GoSubmit('')"  >
+			<!--- % end if #
+			% if (Mode = "EDIT" and Displayonly <> "") then #
+					<INPUT type="button" value="Print"		 style="WIDTH: 83px; HEIGHT: 28px" size="38" name="Print"  onClick="GoPrint()"	   #btnMode# #PrintBtnSts# ID="Button2">
+			% end if #		 --->
+					<INPUT type="button" value="Back"	 name="Back"   onclick="GoBack()" ID="Button3">
+		</td>
+	</tr>
+</table>
+<!--- </div>  --->
+</FORM>
+ 
+</cfoutput>
+</div>
+<cfinclude template="_footer.cfm">
+
+
+<script language="javascript">
+function GoBack()
+{	history.go(-1);
+}
+function GoSubmit(param)
+{	var Err = 0;
+	var YN;
+	//Err = ValidateField();
+	//if (Err == "0")
+	{	YN = confirm("Report Once submitted cannot be Edited. Proceed to submit (Y/N)");
+		if (YN)
+		{	self.document.RefRpt.submit();
+			return true;
+		}
+	}
+	return false;
+}
+</script>
+
+<!--- ------------------------------ 
+var cForm = document.RefRpt.all;
+
+function trim(s) 
+{	return s.replace(/^\s+|\s+$/g, "") 
+}
+
+
+function GetGame()
+{	self.document.RefRpt.action		= "Adm_Fine_Edit.asp";
+//	self.document.RefRpt.Mode.value	= "ADD";
+	self.document.RefRpt.submit();
+}
+function GetTeams()
+{	self.document.RefRpt.action		= "Adm_Fine_Edit_ByClub.asp";
+	self.document.RefRpt.Mode2.value	= "EDIT";
+	self.document.RefRpt.submit();
+}
+function GoPrint()
+{	self.document.RefRpt.action		= "Ref_Report_Print.asp";
+	self.document.RefRpt.submit();
+}
+
+function ValidateField()
+{	var Err = 0;
+	var PageReqElements = new Array ("");
+	Err = 0;
+	if ( cForm("GameSts").value != "P" )
+	{	return 0;
+	}
+
+	PageReqElements = new Array ("StartHour","StartMinute","StartMeridian", "EndHour","EndMinute","EndMeridian", "scoreHomeHT","scoreVisitorHT", "scoreHomeFT","scoreVisitorFT", "OnTimeHome","HTHowLate", "OnTimeVisitor","VTHowLate" )
+	cForm("error").style.display = "none";
+	for (var inx = 0; inx < PageReqElements.length; inx++ )
+	{	var eItem = document.all( PageReqElements[inx] );
+// Length of the element should be non-zero
+		if ( (trim(eItem.value)).length == 0)
+		{	Err = 1;
+		}
+	}
+	if (Err == 1)
+	{	cForm("error").style.display = "inline";
+		Err = 1;
+	}
+	return Err;
+}
+
+function setField(fld, val)
+{	if (cForm( fld ).value != val)
+	{	cForm( fld ).value = val;
+	}
+	else
+	{	cForm( fld ).value = "";
+	}
+} --->

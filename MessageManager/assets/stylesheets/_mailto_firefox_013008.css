@@ -1,0 +1,13 @@
+.demo  {
+	color:#000033; 
+	background-color:#C3C3D4; 
+	layer-background-color:#C3C3D4;
+    position:absolute; 
+    top:175px; 
+    left:175px; 
+    width:520px; 
+    height:230px;
+    z-index:99;  
+    visibility:hidden;
+    filter:alpha(opacity=100); -moz-opacity:1.0; opacity:1.0; -khtml-opacity:1;
+}

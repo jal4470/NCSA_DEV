@@ -1,0 +1,455 @@
+<!--- 
+	FileName:	refAssignedGames.cfm
+	Created on: mm/dd/2008
+	Created by: aarnone@capturepoint.com
+	
+	Purpose: [purpose of the file]
+	
+MODS: mm/dd/yyyy - filastname - comments
+	01/15/2009 - AArnone - modified this page so it can also be accessed by an admin so they can accept/reject
+					an assignment on behalf of the referee
+						- added check for REFASSIGNVIEWDATE_YN
+	02/19/2009 - aarnone - made scroll box (div) expandable up to 7 rows before it starts scrolling
+ --->
+<cfset mid = 0> <!--- optional =menu id ---> 
+<cfinclude template="_header.cfm">
+<cfinclude template="_checkLogin.cfm">
+<cfoutput>
+<div id="contentText">
+<H1 class="pageheading">NCSA - Accept/Reject Game assignments</H1>
+<!--- <br> <h2>yyyyyy </h2> --->
+
+<!--- <CFIF SESSION.menuRoleID EQ 25> <!--- logged in as referee, using referee menu --->
+	<cfset refereeContactID = SESSION.USER.CONTACTID>
+</CFIF> --->
+
+<CFIF isDefined("URL.rcid") AND isNumeric(URL.rcid)>
+	<cfset refereeContactID = URL.rcid>
+<CFELSEIF isDefined("FORM.refContactID") AND isNumeric(FORM.refContactID)>
+	<cfset refereeContactID = FORM.refContactID>
+<CFELSEIF SESSION.menuRoleID EQ 25> <!--- logged in as referee, using referee menu --->
+	<cfset refereeContactID = SESSION.USER.CONTACTID>
+<CFELSE>
+	<cfset refereeContactID = 0>
+</CFIF>
+
+<CFSET GameDateLimit = "">
+<CFIF isDefined("SESSION.GLOBALVARS.REFASSIGNVIEWDATEYN") AND SESSION.GLOBALVARS.REFASSIGNVIEWDATEYN EQ "Y">
+	<CFIF SESSION.menuRoleID EQ 25 AND isDate(SESSION.GLOBALVARS.REFASSIGNVIEWDATE)>
+		<CFSET GameDateLimit = SESSION.GLOBALVARS.REFASSIGNVIEWDATE >
+	</CFIF>
+</CFIF>
+
+<CFIF len(Trim(GameDateLimit))>
+	<span class="red"><b> NOTE! Game assigments are currently viewable up to #VARIABLES.gameDateLimit#, assignments after this date have not been published.</b></span>
+</CFIF>
+
+<CFIF isDefined("FORM.ACCEPT")>
+	<cfset confirmingRefID = FORM.refContactID>
+	<cfloop list="#form.Fieldnames#" index="ifm">
+		<cfif listFirst(ifm,"_") EQ "CONFIRM">
+			<cfset refereeType = listGetAt(ifm,2,"_")>
+			<cfset gameID = listLast(ifm,"_")>
+			<cfswitch expression="#UCASE(refereeType)#">
+				<cfcase value="REF"> <CFSET gameOfficialTypeID = 1> </cfcase>
+				<cfcase value="AR1"> <CFSET gameOfficialTypeID = 2> </cfcase>
+				<cfcase value="AR2"> <CFSET gameOfficialTypeID = 3> </cfcase>
+			</cfswitch> 		<!--- <br>[#GameId#][#confirmingRefID#][#gameOfficialTypeID#]ACCEPT --->
+			<cfquery name="updateGameOfficial" datasource="#session.dsn#">
+				Update XREF_GAME_OFFICIAL
+				   set Ref_accept_Date = <cfqueryParam cfsqltype="CF_SQL_DATE" value="#dateFormat(NOW(),"mm/dd/yyyy")#">
+					 , Ref_accept_YN   = 'Y'
+				 Where Game_id	   	   = <cfqueryParam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameId#">
+				   and contact_id      = <cfqueryParam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.confirmingRefID#">
+				   and game_official_type_id = <cfqueryParam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.gameOfficialTypeID#">
+			</cfquery>
+		<cfelseif listFirst(ifm,"_") EQ "REJECT">
+			<cfset refereeType = listGetAt(ifm,2,"_")>
+			<cfset gameID = listLast(ifm,"_")>
+			<cfswitch expression="#UCASE(refereeType)#">
+				<cfcase value="REF"> <CFSET gameOfficialTypeID = 1> </cfcase>
+				<cfcase value="AR1"> <CFSET gameOfficialTypeID = 2> </cfcase>
+				<cfcase value="AR2"> <CFSET gameOfficialTypeID = 3> </cfcase>
+			</cfswitch> 		<!--- <br>[#GameId#][#confirmingRefID#][#gameOfficialTypeID#]REJECT --->
+			<cfquery name="updateGameOfficial" datasource="#session.dsn#">
+				Update XREF_GAME_OFFICIAL
+				   set Ref_accept_Date = NULL
+					 , Ref_accept_YN   = 'N'
+				 Where Game_id	   	   = <cfqueryParam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameId#">
+				   and contact_id      = <cfqueryParam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.confirmingRefID#">
+				   and game_official_type_id = <cfqueryParam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.gameOfficialTypeID#">
+			</cfquery>
+		</cfif>
+	</cfloop>
+</CFIF>
+
+<cfif IsDefined("FORM.SortBy")>
+	 <cfset sortBy = FORM.SortBy>
+	 <cfswitch expression="#UCASE(FORM.SortBy)#">
+	 	<cfcase value="GAME">
+			<cfset orderBy = " ORDER BY GAME_ID ">
+		</cfcase>
+	 	<cfcase value="DIV">
+			<cfset orderBy = " ORDER BY DIVISION, GAME_DATE, GAME_TIME ">
+		</cfcase>
+	 	<cfcase value="VISITOR">
+			<cfset orderBy = " ORDER BY VISITOR_TEAMNAME, GAME_DATE, GAME_TIME ">
+		</cfcase>
+	 	<cfcase value="HOME">
+			<cfset orderBy = " ORDER BY HOME_TEAMNAME, GAME_DATE, GAME_TIME ">
+		</cfcase>
+	 	<cfcase value="PLAYFIELD">
+			<cfset orderBy = " ORDER BY FieldAbbr, GAME_DATE, GAME_TIME ">
+		</cfcase>
+	 	<cfdefaultcase>
+			<cfset orderBy = " ORDER BY GAME_DATE, GAME_TIME ">
+		</cfdefaultcase>
+	 </cfswitch>
+<cfelse>
+	<cfset sortBy = "DATE">
+	<cfset orderBy = " ORDER BY GAME_DATE, GAME_TIME ">
+</cfif>
+
+<CFQUERY name="qGetRefGames" datasource="#SESSION.DSN#">
+	Select Game_ID,       GAME_Date,        GAME_Time,    Division, 
+		   Fieldname,     FieldAbbr,        Field_ID, 
+		   Home_CLUB_ID,  HOME_TEAMNAME,    VISITOR_TEAMNAME, 
+		   Forfeit_Home,  Forfeit_Visitor, 
+		   RefID,		Ref_accept_Date,	Ref_accept_YN,
+		   AsstRefID1,  ARef1AcptDate,		ARef1Acpt_YN,
+		   AsstRefID2,  ARef2AcptDate,		ARef2Acpt_YN
+	  from V_Games 
+	 WHERE 
+	 	(  RefID = #VARIABLES.refereeContactID#
+	    or AsstRefID1 = #VARIABLES.refereeContactID#
+		or AsstRefID2 = #VARIABLES.refereeContactID#
+		)
+	 #VARIABLES.orderBy#
+</CFQUERY> 
+
+<CFIF len(Trim(GameDateLimit))>
+	<CFQUERY name="qGetRefGames" dbtype="query">
+		Select *
+		  from qGetRefGames 
+		 WHERE GAME_Date <= '#VARIABLES.gameDateLimit#'  
+		 #VARIABLES.orderBy#
+	</CFQUERY> 
+</CFIF>
+
+
+<FORM name="Games" action="refAssignedGames.cfm"  method="post" >
+<input type="Hidden" name="refContactID" value="#VARIABLES.refereeContactID#">
+<table cellspacing="0" cellpadding="5" align="center" border="0"  width="820px" >
+<tr><td colspan="5" align="left">
+		<span class="red">
+				- To Accept game assignment, mark the check box and then press SAVE button at the bottom of the page
+			<br>- To Decline game assignment, mark the check box and then press SAVE button at the bottom of the page
+			<br>- You must act on assignments within 24 hours of posting
+			<br>- You cannot change an acceptance or rejection after saving 
+			<br>- you must email the assignors (see instructions on referee login page) immediately if you make an error 
+			<br>  or have a change in plans 
+			<!--- <br>- Click on the Game number to Edit Game
+			<br>- "Y" under RPT in the last column signifies Referee Report for the game has been submitted
+			<br>CNFM=Ref Accepted, RPT=Referee Report Submitted
+			<CFIF SESSION.menuRoleID EQ 25> <!--- logged in as referee, using referee menu --->
+				<br>- To Accept game assignment, mark the check box and then press accept at the bottom of the page
+				<br>- Red carded player's passes are to be mailed to the league office with your game rosters 
+			</cfif> --->
+		</span>
+	</td>
+	<td colspan="3" align="right" valign="bottom">
+		Sort:
+		<select name="sortBy">
+			<option value="DATE" 	<cfif sortBy EQ "DATE">selected</cfif> >	Game Date</option>
+			<option value="GAME" 	<cfif sortBy EQ "GAME">selected</cfif> >	Game Number</option>
+			<option value="DIV" 	<cfif sortBy EQ "DIV">selected</cfif> > 	Division</option>
+			<option value="VISITOR" <cfif sortBy EQ "VISITOR">selected</cfif> > Visting Team</option>
+			<option value="HOME" 	<cfif sortBy EQ "HOME">selected</cfif> >    Home Team</option>
+			<option value="PLAYFIELD" <cfif sortBy EQ "PLAYFIELD">selected</cfif> > Play Field</option>
+		</select>
+		<input type="submit" name="resort" value="Resort">
+	</td>
+</tr>
+<tr class="tblHeading">
+	<TD width="18%" valign="bottom">Date/Time	</TD>
+    <TD width="06%" valign="bottom">Game		</TD>
+    <TD width="07%" valign="bottom">Div		</TD>
+	<TD width="18%" valign="bottom">PlayField 	</TD>
+	<TD width="26%" valign="bottom">Home Team <br> Visitor Team	</TD>
+	<TD width="15%" valign="bottom">Refs	</TD>
+	<TD width="05%" valign="bottom" align="left">Accept	</TD>
+	<TD width="05%" valign="bottom" align="left">Reject	</TD>
+	<!--- <TD width="05%" valign="bottom">Rpt	</TD> --->
+</TR>
+</table>
+
+<cfif qGetRefGames.RECORDCOUNT >
+	<cfif qGetRefGames.RECORDCOUNT LTE 7>
+		<!--- up to 7 rows, expand, over 7 default size and scroll --->
+		<cfset divHeight = qGetRefGames.RECORDCOUNT * 70>
+	<cfelse>
+		<cfset divHeight = "500">
+	</cfif>
+	<div style="overflow:auto; height:#divHeight#px; border:1px ##cccccc solid;"> 
+	<table cellspacing="0" cellpadding="3" border="0" width="800px" align="left" >
+		<CFLOOP query="qGetRefGames">
+			<tr bgcolor="###setRowColor(SESSION.sitevars.altColors,currentRow)#">
+				<TD width="17%"  class="tdUnderLine" valign="top" align="left">
+					#dateFormat(GAME_DATE,"ddd")#&nbsp;&nbsp;#dateFormat(GAME_DATE,"mm/dd/yy")#&nbsp;&nbsp;#timeFormat(GAME_TIME,"hh:mm tt")# 
+					<!--- <br>#repeatString("&nbsp;",23)# #timeFormat(GAME_TIME,"hh:mm tt")# --->
+				</TD>
+				<TD width="06%"  class="tdUnderLine" valign="top" align="left">#GAME_ID#</TD>
+				<TD width="06%" class="tdUnderLine" valign="top" >#DIVISION#</TD>
+				<TD width="18%" class="tdUnderLine" valign="top">
+						<a href="fieldDirPop.cfm?fid=#FIELD_ID#" target="_blank">#FieldAbbr#</a>
+				</TD>
+				<TD width="25%" class="tdUnderLine" valign="top">
+							#Home_TEAMNAME#		<!--- (#Forfeit_Home#) --->
+						<br>#VISITOR_TEAMNAME#	<!--- (#Forfeit_Visitor#)  --->
+				</TD>
+				<TD width="25%" colspan="2" class="tdUnderLine" valign="top" align=left>
+						<!--- Start INNER table --->
+						<table align="left" width="100%" border="0" cellpadding="0" cellspacing="0">
+							<!--- ref ref ref ref ref ref ref ref ref ref --->
+							<tr><td width="77%">
+									REF:
+									<cfif len(trim(RefID))>
+										<cfinvoke component="#SESSION.SITEVARS.cfcPath#CONTACT" method="getContactInfo" returnvariable="qContactInfo">
+											<cfinvokeargument name="contactID" value="#RefID#">
+										</cfinvoke>
+										<cfif qContactInfo.recordCount>
+											<cfif refID EQ refereeContactID> 
+												<b>#qContactInfo.LastName#, #qContactInfo.firstName#</b>
+											<cfelse>
+												#qContactInfo.LastName#, #qContactInfo.firstName#
+											</cfif>
+										<cfelse>
+											n/a
+										</cfif>
+									</cfif> <!--- [#REFID#][#Ref_accept_Date#][#Ref_accept_YN#] --->
+								</td>
+								<td><!--- Ref Accept --->
+									<cfif Ref_accept_YN EQ "Y"> <!--- ref accepted, set checked and disable --->
+										<cfset txtDisable = "disabled">	   	
+										<cfset txtChecked = "checked">
+									<cfelseif Ref_accept_YN EQ "N"> <!--- ref rejected, set checked and disable --->
+										<cfset txtDisable = "disabled">
+										<cfset txtChecked = "">
+									<cfelse>						<!--- ref took no action uncheck and able --->
+										<cfset txtDisable = "">
+										<cfset txtChecked = "">
+									</cfif>
+									<cfif refID EQ refereeContactID and len(trim(txtDisable)) EQ 0> 
+										<!--- this REF is the logged in user, let box be checkable --->	
+										<cfset txtName	  = "name='CONFIRM_REF_" & GAME_ID & "'">
+									<cfelse>
+										<cfset txtName	  = "">		<!--- this REF is NOT the logged in user, disable the box --->
+										<cfset txtDisable = "disabled">
+									</cfif>
+									<input type="checkbox" #txtDisable# #txtChecked# #txtName#> 
+								</td>
+								<td><!--- Ref Reject --->
+									<cfif Ref_accept_YN EQ "Y"> <!--- ref accepted, set checked and disable --->
+										<cfset txtDisable = "disabled">	   	
+										<cfset txtChecked = "">
+									<cfelseif Ref_accept_YN EQ "N"> <!--- ref rejected, set checked and disable --->
+										<cfset txtDisable = "disabled">
+										<cfset txtChecked = "checked">
+									<cfelse>						<!--- ref took no action uncheck and able --->
+										<cfset txtDisable = "">
+										<cfset txtChecked = "">
+									</cfif>
+									<cfif refID EQ refereeContactID and len(trim(txtDisable)) EQ 0> 
+										<!--- this REF is the logged in user, let box be checkable --->	
+										<cfset txtName	  = "name='REJECT_REF_" & GAME_ID & "'">
+									<cfelse>
+										<cfset txtName	  = "">		<!--- this REF is NOT the logged in user, disable the box --->
+										<cfset txtDisable = "disabled">
+									</cfif>
+									<input type="checkbox" #txtDisable# #txtChecked# #txtName#> 
+								</td>
+								<!--- <td><cfif refID EQ refereeContactID> <!--- Ref Conf --->
+										<input type="checkbox" <cfif len(trim(Ref_accept_Date)) AND isDate(Ref_accept_Date) AND Ref_accept_YN EQ "N" > disabled checked</cfif> name="REJECT_REF_#GAME_ID#">
+									<cfelse>
+										<input type="checkbox" disabled <cfif len(trim(Ref_accept_Date)) AND isDate(Ref_accept_Date) AND Ref_accept_YN EQ "N" >checked</cfif> > 
+									</cfif>
+								</td> --->
+							</tr>
+							<!--- AR1 AR1 AR1 AR1 AR1 AR1 AR1 AR1 AR1 AR1 AR1 AR1 AR1 AR1 AR1 --->
+							<tr><td>AR1:
+									<cfif len(trim(AsstRefId1))>
+										<cfinvoke component="#SESSION.SITEVARS.cfcPath#CONTACT" method="getContactInfo" returnvariable="qContactInfo1">
+											<cfinvokeargument name="contactID" value="#AsstRefId1#">
+										</cfinvoke>
+										<cfif qContactInfo1.recordCount>
+											<cfif AsstRefId1 EQ refereeContactID> 
+												<b>#qContactInfo1.LastName#, #qContactInfo1.firstName#</b>
+											<cfelse>
+												#qContactInfo1.LastName#, #qContactInfo1.firstName#
+											</cfif>
+										<cfelse>
+											n/a
+										</cfif>
+									</cfif><!---  [#AsstRefID1#][#ARef1AcptDate#][#ARef1Acpt_YN#] --->
+								</td>
+								<!--- <td><cfif AsstRefId1 EQ refereeContactID> <!--- AssRef 1 Conf --->
+										<input type="checkbox" <cfif len(trim(ARef1AcptDate)) AND isDate(ARef1AcptDate) AND ARef1Acpt_YN EQ "Y"> disabled checked</cfif> name="CONFIRM_AR1_#GAME_ID#">
+									<cfelse>  <input type="checkbox" disabled <cfif len(trim(ARef1AcptDate)) AND isDate(ARef1AcptDate) AND ARef1Acpt_YN EQ "Y">checked</cfif> >
+									</cfif>
+								</td>
+								<td><cfif AsstRefId1 EQ refereeContactID> <!--- AssRef 1 Conf --->
+										<input type="checkbox" <cfif len(trim(ARef1AcptDate)) AND isDate(ARef1AcptDate) AND ARef1Acpt_YN EQ "N"> disabled checked</cfif> name="REJECT_AR1_#GAME_ID#">
+									<cfelse>  <input type="checkbox" disabled <cfif len(trim(ARef1AcptDate)) AND isDate(ARef1AcptDate) AND ARef1Acpt_YN EQ "N">checked</cfif> >
+									</cfif>
+								</td> --->
+								<td><!--- AR_1 Accept --->
+									<cfif ARef1Acpt_YN EQ "Y"> <!--- ref accepted, set checked and disable --->
+										<cfset txtDisable = "disabled">	   	
+										<cfset txtChecked = "checked">
+									<cfelseif ARef1Acpt_YN EQ "N"> <!--- ref rejected, set checked and disable --->
+										<cfset txtDisable = "disabled">
+										<cfset txtChecked = "">
+									<cfelse>						<!--- ref took no action uncheck and able --->
+										<cfset txtDisable = "">
+										<cfset txtChecked = "">
+									</cfif>
+									<cfif AsstRefId1 EQ refereeContactID and len(trim(txtDisable)) EQ 0> 
+										<!--- this REF is the logged in user, let box be checkable --->	
+										<cfset txtName	  = "name='CONFIRM_AR1_" & GAME_ID & "'">
+									<cfelse>
+										<cfset txtName	  = "">		<!--- this REF is NOT the logged in user, disable the box --->
+										<cfset txtDisable = "disabled">
+									</cfif>
+									<input type="checkbox" #txtDisable# #txtChecked# #txtName#> 
+								</td>
+								<td><!--- AR_1 Reject --->
+									<cfif ARef1Acpt_YN EQ "Y"> <!--- ref accepted, set checked and disable --->
+										<cfset txtDisable = "disabled">	   	
+										<cfset txtChecked = "">
+									<cfelseif ARef1Acpt_YN EQ "N"> <!--- ref rejected, set checked and disable --->
+										<cfset txtDisable = "disabled">
+										<cfset txtChecked = "checked">
+									<cfelse>						<!--- ref took no action uncheck and able --->
+										<cfset txtDisable = "">
+										<cfset txtChecked = "">
+									</cfif>
+									<cfif AsstRefId1 EQ refereeContactID and len(trim(txtDisable)) EQ 0> 
+										<!--- this REF is the logged in user, let box be checkable --->	
+										<cfset txtName	  = "name='REJECT_AR1_" & GAME_ID & "'">
+									<cfelse>
+										<cfset txtName	  = "">		<!--- this REF is NOT the logged in user, disable the box --->
+										<cfset txtDisable = "disabled">
+									</cfif>
+									<input type="checkbox" #txtDisable# #txtChecked# #txtName#> 
+								</td>
+							</tr>
+							<tr><td>AR2:
+									<cfif len(trim(AsstRefId2))>
+										<cfinvoke component="#SESSION.SITEVARS.cfcPath#CONTACT" method="getContactInfo" returnvariable="qContactInfo2">
+											<cfinvokeargument name="contactID" value="#AsstRefId2#">
+										</cfinvoke>
+										<cfif qContactInfo2.recordCount>
+											<cfif AsstRefId2 EQ refereeContactID> 
+												<b>#qContactInfo2.LastName#, #qContactInfo2.firstName#</b>
+											<cfelse>
+												#qContactInfo2.LastName#, #qContactInfo2.firstName#
+											</cfif>
+										<cfelse>
+											n/a
+										</cfif>
+									</cfif> <!--- [#AsstRefID2#][#ARef2AcptDate#][#ARef2Acpt_YN#] --->
+								</td>
+								<!--- <td><cfif AsstRefId2 EQ refereeContactID> <!--- AssRef 2 Conf --->
+										<input type="checkbox" <cfif len(trim(ARef2AcptDate)) AND isDate(ARef2AcptDate) AND ARef2Acpt_YN EQ "Y">disabled checked</cfif> name="CONFIRM_AR2_#GAME_ID#">
+									<cfelse>	<input type="checkbox" disabled <cfif len(trim(ARef2AcptDate)) AND isDate(ARef2AcptDate) AND ARef2Acpt_YN EQ "Y">checked</cfif> >
+									</cfif>
+								</td>
+								<td><cfif AsstRefId2 EQ refereeContactID> <!--- AssRef 2 Conf --->
+										<input type="checkbox" <cfif len(trim(ARef2AcptDate)) AND isDate(ARef2AcptDate) AND ARef2Acpt_YN EQ "N">disabled checked</cfif> name="REJECT_AR2_#GAME_ID#">
+									<cfelse>	<input type="checkbox" disabled <cfif len(trim(ARef2AcptDate)) AND isDate(ARef2AcptDate) AND ARef2Acpt_YN EQ "N">checked</cfif> >
+									</cfif>
+								</td> --->
+								<td><!--- AR_2 Accept --->
+									<cfif ARef2Acpt_YN EQ "Y"> <!--- ref accepted, set checked and disable --->
+										<cfset txtDisable = "disabled">	   	
+										<cfset txtChecked = "checked">
+									<cfelseif ARef2Acpt_YN EQ "N"> <!--- ref rejected, set checked and disable --->
+										<cfset txtDisable = "disabled">
+										<cfset txtChecked = "">
+									<cfelse>						<!--- ref took no action uncheck and able --->
+										<cfset txtDisable = "">
+										<cfset txtChecked = "">
+									</cfif>
+									<cfif AsstRefId2 EQ refereeContactID and len(trim(txtDisable)) EQ 0> 
+										<!--- this REF is the logged in user, let box be checkable --->	
+										<cfset txtName	  = "name='CONFIRM_AR2_" & GAME_ID & "'">
+									<cfelse>
+										<cfset txtName	  = "">		<!--- this REF is NOT the logged in user, disable the box --->
+										<cfset txtDisable = "disabled">
+									</cfif>
+									<input type="checkbox" #txtDisable# #txtChecked# #txtName#> 
+								</td>
+								<td><!--- AR_2 Reject --->
+									<cfif ARef2Acpt_YN EQ "Y"> <!--- ref accepted, set checked and disable --->
+										<cfset txtDisable = "disabled">	   	
+										<cfset txtChecked = "">
+									<cfelseif ARef2Acpt_YN EQ "N"> <!--- ref rejected, set checked and disable --->
+										<cfset txtDisable = "disabled">
+										<cfset txtChecked = "checked">
+									<cfelse>						<!--- ref took no action uncheck and able --->
+										<cfset txtDisable = "">
+										<cfset txtChecked = "">
+									</cfif>
+									<cfif AsstRefId2 EQ refereeContactID and len(trim(txtDisable)) EQ 0> 
+										<!--- this REF is the logged in user, let box be checkable --->	
+										<cfset txtName	  = "name='REJECT_AR2_" & GAME_ID & "'">
+									<cfelse>
+										<cfset txtName	  = "">		<!--- this REF is NOT the logged in user, disable the box --->
+										<cfset txtDisable = "disabled">
+									</cfif>
+									<input type="checkbox" #txtDisable# #txtChecked# #txtName#> 
+								</td>
+							</tr>
+							</tr>
+						</table><!--- End INNER table --->
+				</TD>
+				<!--- <td valign="top" class="tdUnderLine"> 
+					<cfquery name="qRefRpt" datasource="#SESSION.DSN#">
+						SELECT  Game_ID, StartTime
+						  FROM  TBL_REFEREE_RPT_HEADER
+						 WHERE  Game_ID = #GAME_ID#
+					</cfquery>
+					<cfif qRefRpt.RECORDCOUNT>
+							<!--- <cfif ucase(trim(Session("RoleCode"))) = "ASSTADMIN"    or ucase(trim(Session("RoleCode"))) = "PRESIDENT" 
+							   or ucase(trim(Session("RoleCode"))) = "GAMESCHAIR"   or ucase(trim(Session("RoleCode"))) = "GAMECONDCH" 
+							   or ucase(trim(Session("RoleCode"))) = "REFDEVELCO" 
+							   or ucase(Trim(Session("UserID"))) = "DOUGHERTYTOM"   or ucase(Trim(Session("UserID"))) = "KRAMERCHUCK" 
+							   or selBy = "REF"> --->
+							
+							<cfif listFind("1,2,19,20,21",SESSION.MENUROLEID)> <!--- 1=ASSTADMIN, 2=PRESIDENT, 19=GAMESCHAIR, 20=GAMECONDCH, 21=REFDEVELCO --->
+								<a href="xxxxx.cfm?GameId=#GAME_ID#&RefID=#GameRefID#"><b>Y</b></a>
+							<cfelse>
+								<b>Y</b>
+							</cfif>
+					<cfelse>
+						&nbsp;
+					</cfif>
+				</td> --->
+			</TR>
+		 </CFLOOP>
+	</TABLE>
+	</div>
+
+	<table cellspacing="0" cellpadding="5" align="left" border="0" width="825px" >
+	<tr><td colspan="7" align="center">
+			<input type="Submit" name="Accept" value="Submit"> 
+		</td>
+	</tr>
+	</Table>
+</CFIF>
+
+
+</cfoutput>
+</div>
+<cfinclude template="_footer.cfm">
+

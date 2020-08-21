@@ -1,0 +1,2944 @@
+123 Log Analyzer Report
+Domain name:NCSA 2009
+Using Filter: 
+generated on Mon Jul 13 10:14:11 2009
+
+Time Period:01/Jan/2009:00:01:02 - 13/Jul/2009:14:12:57 total 194 day(s)
+
+General Statistics
+Total Hits,5112439
+Total Cached Hits,5112439
+Average Hits Per Day,26352
+Average Hits Per Hour,1100
+Average Hits Per Visitor,13.8
+Average Data Transferred per Hit,0.0 KB
+Total Visitors,371052
+Average Visitors Per Day ,1912
+Average Time Spent,323 Seconds
+Average PageViews per visitor,5.36
+Average Downloads per visitor,0.04
+Average Data Transferred per Visitor,0.0 KB
+Total Uniq IPs,41445
+Visitors Who Visit Once,22139
+Visitors Who Visit more than Once,19306
+Total PageViews,1990090
+Average PageViews Per Day,10258
+Total File Downloads,14215
+Average File Downloads Per Day,73
+Total Images,2139782
+Average Images Per Day,11029
+Total failed requests,265742
+Total Incomplete File downloads requests,966
+Number of visitors bookmarked your web site,183973
+Total Data Transferred,0.00 KB
+Average Data Transferred per Day,0.00 KB
+
+
+Access Report
+Daily Report
+Date,Hits,Visitors,Uniq IPs,Data Transferred(KB)
+Thu Jan 01 2009,3363,461,279,0
+Fri Jan 02 2009,5713,611,380,0
+Sat Jan 03 2009,4468,529,329,0
+Sun Jan 04 2009,4725,607,357,0
+Mon Jan 05 2009,11146,848,522,0
+Tue Jan 06 2009,7589,711,481,0
+Wed Jan 07 2009,8056,691,436,0
+Thu Jan 08 2009,7411,799,478,0
+Fri Jan 09 2009,9187,669,431,0
+Sat Jan 10 2009,4031,590,368,0
+Sun Jan 11 2009,4268,560,323,0
+Mon Jan 12 2009,7414,719,490,0
+Tue Jan 13 2009,5499,529,342,0
+Wed Jan 14 2009,6116,652,440,0
+Thu Jan 15 2009,6709,593,402,0
+Fri Jan 16 2009,5727,544,377,0
+Sat Jan 17 2009,4630,499,345,0
+Sun Jan 18 2009,3992,518,335,0
+Mon Jan 19 2009,8274,659,420,0
+Tue Jan 20 2009,12042,908,541,0
+Wed Jan 21 2009,11371,753,462,0
+Thu Jan 22 2009,13311,945,557,0
+Fri Jan 23 2009,15272,1059,613,0
+Sat Jan 24 2009,12579,852,507,0
+Sun Jan 25 2009,7102,715,450,0
+Mon Jan 26 2009,14632,1094,706,0
+Tue Jan 27 2009,11604,897,579,0
+Wed Jan 28 2009,10498,854,585,0
+Thu Jan 29 2009,8837,845,548,0
+Fri Jan 30 2009,6859,808,511,0
+Sat Jan 31 2009,5359,581,383,0
+Sun Feb 01 2009,9461,886,472,0
+Mon Feb 02 2009,22220,1630,759,0
+Tue Feb 03 2009,27818,1624,926,0
+Wed Feb 04 2009,17817,1244,809,0
+Thu Feb 05 2009,11927,1027,662,0
+Fri Feb 06 2009,12937,946,630,0
+Sat Feb 07 2009,7778,709,443,0
+Sun Feb 08 2009,8090,727,459,0
+Mon Feb 09 2009,16871,1170,789,0
+Tue Feb 10 2009,14147,1159,711,0
+Wed Feb 11 2009,13818,1068,664,0
+Thu Feb 12 2009,12444,950,621,0
+Fri Feb 13 2009,10235,861,568,0
+Sat Feb 14 2009,7679,766,463,0
+Sun Feb 15 2009,6803,640,422,0
+Mon Feb 16 2009,8969,790,506,0
+Tue Feb 17 2009,11736,966,652,0
+Wed Feb 18 2009,9021,859,546,0
+Thu Feb 19 2009,9027,887,583,0
+Fri Feb 20 2009,10282,844,564,0
+Sat Feb 21 2009,7309,695,462,0
+Sun Feb 22 2009,8979,938,567,0
+Mon Feb 23 2009,13588,1075,698,0
+Tue Feb 24 2009,12302,1007,676,0
+Wed Feb 25 2009,14672,1161,762,0
+Thu Feb 26 2009,13204,1065,715,0
+Fri Feb 27 2009,11970,996,653,0
+Sat Feb 28 2009,11279,968,608,0
+Sun Mar 01 2009,12447,1024,647,0
+Mon Mar 02 2009,18497,1487,957,0
+Tue Mar 03 2009,16768,1408,891,0
+Wed Mar 04 2009,17837,1437,933,0
+Thu Mar 05 2009,16047,1312,823,0
+Fri Mar 06 2009,19237,1370,839,0
+Sat Mar 07 2009,14775,1220,714,0
+Sun Mar 08 2009,14640,1159,762,0
+Mon Mar 09 2009,22481,1653,1048,0
+Tue Mar 10 2009,21009,1489,992,0
+Wed Mar 11 2009,18785,1663,1031,0
+Thu Mar 12 2009,41153,2273,1418,0
+Fri Mar 13 2009,38635,2471,1607,0
+Sat Mar 14 2009,21291,1648,1066,0
+Sun Mar 15 2009,20743,1624,1079,0
+Mon Mar 16 2009,36877,2513,1701,0
+Tue Mar 17 2009,30009,2131,1423,0
+Wed Mar 18 2009,27964,1978,1314,0
+Thu Mar 19 2009,26115,1834,1222,0
+Fri Mar 20 2009,25381,1840,1213,0
+Sat Mar 21 2009,16375,1344,922,0
+Sun Mar 22 2009,22254,1771,1185,0
+Mon Mar 23 2009,44127,2814,1899,0
+Tue Mar 24 2009,39441,2665,1724,0
+Wed Mar 25 2009,37819,2676,1690,0
+Thu Mar 26 2009,45337,2832,1692,0
+Fri Mar 27 2009,36235,2463,1624,0
+Sat Mar 28 2009,34772,2464,1608,0
+Sun Mar 29 2009,87530,5340,3049,0
+Mon Mar 30 2009,64876,4013,2299,0
+Tue Mar 31 2009,40288,2664,1688,0
+Wed Apr 01 2009,38098,2620,1689,0
+Thu Apr 02 2009,39457,2564,1619,0
+Fri Apr 03 2009,36816,2513,1638,0
+Sat Apr 04 2009,35716,2482,1614,0
+Sun Apr 05 2009,60685,4318,2635,0
+Mon Apr 06 2009,66729,4122,2394,0
+Tue Apr 07 2009,37542,2647,1647,0
+Wed Apr 08 2009,32194,2273,1405,0
+Thu Apr 09 2009,26234,1914,1229,0
+Fri Apr 10 2009,20791,1588,1002,0
+Sat Apr 11 2009,17078,1447,918,0
+Sun Apr 12 2009,12166,1067,716,0
+Mon Apr 13 2009,32757,2354,1468,0
+Tue Apr 14 2009,35227,2411,1511,0
+Wed Apr 15 2009,31790,2342,1473,0
+Thu Apr 16 2009,31803,2254,1445,0
+Fri Apr 17 2009,30550,2096,1480,0
+Sat Apr 18 2009,29860,2255,1579,0
+Sun Apr 19 2009,66793,4563,2935,0
+Mon Apr 20 2009,76780,4697,2581,0
+Tue Apr 21 2009,44251,3014,1974,0
+Wed Apr 22 2009,37888,2742,1742,0
+Thu Apr 23 2009,32818,2383,1562,0
+Fri Apr 24 2009,33572,2498,1647,0
+Sat Apr 25 2009,28386,2199,1500,0
+Sun Apr 26 2009,56669,4049,2582,0
+Mon Apr 27 2009,62156,3952,2335,0
+Tue Apr 28 2009,40871,2750,1753,0
+Wed Apr 29 2009,38714,2650,1703,0
+Thu Apr 30 2009,30431,2342,1547,0
+Fri May 01 2009,35519,2581,1711,0
+Sat May 02 2009,33628,2619,1724,0
+Sun May 03 2009,89976,5881,3385,0
+Mon May 04 2009,75277,4665,2699,0
+Tue May 05 2009,43593,3000,1934,0
+Wed May 06 2009,35357,2649,1674,0
+Thu May 07 2009,39301,2913,1843,0
+Fri May 08 2009,35385,2615,1749,0
+Sat May 09 2009,39010,2797,1789,0
+Sun May 10 2009,67408,4799,3059,0
+Mon May 11 2009,75575,4707,2707,0
+Tue May 12 2009,47720,3329,2108,0
+Wed May 13 2009,42346,2906,1836,0
+Thu May 14 2009,37323,2713,1783,0
+Fri May 15 2009,37631,2711,1763,0
+Sat May 16 2009,37715,2830,1846,0
+Sun May 17 2009,81476,5485,3314,0
+Mon May 18 2009,68968,4495,2665,0
+Tue May 19 2009,36798,2660,1771,0
+Wed May 20 2009,28005,2285,1491,0
+Thu May 21 2009,24207,1984,1335,0
+Fri May 22 2009,18747,1558,1082,0
+Sat May 23 2009,9814,935,665,0
+Sun May 24 2009,9865,967,678,0
+Mon May 25 2009,14432,1289,874,0
+Tue May 26 2009,39249,2771,1804,0
+Wed May 27 2009,35017,2569,1639,0
+Thu May 28 2009,42001,2765,1767,0
+Fri May 29 2009,47128,2847,1809,0
+Sat May 30 2009,34592,2705,1822,0
+Sun May 31 2009,70443,4872,3115,0
+Mon Jun 01 2009,76897,4890,2738,0
+Tue Jun 02 2009,44478,3314,2017,0
+Wed Jun 03 2009,46456,3288,1949,0
+Thu Jun 04 2009,36732,2748,1733,0
+Fri Jun 05 2009,43308,3055,1868,0
+Sat Jun 06 2009,33767,2576,1699,0
+Sun Jun 07 2009,69481,4973,3226,0
+Mon Jun 08 2009,72820,4649,2737,0
+Tue Jun 09 2009,49432,3294,2049,0
+Wed Jun 10 2009,35207,2561,1626,0
+Thu Jun 11 2009,38395,2722,1692,0
+Fri Jun 12 2009,33111,2447,1549,0
+Sat Jun 13 2009,31804,2402,1551,0
+Sun Jun 14 2009,63080,4487,2756,0
+Mon Jun 15 2009,64905,4234,2368,0
+Tue Jun 16 2009,35456,2630,1648,0
+Wed Jun 17 2009,26621,2160,1323,0
+Thu Jun 18 2009,25539,2063,1296,0
+Fri Jun 19 2009,18762,1510,1009,0
+Sat Jun 20 2009,12873,1185,796,0
+Sun Jun 21 2009,14329,1276,822,0
+Mon Jun 22 2009,21218,1754,1156,0
+Tue Jun 23 2009,19133,1502,973,0
+Wed Jun 24 2009,17234,1367,900,0
+Thu Jun 25 2009,14721,1214,808,0
+Fri Jun 26 2009,18564,1269,808,0
+Sat Jun 27 2009,7580,734,472,0
+Sun Jun 28 2009,5721,651,450,0
+Mon Jun 29 2009,11946,1073,702,0
+Tue Jun 30 2009,12194,952,630,0
+Wed Jul 01 2009,9347,841,579,0
+Thu Jul 02 2009,8575,875,590,0
+Fri Jul 03 2009,6545,667,469,0
+Sat Jul 04 2009,3234,407,286,0
+Sun Jul 05 2009,3832,492,328,0
+Mon Jul 06 2009,9757,793,510,0
+Tue Jul 07 2009,9380,846,552,0
+Wed Jul 08 2009,9187,839,540,0
+Thu Jul 09 2009,9025,768,519,0
+Fri Jul 10 2009,9127,782,500,0
+Sat Jul 11 2009,4901,520,336,0
+Sun Jul 12 2009,4785,504,316,0
+Mon Jul 13 2009,4740,392,311,0
+Weekly Report
+Day of week,Hits, Visitors,Uniq IPs,Data Transferred(KB)
+ Sunday,887743,64893,15790,0
+Monday,1024929,68531,14571,0
+Tuesday,745576,53278,12988,0
+Wednesday,657235,49128,12350,0
+Thursday,651447,48045,12242,0
+Friday,633226,46219,12366,0
+Saturday,512283,40958,11914,0
+Hourly Report
+Hour of day,Hits,Visitors,Uniq IPs,Data Transferred(KB)00:00-00:59,324278,22069,7779,0
+01:00-01:59,323252,21831,7704,0
+02:00-02:59,276468,19441,6901,0
+03:00-03:59,165854,12570,4999,0
+04:00-04:59,82517,6752,3094,0
+05:00-05:59,34590,3745,1853,0
+06:00-06:59,16657,2325,1211,0
+07:00-07:59,11738,2092,1082,0
+08:00-08:59,11789,2165,1028,0
+09:00-09:59,23126,3083,1333,0
+10:00-10:59,73810,6694,2536,0
+11:00-11:59,184042,14279,5183,0
+12:00-12:59,301670,20853,7250,0
+13:00-13:59,361540,24737,8751,0
+14:00-14:59,352976,24387,8875,0
+15:00-15:59,343187,23513,8791,0
+16:00-16:59,316679,21952,8335,0
+17:00-17:59,316429,21325,8159,0
+18:00-18:59,296169,20769,7951,0
+19:00-19:59,295300,21103,8018,0
+20:00-20:59,294169,21402,8157,0
+21:00-21:59,268326,19786,7677,0
+22:00-22:59,225870,17075,7078,0
+23:00-23:59,212003,17104,6914,0
+Daily Pageviews Report
+Date,Pageviews,Total Visitor Stay Length,Average Visitor Stay Length
+Thu Jan 01 2009,1452,1 days 16 hours 29 mins 37 secs,5 mins 16 secs
+Fri Jan 02 2009,2659,1 days 16 hours 34 mins 35 secs,3 mins 59 secs
+Sat Jan 03 2009,1858,1 days 19 hours 50 mins 10 secs,4 mins 58 secs
+Sun Jan 04 2009,2059,1 days 16 hours 38 mins 37 secs,4 mins 1 secs
+Mon Jan 05 2009,4577,2 days 16 hours 2 mins 12 secs,4 mins 31 secs
+Tue Jan 06 2009,3003,2 days 5 hours 20 mins 5 secs,4 mins 30 secs
+Wed Jan 07 2009,4077,2 days 18 hours 4 mins 18 secs,5 mins 44 secs
+Thu Jan 08 2009,3571,2 days 14 hours 55 mins 43 secs,4 mins 43 secs
+Fri Jan 09 2009,3801,2 days 2 hours 45 mins 16 secs,4 mins 33 secs
+Sat Jan 10 2009,1798,1 days 16 hours 13 mins 11 secs,4 mins 5 secs
+Sun Jan 11 2009,1716,1 days 10 hours 0 mins 56 secs,3 mins 38 secs
+Mon Jan 12 2009,3175,1 days 18 hours 18 mins 35 secs,3 mins 31 secs
+Tue Jan 13 2009,2221,1 days 12 hours 19 mins 19 secs,4 mins 7 secs
+Wed Jan 14 2009,2338,1 days 17 hours 51 mins 58 secs,3 mins 51 secs
+Thu Jan 15 2009,3004,2 days 4 hours 57 mins 29 secs,5 mins 21 secs
+Fri Jan 16 2009,2381,2 days 0 hours 10 mins 40 secs,5 mins 18 secs
+Sat Jan 17 2009,2019,1 days 22 hours 0 mins 55 secs,5 mins 31 secs
+Sun Jan 18 2009,1595,1 days 7 hours 47 mins 42 secs,3 mins 40 secs
+Mon Jan 19 2009,4078,2 days 15 hours 33 mins 10 secs,5 mins 47 secs
+Tue Jan 20 2009,5624,3 days 18 hours 39 mins 55 secs,5 mins 59 secs
+Wed Jan 21 2009,5429,3 days 8 hours 50 mins 54 secs,6 mins 26 secs
+Thu Jan 22 2009,7057,4 days 6 hours 29 mins 7 secs,6 mins 30 secs
+Fri Jan 23 2009,7767,4 days 7 hours 15 mins 23 secs,5 mins 51 secs
+Sat Jan 24 2009,6029,3 days 21 hours 38 mins 27 secs,6 mins 35 secs
+Sun Jan 25 2009,3003,2 days 11 hours 19 mins 25 secs,4 mins 58 secs
+Mon Jan 26 2009,6528,3 days 18 hours 47 mins 30 secs,4 mins 58 secs
+Tue Jan 27 2009,4933,3 days 1 hours 46 mins 32 secs,4 mins 56 secs
+Wed Jan 28 2009,3814,3 days 6 hours 19 mins 49 secs,5 mins 30 secs
+Thu Jan 29 2009,3626,3 days 3 hours 27 mins 32 secs,5 mins 21 secs
+Fri Jan 30 2009,2681,2 days 2 hours 26 mins 26 secs,3 mins 44 secs
+Sat Jan 31 2009,2068,2 days 3 hours 28 mins 46 secs,5 mins 18 secs
+Sun Feb 01 2009,3318,2 days 21 hours 36 mins 40 secs,4 mins 42 secs
+Mon Feb 02 2009,7834,6 days 7 hours 6 mins 37 secs,5 mins 33 secs
+Tue Feb 03 2009,12525,7 days 10 hours 36 mins 5 secs,6 mins 35 secs
+Wed Feb 04 2009,7757,4 days 23 hours 28 mins 43 secs,5 mins 45 secs
+Thu Feb 05 2009,5151,3 days 4 hours 39 mins 26 secs,4 mins 28 secs
+Fri Feb 06 2009,5026,3 days 2 hours 14 mins 37 secs,4 mins 42 secs
+Sat Feb 07 2009,3189,2 days 2 hours 20 mins 7 secs,4 mins 15 secs
+Sun Feb 08 2009,3148,2 days 8 hours 2 mins 57 secs,4 mins 37 secs
+Mon Feb 09 2009,7051,4 days 6 hours 49 mins 51 secs,5 mins 16 secs
+Tue Feb 10 2009,6162,4 days 5 hours 11 mins 11 secs,5 mins 14 secs
+Wed Feb 11 2009,5667,4 days 0 hours 55 mins 41 secs,5 mins 26 secs
+Thu Feb 12 2009,5217,3 days 14 hours 37 mins 59 secs,5 mins 28 secs
+Fri Feb 13 2009,4272,3 days 6 hours 45 mins 5 secs,5 mins 29 secs
+Sat Feb 14 2009,3270,2 days 21 hours 21 mins 0 secs,5 mins 25 secs
+Sun Feb 15 2009,2664,2 days 1 hours 27 mins 11 secs,4 mins 38 secs
+Mon Feb 16 2009,3421,2 days 10 hours 39 mins 45 secs,4 mins 27 secs
+Tue Feb 17 2009,4538,3 days 7 hours 49 mins 45 secs,4 mins 57 secs
+Wed Feb 18 2009,3435,2 days 22 hours 5 mins 31 secs,4 mins 53 secs
+Thu Feb 19 2009,3902,3 days 0 hours 16 mins 16 secs,4 mins 53 secs
+Fri Feb 20 2009,4230,2 days 16 hours 48 mins 25 secs,4 mins 36 secs
+Sat Feb 21 2009,2995,2 days 9 hours 34 mins 9 secs,4 mins 58 secs
+Sun Feb 22 2009,4030,2 days 18 hours 11 mins 52 secs,4 mins 14 secs
+Mon Feb 23 2009,5439,2 days 22 hours 57 mins 47 secs,3 mins 57 secs
+Tue Feb 24 2009,5131,2 days 23 hours 17 mins 48 secs,4 mins 14 secs
+Wed Feb 25 2009,5920,3 days 5 hours 35 mins 5 secs,4 mins 0 secs
+Thu Feb 26 2009,5122,2 days 18 hours 25 mins 7 secs,3 mins 44 secs
+Fri Feb 27 2009,4783,2 days 16 hours 28 mins 39 secs,3 mins 53 secs
+Sat Feb 28 2009,4774,3 days 0 hours 27 mins 28 secs,4 mins 29 secs
+Sun Mar 01 2009,5127,3 days 12 hours 21 mins 42 secs,4 mins 56 secs
+Mon Mar 02 2009,7689,5 days 15 hours 44 mins 20 secs,5 mins 28 secs
+Tue Mar 03 2009,7028,4 days 7 hours 7 mins 19 secs,4 mins 23 secs
+Wed Mar 04 2009,7849,3 days 15 hours 41 mins 27 secs,3 mins 39 secs
+Thu Mar 05 2009,6738,3 days 22 hours 30 mins 10 secs,4 mins 19 secs
+Fri Mar 06 2009,8133,5 days 7 hours 31 mins 10 secs,5 mins 35 secs
+Sat Mar 07 2009,6869,4 days 8 hours 12 mins 1 secs,5 mins 7 secs
+Sun Mar 08 2009,6195,3 days 1 hours 29 mins 49 secs,3 mins 48 secs
+Mon Mar 09 2009,8836,4 days 11 hours 44 mins 14 secs,3 mins 54 secs
+Tue Mar 10 2009,6412,3 days 17 hours 46 mins 10 secs,3 mins 37 secs
+Wed Mar 11 2009,6595,3 days 13 hours 14 mins 46 secs,3 mins 4 secs
+Thu Mar 12 2009,15318,12 days 7 hours 42 mins 45 secs,7 mins 48 secs
+Fri Mar 13 2009,13902,11 days 11 hours 25 mins 20 secs,6 mins 41 secs
+Sat Mar 14 2009,7764,6 days 20 hours 27 mins 25 secs,5 mins 59 secs
+Sun Mar 15 2009,7754,6 days 16 hours 29 mins 1 secs,5 mins 55 secs
+Mon Mar 16 2009,13384,10 days 8 hours 59 mins 40 secs,5 mins 56 secs
+Tue Mar 17 2009,11698,8 days 7 hours 28 mins 1 secs,5 mins 36 secs
+Wed Mar 18 2009,10689,7 days 19 hours 31 mins 3 secs,5 mins 41 secs
+Thu Mar 19 2009,9525,7 days 5 hours 56 mins 39 secs,5 mins 41 secs
+Fri Mar 20 2009,9263,7 days 10 hours 36 mins 4 secs,5 mins 49 secs
+Sat Mar 21 2009,5760,4 days 18 hours 58 mins 33 secs,5 mins 7 secs
+Sun Mar 22 2009,8010,6 days 21 hours 43 mins 36 secs,5 mins 36 secs
+Mon Mar 23 2009,15830,11 days 23 hours 42 mins 50 secs,6 mins 8 secs
+Tue Mar 24 2009,14698,11 days 4 hours 44 mins 49 secs,6 mins 3 secs
+Wed Mar 25 2009,14107,10 days 12 hours 12 mins 54 secs,5 mins 39 secs
+Thu Mar 26 2009,18276,13 days 5 hours 5 mins 2 secs,6 mins 43 secs
+Fri Mar 27 2009,12980,9 days 21 hours 40 mins 29 secs,5 mins 47 secs
+Sat Mar 28 2009,12172,9 days 21 hours 12 mins 6 secs,5 mins 46 secs
+Sun Mar 29 2009,33693,25 days 13 hours 32 mins 15 secs,6 mins 53 secs
+Mon Mar 30 2009,27638,20 days 0 hours 5 mins 48 secs,7 mins 10 secs
+Tue Mar 31 2009,15811,11 days 2 hours 10 mins 54 secs,5 mins 59 secs
+Wed Apr 01 2009,14513,9 days 14 hours 2 mins 32 secs,5 mins 16 secs
+Thu Apr 02 2009,15315,11 days 3 hours 59 mins 42 secs,6 mins 16 secs
+Fri Apr 03 2009,14439,11 days 9 hours 20 mins 31 secs,6 mins 31 secs
+Sat Apr 04 2009,13523,10 days 12 hours 35 mins 38 secs,6 mins 6 secs
+Sun Apr 05 2009,22615,16 days 14 hours 17 mins 16 secs,5 mins 32 secs
+Mon Apr 06 2009,28652,20 days 13 hours 36 mins 59 secs,7 mins 11 secs
+Tue Apr 07 2009,15049,10 days 16 hours 16 mins 22 secs,5 mins 48 secs
+Wed Apr 08 2009,12321,8 days 4 hours 12 mins 23 secs,5 mins 10 secs
+Thu Apr 09 2009,9845,6 days 16 hours 26 mins 13 secs,5 mins 1 secs
+Fri Apr 10 2009,7960,5 days 4 hours 7 mins 47 secs,4 mins 41 secs
+Sat Apr 11 2009,6294,4 days 4 hours 59 mins 12 secs,4 mins 11 secs
+Sun Apr 12 2009,4296,3 days 8 hours 55 mins 19 secs,4 mins 33 secs
+Mon Apr 13 2009,12685,9 days 2 hours 13 mins 42 secs,5 mins 33 secs
+Tue Apr 14 2009,12873,9 days 2 hours 46 mins 59 secs,5 mins 26 secs
+Wed Apr 15 2009,11611,7 days 4 hours 3 mins 27 secs,4 mins 24 secs
+Thu Apr 16 2009,11729,8 days 2 hours 20 mins 6 secs,5 mins 10 secs
+Fri Apr 17 2009,10810,7 days 14 hours 4 mins 29 secs,5 mins 12 secs
+Sat Apr 18 2009,10459,7 days 18 hours 56 mins 8 secs,4 mins 58 secs
+Sun Apr 19 2009,23782,17 days 16 hours 4 mins 20 secs,5 mins 34 secs
+Mon Apr 20 2009,30315,23 days 13 hours 8 mins 59 secs,7 mins 13 secs
+Tue Apr 21 2009,18444,11 days 20 hours 36 mins 50 secs,5 mins 39 secs
+Wed Apr 22 2009,14771,9 days 17 hours 4 mins 37 secs,5 mins 6 secs
+Thu Apr 23 2009,12323,8 days 0 hours 44 mins 30 secs,4 mins 51 secs
+Fri Apr 24 2009,12503,8 days 21 hours 11 mins 42 secs,5 mins 7 secs
+Sat Apr 25 2009,9820,6 days 8 hours 44 mins 46 secs,4 mins 10 secs
+Sun Apr 26 2009,20157,14 days 2 hours 22 mins 0 secs,5 mins 0 secs
+Mon Apr 27 2009,25583,17 days 18 hours 54 mins 46 secs,6 mins 28 secs
+Tue Apr 28 2009,16628,10 days 19 hours 21 mins 0 secs,5 mins 39 secs
+Wed Apr 29 2009,14743,9 days 6 hours 31 mins 13 secs,5 mins 2 secs
+Thu Apr 30 2009,11388,7 days 13 hours 58 mins 59 secs,4 mins 39 secs
+Fri May 01 2009,13155,9 days 0 hours 38 mins 32 secs,5 mins 2 secs
+Sat May 02 2009,12407,9 days 2 hours 16 mins 55 secs,5 mins 0 secs
+Sun May 03 2009,33346,24 days 17 hours 25 mins 59 secs,6 mins 3 secs
+Mon May 04 2009,30875,22 days 17 hours 21 mins 55 secs,7 mins 0 secs
+Tue May 05 2009,16816,11 days 11 hours 34 mins 51 secs,5 mins 30 secs
+Wed May 06 2009,13516,9 days 22 hours 45 mins 43 secs,5 mins 24 secs
+Thu May 07 2009,14506,11 days 18 hours 38 mins 37 secs,5 mins 49 secs
+Fri May 08 2009,13029,9 days 11 hours 30 mins 19 secs,5 mins 13 secs
+Sat May 09 2009,14690,10 days 19 hours 38 mins 19 secs,5 mins 34 secs
+Sun May 10 2009,24962,18 days 10 hours 38 mins 39 secs,5 mins 32 secs
+Mon May 11 2009,31886,22 days 22 hours 10 mins 0 secs,7 mins 0 secs
+Tue May 12 2009,19259,13 days 7 hours 55 mins 40 secs,5 mins 45 secs
+Wed May 13 2009,15969,9 days 23 hours 6 mins 4 secs,4 mins 56 secs
+Thu May 14 2009,14141,8 days 22 hours 7 mins 45 secs,4 mins 44 secs
+Fri May 15 2009,14423,10 days 3 hours 13 mins 45 secs,5 mins 22 secs
+Sat May 16 2009,14107,9 days 23 hours 44 mins 0 secs,5 mins 4 secs
+Sun May 17 2009,29948,21 days 21 hours 28 mins 17 secs,5 mins 44 secs
+Mon May 18 2009,28407,19 days 19 hours 38 mins 27 secs,6 mins 20 secs
+Tue May 19 2009,14401,9 days 12 hours 21 mins 29 secs,5 mins 9 secs
+Wed May 20 2009,10474,6 days 10 hours 18 mins 19 secs,4 mins 3 secs
+Thu May 21 2009,8721,5 days 11 hours 18 mins 46 secs,3 mins 58 secs
+Fri May 22 2009,6886,4 days 21 hours 46 mins 35 secs,4 mins 32 secs
+Sat May 23 2009,3318,2 days 8 hours 5 mins 59 secs,3 mins 35 secs
+Sun May 24 2009,3183,2 days 3 hours 35 mins 55 secs,3 mins 12 secs
+Mon May 25 2009,5082,3 days 12 hours 35 mins 35 secs,3 mins 56 secs
+Tue May 26 2009,13996,9 days 14 hours 15 mins 9 secs,4 mins 59 secs
+Wed May 27 2009,12710,8 days 23 hours 9 mins 48 secs,5 mins 1 secs
+Thu May 28 2009,16358,10 days 11 hours 9 mins 8 secs,5 mins 26 secs
+Fri May 29 2009,18693,11 days 5 hours 16 mins 11 secs,5 mins 40 secs
+Sat May 30 2009,12636,9 days 5 hours 49 mins 1 secs,4 mins 55 secs
+Sun May 31 2009,25651,17 days 15 hours 29 mins 57 secs,5 mins 12 secs
+Mon Jun 01 2009,31665,24 days 8 hours 5 mins 20 secs,7 mins 10 secs
+Tue Jun 02 2009,18156,12 days 14 hours 57 mins 34 secs,5 mins 29 secs
+Wed Jun 03 2009,18000,11 days 18 hours 11 mins 23 secs,5 mins 8 secs
+Thu Jun 04 2009,13767,9 days 5 hours 28 mins 7 secs,4 mins 50 secs
+Fri Jun 05 2009,16701,11 days 10 hours 10 mins 48 secs,5 mins 23 secs
+Sat Jun 06 2009,12717,8 days 11 hours 32 mins 33 secs,4 mins 44 secs
+Sun Jun 07 2009,25424,17 days 6 hours 55 mins 50 secs,5 mins 0 secs
+Mon Jun 08 2009,30490,21 days 9 hours 54 mins 31 secs,6 mins 37 secs
+Tue Jun 09 2009,19444,13 days 9 hours 33 mins 56 secs,5 mins 51 secs
+Wed Jun 10 2009,13706,8 days 5 hours 49 mins 33 secs,4 mins 38 secs
+Thu Jun 11 2009,14405,9 days 7 hours 38 mins 49 secs,4 mins 55 secs
+Fri Jun 12 2009,12824,8 days 5 hours 47 mins 14 secs,4 mins 50 secs
+Sat Jun 13 2009,12016,8 days 1 hours 28 mins 47 secs,4 mins 49 secs
+Sun Jun 14 2009,23995,16 days 19 hours 32 mins 19 secs,5 mins 23 secs
+Mon Jun 15 2009,27096,18 days 18 hours 44 mins 20 secs,6 mins 23 secs
+Tue Jun 16 2009,14138,9 days 9 hours 39 mins 59 secs,5 mins 8 secs
+Wed Jun 17 2009,9996,6 days 4 hours 55 mins 30 secs,4 mins 8 secs
+Thu Jun 18 2009,9570,6 days 12 hours 55 mins 44 secs,4 mins 33 secs
+Fri Jun 19 2009,7185,4 days 13 hours 32 mins 10 secs,4 mins 21 secs
+Sat Jun 20 2009,4671,2 days 19 hours 48 mins 31 secs,3 mins 26 secs
+Sun Jun 21 2009,5458,3 days 6 hours 20 mins 56 secs,3 mins 41 secs
+Mon Jun 22 2009,7758,4 days 11 hours 45 mins 21 secs,3 mins 41 secs
+Tue Jun 23 2009,7695,4 days 17 hours 38 mins 24 secs,4 mins 32 secs
+Wed Jun 24 2009,6734,4 days 2 hours 52 mins 3 secs,4 mins 20 secs
+Thu Jun 25 2009,6246,3 days 17 hours 34 mins 6 secs,4 mins 25 secs
+Fri Jun 26 2009,8030,4 days 22 hours 39 mins 14 secs,5 mins 36 secs
+Sat Jun 27 2009,3070,1 days 22 hours 32 mins 28 secs,3 mins 48 secs
+Sun Jun 28 2009,1992,1 days 9 hours 51 mins 34 secs,3 mins 7 secs
+Mon Jun 29 2009,4946,3 days 0 hours 4 mins 7 secs,4 mins 1 secs
+Tue Jun 30 2009,5505,2 days 19 hours 8 mins 28 secs,4 mins 13 secs
+Wed Jul 01 2009,3827,2 days 5 hours 56 mins 29 secs,3 mins 50 secs
+Thu Jul 02 2009,3416,2 days 2 hours 31 mins 48 secs,3 mins 27 secs
+Fri Jul 03 2009,2579,1 days 13 hours 23 mins 14 secs,3 mins 21 secs
+Sat Jul 04 2009,1250,1 days 7 hours 21 mins 52 secs,4 mins 37 secs
+Sun Jul 05 2009,1345,1 days 4 hours 59 mins 13 secs,3 mins 32 secs
+Mon Jul 06 2009,3991,2 days 17 hours 44 mins 5 secs,4 mins 58 secs
+Tue Jul 07 2009,3818,2 days 20 hours 41 mins 19 secs,4 mins 52 secs
+Wed Jul 08 2009,4100,2 days 12 hours 52 mins 57 secs,4 mins 21 secs
+Thu Jul 09 2009,3991,2 days 3 hours 30 mins 37 secs,4 mins 1 secs
+Fri Jul 10 2009,3910,2 days 1 hours 44 mins 53 secs,3 mins 49 secs
+Sat Jul 11 2009,1980,1 days 14 hours 31 mins 28 secs,4 mins 26 secs
+Sun Jul 12 2009,1800,1 days 16 hours 34 mins 15 secs,4 mins 49 secs
+Mon Jul 13 2009,2031,1 days 4 hours 29 mins 43 secs,4 mins 21 secs
+
+
+Visitor Information
+Most Recent Visitors
+Rank#,IP address,Domain name,Country,Time of Last Access,Who owns this IP address
+1,96.240.0.157,Disabled,United States of America,13/Jul/2009:14:12:06,N/A
+2,68.192.37.91,Disabled,United States of America,13/Jul/2009:14:11:46,N/A
+3,69.116.93.141,Disabled,United States of America,13/Jul/2009:14:09:51,N/A
+4,64.12.116.12,Disabled,United States of America,13/Jul/2009:14:06:10,N/A
+5,69.116.187.194,Disabled,United States of America,13/Jul/2009:14:05:20,N/A
+6,64.12.116.7,Disabled,United States of America,13/Jul/2009:14:05:15,N/A
+7,64.12.116.18,Disabled,United States of America,13/Jul/2009:14:05:10,N/A
+8,173.70.138.48,Disabled,United States of America,13/Jul/2009:14:04:50,N/A
+9,64.12.117.8,Disabled,United States of America,13/Jul/2009:14:04:09,N/A
+10,64.12.117.13,Disabled,United States of America,13/Jul/2009:14:03:45,N/A
+Visitors who had the most hits on the web site
+Rank#,IP address,Domain name,Country,Total Hits,Who owns this IP address
+1,69.116.93.141,Disabled,United States of America,57334,N/A
+2,67.80.44.149,Disabled,United States of America,39257,N/A
+3,71.172.80.6,Disabled,United States of America,32852,N/A
+4,173.70.120.33,Disabled,United States of America,26632,N/A
+5,173.70.42.244,Disabled,United States of America,23828,N/A
+6,173.3.214.127,Disabled,United States of America,23444,N/A
+7,98.109.107.4,Disabled,United States of America,15551,N/A
+8,68.192.32.72,Disabled,United States of America,14669,N/A
+9,67.80.59.41,Disabled,United States of America,14087,N/A
+10,68.197.126.229,Disabled,United States of America,12570,N/A
+Visitors who used the most bandwidth
+Rank#,IP address,Domain name,Country,Bandwidth(Megabytes),Who owns this IP address
+1,4.20.178.68,Disabled,United States of America,0.00,N/A
+2,4.58.0.2,Disabled,United States of America,0.00,N/A
+3,4.71.175.131,Disabled,United States of America,0.00,N/A
+4,4.78.176.218,Disabled,United States of America,0.00,N/A
+5,4.78.177.10,Disabled,United States of America,0.00,N/A
+6,4.79.1.1,Disabled,United States of America,0.00,N/A
+7,4.79.17.248,Disabled,United States of America,0.00,N/A
+8,4.156.159.51,Disabled,United States of America,0.00,N/A
+9,4.156.228.44,Disabled,United States of America,0.00,N/A
+10,4.188.78.193,Disabled,United States of America,0.00,N/A
+Visitors who spent the most time on the web site
+Rank#,IP address,Domain name,Country,Visitor Stay Length,Who owns this IP address
+1,205.188.116.17,Disabled,United States of America,29 days 0 hours 34 mins 45 secs,N/A
+2,64.12.116.17,Disabled,United States of America,28 days 11 hours 4 mins 38 secs,N/A
+3,205.188.117.71,Disabled,United States of America,25 days 16 hours 30 mins 12 secs,N/A
+4,64.12.117.71,Disabled,United States of America,24 days 9 hours 25 mins 12 secs,N/A
+5,205.188.116.18,Disabled,United States of America,19 days 18 hours 7 mins 30 secs,N/A
+6,64.12.116.18,Disabled,United States of America,18 days 6 hours 37 mins 43 secs,N/A
+7,64.12.116.131,Disabled,United States of America,15 days 23 hours 20 mins 54 secs,N/A
+8,69.116.93.141,Disabled,United States of America,13 days 21 hours 0 mins 55 secs,N/A
+9,74.6.8.121,Disabled,United States of America,13 days 7 hours 49 mins 34 secs,N/A
+10,205.188.116.75,Disabled,United States of America,12 days 19 hours 23 mins 43 secs,N/A
+Top Authenticated Visitors
+Rank#,User Name,Last Visit Time,Visits,PageViews,Stay Length,Bandwidth(Megabytes)
+
+
+Visiting Spiders (Automated programs which search the Internet)
+Rank#,Spider,Hits
+1,ia_archiver,266
+2,Google.com/Googlebot,114
+
+
+Web pages and files statistics
+Most Popular Web Pages
+Rank#,Page,Hits,Incomplete requests,Visits,Data Transfered(KB)
+1,/gameSchedule.cfm,499544,0,86265,0
+2,/standings.cfm,331572,0,51482,0
+3,/,254176,0,125507,0
+4,/fieldDirPop.cfm,71511,0,0,0
+5,/teamFlightDisplay.cfm,57134,0,7401,0
+6,/clubTeams.cfm,51042,0,5972,0
+7,/login.cfm,49402,0,8560,0
+8,/loginHome.cfm,49271,0,7714,0
+9,/loginAction.cfm,44175,0,7055,0
+10,/clubContactDetails.cfm,27858,0,6068,0
+11,/ncsaCornerList.cfm,27500,0,4562,0
+12,/refAssignedGames.cfm,22549,0,0,0
+13,/clubReps.cfm,19395,0,3688,0
+14,/clubContacts.cfm,19271,0,2164,0
+15,/ncsaCornerPost.cfm,19175,0,3065,0
+16,/calendar.cfm,19145,0,2718,0
+17,/ncsaCorner.cfm,18875,0,4211,0
+18,/coachespage.cfm,17526,0,3810,0
+19,/index.cfm,16646,0,2902,0
+20,/logout.cfm,15557,0,2727,0
+21,/historyFinalSTD.cfm,15324,0,976,0
+22,/fieldDirections.cfm,14564,0,4617,0
+23,/readMore.cfm,11723,0,3012,0
+24,/scoreEdit.cfm,11489,0,419,0
+25,/GameList.cfm,10630,0,0,0
+26,/playerspage.cfm,10405,0,2272,0
+27,/history.cfm,9979,0,1056,0
+28,/GameRefReportList.cfm,9347,0,0,0
+29,/refAssign.cfm,9271,0,0,0
+30,/refBulkAssign.cfm,9263,0,2,0
+31,/gameReportSubmit.cfm,9149,0,0,0
+32,/coachesList.cfm,8877,0,936,0
+33,/fields.cfm,8374,0,1487,0
+34,/Fields.cfm,7551,0,1628,0
+35,/ncsaCornerReplies.cfm,7453,0,891,0
+36,/gameList.cfm,6785,0,1,0
+37,/boardContacts.cfm,6466,0,3008,0
+38,/gameRefReportPrint.cfm,6421,0,0,0
+39,/regTeamList.cfm,6183,0,554,0
+40,/contactList.cfm,6041,0,714,0
+41,/gamesConduct.cfm,5937,0,863,0
+42,/gameEditTimeField.cfm,5748,0,0,0
+43,/parentspage.cfm,5711,0,1087,0
+44,/clubWeb.cfm,4971,0,1201,0
+45,/gameChangeList.cfm,4829,0,0,0
+46,/gameEdit.cfm,4494,0,0,0
+47,/gameChangeREQedit.cfm,4448,0,0,0
+48,/gameRequestList.cfm,4076,0,21,0
+49,/gameChangeProcess.cfm,3950,0,0,0
+50,/ncsaRef.cfm,3934,0,888,0
+51,/agebracket.cfm,3830,0,985,0
+52,/contactEdit.cfm,3611,0,429,0
+53,/historyScore.cfm,3559,0,324,0
+54,/finesListAll.cfm,3303,0,171,0
+55,/refereeFee.cfm,3218,0,498,0
+56,/GameChangeList.cfm,3205,0,14,0
+57,/formsDownload.cfm,3030,0,553,0
+58,/teamCreate.cfm,3013,0,268,0
+59,/viewReports.cfm,2785,0,111,0
+60,/mission.cfm,2714,0,416,0
+61,/contactRequestList.cfm,2627,0,74,0
+62,/GameRequestList.cfm,2545,0,6,0
+63,/presmessage.cfm,2326,0,453,0
+64,/ContactEdit.cfm,2305,0,255,0
+65,/approveTeamNewSeason.cfm,1979,0,71,0
+66,/assets/,1907,0,388,0
+67,/regTeamTBS.cfm,1907,0,10,0
+68,/teamAppealListApprove.cfm,1831,0,189,0
+69,/fieldDirectionsEdit.cfm,1826,0,66,0
+70,/fineEdit.cfm,1806,0,1,0
+71,/underConst.cfm,1780,0,63,0
+72,/rptTBSselection.cfm,1776,0,0,0
+73,/ApproveTeamNewSeason.cfm,1764,0,60,0
+74,/refAssignmentDisplay.cfm,1741,0,0,0
+75,/ncsaCornerAdminReplies.cfm,1703,0,8,0
+76,/contactRequestDisplay.cfm,1683,0,55,0
+77,/gameAddReqList.cfm,1682,0,0,0
+78,/teamEdit.cfm,1680,0,138,0
+79,/contactCreate.cfm,1647,0,230,0
+80,/loginhome.cfm,1609,0,176,0
+81,/ContactRequestDisplay.cfm,1572,0,52,0
+82,/teamSummary.cfm,1458,0,289,0
+83,/approveReviewTeam.cfm,1457,0,53,0
+84,/ContactCreate.cfm,1453,0,172,0
+85,/ApproveReviewTeam.cfm,1409,0,48,0
+86,/newClubApplic.cfm,1348,0,325,0
+87,/refMatchReportView.cfm,1281,0,0,0
+88,/approveTeamTBS.cfm,1279,0,76,0
+89,/refAssignmentReport.cfm,1216,0,0,0
+90,/ncsaCornerAdminPost.cfm,1199,0,7,0
+91,/rptPendingTBSgames.cfm,1121,0,0,0
+92,/gameAddRequest.cfm,1084,0,0,0
+93,/contactUs.cfm,1051,0,243,0
+94,/ncsaCornerAdminList.cfm,1035,0,12,0
+95,/ApproveTeamTBS.cfm,1023,0,61,0
+96,/ApproveClubNewSeason.cfm,996,0,93,0
+97,/externalLinks.cfm,992,0,290,0
+98,/siteIndex.cfm,955,0,245,0
+99,/refereeList.cfm,951,0,1,0
+100,/fieldDirectionsAdd.cfm,949,0,132,0
+101,/ContactList.cfm,916,0,68,0
+102,/FieldRequestList.cfm,867,0,16,0
+103,/fieldAvailClubList.cfm,860,0,42,0
+104,/regteamTBS.cfm,818,0,1,0
+105,/refereeContactInfo.cfm,804,0,0,0
+106,/cautionEjectRpt.cfm,760,0,6,0
+107,/fieldList.cfm,723,0,168,0
+108,/pwEditUser.cfm,722,0,65,0
+109,/refereeUnpaidAdd.cfm,705,0,0,0
+110,/fieldAvailEdit.cfm,689,0,8,0
+111,/refereeGameReport.cfm,685,0,0,0
+112,/teamsSummaryMatrix.cfm,663,0,136,0
+113,/pageEdit.cfm,616,0,5,0
+114,/gameSchedulePDF.cfm,610,0,0,0
+115,/teamlist.cfm,591,0,8,0
+116,/ncsaCornerAdmin.cfm,559,0,18,0
+117,/clubAdminEdit.cfm,555,0,27,0
+118,/finePrint.cfm,552,0,0,0
+119,/fineDisplay.cfm,548,0,0,0
+120,/refFormsDnld.cfm,544,0,0,0
+121,/userEditPersonalData.cfm,526,0,23,0
+122,/regInfoDeadline.cfm,512,0,166,0
+123,/faq.cfm,504,0,138,0
+124,/teamAppealList.cfm,495,0,1,0
+125,/rptGameMissingScore.cfm,452,0,0,0
+126,/refereeMaintain.cfm,426,0,0,0
+127,/registerClub.cfm,399,0,144,0
+128,/formsView.cfm,393,0,0,0
+129,/gameAddRequestProcess.cfm,378,0,0,0
+130,/gameAddReqLog.cfm,374,0,0,0
+131,/clubEditInfo.cfm,369,0,9,0
+132,/fieldlist.cfm,365,0,14,0
+133,/logViewDetails.cfm,350,0,0,0
+134,/regAppNewClub.cfm,346,0,23,0
+135,/RefereeMaintain.cfm,342,0,0,0
+136,/approveReviewClub.cfm,337,0,36,0
+137,/regteamlist.cfm,335,0,117,0
+138,/rptGameGapTime.cfm,333,0,0,0
+139,/FieldList.cfm,324,0,39,0
+140,/refLinksPage.cfm,311,0,0,0
+141,/rptGameOverlap.cfm,291,0,0,0
+142,/rptCoachesEmail.cfm,281,0,0,0
+143,/ageBracket.cfm,274,0,79,0
+144,/assets,268,0,17,0
+145,/logGameLogList.cfm,265,0,4,0
+146,/financialList.cfm,229,0,50,0
+147,/regNewClubDetail.cfm,212,0,10,0
+148,/rptScoreDiscrep.cfm,205,0,0,0
+149,/rptRefAssSum.cfm,194,0,0,0
+150,/teamList.cfm,179,0,8,0
+151,/teamClubAdminReg.cfm,176,0,6,0
+152,/refAssignmentGameView.cfm,172,0,0,0
+153,/rptFinesListAll.cfm,166,0,0,0
+154,/refAssignedGamesPDF.cfm,166,0,0,0
+155,/rptMatchTeamLateSts.cfm,158,0,0,0
+156,/rptFieldAvail.cfm,157,0,0,0
+157,/refAssignAdminRefList.cfm,149,0,0,0
+158,/siteSetting.cfm,146,0,0,0
+159,/TeamList.cfm,144,0,0,0
+160,/teamsApproveTBS.cfm,141,0,68,0
+161,/CalendarManage.cfm,126,0,5,0
+162,/ClubEditInfo.cfm,119,0,4,0
+163,/AssignorMapFields.cfm,114,0,1,0
+164,/CFIDE/administrator/logviewer/searchlog.cfm,110,0,2,0
+165,/approveClubNewSeason.cfm,108,0,19,0
+166,/gameReportEdit.cfm,108,0,0,0
+167,/clubAssignField.cfm,107,0,2,0
+168,/gameRefReportList.cfm,103,0,0,0
+169,/gameschedule.cfm,97,0,0,0
+170,/ClubAssignField.cfm,96,0,2,0
+171,/approveReviewField.cfm,94,0,2,0
+172,/fieldAvailList.cfm,93,0,1,0
+173,/rptGameNotPlayed.cfm,91,0,0,0
+174,/gameAdd.cfm,91,0,0,0
+175,/refPublishAssignDate.cfm,89,0,0,0
+176,/rptGameOverLap.cfm,89,0,0,0
+177,/rptPlayerInj.cfm,87,0,0,0
+178,/parentsPage.cfm,85,0,26,0
+179,/rptMatchRepFieldCondSpecific.cfm,84,0,0,0
+180,/utilSiteAccess.cfm,83,0,0,0
+181,/coachesPage.cfm,82,0,21,0
+182,/rptGamesmissingreport.cfm,80,0,0,0
+183,/rptMatchComments.cfm,78,0,0,0
+184,/rptTeamID.cfm,77,0,0,0
+185,/rptAppTeamSummary.cfm,75,0,0,0
+186,/refAssignmentReportPDF.cfm,75,0,0,0
+187,/rptfieldAvail.cfm,72,0,0,0
+188,/CFIDE/administrator/index.cfm,70,0,3,0
+189,/rptRegSeasonAppTeams.cfm,69,0,0,0
+190,/rptRefereeData.cfm,68,0,0,0
+191,/downloads,68,0,0,0
+192,/boardContactEdit.cfm,67,0,1,0
+193,/seasonMaintenance.cfm,67,0,7,0
+194,/rptGameExcessScore.cfm,65,0,0,0
+195,/rptMatchRepFieldCond.cfm,63,0,0,0
+196,/playersPage.cfm,63,0,25,0
+197,/feeSchedule.cfm,61,0,2,0
+198,/rptMatchPartConduct.cfm,61,0,0,0
+199,/refereeMisconductList.cfm,61,0,2,0
+200,/rptNoMatchRepFiled.cfm,60,0,0,0
+Most Downloaded Files
+Rank#,File,Hits,Incomplete requests,Visits,Data Transfered(KB)
+1,/assets/matchdayform.doc,5759,178,N/A,0
+2,/assets/NCSA_Rules_Spring_2009.pdf,3781,618,N/A,0
+3,/assets/NCSA_Rules_Fall2008.doc,1900,137,N/A,0
+4,/assets/matchdayroster.doc,1033,13,N/A,0
+5,/assets/REFeval.doc,725,9,N/A,0
+6,/assets/ByLaws2003.doc,695,11,N/A,0
+7,/assets/Unpaid_Refree_Form.doc,303,0,N/A,0
+8,/CFIDE/administrator/favicon.ico,10,0,N/A,0
+9,/assets/ncsa_rules_spring_2009.pdf,2,0,N/A,0
+10,/docs/Spring2008DivisionChampions.xls,2,0,N/A,0
+11,/MATCHDAYFORM.doc,2,0,N/A,0
+12,/assets/ncsa_rules_fall2008.doc,1,0,N/A,0
+13,/assets/NCSA_Rules_Spring+2009+(032409).pdf,1,0,N/A,0
+14,/assets/Refeval.doc,1,0,N/A,0
+Most Popular Images
+Rank#,Image,Hits,Incomplete requests,Data Transfered(KB)
+1,/assets/images/powered_new2.gif,300687,57,0
+2,/assets/images/NCSA.jpg,298471,253,0
+3,/assets/images/soccer_ball_bullet.jpg,298007,23,0
+4,/assets/images/soccerball.gif,296026,23,0
+5,/assets/images/lightBlueBG.jpg,178989,2,0
+6,/assets/images/kickintogoal.jpg,177389,125,0
+7,/assets/images/soccerOrange.jpg,173874,66,0
+8,/assets/images/homeTitle.gif,173739,10,0
+9,/assets/images/referee_right.jpg,20331,6,0
+10,/assets/images/referee_left.jpg,17279,1,0
+11,/assets/images/referee_table_bg.gif,17158,0,0
+12,/assets/images/referee_main.jpg,17110,6,0
+13,/assets/images/referee_title.gif,17084,4,0
+14,/assets/images/coaches_right.jpg,13108,4,0
+15,/assets/images/coaches.jpg,13076,5,0
+16,/assets/images/coaches_title.gif,13059,1,0
+17,/assets/images/players_left.jpg,8765,1,0
+18,/assets/images/boySoccerPlayers+copy.jpg,8727,2,0
+19,/assets/images/player_main.jpg,8713,4,0
+20,/assets/images/green_bg.jpg,8687,0,0
+21,/assets/images/playerSideline.gif,8679,0,0
+22,/assets/images/parents_left.jpg,8216,4,0
+23,/assets/images/parents_main.jpg,8200,5,0
+24,/assets/images/cal.gif,6600,0,0
+25,/assets/images/parents_title.gif,4889,1,0
+26,/assets/images/parents_right.jpg,4885,3,0
+27,/assets/images/gamesConductCorner.gif,4799,0,0
+28,/assets/images/miscontduct.jpg,4789,0,0
+29,/assets/images/club_main.jpg,4503,1,0
+30,/assets/images/club_title.gif,4467,0,0
+31,/assets/images/club_left.jpg,4430,0,0
+32,/assets/images/club_right.jpg,4428,0,0
+33,/assets/images/board-title.gif,3401,0,0
+34,/assets/images/adobe_reader.gif,2545,0,0
+35,/assets/images/usyouthsoccer.JPG,556,0,0
+36,/assets/images/USYS.JPG,555,0,0
+37,/assets/images/ussoccer.JPG,555,0,0
+38,/assets/images/LawsOfTheGames.JPG,554,0,0
+39,/assets/images/Fifa.JPG,554,0,0
+40,/assets/images/SoccerCoach.JPG,554,0,0
+41,/assets/images/USSoccerFoundation.JPG,553,0,0
+42,/CFIDE/administrator/images/spacer.gif,43,0,0
+43,/CFIDE/administrator/images/adobelogo.gif,41,0,0
+44,/CFIDE/administrator/images/loginbackground.jpg,41,0,0
+45,/gameschedule.cfm/assets/images/NCSA.jpg,20,0,0
+46,/gameschedule.cfm/assets/images/soccerball.gif,20,0,0
+47,/gameschedule.cfm/assets/images/powered_new2.gif,20,0,0
+48,/gameschedule.cfm/assets/images/soccer_ball_bullet.jpg,20,0,0
+49,/gameSchedule.cfm/assets/images/NCSA.jpg,16,0,0
+50,/gameSchedule.cfm/assets/images/soccerball.gif,16,0,0
+51,/gameSchedule.cfm/assets/images/powered_new2.gif,16,0,0
+52,/gameSchedule.cfm/assets/images/soccer_ball_bullet.jpg,16,0,0
+53,/CFIDE/administrator/images/collapseallicon.gif,15,0,0
+54,/CFIDE/administrator/images/contentframebottombackground.png,15,0,0
+55,/CFIDE/administrator/images/cap_menuitem_topleft.png,15,0,0
+56,/CFIDE/administrator/images/cap_menuitem_topright.png,15,0,0
+57,/CFIDE/administrator/images/cap_menuitem_topbackground.png,15,0,0
+58,/CFIDE/administrator/images/contentframetopleft.png,15,0,0
+59,/CFIDE/administrator/images/contentframetopbackground.png,15,0,0
+60,/CFIDE/administrator/images/contentframetopright.png,15,0,0
+61,/CFIDE/administrator/images/contentframebottomleft.png,15,0,0
+62,/CFIDE/administrator/images/contentframebottomright.png,15,0,0
+63,/CFIDE/administrator/images/contentframerightbackground.png,15,0,0
+64,/CFIDE/administrator/images/contentframeleftbackground.png,15,0,0
+65,/CFIDE/administrator/images/detailsicon.gif,15,0,0
+66,/CFIDE/administrator/images/cap_content_white_main_bottom_right.gif,15,0,0
+67,/CFIDE/administrator/images/cap_content_white_main_bottom_left.gif,15,0,0
+68,/CFIDE/administrator/images/cap_content_white_main_top_left.gif,15,0,0
+69,/CFIDE/administrator/images/cap_content_white_main_top_right.gif,15,0,0
+70,/CFIDE/administrator/images/arrow_opened.gif,15,0,0
+71,/CFIDE/administrator/images/cap_menuitem_bottomright.png,15,0,0
+72,/CFIDE/administrator/images/cap_menuitem_bottomleft.png,15,0,0
+73,/CFIDE/administrator/images/Banner_CFAdministrator.gif,15,0,0
+74,/CFIDE/administrator/images/cap_menuitem_background.png,15,0,0
+75,/CFIDE/administrator/images/cap_menuitem_bottombackground.png,15,0,0
+76,/CFIDE/administrator/images/navframebackground.png,15,0,0
+77,/CFIDE/administrator/images/infoicon.gif,15,0,0
+78,/CFIDE/administrator/images/arrow_closed.gif,15,0,0
+79,/CFIDE/administrator/images/helpicon.gif,15,0,0
+80,/CFIDE/administrator/images/expandallicon.gif,15,0,0
+81,/CFIDE/administrator/images/spacer_10_x_10.gif,15,0,0
+82,/CFIDE/administrator/images/view.gif,11,0,0
+83,/CFIDE/administrator/images/archive.gif,11,0,0
+84,/CFIDE/administrator/images/download.gif,11,0,0
+85,/CFIDE/administrator/images/delete_button.gif,11,0,0
+86,/CFIDE/debug/images/topdoc.gif,9,0,0
+87,/CFIDE/administrator/images/back.gif,8,0,0
+88,/CFIDE/administrator/images/spacer_5_x_5.gif,8,0,0
+89,/assets/images/homeTitle.png,2,0,0
+90,/calendar.cfm/assets/images/NCSA.jpg,2,0,0
+91,/calendar.cfm/assets/images/powered_new2.gif,2,0,0
+92,/assets/images/parents_title.jpg,2,0,0
+93,/calendar.cfm/assets/images/soccer_ball_bullet.jpg,2,0,0
+94,/calendar.cfm/assets/images/soccerball.gif,2,0,0
+95,/CFIDE/administrator/images/update.gif,2,0,0
+96,/standings.cfm/assets/images/soccerball.gif,1,0,0
+97,/standings.cfm/assets/images/soccer_ball_bullet.jpg,1,0,0
+98,/standings.cfm/assets/images/NCSA.jpg,1,0,0
+99,/standings.cfm/assets/images/powered_new2.gif,1,0,0
+Most Popular Directories
+Rank#,Directory,Hits,Data Transfered(KB)
+1,/,2681602,0
+2,/assets/images/,2138995,0
+3,/assets/,16128,0
+4,/CFIDE/administrator/images/,622,0
+5,/downloads/,249,0
+6,/CFIDE/administrator/,208,0
+7,/CFIDE/administrator/logviewer/,110,0
+8,/gameschedule.cfm/assets/images/,80,0
+9,/gameSchedule.cfm/assets/images/,64,0
+10,/gameschedule.cfm/,60,0
+11,/gameSchedule.cfm/,48,0
+12,/CFIDE/administrator/debugging/,36,0
+13,/CFIDE/administrator/logging/,23,0
+14,/CFIDE/scripts/,20,0
+15,/uploads/,18,0
+16,/cfide/,16,0
+17,/cfide/administrator/,16,0
+18,/CFIDE/debug/images/,9,0
+19,/calendar.cfm/assets/images/,8,0
+20,/docs/,5,0
+21,/standings.cfm/assets/images/,4,0
+22,/standings.cfm/,3,0
+23,/calendar.cfm/,3,0
+24,/CFIDE/administrator/settings/,2,0
+25,/asp/,1,0
+Top Entry Pages and Files
+Rank#,Page/File,Count
+1,/,125053
+2,/gameSchedule.cfm,24404
+3,/standings.cfm,9941
+4,/fieldDirections.cfm,3656
+5,/clubContactDetails.cfm,3263
+6,/ncsaCornerList.cfm,2015
+7,/loginHome.cfm,1975
+8,/login.cfm,1929
+9,/ncsaCornerPost.cfm,1850
+10,/clubTeams.cfm,1447
+11,/teamFlightDisplay.cfm,1371
+12,/ncsaCorner.cfm,1331
+13,/readMore.cfm,1105
+14,/coachespage.cfm,979
+15,/loginAction.cfm,902
+16,/calendar.cfm,770
+17,/clubContacts.cfm,768
+18,/logout.cfm,705
+19,/clubReps.cfm,617
+20,/playerspage.cfm,593
+21,/boardContacts.cfm,587
+22,/ncsaCornerReplies.cfm,581
+23,/Fields.cfm,579
+24,/index.cfm,550
+25,/fields.cfm,528
+26,/scoreEdit.cfm,410
+27,/agebracket.cfm,379
+28,/ncsaRef.cfm,327
+29,/parentspage.cfm,324
+30,/clubWeb.cfm,321
+31,/historyFinalSTD.cfm,295
+32,/coachesList.cfm,266
+33,/presmessage.cfm,259
+34,/formsDownload.cfm,245
+35,/history.cfm,210
+36,/mission.cfm,201
+37,/refereeFee.cfm,200
+38,/newClubApplic.cfm,182
+39,/contactList.cfm,181
+40,/gamesConduct.cfm,157
+41,/externalLinks.cfm,143
+42,/assets/,134
+43,/contactUs.cfm,124
+44,/historyScore.cfm,112
+45,/regTeamList.cfm,103
+46,/teamAppealListApprove.cfm,95
+47,/siteIndex.cfm,91
+48,/contactEdit.cfm,78
+49,/faq.cfm,76
+50,/loginhome.cfm,75
+51,/viewReports.cfm,63
+52,/teamEdit.cfm,52
+53,/teamCreate.cfm,50
+54,/finesListAll.cfm,33
+55,/ageBracket.cfm,32
+56,/teamSummary.cfm,30
+57,/contactCreate.cfm,28
+58,/ContactCreate.cfm,23
+59,/ContactEdit.cfm,22
+60,/regInfoDeadline.cfm,21
+61,/fieldDirectionsAdd.cfm,21
+62,/userEditPersonalData.cfm,20
+63,/parentsPage.cfm,19
+64,/pwEditUser.cfm,17
+65,/teamsSummaryMatrix.cfm,15
+66,/playersPage.cfm,14
+67,/fieldList.cfm,14
+68,/assets,12
+69,/coachesPage.cfm,12
+70,/registerClub.cfm,11
+71,/fieldAvailClubList.cfm,10
+72,/FieldList.cfm,6
+73,/ncsaCornerAdmin.cfm,6
+74,/regAppNewClub.cfm,6
+75,/financialList.cfm,5
+76,/clubteams.cfm,5
+77,/ApproveClubNewSeason.cfm,4
+78,/ncsaCornerAdminList.cfm,4
+79,/contactRequestList.cfm,3
+80,/docs/,3
+81,/regteamlist.cfm,2
+82,/cautionEjectRptFall2008.cfm,1
+83,/fieldsApproved.cfm,1
+84,/teamList.cfm,1
+Top Exit Pages and Files
+Rank#,Page/File,Count
+1,/gameSchedule.cfm,69427
+2,/standings.cfm,40573
+3,/,24409
+4,/teamFlightDisplay.cfm,5693
+5,/loginHome.cfm,4889
+6,/fieldDirections.cfm,4454
+7,/clubContactDetails.cfm,4402
+8,/clubTeams.cfm,3525
+9,/ncsaCornerList.cfm,3281
+10,/boardContacts.cfm,2688
+11,/index.cfm,2600
+12,/ncsaCornerPost.cfm,2489
+13,/login.cfm,2299
+14,/calendar.cfm,1808
+15,/readMore.cfm,1672
+16,/coachespage.cfm,1646
+17,/ncsaCorner.cfm,1606
+18,/clubContacts.cfm,1530
+19,/playerspage.cfm,1011
+20,/loginAction.cfm,948
+21,/clubWeb.cfm,826
+22,/agebracket.cfm,760
+23,/clubReps.cfm,738
+24,/historyFinalSTD.cfm,680
+25,/ncsaCornerReplies.cfm,652
+26,/Fields.cfm,643
+27,/ncsaRef.cfm,635
+28,/coachesList.cfm,627
+29,/fields.cfm,594
+30,/gamesConduct.cfm,510
+31,/parentspage.cfm,437
+32,/logout.cfm,421
+33,/scoreEdit.cfm,410
+34,/formsDownload.cfm,366
+35,/refereeFee.cfm,319
+36,/presmessage.cfm,297
+37,/contactList.cfm,241
+38,/mission.cfm,239
+39,/externalLinks.cfm,226
+40,/historyScore.cfm,222
+41,/history.cfm,222
+42,/newClubApplic.cfm,204
+43,/contactUs.cfm,159
+44,/regTeamList.cfm,152
+45,/teamAppealListApprove.cfm,142
+46,/assets/,134
+47,/contactEdit.cfm,117
+48,/siteIndex.cfm,115
+49,/finesListAll.cfm,75
+50,/faq.cfm,71
+51,/loginhome.cfm,69
+52,/teamCreate.cfm,68
+53,/viewReports.cfm,64
+54,/teamEdit.cfm,56
+55,/teamSummary.cfm,56
+56,/ageBracket.cfm,52
+57,/regInfoDeadline.cfm,40
+58,/teamsSummaryMatrix.cfm,34
+59,/ContactCreate.cfm,30
+60,/ContactEdit.cfm,29
+61,/regteamlist.cfm,29
+62,/fieldDirectionsAdd.cfm,28
+63,/contactCreate.cfm,25
+64,/fieldList.cfm,22
+65,/userEditPersonalData.cfm,20
+66,/pwEditUser.cfm,19
+67,/playersPage.cfm,18
+68,/parentsPage.cfm,17
+69,/ApproveClubNewSeason.cfm,15
+70,/coachesPage.cfm,15
+71,/registerClub.cfm,14
+72,/contactRequestList.cfm,11
+73,/fieldAvailClubList.cfm,11
+74,/approveTeamNewSeason.cfm,11
+75,/ncsaCornerAdmin.cfm,10
+76,/FieldList.cfm,9
+77,/financialList.cfm,9
+78,/ApproveTeamTBS.cfm,7
+79,/ncsaCornerAdminList.cfm,6
+80,/regAppNewClub.cfm,6
+81,/fieldDirectionsEdit.cfm,5
+82,/approveTeamTBS.cfm,5
+83,/clubteams.cfm,5
+84,/ContactList.cfm,5
+85,/approveReviewClub.cfm,4
+86,/underConst.cfm,4
+87,/approveReviewTeam.cfm,4
+88,/regNewClubDetail.cfm,3
+89,/ApproveReviewTeam.cfm,3
+90,/assets,3
+91,/teamsApproveTBS.cfm,2
+92,/ApproveTeamNewSeason.cfm,2
+93,/clubAdminEdit.cfm,2
+94,/clubEditInfo.cfm,2
+95,/cautionEjectRptFall2008.cfm,2
+96,/approveClubNewSeason.cfm,2
+97,/CalendarManage.cfm,2
+98,/fieldlist.cfm,2
+99,/teamlist.cfm,1
+100,/CFIDE/administrator/index.cfm,1
+101,/ContactRequestDisplay.cfm,1
+102,/FieldRequestList.cfm,1
+103,/PlayWEsetUp.cfm,1
+104,/regNewClubApprove.cfm,1
+105,/fieldAvailEdit.cfm,1
+106,/docs,1
+107,/financialOS.cfm,1
+108,/teamList.cfm,1
+109,/teamClubAdminReg.cfm,1
+110,/contactRequestDisplay.cfm,1
+Most Path Throughs
+Rank#,Path,Count,Percentage
+1,/->/gameSchedule.cfm,36148,34.69%
+2,/,22444,21.54%
+3,/gameSchedule.cfm,21067,20.22%
+4,/->/standings.cfm,19513,18.73%
+5,/standings.cfm,8713,8.36%
+6,/->/gameSchedule.cfm->/standings.cfm,7762,7.45%
+7,/->/standings.cfm->/gameSchedule.cfm,5278,5.07%
+8,/fieldDirections.cfm,3542,3.40%
+9,/->/teamFlightDisplay.cfm,3098,2.97%
+10,/->/login.cfm->/loginAction.cfm->/loginHome.cfm,2860,2.74%
+11,/clubContactDetails.cfm,2858,2.74%
+12,/gameSchedule.cfm->/standings.cfm,2591,2.49%
+13,/->/boardContacts.cfm,1968,1.89%
+14,/ncsaCornerList.cfm,1914,1.84%
+15,/login.cfm,1783,1.71%
+16,/loginHome.cfm,1774,1.70%
+17,/ncsaCornerPost.cfm,1729,1.66%
+18,/->/gameSchedule.cfm->/standings.cfm->/gameSchedule.cfm,1715,1.65%
+19,/->/login.cfm->/loginAction.cfm->/loginHome.cfm->/logout.cfm->/index.cfm,1624,1.56%
+20,/clubTeams.cfm,1194,1.15%
+21,/ncsaCorner.cfm,1177,1.13%
+22,/standings.cfm->/gameSchedule.cfm,1159,1.11%
+23,/teamFlightDisplay.cfm,1119,1.07%
+24,/readMore.cfm,968,0.93%
+25,/coachespage.cfm,930,0.89%
+26,/->/clubTeams.cfm,877,0.84%
+27,/loginAction.cfm,843,0.81%
+28,/clubContacts.cfm,678,0.65%
+29,/->/Fields.cfm->/fields.cfm->/fieldDirections.cfm,678,0.65%
+30,/->/readMore.cfm->/gameSchedule.cfm,616,0.59%
+31,/->/ncsaCorner.cfm->/ncsaCornerList.cfm,613,0.59%
+32,/->/clubReps.cfm->/clubContactDetails.cfm,590,0.57%
+33,/->/gameSchedule.cfm->/standings.cfm->/gameSchedule.cfm->/standings.cfm,573,0.55%
+34,/ncsaCornerReplies.cfm,570,0.55%
+35,/Fields.cfm,567,0.54%
+36,/boardContacts.cfm,533,0.51%
+37,/calendar.cfm,532,0.51%
+38,/->/gameSchedule.cfm->/clubTeams.cfm,528,0.51%
+39,/playerspage.cfm,525,0.50%
+40,/->/gameSchedule.cfm->/,523,0.50%
+41,/index.cfm,504,0.48%
+42,/clubReps.cfm,491,0.47%
+43,/fields.cfm,460,0.44%
+44,/->/standings.cfm->/->/standings.cfm,441,0.42%
+45,/scoreEdit.cfm,410,0.39%
+46,/logout.cfm,410,0.39%
+47,/->/calendar.cfm,395,0.38%
+48,/->/clubTeams.cfm->/gameSchedule.cfm,386,0.37%
+49,/->/clubContacts.cfm,386,0.37%
+50,/->/standings.cfm->/gameSchedule.cfm->/standings.cfm->/gameSchedule.cfm,372,0.36%
+51,/->/ncsaCorner.cfm->/ncsaCornerList.cfm->/ncsaCornerPost.cfm,362,0.35%
+52,/agebracket.cfm,345,0.33%
+53,/->/gameSchedule.cfm->/teamFlightDisplay.cfm,321,0.31%
+54,/ncsaRef.cfm,314,0.30%
+55,/clubWeb.cfm,307,0.29%
+56,/parentspage.cfm,291,0.28%
+57,/historyFinalSTD.cfm,287,0.28%
+58,/->/readMore.cfm,285,0.27%
+59,/->/agebracket.cfm,275,0.26%
+60,/->/ncsaCorner.cfm,265,0.25%
+61,/coachesList.cfm,263,0.25%
+62,/presmessage.cfm,245,0.24%
+63,/->/ncsaRef.cfm,239,0.23%
+64,/->/clubWeb.cfm,236,0.23%
+65,/->/gamesConduct.cfm,232,0.22%
+66,/logout.cfm->/index.cfm,224,0.21%
+67,/->/gameSchedule.cfm->/calendar.cfm,223,0.21%
+68,/formsDownload.cfm,220,0.21%
+69,/->/standings.cfm->/,218,0.21%
+70,/->/coachespage.cfm,202,0.19%
+71,/->/teamFlightDisplay.cfm->/gameSchedule.cfm,193,0.19%
+72,/gameSchedule.cfm->/,183,0.18%
+73,/clubTeams.cfm->/gameSchedule.cfm,182,0.17%
+74,/->/gameSchedule.cfm->/clubReps.cfm->/clubContactDetails.cfm,182,0.17%
+75,/refereeFee.cfm,182,0.17%
+76,/->/playerspage.cfm->/gameSchedule.cfm,181,0.17%
+77,/->/gameSchedule.cfm->/clubTeams.cfm->/gameSchedule.cfm,181,0.17%
+78,/mission.cfm,180,0.17%
+79,/loginHome.cfm->/login.cfm->/loginAction.cfm->/loginHome.cfm,178,0.17%
+80,/history.cfm,173,0.17%
+81,/newClubApplic.cfm,164,0.16%
+82,/->/coachespage.cfm->/gameSchedule.cfm,161,0.15%
+83,/->/coachespage.cfm->/coachesList.cfm,155,0.15%
+84,/->/clubReps.cfm->/clubContactDetails.cfm->/clubTeams.cfm,153,0.15%
+85,/contactList.cfm,152,0.15%
+86,/->/gameSchedule.cfm->/clubContacts.cfm,150,0.14%
+87,/->/ncsaCorner.cfm->/ncsaCornerList.cfm->/ncsaCorner.cfm->/ncsaCornerList.cfm,145,0.14%
+88,/teamFlightDisplay.cfm->/gameSchedule.cfm,145,0.14%
+89,/->/login.cfm,144,0.14%
+90,/calendar.cfm->/gameSchedule.cfm,142,0.14%
+91,/gamesConduct.cfm,140,0.13%
+92,/->/standings.cfm->/teamFlightDisplay.cfm,137,0.13%
+93,/->/gamesConduct.cfm->/,137,0.13%
+94,/->/gameSchedule.cfm->/ncsaCorner.cfm->/ncsaCornerList.cfm,136,0.13%
+95,/externalLinks.cfm,134,0.13%
+96,/->/teamFlightDisplay.cfm->/calendar.cfm,133,0.13%
+97,/->/parentspage.cfm->/gameSchedule.cfm,119,0.11%
+98,/->/clubReps.cfm,117,0.11%
+99,/contactUs.cfm,116,0.11%
+100,/->/formsDownload.cfm,113,0.11%
+101,/historyScore.cfm,110,0.11%
+102,/->/gameSchedule.cfm->/coachespage.cfm->/coachesList.cfm,110,0.11%
+103,/->/gameSchedule.cfm->/playerspage.cfm,109,0.10%
+104,/->/gameSchedule.cfm->/standings.cfm->/,106,0.10%
+105,/->/gameSchedule.cfm->/coachespage.cfm,104,0.10%
+106,/->/playerspage.cfm,103,0.10%
+107,/->/history.cfm->/historyFinalSTD.cfm,99,0.10%
+108,/clubContactDetails.cfm->/gameSchedule.cfm,96,0.09%
+109,/->/gameSchedule.cfm->/standings.cfm->/gamesConduct.cfm->/standings.cfm,95,0.09%
+110,/->/clubReps.cfm->/clubContactDetails.cfm->/gameSchedule.cfm,90,0.09%
+111,/->/teamFlightDisplay.cfm->/standings.cfm,89,0.09%
+112,/teamAppealListApprove.cfm,89,0.09%
+113,/->/Fields.cfm->/fields.cfm,88,0.08%
+114,/assets/->/,87,0.08%
+115,/gameSchedule.cfm->/clubTeams.cfm->/gameSchedule.cfm,86,0.08%
+116,/->/gameSchedule.cfm->/standings.cfm->/gamesConduct.cfm,86,0.08%
+117,/clubReps.cfm->/clubContactDetails.cfm,85,0.08%
+118,/->/clubTeams.cfm->/standings.cfm,84,0.08%
+119,/->/login.cfm->/loginAction.cfm->/loginHome.cfm->/readMore.cfm,82,0.08%
+120,/ncsaCorner.cfm->/ncsaCornerList.cfm,82,0.08%
+121,/gameSchedule.cfm->/clubTeams.cfm,81,0.08%
+122,/->/standings.cfm->/playerspage.cfm,81,0.08%
+123,/siteIndex.cfm,80,0.08%
+124,/->/teamFlightDisplay.cfm->/->/teamFlightDisplay.cfm,78,0.07%
+125,/->/clubTeams.cfm->/gameSchedule.cfm->/standings.cfm,77,0.07%
+126,/->/assets/,76,0.07%
+127,/->/refereeFee.cfm,76,0.07%
+128,/contactEdit.cfm,75,0.07%
+129,/regTeamList.cfm,74,0.07%
+130,/->/ncsaCorner.cfm->/ncsaCornerList.cfm->/ncsaCornerPost.cfm->/ncsaCornerList.cfm,73,0.07%
+131,/->/gameSchedule.cfm->/clubReps.cfm->/clubContactDetails.cfm->/clubTeams.cfm,73,0.07%
+132,/->/standings.cfm->/clubTeams.cfm,72,0.07%
+133,/->/assets/->/,71,0.07%
+134,/->/login.cfm->/loginHome.cfm->/loginAction.cfm,70,0.07%
+135,/loginhome.cfm,68,0.07%
+136,/->/standings.cfm->/ncsaCorner.cfm->/ncsaCornerList.cfm,66,0.06%
+137,/->/login.cfm->/loginAction.cfm->/login.cfm,66,0.06%
+138,/->/coachespage.cfm->/readMore.cfm,64,0.06%
+139,/->/gameSchedule.cfm->/standings.cfm->/teamFlightDisplay.cfm,63,0.06%
+140,/->/teamFlightDisplay.cfm->/gameSchedule.cfm->/teamFlightDisplay.cfm,62,0.06%
+141,/->/standings.cfm->/gameSchedule.cfm->/,62,0.06%
+142,/->/externalLinks.cfm,62,0.06%
+143,/faq.cfm,60,0.06%
+144,/->/clubWeb.cfm->/,59,0.06%
+145,/->/gameSchedule.cfm->/ncsaCorner.cfm->/ncsaCornerList.cfm->/ncsaCornerPost.cfm,58,0.06%
+146,/viewReports.cfm,57,0.05%
+147,/->/teamFlightDisplay.cfm->/,56,0.05%
+148,/->/gameSchedule.cfm->/clubTeams.cfm->/standings.cfm,56,0.05%
+149,/->/gameSchedule.cfm->/ncsaCorner.cfm,55,0.05%
+150,/->/clubReps.cfm->/clubTeams.cfm,55,0.05%
+151,/->/standings.cfm->/clubReps.cfm->/clubContactDetails.cfm,55,0.05%
+152,/->/readMore.cfm->/gameSchedule.cfm->/standings.cfm,52,0.05%
+153,/clubContactDetails.cfm->/fieldDirections.cfm,52,0.05%
+154,/gameSchedule.cfm->/coachespage.cfm,52,0.05%
+155,/gameSchedule.cfm->/playerspage.cfm,51,0.05%
+156,/->/gameSchedule.cfm->/playerspage.cfm->/gameSchedule.cfm,51,0.05%
+157,/teamEdit.cfm,50,0.05%
+158,/readMore.cfm->/gameSchedule.cfm,49,0.05%
+159,/->/coachespage.cfm->/clubTeams.cfm,49,0.05%
+160,/->/gameSchedule.cfm->/coachespage.cfm->/gameSchedule.cfm,49,0.05%
+161,/->/coachespage.cfm->/clubContacts.cfm,49,0.05%
+162,/ncsaCornerList.cfm->/ncsaCornerPost.cfm,48,0.05%
+163,/->/clubReps.cfm->/clubContactDetails.cfm->/clubReps.cfm->/clubContactDetails.cfm,48,0.05%
+164,/->/readMore.cfm->/standings.cfm,48,0.05%
+165,/playerspage.cfm->/gameSchedule.cfm,48,0.05%
+166,/assets/,47,0.05%
+167,/teamCreate.cfm,47,0.05%
+168,/->/ncsaCorner.cfm->/ncsaCornerList.cfm->/ncsaCornerPost.cfm->/ncsaCornerList.cfm->/ncsaCornerPost.cfm,46,0.04%
+169,/->/standings.cfm->/coachespage.cfm,46,0.04%
+170,/->/gameSchedule.cfm->/standings.cfm->/clubTeams.cfm,46,0.04%
+171,/fields.cfm->/fieldDirections.cfm,45,0.04%
+172,/standings.cfm->/teamFlightDisplay.cfm,45,0.04%
+173,/->/Fields.cfm,44,0.04%
+174,/->/ncsaCorner.cfm->/ncsaCornerList.cfm->/ncsaCorner.cfm->/ncsaCornerList.cfm->/ncsaCornerPost.cfm,44,0.04%
+175,/clubContacts.cfm->/gameSchedule.cfm,43,0.04%
+176,/->/playerspage.cfm->/standings.cfm,43,0.04%
+177,/->/login.cfm->/loginAction.cfm->/login.cfm->/loginAction.cfm->/login.cfm,43,0.04%
+178,/->/parentspage.cfm,41,0.04%
+179,/->/calendar.cfm->/gameSchedule.cfm,41,0.04%
+180,/->/clubTeams.cfm->/clubReps.cfm->/clubContactDetails.cfm,41,0.04%
+181,/->/gameSchedule.cfm->/clubReps.cfm->/clubContactDetails.cfm->/gameSchedule.cfm,40,0.04%
+182,/->/gameSchedule.cfm->/standings.cfm->/calendar.cfm,40,0.04%
+183,/->/clubReps.cfm->/clubContactDetails.cfm->/clubTeams.cfm->/gameSchedule.cfm,40,0.04%
+184,/->/login.cfm->/loginAction.cfm->/loginHome.cfm->/finesListAll.cfm,40,0.04%
+185,/->/gameSchedule.cfm->/history.cfm->/historyFinalSTD.cfm,39,0.04%
+186,/calendar.cfm->/teamFlightDisplay.cfm,38,0.04%
+187,/->/standings.cfm->/gameSchedule.cfm->/clubTeams.cfm,38,0.04%
+188,/->/clubReps.cfm->/clubContactDetails.cfm->/standings.cfm,38,0.04%
+189,/->/ncsaCorner.cfm->/ncsaCornerList.cfm->/ncsaCornerPost.cfm->/ncsaCorner.cfm->/ncsaCornerList.cfm,38,0.04%
+190,/fieldDirections.cfm->/ncsaCornerPost.cfm,38,0.04%
+191,/ncsaCorner.cfm->/ncsaCornerList.cfm->/ncsaCornerPost.cfm,38,0.04%
+192,/->/clubTeams.cfm->/clubContacts.cfm,37,0.04%
+193,/clubContactDetails.cfm->/standings.cfm,37,0.04%
+194,/->/clubTeams.cfm->/teamFlightDisplay.cfm,37,0.04%
+195,/->/coachespage.cfm->/coachesList.cfm->/gameSchedule.cfm,36,0.03%
+196,/->/gameSchedule.cfm->/login.cfm,36,0.03%
+197,/->/clubContacts.cfm->/boardContacts.cfm,36,0.03%
+198,/->/gameSchedule.cfm->/coachespage.cfm->/clubTeams.cfm,36,0.03%
+199,/->/gameSchedule.cfm->/coachespage.cfm->/readMore.cfm,36,0.03%
+200,/->/gameSchedule.cfm->/standings.cfm->/coachespage.cfm,35,0.03%
+
+
+Top Referring Domains
+Most linked domains
+Rank#,Domain,Hits
+1,No Referrer,5112439
+Top Referring URLs
+Rank#,URL,Hits
+1,No Referrer,5112439
+
+
+Top Search Engines
+Rank#,Search Engine,Hits
+1,Northern Light,0
+2,Netscape Search,0
+3,Overture/GOTO.COM/Go.com,0
+4,Search.com,0
+5,Mamma.com,0
+6,Metacrawler(Go2Net),0
+7,MSN Search,0
+8,iWon,0
+9,Yahoo,0
+10,ilse,0
+11,Swiss Search Engine: Search.ch,0
+12,Teoma,0
+13,WWW.FIREBALL.DE,0
+14,AOL Search,0
+15,DirectHit,0
+16,AskJeeves,0
+17,Dogpile,0
+18,Excite,0
+19,About.com,0
+20,Altavista,0
+21,Lycos,0
+22,LookSmart,0
+23,HotBot(Lycos),0
+24,FAST/All The Web,0
+25,Goo.net.jp,0
+26,Google,0
+Top Search Phrases and keywords
+Rank#,Search Phrases,Counts,Rank#,Search words,Counts
+Top Search Phrases on each Search Engine
+Rank#,Search Phrases,Count
+Google (0 Hits)
+Yahoo (0 Hits)
+MSN Search (0 Hits)
+Altavista (0 Hits)
+AOL Search (0 Hits)
+Lycos (0 Hits)
+HotBot(Lycos) (0 Hits)
+Overture/GOTO.COM/Go.com (0 Hits)
+Netscape Search (0 Hits)
+Excite (0 Hits)
+WWW.FIREBALL.DE (0 Hits)
+DirectHit (0 Hits)
+LookSmart (0 Hits)
+Dogpile (0 Hits)
+Metacrawler(Go2Net) (0 Hits)
+Search.com (0 Hits)
+About.com (0 Hits)
+iWon (0 Hits)
+FAST/All The Web (0 Hits)
+Mamma.com (0 Hits)
+AskJeeves (0 Hits)
+Northern Light (0 Hits)
+Teoma (0 Hits)
+ilse (0 Hits)
+Swiss Search Engine: Search.ch (0 Hits)
+Goo.net.jp (0 Hits)
+
+
+Web Business Performance Report
+
+General Marketing Performance Report
+Campaign Name(Filter Name),None
+Total Cost($) ,1,000.00
+Total Sales($) ,10,000.00
+Total Orders ,100
+Total Profit ,9,000.00
+ROI ,1000.00
+Cost per Day ,5.15
+Sales per Day ,51.55
+Profit per Day ,46.39
+Orders per Day ,0.52
+Cost per Order ,10.00
+Sales per Order ,100.00
+Profit per Order ,90.00
+Total Visitors ,371052
+Total Unique IPs ,41445
+Cost per Visitor ,0.00
+Cost per Unique IP ,0.02
+Orders per 1000 Visitors,0.27
+Orders per 1000 Unique IPs ,2.41
+Sales per Visitor ,0.03
+Sales per Unique IP ,0.24
+Profit per Visitor ,0.02
+Profit per Unique IP ,0.22
+Total data transferred ,0.00 KB
+Cost per MB Traffic ,N/A
+Orders per MB Traffic ,N/A
+Sales per MB Traffic ,N/A
+Profit per MB Traffic ,N/A
+Total Page Views ,1990090
+Total File Dowmloads ,14215
+Cost per Page View ,0.00
+Orders per 1000 Page Views ,0.05
+Sales per Page View ,0.01
+Profit per Page View ,0.00
+Cost per File Download ,0.07
+Orders per 1000 File Downloads ,7.03
+Sales per File Download ,0.70
+Profit per File Download ,0.63
+Conversion Analysis By Target Web Page Views
+Rank#,Page,Visitors, % of Total Visitors,Cost per Visitor($), Conversion Rate(%), Sales per Visitor($), Profit per Visitor($)
+Total,,0,0.00,N/A,N/A,N/A,N/A
+Conversion Analysis By Target File Downloads
+Rank#,Page,Visitors, % of Total Visitors,Cost per Visitor($), Conversion Rate(%), Sales per Visitor($), Profit per Visitor($)
+Total,,0,0.00,N/A,N/A,N/A,N/A
+
+
+Web Access Errors Report
+Page Not Found Errors(404 Error)
+NO.,Request,Referrer,Count
+1,/favicon.ico,No referrer,178186
+2,/asp/default.asp,No referrer,9982
+3,/asp/Default.asp,No referrer,8553
+4,/robots.txt,No referrer,7429
+5,/asp/favicon.ico,No referrer,5764
+6,/asp/favicon.gif,No referrer,5671
+7,/asp/Games_Sched.asp,No referrer,3930
+8,/asp/scs_menu.asp,No referrer,2895
+9,/asp/Games_Sched_Print.asp?TeamName=FtLee-KernBU
+12,No referrer,2099
+10,/favicon.gif,No referrer,1810
+11,/asp/ComposeMessage.asp?RecId=1&src=board%2B%255
+BPLM=0%255D%255BN%255D%2BGET%2Bhttp://www.ncsanj
+.com/asp//ComposeMessage.asp?RecId=1&src=board%2
+B%255B0,3869,5902%255D%2B-%253E%2B++GET+/asp/Com
+poseMessage.asp?RecId=1&src=board%2B%255BPLM=0%2
+55D%255BN%255D%2BGET%2Bhttp://www.ncsanj.com/asp
+//ComposeMessage.asp?RecId=1&src=board%2B%255B0,
+3869,5902%255D%2B-%253E%2B+%5B0,4021,6040%5D+-%3
+E+,No referrer,1474
+12,/asp/Field_Directions_list.asp,No referrer,938
+13,/asp/Games_Sched_ByClub.asp,No referrer,833
+14,/asp/SendMail.asp,No referrer,734
+15,/asp/Games_Standings.asp,No referrer,721
+16,/asp/ComposeMessage.asp?RecId=1&src=board+%5BN%5
+D+GET+http://www.ncsanj.com/asp//ComposeMessage.
+asp?RecId=1&src=board+%5B0,3869,5902%5D+-%3E,No referrer,599
+17,/asp/ComposeMessage.asp?RecId=1&src=board,No referrer,491
+18,/asp/Field_Directions_List.asp,No referrer,407
+19,/_vti_inf.html,No referrer,402
+20,/_vti_bin/shtml.exe/_vti_rpc,No referrer,401
+21,/asp/clubs_List.asp,No referrer,351
+22,/asp/Games_standings.asp,No referrer,351
+23,/asp/Games_Sched_Menu.asp,No referrer,341
+24,/apple-touch-icon.png,No referrer,337
+25,/scs_menu.htm,No referrer,330
+26,/docs/Fall2008DivisionChampions.xls,No referrer,322
+27,/MSOffice/cltreq.asp?UL=1&ACT=4&BUILD=8164&STRMV
+ER=4&CAPREQ=0,No referrer,307
+28,/_vti_bin/owssvr.dll?UL=1&ACT=4&BUILD=8164&STRMV
+ER=4&CAPREQ=0,No referrer,307
+29,/asp/Field_Directions.asp?ClubId=108&Field=FIELD
+STONE+FIELD++%231,No referrer,297
+30,/asp/ComposeMessage.asp?RecId=1&src=board+%5BN%5
+D+GET+http://www.ncsanj.com/asp//ComposeMessage.
+asp?RecId=1&src=board+%5B0,3869,5902%5D+-%3E+,No referrer,272
+31,/images/NCSA.gif,No referrer,244
+32,/apple-touch-icon-precomposed.png,No referrer,241
+33,/asp/Field_Directions.asp?ClubId=108&Field=PASCA
+CK+HILLS+HIGH+SCHOOL,No referrer,218
+34,/asp/PlayAge_Calc.asp,No referrer,216
+35,/asp/Board_List.asp,No referrer,209
+36,/asp/,No referrer,202
+37,/Pres.htm,No referrer,199
+38,/_vti_bin/owssvr.dll?UL=1&ACT=4&BUILD=6211&STRMV
+ER=4&CAPREQ=0,No referrer,193
+39,/MSOffice/cltreq.asp?UL=1&ACT=4&BUILD=6211&STRMV
+ER=4&CAPREQ=0,No referrer,192
+40,/MSOffice/cltreq.asp?UL=1&ACT=4&BUILD=6551&STRMV
+ER=4&CAPREQ=0,No referrer,166
+41,/_vti_bin/owssvr.dll?UL=1&ACT=4&BUILD=6551&STRMV
+ER=4&CAPREQ=0,No referrer,165
+42,/images/NCSANJ.JPG,No referrer,157
+43,/asp/Login.asp,No referrer,145
+44,/rules.htm,No referrer,144
+45,/asp/Board.asp,No referrer,140
+46,/asp/Field_Directions_List.asp?ClubId=77,No referrer,121
+47,/asp/Games_Sched_ByClub.asp?ClubNameSel=DenofLio
+ns,No referrer,121
+48,/asp/Coaches_List.asp?Mode=0&ClubId=185,No referrer,114
+49,/asp/Coaches_List.asp?Mode=0&ClubId=91,No referrer,114
+50,/rules.asp,No referrer,112
+51,/directions.htm,No referrer,110
+52,/mirror.htm,No referrer,100
+53,/images/schedule_ban.gif,No referrer,98
+54,/asp/Games_Sched_Print.asp?TeamNameSel=DenofLion
+s-VelasquezBU11,No referrer,93
+55,/asp/Referee/Ref_Main.asp,No referrer,92
+56,/default.htm,No referrer,91
+57,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Gre
+enfield,No referrer,87
+58,/asp/Forum/Forum_Main.asp,No referrer,87
+59,/Download_Service.htm,No referrer,82
+60,/asp/Coaches_List.asp?Mode=0&ClubId=170,No referrer,77
+61,/Default.asp,No referrer,76
+62,/asp/Games_Sched_ByDiv.asp,No referrer,75
+63,/asp/Games_Sched_ByFld.asp,No referrer,74
+64,/asp/calendar.asp,No referrer,74
+65,/asp/ComposeMessage.asp?RecId=1&src=board%2B%255
+B0,3869,5902%255D%2B-%253E%2B,No referrer,73
+66,/asp/Games_Standings.asp?DivID=B08C,No referrer,71
+67,/default.asp,No referrer,68
+68,/images/menu.gif,No referrer,66
+69,/asp/Coaches_List.asp?Mode=0&ClubId=144,No referrer,64
+70,/framed.htm,No referrer,64
+71,/asp/Games_Standings.asp?DivId=B11P,No referrer,63
+72,/asp/Coaches_List.asp?Mode=0&ClubId=95,No referrer,62
+73,/asp/Games_standings.asp?DivId=B09CW,No referrer,61
+74,/asp/Games_Sched.asp?TeamNameSel=Bayonne-Ulloa,No referrer,60
+75,/asp/Common/Sniffer.js,No referrer,60
+76,/asp/Games_Sched.asp?TeamNameSel=Bayonne-Dias,No referrer,58
+77,/asp/Games_standings.asp?DivId=G12CW,No referrer,57
+78,/asp/Games_Sched_Print.asp?TeamNameSel=DenofLion
+s-Cunha,No referrer,54
+79,/asp/Games_Sched.asp?TeamNameSel=Bayonne-Major,No referrer,53
+80,/asp/Clubs_Display.asp?ClubId=108,No referrer,53
+81,/docs/NCSADC.htm,No referrer,52
+82,/asp/ComposeMessage.asp?RecId=110&src=club,No referrer,50
+83,/asp/Clubs_Display.asp?ClubId=101,No referrer,50
+84,/asp/Field_Directions_List.asp?ClubId=101,No referrer,50
+85,/asp/Games_Sched_Print.asp?TeamNameSel=DenofLion
+s-PereiraGU12,No referrer,50
+86,/asp/Games_standings.asp?DivId=G14B,No referrer,49
+87,/asp/Clubs_Display.asp?ClubId=85,No referrer,47
+88,/asp/Clubs_List.asp,No referrer,47
+89,/asp/Field_Directions_List.asp?ClubId=75,No referrer,47
+90,/asp/Field_Directions_List.asp?ClubId=117,No referrer,46
+91,/asp/Clubs_Display.asp?ClubId=74,No referrer,46
+92,/asp/Games_Sched.asp?TeamNameSel=Bayonne-Petraki
+an,No referrer,46
+93,/asp/Clubs_Display.asp?ClubId=103,No referrer,46
+94,/asp/Clubs_Display.asp?ClubId=65,No referrer,45
+95,/asp/Field_Directions_List.asp?ClubId=91,No referrer,45
+96,/asp/Clubs_Display.asp?ClubId=99,No referrer,45
+97,/asp/Games_standings.asp?DivId=G10C,No referrer,44
+98,/asp/Field_Directions.asp?ClubId=122&Field=GOFFL
+E+BROOK+PARK+%231,No referrer,44
+99,/asp/Games_standings.asp?DivId=G09E,No referrer,43
+100,/asp/Clubs_Display.asp?ClubId=91,No referrer,43
+101,/develop.htm,No referrer,42
+102,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Gal
+vis,No referrer,42
+103,/asp/Field_Directions_List.asp?ClubId=100,No referrer,42
+104,/asp/Clubs_Display.asp?ClubId=110,No referrer,42
+105,/asp/Clubs_Display.asp?ClubId=70,No referrer,41
+106,/asp/Games_Standings.asp?DivId=B14C,No referrer,41
+107,/asp/Clubs_Display.asp?ClubId=102,No referrer,41
+108,/asp/Field_Directions_List.asp?ClubId=96,No referrer,41
+109,/asp/PlayAge_Calc.asp?YearSel=N,No referrer,41
+110,/bylaws.htm,No referrer,41
+111,/asp/Clubs_Display.asp?ClubId=78,No referrer,41
+112,/asp/ComposeMessage.asp?RecId=68&src=club,No referrer,40
+113,/asp/Clubs_Display.asp?ClubId=111,No referrer,40
+114,/asp/Clubs_Display.asp?ClubId=82,No referrer,40
+115,/FAQ.htm,No referrer,40
+116,/asp/ComposeMessage.asp?RecId=82&src=club,No referrer,40
+117,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Cru
+z,No referrer,40
+118,/asp/Games_Standings.asp?DivID=B12C,No referrer,40
+119,/asp/Field_Directions_List.asp?ClubId=105,No referrer,40
+120,/REFeval.doc,No referrer,40
+121,/MATCHDAYFORM.doc,No referrer,40
+122,/asp/ClubReg_Request.asp,No referrer,40
+123,/asp/Clubs_Display.asp?ClubId=100,No referrer,40
+124,/asp/Games_Sched_ByClub.asp?ClubNameSel=RamValle
+ySC,No referrer,39
+125,/asp/Field_Directions_List.asp?ClubId=82,No referrer,39
+126,/asp/ComposeMessage.asp?RecId=93&src=club,No referrer,39
+127,/asp/Clubs_Display.asp?ClubId=83,No referrer,39
+128,/asp/Field_Directions_List.asp?ClubId=67,No referrer,39
+129,/asp/Field_Directions_List.asp?ClubId=65,No referrer,39
+130,/asp/ComposeMessage.asp?RecId=67&src=club,No referrer,39
+131,/asp/Games_Sched.asp?TeamNameSel=Bayonne-Hanna,No referrer,39
+132,/asp/Clubs_Display.asp?ClubId=96,No referrer,38
+133,/asp/Field_Directions_List.asp?ClubId=112,No referrer,38
+134,/directions/clarks_direct.htm,No referrer,38
+135,/asp/ComposeMessage.asp?RecId=108&src=club,No referrer,38
+136,/asp/Field_Directions_List.asp?ClubId=106,No referrer,37
+137,/asp/Field_Directions_List.asp?ClubId=68,No referrer,37
+138,/asp/ComposeMessage.asp?RecId=74&src=club,No referrer,37
+139,/asp/Games_Sched.asp?TeamNameSel=Bayonne-Alejand
+ro,No referrer,37
+140,/asp/Clubs_Display.asp?ClubId=84,No referrer,37
+141,/asp/Clubs_Display.asp?ClubId=93,No referrer,37
+142,/asp/Clubs_Display.asp?ClubId=107,No referrer,37
+143,/asp/Field_Directions_List.asp?ClubId=78,No referrer,37
+144,/asp/Field_Directions_List.asp?ClubId=69,No referrer,37
+145,/asp/Clubs_Display.asp?ClubId=68,No referrer,37
+146,/clubs_List.asp,No referrer,37
+147,/asp/ComposeMessage.asp?RecId=99&src=club,No referrer,36
+148,/asp/ComposeMessage.asp?RecId=89&src=club,No referrer,36
+149,/asp/ComposeMessage.asp?RecId=105&src=club,No referrer,36
+150,/asp/games_sched.asp,No referrer,36
+151,/asp/Games_Sched.asp?TeamNameSel=Bayonne-McDonal
+d,No referrer,36
+152,/asp/Forum/Forum_list.asp?TopicID=2,No referrer,36
+153,/asp/Field_Directions_List.asp?ClubId=85,No referrer,36
+154,/asp/Clubs_Display.asp?ClubId=105,No referrer,36
+155,/asp/Games_standings.asp?DivId=G11E,No referrer,36
+156,/asp/External_links.asp,No referrer,36
+157,/asp/Clubs_Display.asp?ClubId=112,No referrer,36
+158,/asp/Field_Directions_List.asp?ClubId=104,No referrer,36
+159,/asp/Field_Directions_List.asp?ClubId=98,No referrer,35
+160,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Rus
+sell,No referrer,35
+161,/asp/Field_Directions_List.asp?ClubId=70,No referrer,35
+162,/asp/Field_Directions_List.asp?ClubId=107,No referrer,35
+163,/NCSA_News.htm,No referrer,35
+164,/asp/Clubs_Display.asp?ClubId=77,No referrer,35
+165,/asp/Field_Directions_List.asp?ClubId=102,No referrer,35
+166,/asp/ComposeMessage.asp?RecId=103&src=club,No referrer,35
+167,/asp/ComposeMessage.asp?RecId=1&src=board%2B%255
+BPLM=0%255D%255BN%255D%2BGET%2Bhttp://www.ncsanj
+.com/asp//ComposeMessage.asp?RecId=1&src=board%2
+B%255B0,3869,5902%255D%2B-%253E++GET+/asp/Compos
+eMessage.asp?RecId=1&src=board%2B%255BPLM=0%255D
+%255BN%255D%2BGET%2Bhttp://www.ncsanj.com/asp//C
+omposeMessage.asp?RecId=1&src=board%2B%255B0,386
+9,5902%255D%2B-%253E+%5B0,4020,6039%5D+-%3E,No referrer,35
+168,/asp/Games_standings.asp?DivId=B10D,No referrer,34
+169,/asp/Games_standings.asp?DivId=B14C,No referrer,34
+170,/asp/Games_Standings.asp?DivId=B15B,No referrer,34
+171,/asp/Clubs_Display.asp?ClubId=81,No referrer,34
+172,/asp/External_links_2.asp,No referrer,34
+173,/asp/ComposeMessage.asp?RecId=106&src=club,No referrer,34
+174,/asp/Field_Directions.asp?ClubId=108&Field=DORCH
+ESTER+SCHOOL+FIELD+%232,No referrer,34
+175,/asp/Field_Directions_List.asp?ClubId=95,No referrer,34
+176,/asp/Games_Sched.asp?TeamNameSel=Bayonne-Alcanta
+ra,No referrer,34
+177,/asp/Coaches_List_ByDiv.asp,No referrer,34
+178,/asp/Field_Directions_List.asp?ClubId=84,No referrer,34
+179,/asp/Field_Directions_List.asp?ClubId=93,No referrer,34
+180,/asp/Clubs_Display.asp?ClubId=106,No referrer,34
+181,/asp/Field_Directions_List.asp?ClubId=110,No referrer,34
+182,/asp/Clubs_Display.asp?ClubId=89,No referrer,34
+183,/asp/Coaches_List.asp?Mode=0&ClubId=89,No referrer,33
+184,/asp/Event_NewsFlash.asp,No referrer,33
+185,/asp/ComposeMessage.asp?RecId=77&src=club,No referrer,33
+186,/asp/Games_Standings.asp?DivId=B11BW,No referrer,33
+187,/asp/Games_standings.asp?DivId=B13D,No referrer,33
+188,/asp/Games_Standings.asp?DivId=G12CB,No referrer,33
+189,/asp/Field_Directions_List.asp?ClubId=74,No referrer,33
+190,/asp/ComposeMessage.asp?RecId=102&src=club,No referrer,32
+191,/asp/Field_Directions_List.asp?ClubId=89,No referrer,32
+192,/asp/Games_Sched.asp?TeamNameSel=Bayonne-Sprague
+,No referrer,32
+193,/asp/Games_Sched_Print.asp?TeamNameSel=DenofLion
+s-Machado,No referrer,32
+194,/asp/ComposeMessage.asp?RecId=1&src=board++GET+h
+ttp://www.ncsanj.com/asp//ComposeMessage.asp?Rec
+Id=1&src=board+%5B0,3936,5969%5D+-%3E+,No referrer,32
+195,/asp/Games_Sched.asp?TeamNameSel=Bayonne-Pereira
+,No referrer,32
+196,/asp/ComposeMessage.asp?RecId=101&src=club,No referrer,32
+197,/asp/History/Hst_Main.asp,No referrer,31
+198,/asp/Menu_REF.asp,No referrer,31
+199,/asp/Coaches_List.asp?Mode=0&ClubId=101,No referrer,31
+200,/asp/Field_Directions_List.asp?ClubId=83,No referrer,31
+201,/asp/ComposeMessage.asp?RecId=100&src=club,No referrer,31
+202,/asp/ComposeMessage.asp?RecId=81&src=club,No referrer,31
+203,/asp/Games_standings.asp?DivId=G13A,No referrer,31
+204,/directions/statan_direct.htm,No referrer,30
+205,/asp/ComposeMessage.asp?RecId=85&src=club,No referrer,30
+206,/asp/Field_Directions_List.asp?ClubId=81,No referrer,30
+207,/assets/images/lightBlueBG.gif,No referrer,30
+208,/asp/Games_Standings.asp?DivID=G09B,No referrer,30
+209,/asp/Coaches_List.asp?Mode=0&ClubId=81,No referrer,30
+210,/calendar.htm,No referrer,30
+211,/asp/Field_Directions.asp?ClubId=96&Field=Mahwah
++High+School,No referrer,29
+212,/asp/Games_Sched_ByClub.asp?ClubNameSel=Thistle,No referrer,29
+213,/asp/ComposeMessage.asp?RecId=84&src=club,No referrer,29
+214,/asp/Field_Directions_List.asp?ClubId=118,No referrer,29
+215,/asp/Field_Directions_List.asp?ClubId=64,No referrer,29
+216,/asp/Games_Standings.asp?DivId=B14A,No referrer,29
+217,/asp/ComposeMessage.asp?RecId=70&src=club,No referrer,29
+218,/directions/nohaledon_direct.htm,No referrer,29
+219,/Directall.doc,No referrer,28
+220,/asp/Field_Directions_List.asp?ClubId=109,No referrer,28
+221,/asp/ComposeMessage.asp?RecId=104&src=club,No referrer,28
+222,/asp/Field_Directions.asp?ClubId=84&Field=Charle
+s+DeWolf,No referrer,28
+223,/directions/cougar_direct.htm,No referrer,27
+224,/directions/cornwall_direct.htm,No referrer,27
+225,/asp/Forum/Forum_list.asp?TopicID=1,No referrer,27
+226,/asp/Games_Sched_Print.asp?TeamNameSel=DenofLion
+s-Bertolo,No referrer,27
+227,/asp/Select/Slct_Welcome.asp,No referrer,26
+228,/asp/Clubs_Display.asp?ClubId=118,No referrer,26
+229,/asp/Field_Directions.asp?ClubId=70&Field=COMMUN
+ITY+PARK,No referrer,26
+230,/directions/monroe_direct.htm,No referrer,26
+231,/directions/shoot_direct.htm,No referrer,26
+232,/directions/fairlawn_direct.htm,No referrer,25
+233,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Lus
+k,No referrer,25
+234,/asp/Directions_Club_List.asp,No referrer,25
+235,/directions/spartans_direct.htm,No referrer,25
+236,/feedback.htm,No referrer,25
+237,/docs/By-Laws_2003.doc,No referrer,25
+238,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Rai
+nford,No referrer,25
+239,/directions/orange_direct.htm,No referrer,25
+240,/asp/Field_Directions.asp?ClubId=70&Field=COOLID
+GE+SCHOOL,No referrer,24
+241,/directions/kinnelon_direct.htm,No referrer,24
+242,/directions/bayonne_direct.htm,No referrer,24
+243,/directions/maroons_direct.htm,No referrer,24
+244,/directions/aviators_direct.htm,No referrer,24
+245,/directions/dragon_direct.htm,No referrer,24
+246,/asp/board_list.asp,No referrer,24
+247,/asp/Coaches_List.asp?Mode=0&ClubId=82,No referrer,24
+248,/directions/pioneer_direct.htm,No referrer,24
+249,/asp/Clubs_Display.asp?ClubId=113,No referrer,24
+250,/website.htm,No referrer,24
+251,/asp/Games_Standings.asp?DivId=B08D,No referrer,23
+252,/asp/Coaches_List.asp?Mode=0&ClubId=96,No referrer,23
+253,/UnderConstruction.htm,No referrer,23
+254,/directions/thistle_direct.htm,No referrer,23
+255,/asp/Coaches_List.asp?Mode=0&ClubId=106,No referrer,23
+256,/asp/Coaches_List.asp?Mode=0&ClubId=117,No referrer,23
+257,/asp/Coaches_List.asp?Mode=0&ClubId=85,No referrer,23
+258,/asp/Clubs_Display.asp?ClubId=86,No referrer,23
+259,/asp/login.asp,No referrer,23
+260,/asp/Coaches/Coaches_Main.asp,No referrer,22
+261,/asp/Coaches_List.asp?Mode=0&ClubId=100,No referrer,22
+262,/asp/Field_Directions.asp?ClubId=101&Field=Glen+
+School,No referrer,22
+263,/asp/Field_Directions.asp?ClubId=85&Field=TWINBO
+RO+1,No referrer,22
+264,/asp/Games_Standings.asp?DivId=B12P,No referrer,22
+265,/directions/pasco_direct.htm,No referrer,22
+266,/directions/bergencats_direct.htm,No referrer,22
+267,/docs/June8+pres+meet.doc,No referrer,22
+268,/asp/Field_Directions.asp?ClubId=107&Field=TISDA
+LE,No referrer,22
+269,/asp/Games_Sched.asp?TeamNameSel=Stingrays-WankG
+U9B,No referrer,22
+270,/asp/Coaches_List.asp?Mode=0&ClubId=105,No referrer,22
+271,/asp/Coaches_List.asp?Mode=0&ClubId=84,No referrer,22
+272,/directions/bergenraid_direct.htm,No referrer,21
+273,/asp/Games_Standings.asp?DivId=G19BB,No referrer,21
+274,/asp/Coaches_List.asp?Mode=0&ClubId=158,No referrer,21
+275,/asp/Field_Directions_List.asp?ClubId=121,No referrer,21
+276,/directions/bergenfield_direct.htm,No referrer,21
+277,/asp/Field_Directions.asp?ClubId=84&Field=Kenned
+y+Field,No referrer,21
+278,/_vti_bin/shtml.dll/asp/Default.asp/map,No referrer,21
+279,/asp/Games_Standings.asp?DivID=B11E,No referrer,21
+280,/directions/dumont_direct.htm,No referrer,21
+281,/directions/central_direct.htm,No referrer,21
+282,/asp/Games_Standings.asp?DivID=B17A,No referrer,21
+283,/directions/ramapoval_direct.htm,No referrer,21
+284,/asp/Field_Directions.asp?ClubId=187&Field=Veter
+ans+Field,No referrer,20
+285,/asp/Field_Directions.asp?ClubId=98&Field=St%2E+
+Joseph+Regional+High+School+GRASS+FIELDS,No referrer,20
+286,/asp/Field_Directions.asp?ClubId=70&Field=LINCOL
+N+SCHOOL%2D+Lower,No referrer,20
+287,/asp/Field_Directions.asp?ClubId=70&Field=SICOMA
+C+SCHOOL,No referrer,20
+288,/asp/Field_Directions.asp?ClubId=65&Field=MIDLAN
+D+PARK+HIGH+SCHOOL,No referrer,20
+289,/asp/Coaches_List.asp?Mode=0&ClubId=139,No referrer,20
+290,/asp/Coaches_List.asp?Mode=0&ClubId=186,No referrer,20
+291,/directions/nationals_direct.htm,No referrer,20
+292,/directions/ironbound_direct.htm,No referrer,20
+293,/asp/Coaches_List.asp?Mode=0&ClubId=112,No referrer,20
+294,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Mai
+orano,No referrer,20
+295,/directions/american_direct.htm,No referrer,19
+296,/directions/pequa_direct.htm,No referrer,19
+297,/directions/norockland_direct.htm,No referrer,19
+298,/asp/Field_Directions.asp?ClubId=69&Field=Torne+
+Valley,No referrer,19
+299,/asp/Field_Directions_List.asp?ClubId=192,No referrer,19
+300,/directions/torpedo_direct.htm,No referrer,19
+301,/asp/Field_Directions.asp?ClubId=99&Field=REAGAN
++FIELD,No referrer,19
+302,/asp/Field_Directions.asp?ClubId=98&Field=Crestw
+ood+Lake+Red+Barn,No referrer,19
+303,/directions/waynesoccer_direct.htm,No referrer,19
+304,/asp/field_directions_list.asp,No referrer,19
+305,/asp/Games_Standings.asp?DivID=G11A,No referrer,19
+306,/asp/Field_Directions.asp?ClubId=98&Field=Bogert
++School,No referrer,19
+307,/asp/Games_Standings.asp?DivID=G10C,No referrer,19
+308,/Field_Directions_List.asp,No referrer,19
+309,/asp/Contact_NCSA.asp,No referrer,19
+310,/asp/Coaches_List.asp?Mode=0&ClubId=138,No referrer,19
+311,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Sim
+mons,No referrer,18
+312,/directions/stingray_direct.htm,No referrer,18
+313,/asp/Coaches_List.asp?Mode=0&ClubId=78,No referrer,18
+314,/asp/Coaches_List.asp?Mode=0&ClubId=65,No referrer,18
+315,/asp/Games_Standings.asp?DivID=G10E,No referrer,18
+316,/asp/Field_Directions.asp?ClubId=81&Field=SUFFER
+N+MIDDLE+SCHOOL+%232,No referrer,18
+317,/asp/Field_Directions_List.asp?ClubId=186,No referrer,18
+318,/asp/Field_Directions_List.asp?ClubId=72,No referrer,18
+319,/asp/Field_Directions.asp?ClubId=182&Field=JOHNS
+ON+PARK+2+TURF,No referrer,18
+320,/asp/Field_Directions.asp?ClubId=96&Field=Ramapo
++Ridge+School+%2D+Mahwah,No referrer,18
+321,/asp/Field_Directions_List.asp?ClubId=138,No referrer,18
+322,/asp/Field_Directions_List.asp?ClubId=139,No referrer,18
+323,/asp/Coaches_List.asp?Mode=0&ClubId=110,No referrer,18
+324,/asp/Coaches_List.asp?Mode=0&ClubId=181,No referrer,18
+325,/directions/hudsonvalley_direct.htm,No referrer,18
+326,/asp/Field_Directions.asp?ClubId=139&Field=Msgr%
+2E+Owens+Field+%2D+Secondary+Full%2DSided+Field,No referrer,18
+327,/asp/Games_Sched.asp?TeamNameSel=Stingrays-Clark
+,No referrer,18
+328,/asp/Coaches_List.asp?Mode=0&ClubId=169,No referrer,18
+329,/asp/Games_Standings.asp?DivID=B12D,No referrer,18
+330,/directions/elizabeth_direct.htm,No referrer,18
+331,/asp/adm/Adm_Directions_Display.asp?ClubId=138&F
+ield=Emerson+High+School+Graduation+Field,No referrer,17
+332,/asp/clubs.asp,No referrer,17
+333,/directions/parsippany_direct.htm,No referrer,17
+334,/directions/nasa_direct.htm,No referrer,17
+335,/asp/ComposeMessage.asp?RecId=184&src=club,No referrer,17
+336,/asp/Field_Directions.asp?ClubId=65&Field=North+
+Haledon+Recreation,No referrer,17
+337,/asp/Coaches_List.asp?Mode=0&ClubId=67,No referrer,17
+338,/directions/blackhawk_direct.htm,No referrer,17
+339,/asp/Coaches_List.asp?Mode=0&ClubId=103,No referrer,17
+340,/asp/ComposeMessage.asp?RecId=139&src=club,No referrer,17
+341,/asp/Field_Directions.asp?ClubId=96&Field=Fardal
+e,No referrer,17
+342,/asp/Coaches_List.asp?Mode=0&ClubId=182,No referrer,17
+343,/asp/Field_Directions.asp?ClubId=104&Field=Munic
+ipal+Field+%28Turf%29,No referrer,17
+344,/asp/Directions_club_list.asp,No referrer,17
+345,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Mit
+ts,No referrer,17
+346,/docs/Spring2008DivisionChampions.xls,No referrer,17
+347,/asp/Games_Sched.asp?TeamNameSel=Stingrays-Delos
+%20Reyes,No referrer,17
+348,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Tuy
+suzian,No referrer,17
+349,/asp/Games_Standings.asp?DivID=G12E,No referrer,17
+350,/images/home72+copy.JPG,No referrer,17
+351,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Cho
+clin,No referrer,17
+352,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Pal
+mer,No referrer,17
+353,/asp/Clubs_Display.asp?ClubId=169,No referrer,17
+354,/asp/Field_Directions.asp?ClubId=103&Field=FELIX
++FESTA,No referrer,16
+355,/asp/Field_Directions.asp?ClubId=84&Field=Harrin
+gton+Park+Middle+School,No referrer,16
+356,/asp/Field_Directions.asp?ClubId=84&Field=Chestn
+ut+Field,No referrer,16
+357,/directions/tiger_direct.htm,No referrer,16
+358,/asp/Coaches_List.asp?Mode=0&ClubId=75,No referrer,16
+359,/asp/Field_Directions.asp?ClubId=77&Field=Hillsi
+de+School,No referrer,16
+360,/asp/Games_Standings.asp?DivID=B09CB,No referrer,16
+361,/asp/Field_Directions.asp?ClubId=65&Field=Hawtho
+rne+High+School,No referrer,16
+362,/asp/Games_Standings.asp?DivID=G11D,No referrer,16
+363,/asp/Field_Directions.asp?ClubId=102&Field=McCoo
+g+Park,No referrer,16
+364,/asp/Games_Sched_SC.asp,No referrer,16
+365,/asp/Coaches_List.asp?Mode=0&ClubId=104,No referrer,16
+366,/asp/Games_Standings.asp?DivID=B14B,No referrer,16
+367,/asp/Field_Directions.asp?ClubId=104&Field=Fairl
+eigh+Dickinson+University,No referrer,16
+368,/asp/ComposeMessage.asp?RecId=186&src=club,No referrer,16
+369,/docs/Unpaid_Refree_Form.doc,No referrer,16
+370,/asp/Field_Directions.asp?ClubId=96&Field=RAMAPO
++RIDGE+SCHOOL+%2D+MAHWAH+%233,No referrer,16
+371,/asp/Coaches_List.asp?Mode=0&ClubId=141,No referrer,16
+372,/asp/Clubs_Display.asp?ClubId=185,No referrer,16
+373,/asp/Field_Directions_List.asp?ClubId=184,No referrer,16
+374,/asp/Field_Directions_List.asp?ClubId=144,No referrer,16
+375,/asp/Games_Sched_Print.asp?TeamNameSel=DenofLion
+s-Amorim,No referrer,16
+376,/asp/Field_Directions_List.asp?ClubId=170,No referrer,16
+377,/directions/parkridge_direct.htm,No referrer,16
+378,/asp/ComposeMessage.asp?RecId=141&src=club,No referrer,16
+379,/asp/Coaches_List.asp?Mode=0&ClubId=173,No referrer,16
+380,/asp/Field_Directions.asp?ClubId=69&Field=RENAIS
+SANCE+FAIRE+SMALL,No referrer,15
+381,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Zen
+dell,No referrer,15
+382,/asp/Coaches_List.asp?Mode=0&ClubId=179,No referrer,15
+383,/asp/Field_Directions_List.asp?ClubId=182,No referrer,15
+384,/asp/Field_Directions.asp?ClubId=95&Field=Bergen
++County+Sports+Complex,No referrer,15
+385,/asp/Games_Standings.asp?DivId=B15A,No referrer,15
+386,/asp/Field_Directions.asp?ClubId=94&Field=DePaul
++Catholic+H%2ES%2E,No referrer,15
+387,/asp/Coaches_List.asp?Mode=0&ClubId=98,No referrer,15
+388,/asp/Field_Directions.asp?ClubId=111&Field=JFK+S
+CHOOL,No referrer,15
+389,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Fol
+lini,No referrer,15
+390,/asp/Field_Directions.asp?ClubId=104&Field=TENAF
+LY+HIGH+SCHOOL+%231,No referrer,15
+391,/asp/Field_Directions.asp?ClubId=77&Field=NVRHS+
+%2D+Demarest+Upper,No referrer,15
+392,/asp/Games_Standings.asp?DivID=G08C,No referrer,15
+393,/asp/Coaches_List.asp?Mode=0&ClubId=69,No referrer,15
+394,/asp/Field_Directions.asp?ClubId=77&Field=WAKELE
+E+FIELD+2,No referrer,15
+395,/asp/Field_Directions.asp?ClubId=91&Field=ROOSEV
+ELT+SCHOOL,No referrer,15
+396,/asp/Field_Directions.asp?ClubId=112&Field=HIGH+
+MOUNTAIN+SCHOOL,No referrer,15
+397,/asp/Coaches_List.asp?Mode=0&ClubId=73,No referrer,15
+398,/asp/Games_Sched.asp?TeamNameSel=Stingrays-WankG
+U12,No referrer,15
+399,/asp/Clubs_Display.asp?ClubId=158,No referrer,15
+400,/asp/Field_Directions.asp?ClubId=179&Field=Morri
+s+Catholic+High+School,No referrer,15
+401,/asp/Field_Directions.asp?ClubId=65&Field=WILLOW
++FIELD,No referrer,15
+402,/asp/Field_Directions.asp?ClubId=144&Field=Brook
+dale+Park+%22softball%22,No referrer,15
+403,/asp/Field_Directions.asp?ClubId=179&Field=Morri
+s+Catholic,No referrer,15
+404,/asp/Field_Directions.asp?ClubId=83&Field=WEEQUA
+HIC+PARK+D,No referrer,14
+405,/asp/Field_Directions.asp?ClubId=105&Field=FLOOD
+S+HILL,No referrer,14
+406,/asp/Field_Directions.asp?ClubId=117&Field=JEFFE
+RSON+SCHOOL+FIELD,No referrer,14
+407,/asp/Field_Directions.asp?ClubId=111&Field=BARBO
+UR+POND+PARK+%233,No referrer,14
+408,/asp/Field_Directions.asp?ClubId=93&Field=Center
++Rec%2FFair+Lawn+HS,No referrer,14
+409,/asp/Field_Directions_List.asp?ClubId=141,No referrer,14
+410,/asp/Coaches_List.asp?Mode=0&ClubId=187,No referrer,14
+411,/asp/Field_Directions.asp?ClubId=108&Field=FIELD
+STONE+FIELD+%232,No referrer,14
+412,/asp/Field_Directions.asp?ClubId=77&Field=Schuab
+le+Field,No referrer,14
+413,/asp/Field_Directions.asp?ClubId=106&Field=WEEQU
+AHIC+PARK+A+%2D+Newark,No referrer,14
+414,/asp/Games_Standings.asp?DivID=B10A,No referrer,14
+415,/asp/Field_Directions.asp?ClubId=98&Field=Brooks
+ide+School,No referrer,14
+416,/asp/Games_Standings.asp?DivID=B09DB,No referrer,14
+417,/asp/adm/Adm_Directions_Display.asp?ClubId=69&Fi
+eld=RENAISSANCE+FAIRE+SMALL,No referrer,14
+418,/asp/Games_Standings.asp?DivID=G19D,No referrer,14
+419,/asp/Coaches_List.asp?Mode=0&ClubId=93,No referrer,14
+420,/asp/Clubs_Display.asp?ClubId=139,No referrer,14
+421,/asp/Field_Directions.asp?ClubId=141&Field=Tambl
+yn+Field,No referrer,14
+422,/asp/ComposeMessage.asp?RecId=173&src=club,No referrer,14
+423,/asp/Field_Directions.asp?ClubId=183&Field=Memor
+ial+Park,No referrer,14
+424,/asp/History/Spring_2003/Hst_Games_Score.asp,No referrer,14
+425,/asp/Field_Directions.asp?ClubId=98&Field=Presen
+tation+Church,No referrer,14
+426,/asp/Field_Directions_List.asp?ClubId=187,No referrer,14
+427,/asp/Field_Directions.asp?ClubId=170&Field=Lyndh
+urst+Rec+Center+Field+%234,No referrer,14
+428,/asp/Field_Directions.asp?ClubId=73&Field=FABER+
+FIELD+%231,No referrer,14
+429,/asp/Field_Directions.asp?ClubId=68&Field=Stephe
+n+Gregg+Park+Quad,No referrer,14
+430,/asp/Field_Directions.asp?ClubId=70&Field=EISENH
+OWER+SCHOOL,No referrer,14
+431,/asp/Field_Directions.asp?ClubId=112&Field=WOODS
+IDE+AVENUE+SCHOOL,No referrer,14
+432,/asp/Field_Directions_List.asp?ClubId=185,No referrer,14
+433,/asp/Field_Directions.asp?ClubId=117&Field=VIVYE
+N+FIELD,No referrer,14
+434,/asp/Field_Directions.asp?ClubId=73&Field=GLEN+R
+OCK+HIGH+SCHOOL+SLOPED+FIELD,No referrer,14
+435,/asp/Field_Directions.asp?ClubId=99&Field=FRONT+
+FIELD,No referrer,13
+436,/asp/Field_Directions.asp?ClubId=83&Field=WEEQUA
+HIC+PARK+C,No referrer,13
+437,/asp/Coaches_List.asp?Mode=0&ClubId=74,No referrer,13
+438,/asp/Field_Directions.asp?ClubId=138&Field=Villa
+no+School,No referrer,13
+439,/asp/Games_Sched_Print.asp?TeamNameSel=DenofLion
+s-PereiraBU9,No referrer,13
+440,/asp/Coaches_List.asp?Mode=0&ClubId=77,No referrer,13
+441,/asp/ComposeMessage.asp?RecId=65&src=club,No referrer,13
+442,/asp/ComposeMessage.asp?RecId=185&src=club,No referrer,13
+443,/asp/Field_Directions.asp?ClubId=108&Field=STONY
++BROOK,No referrer,13
+444,/asp/ComposeMessage.asp?RecId=182&src=club,No referrer,13
+445,/asp/Clubs_Display.asp?ClubId=170,No referrer,13
+446,/asp/ComposeMessage.asp?RecId=179&src=club,No referrer,13
+447,/asp/Field_Directions.asp?ClubId=105&Field=DEHAR
+T+PARK,No referrer,13
+448,/asp/adm/Adm_Games_List_All.asp?SelBy=REF,No referrer,13
+449,/asp/Field_Directions_List.asp?ClubId=206,No referrer,13
+450,/asp/Field_Directions.asp?ClubId=102&Field=Shai+
+Shaknai%232+%28JFK+School%29,No referrer,13
+451,/asp/Field_Directions.asp?ClubId=185&Field=McKeo
+wn+Field,No referrer,13
+452,/asp/Field_Directions.asp?ClubId=101&Field=BEN+F
+RANKLIN+MIDDLE+SCHOOL+%232,No referrer,13
+453,/asp/Coaches_List.asp?Mode=0&ClubId=111,No referrer,13
+454,/asp/Coaches_List.asp?Mode=0&ClubId=99,No referrer,13
+455,/asp/Field_Directions_List.asp?ClubId=179,No referrer,13
+456,/asp/Field_Directions.asp?ClubId=103&Field=ZUKOR
++PARK,No referrer,13
+457,/asp/Field_Directions.asp?ClubId=173&Field=Alber
+t+Pomponio+Field,No referrer,13
+458,/asp/Field_Directions.asp?ClubId=65&Field=HIGHLA
+ND+SCHOOL,No referrer,13
+459,/asp/Coaches_List.asp?Mode=0&ClubId=102,No referrer,13
+460,/asp/Field_Directions.asp?ClubId=103&Field=KENNE
+DY+DELLS+PARK+%28NORTH+Main+Street%2C+New+City%2
+C+N,No referrer,13
+461,/asp/Field_Directions.asp?ClubId=110&Field=HARVE
+Y+%232,No referrer,13
+462,/asp/Field_Directions.asp?ClubId=108&Field=EMERS
+ON+HIGH+SCHOOL,No referrer,13
+463,/asp/Field_Directions.asp?ClubId=108&Field=VAN+S
+AUN+PARK,No referrer,13
+464,/asp/Coaches_List.asp?Mode=0&ClubId=206,No referrer,13
+465,/asp/Coaches_List.asp?Mode=0&ClubId=201,No referrer,13
+466,/asp/Field_Directions.asp?ClubId=186&Field=Hobok
+en+HS,No referrer,12
+467,/asp/Field_Directions.asp?ClubId=75&Field=WOODLA
+ND+PARK,No referrer,12
+468,/asp/ComposeMessage.asp?RecId=138&src=club,No referrer,12
+469,/asp/Field_Directions.asp?ClubId=77&Field=Memori
+al+Haworth,No referrer,12
+470,/asp/Field_Directions.asp?ClubId=95&Field=N%2Fa,No referrer,12
+471,/asp/Field_Directions.asp?ClubId=98&Field=St%2E+
+Luke%27s,No referrer,12
+472,/asp/Field_Directions.asp?ClubId=95&Field=VOTEE+
+PARK+North,No referrer,12
+473,/asp/Field_Directions.asp?ClubId=101&Field=Somer
+ville,No referrer,12
+474,/asp/Field_Directions.asp?ClubId=102&Field=Barbo
+ur+Pond+Park+%234,No referrer,12
+475,/asp/Field_Directions.asp?ClubId=98&Field=Crestw
+ood+Upper+Field,No referrer,12
+476,/asp/Coaches_List.asp?Mode=0&ClubId=183,No referrer,12
+477,/asp/History/Spring_2004/Hst_Games_Score.asp,No referrer,12
+478,/asp/Field_Directions.asp?ClubId=73&Field=Hamilt
+on+School,No referrer,12
+479,/asp/History/Spring_2008/Hst_Games_Score.asp,No referrer,12
+480,/asp/Field_Directions.asp?ClubId=73&Field=test+2
+,No referrer,12
+481,/asp/Clubs_Display.asp?ClubId=201,No referrer,12
+482,/asp/ComposeMessage.asp?RecId=144&src=club,No referrer,12
+483,/asp/Field_Directions.asp?ClubId=182&Field=Hacke
+nsack+High+School+Soccer+Field,No referrer,12
+484,/asp/Field_Directions.asp?ClubId=67&Field=KETLER
++FIELD+%231,No referrer,12
+485,/asp/Field_Directions.asp?ClubId=73&Field=Faber+
+Mustang+Field,No referrer,12
+486,/asp/Field_Directions.asp?ClubId=73&Field=Colema
+n+School,No referrer,12
+487,/asp/clubs_list.asp,No referrer,12
+488,/asp/Field_Directions.asp?ClubId=82&Field=POPE+J
+OHN+II+SCHOOL+FIELD,No referrer,12
+489,/asp/Field_Directions.asp?ClubId=158&Field=SKYLI
+NE+FIELD,No referrer,12
+490,/asp/Field_Directions.asp?ClubId=139&Field=De+Mu
+ro+Field+Primary+Full+Sided+Choice,No referrer,12
+491,/asp/Field_Directions.asp?ClubId=83&Field=WEEQUA
+HIC+PARK+F,No referrer,12
+492,/asp/Coaches_List.asp?Mode=0&ClubId=70,No referrer,12
+493,/asp/Clubs_Display.asp?ClubId=207,No referrer,12
+494,/directions/vikings_direct.htm,No referrer,12
+495,/asp/Field_Directions.asp?ClubId=204&Field=Belmo
+nt+Oval+Park,No referrer,12
+496,/asp/Field_Directions.asp?ClubId=110&Field=Kearn
+y+High+School,No referrer,12
+497,/directions/manhattan_direct.htm,No referrer,12
+498,/asp/Field_Directions.asp?ClubId=111&Field=BARBO
+UR+POND+PARK+%231,No referrer,12
+499,/asp/Field_Directions.asp?ClubId=70&Field=SAINT+
+ELIZABETHS+CHURCH+%232%2DSMALL,No referrer,12
+500,/asp/Field_Directions.asp?ClubId=108&Field=Georg
+e+White+MS,No referrer,12
+501,/asp/Field_Directions.asp?ClubId=110&Field=GUNNE
+LL+OVAL+%231,No referrer,12
+502,/asp/Field_Directions.asp?ClubId=102&Field=JFK+S
+CHOOL,No referrer,12
+503,/asp/Field_Directions.asp?ClubId=99&Field=ACKERM
+AN+FIELD,No referrer,12
+504,/asp/Field_Directions.asp?ClubId=104&Field=Alpin
+e+Church+St+Field,No referrer,12
+505,/asp/Games_Sched_Print.asp?TeamName=Vikings-Pozo
+trigo,No referrer,12
+506,/asp/Games_Standings.asp?DivID=G09D,No referrer,11
+507,/asp/Field_Directions.asp?ClubId=108&Field=THE+G
+ROVE,No referrer,11
+508,/asp/Field_Directions.asp?ClubId=102&Field=GW+MI
+DDLE+SCHOOL,No referrer,11
+509,/asp/Field_Directions_List.asp?ClubId=173,No referrer,11
+510,/asp/Field_Directions.asp?ClubId=170&Field=Volun
+teer+Stadium,No referrer,11
+511,/asp/ComposeMessage.asp?RecId=204&src=club,No referrer,11
+512,/asp/Field_Directions.asp?ClubId=144&Field=Brook
+dale+Stadium,No referrer,11
+513,/asp/Field_Directions.asp?ClubId=144&Field=Brook
+dale+%22Baseball%22+Field,No referrer,11
+514,/asp/Field_Directions.asp?ClubId=144&Field=Brook
+dale+Park+E,No referrer,11
+515,/asp/ComposeMessage.asp?RecId=206&src=club,No referrer,11
+516,/asp/Games_Standings.asp?DivId=G08A,No referrer,11
+517,/asp/adm/Adm_Directions_Display.asp?ClubId=112&F
+ield=HIGH+MOUNTAIN+SCHOOL,No referrer,11
+518,/asp/Games_Standings.asp?DivID=G15C,No referrer,11
+519,/asp/Field_Directions_List.asp?ClubId=204,No referrer,11
+520,/asp/Field_Directions_List.asp?ClubId=201,No referrer,11
+521,/asp/Field_Directions.asp?ClubId=74&Field=WALDWI
+CK+HIGH+SCHOOL+NORTH+FIE,No referrer,11
+522,/asp/Field_Directions.asp?ClubId=74&Field=WALDWI
+CK+HIGH+SCHOOL+%231,No referrer,11
+523,/asp/History/Fall_2003/Hst_Games_Score.asp,No referrer,11
+524,/asp/Field_Directions.asp?ClubId=74&Field=VETERA
+NS+PARK,No referrer,11
+525,/asp/Field_Directions.asp?ClubId=108&Field=CENTE
+NNIAL+FIELD+%231,No referrer,11
+526,/asp/Field_Directions.asp?ClubId=103&Field=OUTDO
+OR+EDUCATION+CENTER,No referrer,11
+527,/asp/Field_Directions.asp?ClubId=144&Field=Fortu
+nato+Field,No referrer,11
+528,/asp/Field_Directions.asp?ClubId=78&Field=NORTH+
+ROCKLAND+%28NR%2DC%29,No referrer,11
+529,/asp/Field_Directions.asp?ClubId=83&Field=Riverb
+ank+Park,No referrer,11
+530,/asp/Clubs_Display.asp?ClubId=173,No referrer,11
+531,/asp/Field_Directions.asp?ClubId=105&Field=NEW+W
+ATERLANDS+PARK+%233,No referrer,11
+532,/asp/Field_Directions.asp?ClubId=106&Field=IRONB
+OUND+STADIUM+FIELD,No referrer,11
+533,/asp/Field_Directions.asp?ClubId=67&Field=WESTWO
+OD+HIGH+SCHOOL+%232,No referrer,11
+534,/asp/Field_Directions.asp?ClubId=65&Field=Wagara
+w+Field,No referrer,11
+535,/asp/Field_Directions.asp?ClubId=67&Field=GEORGE
++SCHOOL,No referrer,11
+536,/asp/Field_Directions.asp?ClubId=70&Field=PULIS%
+2D%231+SMALL,No referrer,11
+537,/asp/Field_Directions.asp?ClubId=112&Field=MOST+
+BLESSED+SACRAMENT+%232,No referrer,11
+538,/asp/Field_Directions.asp?ClubId=98&Field=Northe
+rn+Highlands+Regional+HS+Turf,No referrer,11
+539,/asp/Field_Directions.asp?ClubId=186&Field=JFK+S
+tadium+%28High+School+Turf+Field%29,No referrer,11
+540,/asp/Field_Directions.asp?ClubId=141&Field=Memor
+ial+Diamond+Small+2,No referrer,11
+541,/asp/Field_Directions.asp?ClubId=93&Field=Memori
+al+Middle+School+Full+Field,No referrer,11
+542,/asp/Field_Directions.asp?ClubId=101&Field=Trave
+ll+School+Field,No referrer,11
+543,/asp/Field_Directions.asp?ClubId=187&Field=Green
++Acres+Palisades+Park,No referrer,11
+544,/asp/Field_Directions.asp?ClubId=103&Field=KENNE
+DY+DELLS+PARK+%231+%28NORTH+MAIN+STREET%2C+NEW+C
+ITY,No referrer,11
+545,/asp/Field_Directions.asp?ClubId=98&Field=Crestw
+ood+Lake%2FLower+Field,No referrer,11
+546,/asp/Clubs_Display.asp?ClubId=192,No referrer,11
+547,/asp/Field_Directions.asp?ClubId=95&Field=Ammand
++Park,No referrer,11
+548,/asp/Field_Directions.asp?ClubId=185&Field=Hobar
+t+Field,No referrer,11
+549,/asp/Field_Directions.asp?ClubId=83&Field=WEEQUA
+HIC+PARK+B,No referrer,11
+550,/asp/Field_Directions.asp?ClubId=108&Field=Field
+stone+Field+%235,No referrer,11
+551,/asp/Field_Directions.asp?ClubId=84&Field=OTHS+m
+iddle+frosh+field,No referrer,11
+552,/asp/Field_Directions.asp?ClubId=89&Field=Eastbr
+ook+Field,No referrer,11
+553,/asp/Field_Directions.asp?ClubId=108&Field=MCKAY
++PARK,No referrer,10
+554,/asp/Field_Directions.asp?ClubId=100&Field=Georg
+e+Washington,No referrer,10
+555,/asp/History/Fall_2006/Hst_Games_Standings.asp,No referrer,10
+556,/asp/Field_Directions.asp?ClubId=101&Field=GEORG
+E+WASHINGTON+MIDDLE+SCHOOL+%28GW%29,No referrer,10
+557,/asp/Field_Directions.asp?ClubId=108&Field=Field
+stone+Field+%234,No referrer,10
+558,/asp/Field_Directions_List.asp?ClubId=207,No referrer,10
+559,/asp/Field_Directions.asp?ClubId=169&Field=Fort+
+Lee+High+School+Field,No referrer,10
+560,/asp/Field_Directions.asp?ClubId=108&Field=ROBER
+GE,No referrer,10
+561,/asp/Field_Directions.asp?ClubId=108&Field=Domin
+ican+College,No referrer,10
+562,/asp/Field_Directions.asp?ClubId=108&Field=DORCH
+ESTER+SCHOOL+FIELD+%231,No referrer,10
+563,/asp/Field_Directions.asp?ClubId=102&Field=Hamil
+ton+Park,No referrer,10
+564,/asp/Field_Directions.asp?ClubId=101&Field=Maple
++Park+East,No referrer,10
+565,/asp/Field_Directions.asp?ClubId=65&Field=Covena
+nt+Christian+Church,No referrer,10
+566,/asp/Field_Directions.asp?ClubId=77&Field=Myrtle
++Field+%28Haworth%29,No referrer,10
+567,/directions/roxbury_direct.htm,No referrer,10
+568,/asp/Field_Directions.asp?ClubId=75&Field=WRIGHT
++MEMORIAL%2FTETERBORO+FIELD,No referrer,10
+569,/pres.htm,No referrer,10
+570,/asp/Field_Directions.asp?ClubId=107&Field=NORTH
++CENTRAL,No referrer,10
+571,/asp/Field_Directions.asp?ClubId=206&Field=Sport
+friends+Oval,No referrer,10
+572,/asp/Field_Directions.asp?ClubId=117&Field=MEMOR
+IAL+FIELD,No referrer,10
+573,/asp/Field_Directions.asp?ClubId=81&Field=SUFFER
+N+MIDDLE+SCHOOL+%235,No referrer,10
+574,/asp/Field_Directions.asp?ClubId=112&Field=MOST+
+BLESSED+SACRAMENT+%231,No referrer,10
+575,/asp/Field_Directions.asp?ClubId=67&Field=KETLER
++FIELD+%28STADIUM%29,No referrer,10
+576,/asp/Games_Standings.asp?DivId=B13A,No referrer,10
+577,/asp/Field_Directions.asp?ClubId=117&Field=HOOVE
+R+SCHOOL,No referrer,10
+578,/asp/Field_Directions.asp?ClubId=67&Field=KETLER
++FIELD+B,No referrer,10
+579,/directions/fcTalons_direct.htm,No referrer,10
+580,/asp/Field_Directions.asp?ClubId=70&Field=RAMAPO
++HS+TURF,No referrer,10
+581,/asp/Field_Directions.asp?ClubId=112&Field=OAKLA
+ND+RECREATIONAL+FIELDS+%231,No referrer,10
+582,/asp/Field_Directions.asp?ClubId=70&Field=PULIS,No referrer,10
+583,/asp/Field_Directions.asp?ClubId=108&Field=Veter
+ans+Field+1,No referrer,10
+584,/asp/Field_Directions.asp?ClubId=110&Field=GUNNE
+LL+OVAL+%232,No referrer,10
+585,/asp/Field_Directions.asp?ClubId=110&Field=GUNNE
+LL+OVAL+MAIN,No referrer,10
+586,/asp/Field_Directions.asp?ClubId=108&Field=Veter
+ans+Field+2,No referrer,10
+587,/asp/Field_Directions.asp?ClubId=110&Field=HARVE
+Y+Main,No referrer,10
+588,/asp/Field_Directions.asp?ClubId=173&Field=test2
+,No referrer,10
+589,/asp/Field_Directions.asp?ClubId=170&Field=Lyndh
+urst+Rec+Center+Field+%233,No referrer,10
+590,/asp/Field_Directions.asp?ClubId=173&Field=Pompo
+nio+Field,No referrer,10
+591,/asp/Field_Directions_List.asp?ClubId=158,No referrer,10
+592,/asp/Field_Directions.asp?ClubId=85&Field=Dumont
++High+School,No referrer,10
+593,/asp/Field_Directions.asp?ClubId=95&Field=Votee+
+Park,No referrer,10
+594,/asp/Field_Directions.asp?ClubId=93&Field=Thomas
++Jefferson+Middle+School+Upper+Field,No referrer,10
+595,/asp/Field_Directions.asp?ClubId=96&Field=MEMORI
+AL+%28MEM%2DMAH%29+MAHWAH,No referrer,10
+596,/asp/Field_Directions.asp?ClubId=91&Field=RIVER+
+DELL+MIDDLE+SCHOOL+%28RDMS%29,No referrer,10
+597,/asp/Field_Directions.asp?ClubId=111&Field=SHEFF
+IELD+PARK+%232,No referrer,10
+598,/asp/Field_Directions.asp?ClubId=111&Field=Shai+
+Shaknai+Field+%232,No referrer,10
+599,/asp/Field_Directions.asp?ClubId=181&Field=SYLVA
+N+PARK,No referrer,10
+600,/asp/Field_Directions.asp?ClubId=98&Field=Lions+
+Park+East,No referrer,10
+601,/asp/Games_Standings.asp?DivId=B10BB,No referrer,9
+602,/asp/Games_Standings.asp?DivId=B12B,No referrer,9
+603,/weather_frame.htm,No referrer,9
+604,/asp/Games_Sched.asp?TeamNameSel=Thistle-Blancas
+,No referrer,9
+605,/asp/Field_Directions.asp?ClubId=139&Field=Nutle
+y+High+School+Park+Oval+%2D+Turf,No referrer,9
+606,/asp/Field_Directions.asp?ClubId=105&Field=Borde
+n+Park+Field+%232,No referrer,9
+607,/asp/Field_Directions.asp?ClubId=144&Field=Cody+
+Field,No referrer,9
+608,/asp/Field_Directions.asp?ClubId=144&Field=Brook
+dale+Park+C,No referrer,9
+609,/asp/Field_Directions.asp?ClubId=141&Field=Tryon
++Field,No referrer,9
+610,/asp/Field_Directions.asp?ClubId=103&Field=Clark
+stown+North+H%2ES%2E,No referrer,9
+611,/asp/Field_Directions.asp?ClubId=102&Field=SCHUY
+LER+COLFAX+JR+HS+%232,No referrer,9
+612,/asp/Field_Directions.asp?ClubId=68&Field=16th+S
+treet+Park+Small+Sided,No referrer,9
+613,/directions/ajax_direct.htm,No referrer,9
+614,/asp/Field_Directions.asp?ClubId=187&Field=Meado
+wland+Field,No referrer,9
+615,/asp/Field_Directions.asp?ClubId=91&Field=RIVER+
+DELL+HS+%2D+STADIUM,No referrer,9
+616,/asp/Field_Directions.asp?ClubId=107&Field=MAC+F
+ARRAN+FIELD+%2D+Lower+%28new%29,No referrer,9
+617,/asp/Field_Directions.asp?ClubId=192&Field=MOUNT
+AIN+AVENUE+FIELD,No referrer,9
+618,/directions/cliffside_direct.htm,No referrer,9
+619,/asp/Field_Directions.asp?ClubId=95&Field=Benjam
+in+Franklin+Middle+School,No referrer,9
+620,/asp/Field_Directions.asp?ClubId=93&Field=West+M
+oreland+Middle+School,No referrer,9
+621,/asp/Field_Directions.asp?ClubId=93&Field=Brookd
+ale+Park,No referrer,9
+622,/docs/By-Laws+2003+(Redlined).doc,No referrer,9
+623,/asp/Field_Directions.asp?ClubId=96&Field=POTTER
+%27%27S+FIELD,No referrer,9
+624,/asp/Field_Directions.asp?ClubId=70&Field=PULIS+
++A++%2D+FULL,No referrer,9
+625,/asp/Field_Directions.asp?ClubId=69&Field=CENTRA
+L+VALLEY+13,No referrer,9
+626,/asp/Field_Directions.asp?ClubId=74&Field=TRAPHA
+GEN+ELEMENTARY+SCHOOL+%232,No referrer,9
+627,/asp/Field_Directions.asp?ClubId=68&Field=16th+S
+treet+Park+Full+Sided,No referrer,9
+628,/asp/Field_Directions.asp?ClubId=68&Field=Stephe
+n+Gregg+Park+%28Quad%29,No referrer,9
+629,/asp/Coaches_List.asp?Mode=0&ClubId=207,No referrer,9
+630,/asp/Field_Directions.asp?ClubId=78&Field=NORTH+
+ROCKLAND+%28NR%2DF%29,No referrer,9
+631,/asp/Field_Directions.asp?ClubId=78&Field=NORTH+
+ROCKLAND+%28NR%2DE%29,No referrer,9
+632,/asp/Field_Directions.asp?ClubId=77&Field=Van+Sa
+un+Park,No referrer,9
+633,/asp/Field_Directions.asp?ClubId=77&Field=WAKELE
+E+FIELD+1,No referrer,9
+634,/asp/Field_Directions.asp?ClubId=144&Field=HILLS
+IDE,No referrer,9
+635,/asp/History/Spring_2006/Hst_Games_Standings.asp
+,No referrer,9
+636,/asp/Field_Directions.asp?ClubId=170&Field=Lyndh
+urst+Rec+Center+Field+%232,No referrer,9
+637,/asp/History/Spring_2004/Hst_Games_Standings.asp
+,No referrer,9
+638,/asp/History/Spring_2007/Hst_Games_Standings.asp
+,No referrer,9
+639,/asp/Field_Directions.asp?ClubId=108&Field=TAPPA
+N+HIGH+SCHOOL,No referrer,9
+640,/asp/Field_Directions_List.asp?ClubId=195,No referrer,9
+641,/asp/Field_Directions.asp?ClubId=144&Field=North
+east+School,No referrer,9
+642,/asp/Field_Directions.asp?ClubId=105&Field=NEW+W
+ATERLANDS+PARK+%231,No referrer,9
+643,/asp/History/Fall_2007/Hst_Games_Standings.asp,No referrer,9
+644,/asp/Field_Directions.asp?ClubId=169&Field=Middl
+e+School+Field,No referrer,9
+645,/asp/Field_Directions.asp?ClubId=96&Field=Trinit
+y,No referrer,9
+646,/asp/Field_Directions.asp?ClubId=98&Field=West+M
+aple,No referrer,9
+647,/asp/approve/App_FlightWS_Instructions.asp,No referrer,9
+648,/asp/ComposeMessage.asp?RecId=183&src=club,No referrer,9
+649,/asp/Field_Directions.asp?ClubId=111&Field=Wayne
++Hills+High+School+Auxiliary+Field+%23+1,No referrer,9
+650,/asp/Field_Directions_List.asp?ClubId=181,No referrer,9
+651,/asp/Clubs_Display.asp?ClubId=181,No referrer,9
+652,/docs/NCSARules.doc,No referrer,9
+653,/asp/Field_Directions.asp?ClubId=107&Field=SMITH
++SCHOOL,No referrer,8
+654,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Woo
+d,No referrer,8
+655,/asp/Field_Directions.asp?ClubId=108&Field=Berge
+n+Academies,No referrer,8
+656,/asp/Games_standings.asp?DivId=B14D,No referrer,8
+657,/asp/Field_Directions.asp?ClubId=101&Field=Citiz
+en%27s+Park+Field,No referrer,8
+658,/asp/History/Fall_2004/Hst_Games_Score.asp,No referrer,8
+659,/asp/Field_Directions.asp?ClubId=101&Field=Haber
+nickel+Park,No referrer,8
+660,/asp/Games_Standings.asp?DivId=G11CW,No referrer,8
+661,/docs/Fall_2005_Rules_Change_Highlights.doc,No referrer,8
+662,/directions/tenafly_direct.htm,No referrer,8
+663,/asp/ComposeMessage.asp?RecId=207&src=club,No referrer,8
+664,/directions/superstars_direct.htm,No referrer,8
+665,/asp/Field_Directions.asp?ClubId=103&Field=KENNE
+DY+DELLS+PARK+%233+%28NORTH+MAIN+STREET%2C+NEW+C
+ITY,No referrer,8
+666,/asp/Games_Standings.asp?DivID=B11D,No referrer,8
+667,/asp/Games_Sched_Print.asp?TeamNameSel=DenofLion
+s-VelasquezBU12,No referrer,8
+668,/asp/Games_Standings.asp?DivId=B08B,No referrer,8
+669,/asp/Field_Directions.asp?ClubId=103&Field=KENNE
+DY+DELLS+PARK+%232+%28NORTH+MAIN+STREET%2C+NEW+C
+ITY,No referrer,8
+670,/asp/Games_Standings.asp?DivId=G09B,No referrer,8
+671,/asp/Field_Directions.asp?ClubId=101&Field=Orcha
+rd+%28230+Demarest+Ave%29,No referrer,8
+672,/asp/Games_Standings.asp?DivId=B12D,No referrer,8
+673,/asp/Games_Standings.asp?DivId=B09CB,No referrer,8
+674,/asp/Field_Directions.asp?ClubId=102&Field=De+Pa
+ul+High+School,No referrer,8
+675,/asp/Field_Directions.asp?ClubId=117&Field=Roy+W
+%2E+Brown+Middle+School,No referrer,8
+676,/asp/Field_Directions.asp?ClubId=70&Field=SAINT+
+ELIZABETHS+CHURCH+%23+1%2DSMALL,No referrer,8
+677,/asp/Field_Directions.asp?ClubId=74&Field=Waldwi
+ck+High+School+%28North+Field%29,No referrer,8
+678,/asp/Field_Directions.asp?ClubId=68&Field=Stephe
+n+Gregg+Park+%2848th+St%2E%29,No referrer,8
+679,/asp/Field_Directions.asp?ClubId=91&Field=MEMORI
+AL+%28MEM+ORA%29,No referrer,8
+680,/asp/Field_Directions.asp?ClubId=82&Field=RICHAR
+DSON+SCALE,No referrer,8
+681,/asp/Field_Directions.asp?ClubId=112&Field=FRANK
+LIN+LAKES+MUNICIPAL+COMPLEX+%232,No referrer,8
+682,/asp/Field_Directions.asp?ClubId=181&Field=SYLVA
+N+PARK+SMALL,No referrer,8
+683,/asp/Field_Directions.asp?ClubId=192&Field=North
++Caldwell+%2D+West+Essex+Upper,No referrer,8
+684,/asp/Field_Directions.asp?ClubId=68&Field=Penins
+ula+2,No referrer,8
+685,/asp/Field_Directions.asp?ClubId=67&Field=Pulis+
+Ave+Turf+Franklin+Lakes,No referrer,8
+686,/asp/Field_Directions.asp?ClubId=201&Field=Count
+y+Ave%2E,No referrer,8
+687,/asp/Field_Directions.asp?ClubId=141&Field=Memor
+ial+Field+Diamond+1+%28Fall+only%29,No referrer,8
+688,/asp/Field_Directions.asp?ClubId=108&Field=OLD+M
+ILL+PARK+%26+RINZLER,No referrer,8
+689,/asp/Field_Directions.asp?ClubId=98&Field=Northe
+rn+Highlands+HS+GRASS,No referrer,8
+690,/asp/Field_Directions.asp?ClubId=108&Field=Field
+stone+Field+%236,No referrer,8
+691,/asp/Field_Directions.asp?ClubId=111&Field=SCHUY
+LER+COLFAX+JR+HS+SMALL+%233,No referrer,8
+692,/asp/Field_Directions.asp?ClubId=111&Field=GLEN+
+FROEHNER+FIELD%2FSINGAC+BROOK+PARK+SOUTH,No referrer,8
+693,/asp/Field_Directions.asp?ClubId=96&Field=North+
+Field+%28formerly+Potters%29,No referrer,8
+694,/asp/Field_Directions.asp?ClubId=98&Field=CRESTW
+OOD+PARK,No referrer,8
+695,/asp/Field_Directions.asp?ClubId=111&Field=Wayne
++Hills+HS+Athletic+Field,No referrer,8
+696,/asp/Field_Directions.asp?ClubId=108&Field=CENTE
+NNIAL+FIELD+%232,No referrer,8
+697,/asp/Field_Directions.asp?ClubId=98&Field=Lions+
+Park+West,No referrer,8
+698,/asp/Field_Directions.asp?ClubId=108&Field=Berge
+n+County+Sports+Complex,No referrer,8
+699,/asp/Field_Directions.asp?ClubId=111&Field=SHEFF
+IELD+PARK+%233,No referrer,8
+700,/asp/Field_Directions.asp?ClubId=93&Field=Fair+L
+awn+High+School,No referrer,7
+701,/asp/Field_Directions.asp?ClubId=93&Field=Memori
+al+Middle+School,No referrer,7
+702,/asp/Field_Directions.asp?ClubId=83&Field=NJ+Ins
+titute+of+Technology,No referrer,7
+703,/asp/Games_Standings.asp?DivId=G10A,No referrer,7
+704,/asp/Forum/forum_Posting.asp?id=1171,No referrer,7
+705,/asp/Games_Standings.asp?DivId=G14B,No referrer,7
+706,/asp/Field_Directions.asp?ClubId=192&Field=LIBER
+TY+FIELD,No referrer,7
+707,/asp/Field_Directions.asp?ClubId=207&Field=Mt%2E
++Airy+Sports+Complex,No referrer,7
+708,/asp/Games_Sched_ByFld.asp?fieldsel=THIS-HARVEY%
+201,No referrer,7
+709,/asp/Field_Directions.asp?ClubId=117&Field=Hicko
+ry,No referrer,7
+710,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Ram
+on,No referrer,7
+711,/asp/History/Spring_2005/Hst_Games_Standings.asp
+,No referrer,7
+712,/asp/Field_Directions.asp?ClubId=108&Field=VIK%2
+DRuckman,No referrer,7
+713,/asp/Field_Directions.asp?ClubId=108&Field=PASCA
+CK+VALLEY+HIGH+SCHOOL,No referrer,7
+714,/asp/Field_Directions.asp?ClubId=98&Field=St%2E+
+Joseph%27s+Regional+High+School+TURF+FIELD,No referrer,7
+715,/asp/Field_Directions.asp?ClubId=96&Field=Ramapo
++Ridge+School+%2D++%231,No referrer,7
+716,/asp/Games_standings.asp?DivId=G09D,No referrer,7
+717,/asp/Forum/Forum_Posting.asp,No referrer,7
+718,/asp/Field_Directions.asp?ClubId=108&Field=Field
+stone+Field+%233,No referrer,7
+719,/asp/History/Fall_2005/Hst_Games_Score.asp,No referrer,7
+720,/asp/Field_Directions.asp?ClubId=141&Field=Memor
+ial+Field+%2D+Diamond+5,No referrer,7
+721,/asp/Field_Directions.asp?ClubId=107&Field=RAMSE
+Y+HIGH+SCHOOL+FIELD+%2DTURF,No referrer,7
+722,/asp/Field_Directions.asp?ClubId=107&Field=MAC+F
+ARRAN+FIELD+%2D+Upper,No referrer,6
+723,/asp/Help/Help_NCSARule411.htm,No referrer,6
+724,/asp/Directions.asp?ClubId=36&Field=MOST+BLESSED
++SACRAMENT+%28MBS+1+%26+2%29,No referrer,6
+725,/asp/Field_Directions.asp?ClubId=102&Field=RIVER
+VIEW+PARK,No referrer,6
+726,/asp/History/Spring2002/Hst_Games_Score.asp,No referrer,6
+727,/asp/Games_Standings.asp?DivId=G13B,No referrer,6
+728,/docs/NCSA_Scholarship.doc,No referrer,6
+729,/asp/Games_standings.asp?DivId=G12BW,No referrer,6
+730,/asp/Field_Directions.asp?ClubId=141&Field=Memor
+ial+Field,No referrer,6
+731,/directall.wpd,No referrer,6
+732,/asp/Field_Directions.asp?ClubId=103&Field=ROCKL
+AND+COUNTRY+DAY+SCHOOL+%28RCDS%29,No referrer,6
+733,/asp/Field_Directions.asp?ClubId=111&Field=BARBO
+UR+POND+PARK++%234,No referrer,6
+734,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-Mey
+er,No referrer,6
+735,/asp/Field_Directions.asp?ClubId=75&Field=HITCHC
+OCK+JR%2E%2FSR%2E+HIGH+SCHOOL,No referrer,6
+736,/asp/Field_Directions.asp?ClubId=183&Field=Kenne
+dy+Park+field,No referrer,6
+737,/ncsa_news2.htm,No referrer,6
+738,/asp/Games_Standings.asp?DivID=B15B,No referrer,6
+739,/asp/Field_Directions.asp?ClubId=200&Field=MARIS
+T+HS,No referrer,6
+740,/asp/History/Spring_2008/Hst_Games_Standings.asp
+,No referrer,6
+741,/asp/Field_Directions.asp?ClubId=81&Field=Vetera
+ns+Field+1,No referrer,6
+742,/_vti_bin/shtml.dll/directions/hudsonvalley_dire
+ct.htm/map,No referrer,5
+743,/asp/Field_Directions.asp?ClubId=95&Field=MOONAC
+HIE+FIELD,No referrer,5
+744,/asp/scs_menu.htm,No referrer,5
+745,/asp/Games_Sched_Print.asp?TeamNameSel=DenofLion
+s-Pinho1,No referrer,5
+746,/asp/Forum/forum_Posting.asp?id=725,No referrer,5
+747,/asp/Field_Directions.asp?ClubId=102&Field=SHEFF
+IELD+PARK,No referrer,5
+748,/asp/Games_Sched_Print.asp?TeamNameSel=DenofLion
+s-Pinho,No referrer,5
+749,/asp/Field_Directions.asp?ClubId=145&Field=Egan+
+Field,No referrer,5
+750,/rules_procedure.htm,No referrer,5
+751,/Login.asp,No referrer,5
+752,/Forum/Forum_Main.asp,No referrer,5
+753,/asp/Field_Directions.asp?ClubId=144&Field=Hills
+ide+School,No referrer,5
+754,/asp/Field_Directions.asp?ClubId=172&Field=Essex
++Fells+School,No referrer,5
+755,/asp/Games_Standings.asp?DivId=B08C,No referrer,5
+756,/asp/Games_Standings.asp?DivId=B11D,No referrer,5
+757,/_borders/left.htm,No referrer,5
+758,/asp/Directions.asp?ClubId=40&Field=WESTBROOK+MI
+DDLE+SCHOOL,No referrer,5
+759,/asp/Field_Directions.asp?ClubId=107&Field=Finch
++Park,No referrer,5
+760,/docs/FALL_2007_DIVISION_CHAMPIONS_BY_CLUB.doc,No referrer,5
+761,/asp/Games_Sched_Print.asp?TeamNameSel=DOL-Perei
+raBU10,No referrer,5
+762,/asp/Field_Directions.asp?ClubId=73&Field=HAMILT
+ON+SCHOOL+%231,No referrer,5
+763,/asp/Field_Directions.asp?ClubId=191&Field=Kanto
+r+1,No referrer,5
+764,/Directions_Club_List.asp,No referrer,5
+765,/docs/Fall_2003_Standings_files/filelist.xml,No referrer,4
+766,/asp/Field_Directions.asp?ClubId=66&Field=Hobart
++Field,No referrer,4
+767,/asp/adm/Adm_Directions_Display.asp?ClubId=91&Fi
+eld=RIVER+DELL+HS+(RDHS-Small)+-+Small-sided,No referrer,4
+768,/asp/Field_Directions.asp?ClubId=68&Field=48th+S
+t++HCP,No referrer,4
+769,/asp/Games_Sched_Print.asp?TeamNameSel=DenofLion
+s-Abreu2,No referrer,4
+770,/asp/ComposeMessage.asp?RecId=14&src=board,No referrer,4
+771,/asp/referee/Ref_Report_Print.asp?GameId=2100,No referrer,4
+772,/asp/Field_Directions.asp?ClubId=69&Field=QUARRY
++FIELD,No referrer,4
+773,/docs/Spring2006CupDiv_1_2_Info.doc,No referrer,4
+774,/asp/Field_Directions.asp?ClubId=66&Field=Midlan
+d+School,No referrer,4
+775,/_vti_bin/shtml.dll/website.htm/map,No referrer,4
+776,/asp/Forum/forum_Posting.asp?id=895,No referrer,4
+777,/asp/Forum/forum_Posting.asp?id=1136,No referrer,4
+778,/asp/Forum/forum_Posting.asp?id=1006,No referrer,4
+779,/asp/Field_Directions.asp?ClubId=106&Field=WEEQU
+AHIC+PARK+A+-+Newark,No referrer,4
+780,/asp/ComposeMessage.asp?RecId=16&src=board,No referrer,4
+781,/asp/History/Spring2002/Hst_Standings.asp,No referrer,4
+782,/asp/Games_Sched_Print.asp?TeamNameSel=DenofLion
+s-VelazquezBU8,No referrer,4
+783,/asp/Games_Sched_Print.asp?TeamNameSel=DenofLion
+s-VelasquezBU9,No referrer,4
+784,/asp/Field_Directions.asp?ClubId=107&Field=Valle
+y+Bank+Field,No referrer,4
+785,/asp/Forum/forum_Posting.asp?id=924,No referrer,4
+786,/NoDoc.htm,No referrer,4
+787,/asp/Coaches/Field_Directions_List.asp,No referrer,4
+788,/asp/Field_Directions.asp?ClubId=85&Field=Honiss
++School+Field,No referrer,4
+789,/asp/Field_Directions.asp?ClubId=96&Field=POTTER
+''S+FIELD,No referrer,3
+790,/asp/Forum/forum_Posting.asp?id=1016,No referrer,3
+791,/asp/Forum/forum_Posting.asp?id=909,No referrer,3
+792,/asp/Forum/forum_Posting.asp?id=1033,No referrer,3
+793,/asp/Forum/forum_Posting.asp?id=932,No referrer,3
+794,/asp/Forum/forum_Posting.asp?id=936,No referrer,3
+795,/asp/Forum/forum_Posting.asp?id=1057,No referrer,3
+796,/asp/field_directions.asp?clubid=207&field=mt.+a
+iry+sports+complex,No referrer,3
+797,/asp/adm/Adm_Directions_Display.asp?ClubId=70&Fi
+eld=COOLIDGE+SCHOOL,No referrer,3
+798,/asp/Field_Directions.asp?ClubId=190&Field=De+Pa
+ul+Catholic,No referrer,3
+799,/asp/Forum/forum_Posting.asp?id=986,No referrer,3
+800,/asp/Forum/forum_Posting.asp?id=965,No referrer,3
+801,/asp/Referee/clubs_List.asp,No referrer,3
+802,/docs/,No referrer,3
+803,/asp/Forum/forum_Posting.asp?id=901,No referrer,3
+804,/asp/Forum/forum_Posting.asp?id=996,No referrer,3
+805,/asp/Forum/forum_Posting.asp?id=481,No referrer,3
+806,/asp/Forum/forum_Posting.asp?id=458,No referrer,3
+807,/asp/Coaches/Board_List.asp,No referrer,3
+808,/asp/Field_Directions.asp?ClubId=155&Field=Emman
+s+Road+Fields,No referrer,3
+809,/asp/adm/Adm_Directions_Display.asp?ClubId=78&Fi
+eld=NORTH+ROCKLAND+(NR-D),No referrer,3
+810,/asp/Forum/forum_Posting.asp?id=323,No referrer,3
+811,/asp/Field_Directions.asp?ClubId=172&Field=Fairf
+ield+Recreation+Parks+Field,No referrer,3
+812,/asp/Games_Sched_Print.asp?TeamNameSel=DOL-Abreu
+BU18,No referrer,3
+813,/asp/Forum/forum_Posting.asp?id=2481,No referrer,3
+814,/asp/Forum/forum_Posting.asp?id=251,No referrer,3
+815,/asp/Field_Directions.asp?ClubId=113&Field=River
+bank+Park,No referrer,3
+816,/Fall'01Final.doc,No referrer,3
+817,/asp/Forum/forum_Posting.asp?id=149,No referrer,3
+818,/asp/Forum/forum_Posting.asp?id=1179,No referrer,3
+819,/asp/Forum/forum_Posting.asp?id=929,No referrer,3
+820,/asp/Forum/forum_Posting.asp?id=928,No referrer,3
+821,/asp/Games_Sched_Print.asp?TeamNameSel=DenofLion
+s-PinhoBU11,No referrer,3
+822,/asp/Field_Directions.asp?ClubId=74&Field=Hopper
++Ave+Field+%28formerly+Berkeley%29,No referrer,3
+823,/asp/Forum/forum_Posting.asp?id=268,No referrer,3
+824,/asp/Forum/forum_Posting.asp?id=2891,No referrer,3
+825,/asp/Forum/forum_Posting.asp?id=1093,No referrer,3
+826,/asp/Forum/forum_Posting.asp?id=1121,No referrer,3
+827,/asp/Forum/forum_Posting.asp?id=1129,No referrer,3
+828,/asp/Forum/forum_Posting.asp?id=1126,No referrer,3
+829,/asp/Field_Directions.asp?ClubId=174&Field=Unive
+rsity+Field,No referrer,3
+830,/asp/Forum/forum_Posting.asp?id=1100,No referrer,3
+831,/asp/ComposeMessage.asp?RecId=140&src=club,No referrer,3
+832,/asp/Field_Directions.asp?ClubId=96&Field=North+
+Field+(formerly+Potters),No referrer,3
+833,/asp/Field_Directions.asp?ClubId=81&Field=ROCKLA
+ND+COMMUNITY+COLLEGE+(RCC),No referrer,2
+834,/ComposeMessage.asp?src=referee,No referrer,2
+835,/docs/Fall2008DivisionChampions.doc,No referrer,2
+836,/asp/Field_Directions.asp?ClubId=81&Field=SUFFER
+N+MIDDLE+SCHOOL+%23+4,No referrer,2
+837,/asp/Field_Directions.asp?ClubId=174&Field=Hobar
+t+%2D+Ridgefield+Park,No referrer,2
+838,/asp/Field_Directions.asp?ClubId=98&Field=St.+Jo
+seph's+Regional+High+School+TURF+FIELD,No referrer,2
+839,/asp/Field_Directions.asp?ClubId=77&Field=NVRHS%
+20-%20Demarest%20Upper,No referrer,2
+840,/asp/field_directions.asp?clubid=179&field=count
+y+college+of+morris,No referrer,2
+841,/asp/Field_Directions.asp?ClubId=77&Field=Overpe
+ck-Leonia+North+Park,No referrer,2
+842,/asp/Clubs_Display.asp?ClubId=202,No referrer,2
+843,/asp/Field_Directions.asp?ClubId=117&Field=Roy+W
+.+Brown+Middle+School,No referrer,2
+844,/Coaches_List_ByDiv.asp,No referrer,2
+845,/asp/coaches_list.asp,No referrer,2
+846,/asp/referee/Ref_Report_Print.asp?GameId=1404,No referrer,2
+847,/asp/Field_Directions.asp?ClubId=122&Field=GOFFL
+E%20BROOK%20PARK,No referrer,2
+848,/asp/Field_Directions.asp?ClubId=73&Field=Hamilt
+on%20School,No referrer,2
+849,/asp/Field_Directions.asp?ClubId=68&Field=Stephe
+n+Gregg+Park+(48th+St.),No referrer,2
+850,/asp/select/slct_Tryouts.asp,No referrer,2
+851,/asp/field_directions.asp?clubid=69&field=centra
+l+valley+9,No referrer,2
+852,/asp/adm/Adm_Directions_Display.asp?ClubId=70&Fi
+eld=PULIS++A++%2D+FULL,No referrer,2
+853,/asp/Field_Directions.asp?ClubId=83&Field=ST.+BE
+NEDICT'S+PREP,No referrer,2
+854,/asp/Field_Directions.asp?ClubId=164&Field=De+Pa
+ul+Catholic+High+School,No referrer,2
+855,/asp/Field_Directions.asp?ClubId=91&Field=RIVER%
+20DELL%20HS%20(RDHS-Small)%20-%20Small-sided,No referrer,2
+856,/asp/field_directions_list.asp?clubid=77,No referrer,2
+857,/asp/Forum/forum_Posting.asp?id=747,No referrer,2
+858,/asp/Forum/forum_Posting.asp?id=551,No referrer,2
+859,/asp/Forum/forum_Posting.asp?id=557,No referrer,2
+860,/asp/Forum/forum_Posting.asp?id=492,No referrer,2
+861,/asp/Forum/forum_Posting.asp?id=129,No referrer,2
+862,/asp/Forum/forum_Posting.asp?id=160,No referrer,2
+863,/asp/Forum/forum_Posting.asp?id=1265,No referrer,2
+864,/asp/Forum/forum_Posting.asp?id=2526,No referrer,2
+865,/asp/Forum/forum_Posting.asp?id=489,No referrer,2
+866,/asp/Forum/forum_Posting.asp?id=207,No referrer,2
+867,/asp/Forum/forum_Posting.asp?id=2239,No referrer,2
+868,/asp/Forum/forum_Posting.asp?id=249,No referrer,2
+869,/asp/Forum/forum_Posting.asp?id=260,No referrer,2
+870,/asp/Forum/forum_Posting.asp?id=631,No referrer,2
+871,/asp/Forum/forum_Posting.asp?id=644,No referrer,2
+872,/asp/Forum/forum_Posting.asp?id=1128,No referrer,2
+873,/asp/Forum/forum_Posting.asp?id=670,No referrer,2
+874,/asp/Forum/forum_Posting.asp?id=1120,No referrer,2
+875,/asp/Games_Standings.asp?DivID=G13B,No referrer,2
+876,/asp/Forum/forum_Posting.asp?id=568,No referrer,2
+877,/asp/Forum/forum_Posting.asp?id=1173,No referrer,2
+878,/asp/Forum/forum_Posting.asp?id=1131,No referrer,2
+879,/asp/Forum/forum_Posting.asp?id=584,No referrer,2
+880,/asp/Forum/forum_Posting.asp?id=1110,No referrer,2
+881,/asp/Forum/forum_Posting.asp?id=339,No referrer,2
+882,/asp/Forum/forum_Posting.asp?id=3332,No referrer,2
+883,/asp/Forum/forum_Posting.asp?id=3623,No referrer,2
+884,/asp/Forum/forum_Posting.asp?id=3246,No referrer,2
+885,/asp/Forum/forum_Posting.asp?id=332,No referrer,2
+886,/asp/Forum/forum_Posting.asp?id=474,No referrer,2
+887,/asp/Games_Sched_ByClub_Print.asp?ClubNameSel=De
+nofLions-,No referrer,2
+888,/asp/Forum/forum_Posting.asp?id=405,No referrer,2
+889,/asp/Forum/forum_Posting.asp?id=363,No referrer,2
+890,/asp/Forum/forum_Posting.asp?id=459,No referrer,2
+891,/asp/Forum/forum_Posting.asp?id=375,No referrer,2
+892,/asp/Forum/forum_Posting.asp?id=475,No referrer,2
+893,/asp/Forum/forum_Posting.asp?id=2904,No referrer,2
+894,/asp/Games_Standings.asp?DivID=B10E,No referrer,2
+895,/asp/Games_Sched.asp?TeamNameSel=Thistle-Smith,No referrer,2
+896,/asp/Forum/forum_Posting.asp?id=2604,No referrer,2
+897,/asp/Games_Sched.asp?TeamNameSel=Thistle-HarkesB
+U13,No referrer,2
+898,/asp/Forum/forum_Posting.asp?id=322,No referrer,2
+899,/asp/Forum/forum_Posting.asp?id=3062,No referrer,2
+900,/asp/Forum/forum_Posting.asp?id=3051,No referrer,2
+901,/asp/Forum/forum_Posting.asp?id=2944,No referrer,2
+902,/asp/Forum/forum_Posting.asp?id=296,No referrer,2
+903,/asp/Forum/forum_Posting.asp?id=426,No referrer,2
+904,/asp/Forum/forum_Posting.asp?id=823,No referrer,2
+905,/asp/Forum/forum_Posting.asp?id=1002,No referrer,2
+906,/asp/Forum/forum_Posting.asp?id=744,No referrer,2
+907,/asp/Forum/forum_Posting.asp?id=1089,No referrer,2
+908,/asp/Forum/forum_Posting.asp?id=1086,No referrer,2
+909,/asp/Forum/forum_Posting.asp?id=755,No referrer,2
+910,/asp/DatePicker.js,No referrer,2
+911,/asp/Forum/forum_Posting.asp?id=812,No referrer,2
+912,/asp/Forum/forum_Posting.asp?id=756,No referrer,2
+913,/asp/Games_Sched.asp?TeamNameSel=Bayonne-Merdan,No referrer,2
+914,/asp/Field_Directions.asp?ClubId=101&Field=BEN%2
+0FRANKLIN%20MIDDLE%20SCHOOL,No referrer,2
+915,/asp/Forum/forum_Posting.asp?id=1013,No referrer,2
+916,/asp/Forum/forum_Posting.asp?id=931,No referrer,2
+917,/asp/Forum/forum_Posting.asp?id=919,No referrer,2
+918,/asp/Forum/forum_Posting.asp?id=107,No referrer,2
+919,/asp/Forum/forum_Posting.asp?id=998,No referrer,2
+920,/asp/Forum/forum_Posting.asp?id=827,No referrer,2
+921,/asp/Forum/forum_Posting.asp?id=962,No referrer,2
+922,/asp/Forum/forum_Posting.asp?id=916,No referrer,2
+923,/asp/Field_Directions_List.asp?ClubId=198,No referrer,2
+924,/asp/Field_Directions.asp?ClubId=108&Field=Pasca
+ck%20Valley%20HS%20Field,No referrer,2
+925,/asp/Forum/forum_Posting.asp?id=703,No referrer,2
+926,/asp/Forum/forum_Posting.asp?id=753,No referrer,2
+927,/asp/Forum/forum_Posting.asp?id=714,No referrer,2
+928,/asp/Forum/forum_Posting.asp?id=751,No referrer,2
+929,/asp/Field_Directions_List.asp?ClubId=164,No referrer,2
+930,/asp/Forum/forum_Posting.asp?id=111,No referrer,2
+931,/asp/Forum/forum_Posting.asp?id=732,No referrer,2
+932,/asp/Forum/forum_Posting.asp?id=727,No referrer,2
+933,/asp/Games_Standings.asp?DivId=B17A,No referrer,2
+934,/asp/Forum/forum_Posting.asp?id=1103,No referrer,2
+935,/asp/Forum/forum_Posting.asp?id=731,No referrer,2
+936,/asp/Forum/forum_Posting.asp?id=721,No referrer,2
+937,/asp/Field_Directions.asp?ClubId=67&Field=KETLER
+%20FIELD%20B,No referrer,1
+938,/History/Hst_Main.asp,No referrer,1
+939,/asp/Field_Directions.asp?ClubId=68&Field=16th%2
+0Street%20Park%20Small%20Sided,No referrer,1
+940,/asp/Forum/forum_Posting.asp?id=700,No referrer,1
+941,/asp/Field_Directions.asp?ClubId=105&Field=DEHAR
+T%20PARK,No referrer,1
+942,/asp/Forum/forum_Posting.asp?id=706,No referrer,1
+943,/doc,No referrer,1
+944,/asp/Clubs_Display.asp?ClubId=205,No referrer,1
+945,/asp/Games_Sched.asp?TeamNameSel=RamValleySC-TBD
+-GU08,No referrer,1
+946,/docs/Fall2008DivisionChampions,No referrer,1
+947,/asp/Field_Directions.asp?ClubId=105&Field=NEW%2
+0WATERLANDS%20PARK,No referrer,1
+948,/asp/Field_Directions.asp?ClubId=186&Field=JFK+S
+tadium,No referrer,1
+949,/info.txt,No referrer,1
+950,/Directions_club_list.asp,No referrer,1
+951,/asp/Field_Directions.asp?ClubId=65&Field=Covena
+nt%20Christian%20Church,No referrer,1
+952,/asp/Field_Directions.asp?ClubId=144&Field=Brook
+dale%20Park%20B,No referrer,1
+953,/_vti_bin/shtml.dll/rules_competition4.htm/map,No referrer,1
+954,/asp/Forum/forum_Posting.asp?id=735,No referrer,1
+955,/asp/Games_Sched.asp?TeamNameSel=Bayonne-Hernand
+ez,No referrer,1
+956,/asp/Forum/forum_Posting.asp?id=737,No referrer,1
+957,/Clubs_List.asp,No referrer,1
+958,/asp/Field_Directions.asp?ClubId=98&amp;Field=Pr
+esentation+Church,No referrer,1
+959,/asp/field_directions.asp?clubid=108&field=van+s
+aun+park,No referrer,1
+960,/asp/field_directions.asp?clubid=108&field=cente
+nnial+field+%232,No referrer,1
+961,/asp/field_directions.asp?clubid=170&field=lyndh
+urst+high+school-small,No referrer,1
+962,/asp/Forum/forum_Posting.asp?id=1092,No referrer,1
+963,/asp/coaches_list_bydiv.asp,No referrer,1
+964,/asp/field_directions.asp?clubid=105&field=borde
+n+park+field+%232,No referrer,1
+965,/asp/field_directions.asp?clubid=104&field=alpin
+e+church+st+field,No referrer,1
+966,/asp/coaches_list.asp?mode=0&clubid=78,No referrer,1
+967,/asp/field_directions.asp?clubid=67&field=memori
+al+(memorial+wt),No referrer,1
+968,/asp/field_directions.asp?clubid=192&field=north
++caldwell+-+west+essex+upper,No referrer,1
+969,/asp/field_directions.asp?clubid=77&field=van+sa
+un+park,No referrer,1
+970,/asp/field_directions.asp?clubid=182&field=hacke
+nsack+high+school+soccer+field,No referrer,1
+971,/asp/field_directions.asp?clubid=182&field=johns
+on+park+2+turf,No referrer,1
+972,/asp/field_directions.asp?clubid=192&field=magnu
+son+field,No referrer,1
+973,/asp/field_directions.asp?clubid=84&field=kenned
+y+field,No referrer,1
+974,/asp/Field_Directions.asp?ClubId=108&Field=EMERS
+ON%20HIGH%20SCHOOL,No referrer,1
+975,/asp/Field_Directions.asp?ClubId=108&Field=Field
+stone%20Field,No referrer,1
+976,/asp/adm/adm_fine_display.asp,No referrer,1
+977,/asp/app_teams_mtrx.asp,No referrer,1
+978,/asp/Field_Directions.asp?ClubId=99&Field=REAGAN
++FIELD+-+3RD+STREET,No referrer,1
+979,/asp/Field_Directions.asp?ClubId=108&Field=NORTH
+ERN%20VALLEY%20AT%20OLD%20TAPPAN%20(NVOT,No referrer,1
+980,/asp/Field_Directions.asp?ClubId=101&Field=Citiz
+en,No referrer,1
+981,/asp/clubs_display.asp?clubid=65,No referrer,1
+982,/asp/clubs_display.asp?clubid=111,No referrer,1
+983,/asp/Field_Directions.asp?ClubId=96&Field=Ramapo
+%20Ridge%20School%20-%20Mahwah,No referrer,1
+984,/asp/Field_Directions.asp?ClubId=98&Field=Lions+
+Park+%231,No referrer,1
+985,/asp/Field_Directions.asp?ClubId=98&Field=Crestw
+ood%20Upper%20Field,No referrer,1
+986,/asp/clubs_display.asp?clubid=103,No referrer,1
+987,/asp/Field_Directions.asp?ClubId=68&Field=DiDome
+nico%2816th+Street%29,No referrer,1
+988,/asp/Field_Directions.asp?ClubId=93&Field=Fair%2
+0Lawn%20High%20School,No referrer,1
+989,/asp/Games_Standings.asp?DivID=G10D,No referrer,1
+990,/asp/Field_Directions.asp?ClubId=89&Field=Eastbr
+ook%20Field,No referrer,1
+991,/asp/Field_Directions.asp?ClubId=112&Field=MOST%
+20BLESSED%20SACRAMENT,No referrer,1
+992,/asp/Coaches_List.asp?Mode=0&amp;ClubId=106,No referrer,1
+993,/contact_us,No referrer,1
+994,/asp/Games_Standings.asp?DivID=G13P,No referrer,1
+995,/asp/Games_Sched_Print.asp?TeamName=Sportfriends
+SC-Thomas,No referrer,1
+996,/asp/Field_Directions.asp?ClubId=73&Field=Colema
+n%20School,No referrer,1
+997,/asp/Games_Sched_Print.asp?TeamName=NoValleySC-O
+%20Reilly,No referrer,1
+998,/asp/Field_Directions.asp?ClubId=84&Field=Kenned
+y%20Field,No referrer,1
+999,/asp/Games_Standings.asp?DivID=B09C,No referrer,1
+1000,/asp/Coaches_List.asp?Mode=0&ClubId=188,No referrer,1
+1001,/asp/field_directions.asp?clubid=84&field=tracks
+ide+field,No referrer,1
+1002,/asp/field_directions_list.asp?clubid=111,No referrer,1
+1003,/asp/field_directions_list.asp?clubid=105,No referrer,1
+1004,/asp/field_directions_list.asp?clubid=96,No referrer,1
+1005,/asp/field_directions_list.asp?clubid=98,No referrer,1
+1006,/asp/field_directions.asp?clubid=93&field=west+m
+oreland+middle+school,No referrer,1
+1007,/asp/field_directions.asp?clubid=96&field=contin
+ental+soldiers,No referrer,1
+1008,/asp/referee/Ref_Report_Print.asp?GameId=483,No referrer,1
+1009,/asp/Field_Directions.asp?ClubId=102&Field=Hamil
+ton%20Park,No referrer,1
+1010,/asp/games_standings.asp?divid=g10c,No referrer,1
+1011,/asp/referee/Ref_Report_Print.asp?GameId=296,No referrer,1
+1012,/asp/games_sched_byfld.asp,No referrer,1
+1013,/asp/games_standings.asp?divid=b11p,No referrer,1
+1014,/asp/games_standings.asp?divid=g09e,No referrer,1
+Other Errors Report
+NO.,Error Code,Request,Referrer,Count
+1,501,/assets,No referrer,2520
+2,501,/docs,No referrer,954
+3,501,/,No referrer,928
+4,501,/DOCS,No referrer,90
+5,500,/loginAction.cfm,No referrer,24
+
+
+Top Geographic Regions Report
+Most Active Countries
+Rank#,Countries,Visitors,Page Views,File Downloads,Total Data Transferred
+1,United States of America,366119,1973577 (99.17%),14079 (99.04%),0.00 KB (0.00%)
+2,Canada,1656,10018 (0.50%),53 (0.37%),0.00 KB (0.00%)
+3,China,671,722 (0.04%),3 (0.02%),0.00 KB (0.00%)
+4,United Kingdom,596,1622 (0.08%),25 (0.18%),0.00 KB (0.00%)
+5,Switzerland,592,508 (0.03%),7 (0.05%),0.00 KB (0.00%)
+6,Germany,327,700 (0.04%),0 (0.00%),0.00 KB (0.00%)
+7,Local IP addresses,274,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+8,France,98,674 (0.03%),7 (0.05%),0.00 KB (0.00%)
+9,Austria,78,339 (0.02%),5 (0.04%),0.00 KB (0.00%)
+10,Australia,73,130 (0.01%),0 (0.00%),0.00 KB (0.00%)
+11,the European Union,70,204 (0.01%),12 (0.08%),0.00 KB (0.00%)
+12,Korea (Republic Of),59,49 (0.00%),0 (0.00%),0.00 KB (0.00%)
+13,Sweden,48,107 (0.01%),0 (0.00%),0.00 KB (0.00%)
+14,Taiwan (Province Of China),46,58 (0.00%),0 (0.00%),0.00 KB (0.00%)
+15,Saudi Arabia,44,122 (0.01%),0 (0.00%),0.00 KB (0.00%)
+16,Spain,31,80 (0.00%),6 (0.04%),0.00 KB (0.00%)
+17,Hong Kong,25,49 (0.00%),0 (0.00%),0.00 KB (0.00%)
+18,Brazil,25,4 (0.00%),2 (0.01%),0.00 KB (0.00%)
+19,Japan,21,73 (0.00%),0 (0.00%),0.00 KB (0.00%)
+20,Mexico,19,3 (0.00%),0 (0.00%),0.00 KB (0.00%)
+21,Italy,16,81 (0.00%),0 (0.00%),0.00 KB (0.00%)
+22,Romania,15,18 (0.00%),8 (0.06%),0.00 KB (0.00%)
+23,Singapore,13,45 (0.00%),2 (0.01%),0.00 KB (0.00%)
+24,Belgium,10,142 (0.01%),6 (0.04%),0.00 KB (0.00%)
+25,Netherlands,10,523 (0.03%),0 (0.00%),0.00 KB (0.00%)
+26,Turkey,9,4 (0.00%),0 (0.00%),0.00 KB (0.00%)
+27,South Africa,8,38 (0.00%),0 (0.00%),0.00 KB (0.00%)
+28,India,8,21 (0.00%),0 (0.00%),0.00 KB (0.00%)
+29,Israel,7,3 (0.00%),0 (0.00%),0.00 KB (0.00%)
+30,Norway,5,10 (0.00%),0 (0.00%),0.00 KB (0.00%)
+31,Slovenia,5,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+32,Finland,5,25 (0.00%),0 (0.00%),0.00 KB (0.00%)
+33,Denmark,5,47 (0.00%),0 (0.00%),0.00 KB (0.00%)
+34,Czech Republic,4,6 (0.00%),0 (0.00%),0.00 KB (0.00%)
+35,United Arab Emirates,4,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+36,Jordan,4,2 (0.00%),0 (0.00%),0.00 KB (0.00%)
+37,Lithuania,4,4 (0.00%),0 (0.00%),0.00 KB (0.00%)
+38,Portugal,4,7 (0.00%),0 (0.00%),0.00 KB (0.00%)
+39,Indonesia,4,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+40,Russian Federation,3,1 (0.00%),0 (0.00%),0.00 KB (0.00%)
+41,Ukraine,3,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+42,Unknown,3,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+43,Estonia,3,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+44,Uruguay,2,15 (0.00%),0 (0.00%),0.00 KB (0.00%)
+45,Thailand,2,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+46,Argentina,2,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+47,Iran (islamic Republic Of),2,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+48,Malaysia,2,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+49,Costa Rica,2,4 (0.00%),0 (0.00%),0.00 KB (0.00%)
+50,Croatia (local Name: Hrvatska),2,13 (0.00%),0 (0.00%),0.00 KB (0.00%)
+51,Bahrain,2,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+52,Cambodia,1,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+53,Bangladesh,1,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+54,Viet Nam,1,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+55,Bulgaria,1,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+56,Puerto Rico,1,8 (0.00%),0 (0.00%),0.00 KB (0.00%)
+57,Monaco,1,8 (0.00%),0 (0.00%),0.00 KB (0.00%)
+58,Luxembourg,1,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+59,Poland,1,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+60,Dominican Republic,1,3 (0.00%),0 (0.00%),0.00 KB (0.00%)
+61,Egypt,1,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+62,Hungary,1,0 (0.00%),0 (0.00%),0.00 KB (0.00%)
+63,Ethiopia,1,1 (0.00%),0 (0.00%),0.00 KB (0.00%)
+Top US States
+Rank#,State,Visitors,Total Data Transferred
+Top US Cities
+Rank#,City,State,Visitors,Total Data Transferred
+
+

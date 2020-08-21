@@ -1,0 +1,153 @@
+<!--- 
+MODIFICATIONS
+2009-02-21, J. Oriente
+- removed topic_choice_id_str from GetDraftMessages, GetScheduledMessages, GetSentMessages and GetMessageDetail
+--->
+
+<cfcomponent>
+	<cffunction name="GetDraftMessages" access="public" returntype="query">
+	<cfargument name="contactid" type="numeric" required="Yes">
+		<cfset var GetDraftMessages = "">
+		  <cfquery name="GetDraftMessages" datasource="#application.dsn#">
+		    select message_id,
+		           message_desc,
+		           from_email_address,
+		           from_email_alias,
+		           replyto_email_address,
+		           replyto_email_alias,
+		           subject,
+		           cc_emails,
+		           bcc_emails,
+		           html_copy,
+		           text_copy,
+		           sent_date,
+		           confirmed_date,
+		           track_opens_flag,
+		           datecreated,
+		           dateupdated,
+		           status_id,
+				   transmission_status
+		      from v_message
+		     where sent_date IS NULL
+		       and status_id = 1
+			   and created_via_message_manager_flag=1
+			   and contactid = #arguments.contactid#
+		  order by DATECREATED DESC
+		  </cfquery>
+		<cfreturn GetDraftMessages>
+	</cffunction>
+	
+	<cffunction name="GetScheduledMessages" access="public" returntype="query">
+		<cfargument name="contactid" type="numeric" required="Yes">
+		<cfset var GetScheduledMessages = "">
+		  <cfquery name="GetScheduledMessages" datasource="#application.dsn#">
+		    select message_id,
+		           message_desc,
+		           from_email_address,
+		           from_email_alias,
+		           replyto_email_address,
+		           replyto_email_alias,
+		           subject,
+		           cc_emails,
+		           bcc_emails,
+		           html_copy,
+		           text_copy,
+		           scheduled_date,
+		           sent_date,
+		           confirmed_date,
+		           track_opens_flag,
+		           datecreated,
+		           dateupdated,
+		           status_id,
+				   transmission_status
+		      from v_message
+		     where sent_date IS NULL
+		       and scheduled_date IS NOT NULL
+		       and status_id = 1
+			   and created_via_message_manager_flag=1
+			   and contactid = #arguments.contactid#
+		  order by DATECREATED DESC
+		  </cfquery>
+		<cfreturn GetScheduledMessages>
+	</cffunction>
+	
+	<cffunction name="GetSentMessages" access="public" returntype="query">
+		<cfargument name="clubid" type="numeric" required="Yes">
+		<cfset var GetSentMessages = "">
+		  <cfquery name="GetSentMessages" datasource="#application.dsn#">
+		    select message_id,
+		           message_desc,
+		           from_email_address,
+		           from_email_alias,
+		           replyto_email_address,
+		           replyto_email_alias,
+		           subject,
+		           cc_emails,
+		           bcc_emails,
+		           html_copy,
+		           text_copy,
+		           sent_date,
+		           confirmed_date,
+		           track_opens_flag,
+		           datecreated,
+		           dateupdated,
+		           status_id,
+				   transmission_status,
+				   transmission_status_id
+		      from v_message
+		     where sent_date IS NOT NULL
+		       and status_id = 1
+			   and created_via_message_manager_flag=1
+			   and clubid = #arguments.clubid#
+		  order by sent_date desc
+		  </cfquery>
+		<cfreturn GetSentMessages>
+	</cffunction>
+	
+	<cffunction name="GetMessageDetail" access="public" returntype="query">
+		<cfargument name="message_id" type="string" required="true">
+		<cfset var GetMessageDetail = "">
+		  <cfquery name="GetMessageDetail" datasource="#application.dsn#">
+		    select message_id,
+		           message_desc,
+		           from_email_address,
+		           from_email_alias,
+		           replyto_email_address,
+		           replyto_email_alias,
+		           subject,
+		           cc_emails,
+		           bcc_emails,
+		           html_copy,
+		           text_copy,
+		           sent_date,
+		           confirmed_date,
+		           track_opens_flag,
+		           datecreated,
+		           dateupdated,
+		           status_id,
+				   transmission_status
+		      from v_message
+		     where message_id = #message_id#
+		  </cfquery>
+		<cfreturn GetMessageDetail>
+	</cffunction>
+	
+	<cffunction name="GetPerFields" access="public" returntype="query">
+		<cfargument name="message_id" type="string" required="true">
+		<cfset var GetPerFields = "">
+		  <cfquery name="GetPerFields" datasource="#application.dsn#">
+		    select MESSAGE_PER_FIELDS_ID,
+       			   DISPLAY_NAME,
+       			   REFERENCE_TABLE,
+       			   FIELD_NAME,
+       			   CODE,
+       			   DATECREATED,
+       			   DATEUPDATED,
+       			   STATUS_ID
+		      from V_MESSAGE_PER_FIELDS
+		     where status_id = 1
+		  order by display_name
+		  </cfquery>
+		<cfreturn GetPerFields>
+	</cffunction>
+</cfcomponent>

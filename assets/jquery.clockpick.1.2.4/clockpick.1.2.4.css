@@ -1,0 +1,44 @@
+#CP_hourcont {
+padding: 5px;
+position:absolute;
+border:1px dashed #666666;
+background-color:#eeeeee;
+display:none;
+z-index:3001;
+}
+
+#CP_minutecont {
+background-color:#dddddd;
+padding: 1px;
+position:absolute;
+width:60px;
+display:none;
+z-index:3001;
+}
+
+.floatleft {
+float:left;
+}
+
+.CP_hour {
+padding:2px;
+font-family: Arial, Helvetica, sans-serif;
+font-size:12px;
+white-space:nowrap;
+cursor:pointer;
+width:35px;
+}
+
+.CP_minute {
+padding:3px;
+/*background-color:#dddddd;*/
+font-family: Arial, Helvetica, sans-serif;
+font-size:12px;
+white-space:nowrap;
+cursor:pointer;
+width:auto;
+}
+
+.CP_over {
+background-color:#ffffff;
+}

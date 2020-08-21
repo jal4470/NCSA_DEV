@@ -1,0 +1,77 @@
+
+/*
+------------------------------
+	brown theme
+------------------------------
+*/
+.brownJqiwarning .brownJqi{ background-color: #cccccc; }
+.brownJqifade{
+	position: absolute;
+	background-color: #000000;
+	opacity: 0.3;
+}
+div.brownJqi{
+	position: absolute;
+	background-color: transparent;
+	padding: 10px;
+	width: 300px;
+	text-align: left;
+	top: 170px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+div.brownJqi .brownJqiclose{
+    float: right;
+    margin: -20px 0 0 0;
+    cursor: pointer;
+    color: #777777;
+    font-size: 11px;
+	 display: none;
+}
+div.brownJqi .brownJqicontainer{
+	position: relative;
+	background-color: transparent;
+	border: solid 1px #5F5D5A;
+	color: #ffffff;
+	font-weight: bold;
+}
+div.brownJqi .brownJqimessage{
+	position: relative;
+	background-color: #EEEEF0;
+	border-top: solid 1px #A1A1A1;
+	border-bottom: solid 1px #A1A1A1;
+	color: #777777;
+}
+div.brownJqi .brownJqimessage h3{
+	background: url(assets/images/emailbarback.jpg) top left repeat-x #ffffff;
+	margin: 0;
+	padding: 3px 0 3px 15px;
+	color: #4D4A47;
+	font-size: 18px;
+	height:22px;
+}
+div.brownJqi .brownJqimessage p{
+	padding: 10px;
+	color: #777777;
+	font-size: 14px;
+}
+div.brownJqi .brownJqimessage img.helpImg{
+	position: absolute;
+	bottom: -25px;
+	left: 10px;
+}
+div.brownJqi .brownJqibuttons{
+	text-align: right;
+	background-color: #ffffff;
+}
+div.brownJqi button{
+	background: url(assets/images/emailbarback.jpg) top left repeat-x #ffffff;
+	border: solid #777777 1px;
+	font-size: 12px;
+	padding: 3px 10px 3px 10px;
+	margin: 5px 5px 5px 10px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight:bold;
+}
+div.brownJqi button:hover{
+	border: solid #aaaaaa 1px;
+}

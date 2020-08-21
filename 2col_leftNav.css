@@ -1,0 +1,817 @@
+/***********************************************/
+/* 2col_leftNav.css                            */
+/* Use with template 2col_leftNav.html          */
+/***********************************************/
+
+/***********************************************/
+/* HTML tag styles                             */
+/***********************************************/ 
+
+body{
+	font-family: Tahoma, Verdana,Arial,sans-serif;
+	color: #333333;
+	line-height: 1.16;	
+	margin: 0px;
+	padding: 0px;
+	margin-top:0px;
+	
+}
+
+a:link, a:visited, a:hover {
+	color: #006699;
+	text-decoration: none;
+}
+logo img{ display:block;}
+a:hover {
+	text-decoration: underline;
+}
+/* overrides decoration from previous rule for hovered links */
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: Tahoma, Verdana,Arial,sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+h1{
+ font-family:  Tahoma, Verdana,Arial,sans-serif;
+ font-size: 120%;
+ color: #334d55;
+}
+
+h1.pageheading{
+ font-family:  Tahoma, Verdana,Arial,sans-serif;
+ font-size: 18px;
+ color: #334d55;
+}
+
+
+h2{
+ font-size: 114%;
+ color: #006699;
+}
+
+h3{
+ font-size: 100%;
+ color: #334d55;
+}
+
+h4{
+ font-size: 100%;
+ font-weight: normal;
+ color: #333333;
+}
+
+h5{
+ font-size: 100%;
+ color: #334d55;
+}
+
+hr{color:#cccccc;}
+
+ul{
+ list-style-type: square;
+}
+
+ul ul{
+ list-style-type: disc;
+}
+
+ul ul ul{
+ list-style-type: none;
+}
+
+label{
+ font: bold 100% Tahoma, Verdana,Arial,sans-serif;
+ color: #334d55;
+}
+				
+/***********************************************/
+/* Layout Divs                                 */
+/***********************************************/
+
+#masthead{
+	margin: 0;
+	margin-top:0px;
+	padding: 0px 0px;
+	width: 1024px;
+	background:#3399CC;
+}
+
+#navBar{
+	/*margin: 0 85% 0 0;*/
+	/*padding: 0px;*/
+	background-color:#FBFBFB;
+	border-right: 1px solid #ccc;
+	width:200px;
+	/*height: 850px;*/
+	overflow: auto;
+}
+
+#content{
+	position:absolute;
+  	float:right;
+	padding: 0 0 0 10px;
+	margin-left:200px;
+	width: 815px;  
+	height: 850px;
+	overflow: auto;
+	font-size: 15px;
+	color:black;
+}
+
+
+/***********************************************/
+/*Component Divs                               */
+/***********************************************/
+
+#siteName{
+	margin: 0px;
+	padding: 0px 0px 10px 10px;
+}
+
+
+/*************** #pageName styles **************/
+
+#pageName{
+	padding: 0px 0px 10px 10px;
+}
+
+
+
+/************* #breadCrumb styles *************/
+
+#ticker{
+	font-size: 80%;
+	border-bottom:1px solid #cccccc;
+	width:1024px;
+	background:#FFFFCC;
+	color:#0066FF;
+}
+
+
+/************** .feature styles ***************/
+
+.feature{
+	padding: 0px 0px 10px 10px;
+	font-size: 80%;
+}
+
+.feature h3{
+	padding: 30px 0px 5px 0px;
+	text-align: center;
+}
+
+.feature img{
+	float: left;
+	padding: 0px 10px 0px 0px;
+	margin: 0 5px 5px 0;
+}
+/* adjust margins to change separation between the feature image and text flowing around it */
+
+
+/************** .story styles *****************/
+
+.story{
+	clear: both;
+	padding: 10px 0px 0px 10px;
+	font-size: 80%;
+}
+
+.story p{
+	padding: 0px 0px 10px 0px;
+}
+
+
+/************* #siteInfo styles ***************/
+
+#siteInfo{
+	clear: both;
+	font-size: 85%;
+	color: #cccccc;
+	padding: 10px 10px 10px 10px;
+	margin-top: 0px;
+	text-align:center;
+	width:1024px;
+	border-top:1px solid #cccccc;
+}
+/* negative top margin pulls siteinfo up so its top border overlaps (and thus lines up with)
+	the bottom border of the navBar in cases where they "touch" */
+
+#siteInfo img{
+	padding: 4px 4px 4px 0px;
+	vertical-align: middle;
+}
+
+
+/************* #search styles ***************/
+
+#search{
+	padding: 5px 0px 5px 10px;
+	border-bottom: 1px solid #cccccc;
+	font-size: 90%;
+}
+
+#search form{
+ margin: 0px;
+ padding: 0px;
+}
+
+#search label{
+	display: block;
+	margin: 0px;
+	padding: 0px;
+}
+
+
+/*********** #navBar link styles ***********/
+
+#navBar ul a:link, #navBar ul a:visited {display: block; }
+#navBar ul {list-style: none; margin: 0; padding-left: 12px; }
+
+/* hack to fix IE/Win's broken rendering of block-level anchors in lists */
+#navBar li {border-bottom: 1px solid #EEE; }
+
+/* fix for browsers that don't need the hack */
+html>body #navBar li {border-bottom: none;}
+
+
+/*********** #sectionLinks styles ***********/
+
+#sectionLinks{
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+	border-bottom: 1px solid #cccccc;
+	font-size: 80%;
+	width:200px;
+}
+
+#sectionLinks h3{
+	padding: 2px 0px 2px 10px;
+	background-color: #3399CC;
+	color:white;
+	font-size: 100%;
+}
+
+#sectionLinks a:link{
+	padding: 2px 0px 2px 10px;
+	border-top: 1px solid #cccccc;
+	width: 80%;}
+ 
+/*  voice-family: "\"\""; 
+  voice-family:inherit;
+	width: auto;
+}*/
+ 
+#sectionLinks a:visited{
+	border-top: 1px solid #cccccc;
+	padding: 2px 0px 2px 10px;
+}
+
+#sectionLinks a:hover{
+	border-top: 1px solid #cccccc;
+	background-color: #3399CC;
+	color: white;
+	padding: 2px 0px 2px 10px;
+}
+
+/*********** #loginLinks styles ***********/
+
+#loginLinks{
+	/*position: relative;
+	margin: 0px;
+	padding: 0px;*/
+	border-bottom: 2px solid #cccccc;
+	font-size: 80%;
+	/*width:200px;*/
+	background-color: #FFFFFF;
+}
+
+#loginLinks h3{
+	padding: 2px 0px 2px 10px;
+	background-color: #3399CC;
+	color:white;
+	font-size: 100%;
+}
+
+#loginLinks a:link{
+	padding: 2px 0px 2px 10px;
+	width: 80%;
+	width: auto;
+}
+ 
+#loginLinks a:visited{
+	padding: 2px 0px 2px 10px;
+}
+
+#loginLinks a:hover{
+	background-color: #3399CC;
+	color:white;
+	padding: 2px 0px 2px 10px;
+}
+
+
+/*********** .relatedLinks styles ***********/
+
+.relatedLinks{
+	margin: 0px;
+	padding: 2px 0px 2px 0px;
+	font-size: 90%;
+	padding-left:15;
+	/*height:800;*/
+	overflow: auto;
+	border-bottom: 1px solid #CCCCCC;
+	
+}
+
+.relatedLinks h3{
+	padding: 2px 0px 2px 10px;
+	background-color: #3399CC;
+	color:white;
+	font-size: 90%;
+}
+.relatedLinks a{
+border-top: 1px solid #cccccc;
+	padding: 2px 0px 2px 10px;
+	font-size: 80%;
+}
+
+.relatedLinks a:hover{
+border-top: 1px solid #cccccc;
+	background-color: #3399CC;
+	color:white;
+	padding: 2px 0px 2px 10px;
+	font-size: 80%;
+}
+
+
+.privMenu{
+font-size:smaller;display:none;
+}
+.privMenu a{padding-left:20px;}
+.privMenu a:hover{
+border-top: 1px solid #cccccc;
+	background-color: #3399CC;	
+	color:white;
+	padding-left: 20px}
+
+.privMenuSelected{
+	font-weight: normal;
+	color:red;
+}
+
+/************** #advert styles **************/
+
+#advert{
+	padding: 10px 0px 0px 10px;
+	font-size: 80%;
+	border-top: 1px solid #cccccc;
+	background-color: #3399CC;
+	border:thin solid #FFFFFF;
+	color:#FFFFFF;
+}
+
+#advert img{
+	display: block;
+	border:thin solid #FFFFFF;
+}
+
+
+/************** #headlines styles **************/
+
+#headlines{
+	margin: 0px;
+	padding: 1px 0px 20px 1px;
+	
+	
+}
+
+#headlines h3{
+		padding: 2px 0px 2px 10px;
+	background-color: #3399CC;
+	color:white;
+	font-size: 80%;
+}
+
+#headlines a{
+border-top: 1px solid #cccccc;
+	padding: 2px 0px 2px 10px;font-size: 80%;
+}
+
+#headlines a:hover{
+border-top: 1px solid #cccccc;
+	background-color: #3399CC;
+	color:white;
+	padding: 2px 0px 2px 10px;font-size: 80%;
+}
+
+
+/*********** #CONTENT styles ***********/
+
+#contentText{
+	font-size: 11px;
+	color:black;
+	margin-left:20px;
+}
+#contentAboutText{
+	font-size: 14px;
+	color:black;
+}
+#contentRulesText{
+	font-size: 14px;
+	color:black;
+}
+#contentTDdata{
+	border-bottom:1px solid;
+	color:#cccccc;
+}
+
+
+#siteInfoText{
+	font-size: 11px;
+	color:black;
+	padding: 10px 0px 10px 8px;
+	border-top:    2px solid #cccccc;
+	/*border-bottom: 2px solid #cccccc;*/
+}
+
+.readMoreText{font-size: 13px; font-family: Tahoma, Verdana,Arial,sans-serif; line-height: 1.25;	} 
+
+.red{		color: #ff0000;}
+.green{		color: #32cd32;}
+.ltBlue{	color: #CCE4F1;}
+.linktxt{	color: #006699;}
+.ok{		color: #339900;}
+
+.smalltext{	font-size: 10px;	color:black;}
+.sizetext11{font-size: 11px;}
+.sizetext12{font-size: 12px;}
+
+.tblHeading
+{	background-color: #3399CC;
+	font-size: 12px;
+	font-weight: bold;
+	color:#ffffff;
+}
+.tblSubHeading
+{	background-color: #CCE4F1;
+	font-size: 12px;
+	font-weight: bold;
+	color:#3399CC;
+}
+.tdUnderLine{
+	border-bottom:1px solid;
+	border-color:#cccccc;
+}
+ 
+.tdUnderLinePDF{
+	font-size: 11px;
+	border-bottom:1px solid;
+	border-color:#cccccc;
+}
+.tdPDF{
+	font-size: 11px;
+}
+ 
+
+/************* #globalNav styles **************/
+#globalNav{ background:#3399cc; border-top: 0px solid #cccccc; color: #FFFFFF; padding: 0px 0px 0px 0px;  text-align:left; width:1024px; height:25px; }
+/* white-space: nowrap;'nowrap' prevents links from line-wrapping if there are too many to fit in one line
+   this will force a horizontal scrollbar if there isn't enough room for all links
+   remove rule or change value to 'normal' if you want the links to line-wrap */
+
+#globalNav img{  display: block; }
+#globalNav a { 	/*font-size: 80%;*/ height:12px;	padding: 4px 10px 9px 3px; 	color:#FFFFFF; text-decoration:none; }
+#globalNav a:hover; { color:#FFFFFF;text-decoration:underline; }
+
+.subNav{background:#006699;display:none;padding-left:15px;font-size:smaller; color:#ffffff; }
+.subNav a{  text-decoration:none;}
+.subNav a:hover{text-decoration:underline;}
+.SubNavTextNormal{ font-size: 12px; color:#ffffff; font-weight: Bold; font-family:verdana,helvetica,sans-serif; }  
+.SubNavTextHiLite{ font-size: 13px; color:#ffffbb; font-weight: Bold; font-family:verdana,helvetica,sans-serif; }	/*CCE4F1 ffffaa*/
+
+/* General */
+/*01*/ #cssdropdown, #cssdropdown ul { list-style: none;margin-top:0px; } /*moves drop downlist up or down*/
+/*02*/ #cssdropdown, #cssdropdown *  { padding: 0; margin: 0; } /*leave the "*" removing it shift the dropdown over*/
+/* Head links  width:188px;*/
+/*03*/ #cssdropdown li.headlink 	{ font-size:12px; color:#FFFFFF; text-align:left; float:left; 
+									  border-right:1px #ffffff solid;border-top:0px #ffffff solid; padding-left:5px; padding-right:0px;
+									  background:navy; _width: 1px;  _white-space: nowrap;} /* to fix IE6 issue: _width: 1px;  _white-space: nowrap; */
+
+/*04*/ #cssdropdown li.headlink a 	{ font-size:12px; font-weight:bold; color:#CCE4F1; display:block; text-decoration:none; }
+/* Child lists and links */
+/*05*/ #cssdropdown li.headlink ul	{ font-size:12px; text-align:left; display:none; }
+/*06*/ #cssdropdown li.headlink:hover ul {font-size:12px; display:block; background-color:#CCE4F1; color:#006699; }
+/*07 affects the drop down list */ 
+	   #cssdropdown li.headlink ul li a 
+									{ font-size:11px; color:#3399cc; background-color:#CCE4F1; height:15px; 
+									  font-family:verdana,helvetica,sans-serif; border:1px #3399cc solid;  text-decoration: none; }
+/*08*/ #cssdropdown li.headlink ul li a:hover 
+									{ background-color:#006699;  color:#CCE4F1;  font-family:verdana,helvetica,sans-serif;  
+									  border:1px #3399cc solid; text-decoration: none; }
+/* Pretty styling */
+/*09*/ #cssdropdown a   			{ color: #CCE4F1; } 
+/*10*/ #cssdropdown ul li a:hover 	{ text-decoration: none; background-color:#CCE4F1 ; color:#CCE4F1; }
+/*11*/ #cssdropdown li.headlink 	{ height:25px; background-color:#3399cc; color:#CCE4F1; }
+/*12* width of drop down */ 
+	   #cssdropdown li.headlink ul  { position:absolute; height:25px; background-color:#CCE4F1; color:#006699; 
+										background-position: right; width:220px;  z-index:99; } 
+.bullit{padding-left:2px;padding-right:2px;padding-top:2px;}
+
+.overflowbox { overflow:scroll; border:1px #cccccc solid;}
+
+
+.smallDropDown{width:100;height:25;font-size:9px;}
+.smallButton{width:50;height:25;font-size:9px;}
+}	
+}
+
+
+
+/*TABLE STYLES*/
+.table1{
+	width:100%;
+}
+.table1 tr{
+	background-color:#ffffff;
+}
+.table1 th{
+	background-color:#3399CC;
+	color:#ffffff;
+	font-size:12px;
+	font-weight:bold;
+	text-align:left;
+}
+.table1 td{
+	border-bottom:1px solid #CCCCCC;
+	text-align:left;
+}
+.table1 .altRow{
+	background-color:#fbfbfb;
+}
+
+.dvTable{
+	margin-top:20px;
+}
+.dvTable th{
+	font-weight: bold;
+	text-align: right;
+	white-space: normal;
+}
+.dvTable td{
+	text-align:left;
+	width:100%
+}
+.dvTable th, .dvTable td{
+	padding:7px;
+	border-bottom:1px solid #aaa;
+}
+
+
+/*ALERTS, NOTICES, AND SUCH*/
+.notice, .error, .success{
+	padding:10px;
+	margin-bottom:1em;
+	margin-top:1em;
+	font-size:1.2em;
+}
+.notice{
+	background-color:#FFF6BF;
+	border:2px solid #FFD324;
+	color:#514721;
+}
+.notice a{
+	color:#514721;
+}
+.error{
+	background-color:#FBE3E4;
+	border:2px solid #FBC2C4;
+	color:#8A1F11;
+}
+.error a{
+	color:#8A1F11;
+}
+.success{
+	background-color:#E6EFC2;
+	border:2px solid #C6D880;
+	color:#264409;
+}
+.success a{
+	color:#264409;
+}
+
+
+/*HEADERS*/
+.h2
+{
+	background-color: #3399CC;
+	font-size: 12px;
+	font-weight: bold;
+	color:#ffffff;
+	padding:4px;
+}
+
+/*ref availability colors*/
+.fullavail{
+	background-color:#75B1FF;
+}
+.partialavail{
+	background-color:#E8FF7F;
+}
+.unavail{
+	background-color:#FF8B7F;
+}
+
+
+
+
+.actionLink{
+	border:1px solid black;
+	background-color:#ddd;
+	display: inline-block;
+	padding:4px;
+	margin:0 3px;
+}
+.actionLink:hover{
+	text-decoration: none;
+	background-color:#bbb;
+}
+
+
+/*TABLESORTER*/
+
+.header{
+	padding-right:20px;
+	background-image:url(assets/images/bg.gif);
+	background-repeat:no-repeat;
+	background-position:right;
+	cursor:pointer;
+}
+.headerSortUp{
+	background-image:url(assets/images/asc.gif);
+}
+.headerSortDown{
+	background-image:url(assets/images/desc.gif);
+}
+
+
+
+.ui-datepicker{
+	font-size:11px!important;
+}
+
+
+/*ADS*/
+.ad{
+	font-size:11px;
+	margin:5px;
+	text-align:center;
+	/*background-color:#6666ff;*/
+	border:solid #C0C0C0;
+	border-width: 1px 2px 2px 1px;
+	width:186px;
+	padding:0;
+}
+.ad .adTitle{
+	font-size:1.2em;
+	font-weight:bold;
+}
+.ad .adText{
+	text-align:left;
+}
+.ad .adContent{
+}
+#headlines .ad a{
+	color:#333333;
+	text-decoration:none;
+	font-size:11px;
+	outline:none;
+	padding:0;
+	border:none;
+}
+#headlines .ad a:hover{
+	color:#333333;
+	text-decoration:none;
+	font-size:11px;
+	background:none;
+}
+#headlines a img{
+	border:none;
+}
+.ad p{
+	margin:0;
+}
+
+
+/***********************************************/
+/* Report Team Registration Info               */
+/***********************************************/ 
+#teamRegInfo {
+	border: 1px solid #ddd;
+	margin-top: 5px;	
+}
+#teamRegInfo .question {
+	float: left;
+	padding: 5px;
+	width: 25%;
+	box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+		-o-box-sizing: border-box;
+}
+#teamRegInfo .question input,
+#teamRegInfo .question select {
+	width: 100%;
+}
+#teamRegInfo .question input {
+	box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+		-o-box-sizing: border-box;
+	height: 19px;
+}
+
+#teamRegInfo .question-submit {
+	clear: both;
+	padding: 10px 0;
+	text-align: center;
+}
+
+#teamRegInfoResults {
+	border: solid #ccc;
+	border-width: 1px;
+	overflow-x: scroll;
+	overflow-y: scroll;
+	width: 800px;
+	max-height: 400px;
+}
+#teamRegInfoResults td {
+	border: solid #ccc;
+	border-width: 0 1px 1px 0;
+}
+
+#headCoachMultiTeamResults {
+	border: solid #ccc;
+	border-width: 1px;
+	overflow-x: scroll;
+	overflow-y: scroll;
+	width: 800px;
+	max-height: 400px;
+}
+#headCoachMultiTeamResults td {
+	border: solid #ccc;
+	border-width: 0 1px 1px 0;
+}
+
+/*#teamRegInfoResults {
+	border: solid #ddd;
+	border-width: 1px 0 0 1px;
+	display: table;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	width:800px;
+	max-height:400px;
+	position: relative;
+}
+#teamRegInfoResults > .table-header:after,
+#teamRegInfoResults > .table-body:after,
+#teamRegInfoResults:after {
+	clear: both;
+	display: table;
+	content: '';
+}
+#teamRegInfoResults > .table-header,
+#teamRegInfoResults > .table-body {
+	width: 2600px;
+}
+#teamRegInfoResults > .table-header ul,
+#teamRegInfoResults > .table-body ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: table-row;
+}
+#teamRegInfoResults > .table-header li {
+	background: #3399CC;
+	color: white;
+}
+#teamRegInfoResults > .table-header li,
+#teamRegInfoResults > .table-body li {
+	border: solid #ddd;
+	border-width: 0 1px 1px 0;	
+	display: table-cell;
+	float: left;
+	min-height: 20px;
+	line-height: 20px;
+	list-style-type: none;
+	margin: 0;
+	padding: 3px;
+}
+
+#teamRegInfoResults > .table-body {
+	overflow-y: scroll;
+	height: 300px;
+}*/
