@@ -70,6 +70,7 @@
 <!--- 			
 			<cfcontent type="application/pdf" variable="#ToBinary(Watermark)#" />
 			<cfabort> --->
+			<cffile action="DELETE" file="#expandPath('uploads/temp')#\#cffile.serverfile#"> 
 			<cflocation url="addTeamRoster.cfm?team_id=#team_id#" addtoken="No">
 		</cfif>
 
