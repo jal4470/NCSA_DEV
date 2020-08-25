@@ -795,7 +795,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			</cfquery>
 
 		<div class="notice">
-			Click on View/Print in the roster column next to the team's name to view the roster. <br/> You may print the roster from that page.
+			Click on View in the roster column next to the team's name to view the roster. <br/> You may print the roster from that page.
 		</div>
 		<div>
 			<!--- <span>Working with: #getTeamInfo.teamname#</span> <a href="addTeamRoster.cfm?pmid=54&smid=256">Select a New Team</a> --->
