@@ -262,8 +262,9 @@
     <cfoutput>Error Function = #Exception.cause.tagcontext[1].raw_trace#</cfoutput><br><br>
     <cfoutput>URL = #CGI.HTTP_HOST##CGI.HTTP_URL#</cfoutput> --->
 
-<!---     <cfinclude template="/app_error_exception.cfm">
-    <cfinclude template="/errorPage.cfm">  --->
+<!--- --->   
+    <cfinclude template="/app_error_exception.cfm">
+    <cfinclude template="/errorPage.cfm">  
 
     <!--- <cfabort> --->
  </cffunction>

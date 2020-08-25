@@ -32,7 +32,7 @@ MODS: mm/dd/yyyy - filastname - comments
 </cfif>
 <cfset error = "">
 
-<CFIF isDefined("FORM.btnSave")>
+<!--- <CFIF isDefined("FORM.btnSave")>
 	<cfinvoke
 		component="#application.sitevars.cfcpath#.game"
 		method="saveMatchDayForm"
@@ -77,10 +77,10 @@ MODS: mm/dd/yyyy - filastname - comments
 	</cfif>
 	
 	<cflocation url="#cgi.script_name#?team_id=#form.team_id#" addtoken="No">
-</CFIF>
+</CFIF> --->
 
 
-<cfif team_id EQ "">
+<!--- <cfif team_id EQ ""> --->
 	<!--- get teams for user logged in --->
 	<cfif listFind("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",Session.menuroleID) GTE 1> <!--- if admin/board user --->
 		<cfinvoke
@@ -112,22 +112,20 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfif contactTeams.recordcount EQ 1>
 		<cfset team_id=contactTeams.team_id>
 	</cfif>
-</cfif>
+<!--- </cfif> 
 
 <cfif team_id NEQ "">
 	<!--- get games --->
 	<cfquery datasource="#application.dsn#" name="qGetGames">
-		select m.roster_id, g.game_id,g.home_team_id, g.visitor_team_id, game_datetime,  game_code, field_Id, field, visitor_teamname, home_teamname, dbo.f_getTeamRoster(g.game_id, g.visitor_team_id) as visitor_roster_id, dbo.f_getTeamRoster(g.game_id, g.home_team_id) as home_roster_id
+		select g.game_id,g.home_team_id, g.visitor_team_id, game_datetime,  game_code, field_Id, field, visitor_teamname, home_teamname--, dbo.f_getTeamRoster(g.game_id, g.visitor_team_id) as visitor_roster_id, dbo.f_getTeamRoster(g.game_id, g.home_team_id) as home_roster_id
 		from v_games_all g
-		left join tbl_roster m
-		on g.game_id=m.game_id and m.team_id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#team_id#">
 		where 
 		(visitor=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#team_id#"> or home=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#team_id#">)
 		order by game_datetime asc
 	</cfquery>
-</cfif>
+</cfif> --->
 
-<cfif isdefined("game_Id")>
+<!--- <cfif isdefined("game_Id")>
 	<cfquery datasource="#application.dsn#" name="getGame">
 		select g.*, 
 		dbo.f_get_team_age(ht.team_id) as home_team_age, 
@@ -152,7 +150,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	</cfquery>
 	
 	<!--- get teams available for play up --->
-<!--- 	<cfquery datasource="#application.dsn#" name="getPlayUpTeams">
+	<cfquery datasource="#application.dsn#" name="getPlayUpTeams">
 		select team_id, dbo.getteamname(team_id) as teamname
 		from tbl_team
 		where club_id= <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#getTeamInfo.club_id#">
@@ -173,16 +171,12 @@ MODS: mm/dd/yyyy - filastname - comments
 		AND gender = 'B'
 		</cfif>
 		order by teamname
-	</cfquery> --->
+	</cfquery>
 	
 	<!--- get team info --->
 	<cfquery datasource="#application.dsn#" name="getTeamInfo">
-		select t.*, c.firstname as head_firstname, c.lastname as Head_lastname, ac.firstname as asst_firstname, ac.lastname as asst_lastname
+		select t.team_id, t.teamname,dbo.f_getTeamRoster(g.game_id, g.home_team_id) as roster
 		from tbl_team t
-		left join tbl_contact c
-		on t.contactidhead=c.contact_id
-		left join tbl_contact ac
-		on t.contactidasst=ac.contact_id
 		where t.team_id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#team_id#">
 	</cfquery>
 	
@@ -224,7 +218,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	</cfif>--->
 	
 </cfif>
-
+ --->
 
 <div id="contentText">
 <H1 class="pageheading">NCSA - Add/Replace Active Team Roster</H1>
@@ -236,8 +230,7 @@ MODS: mm/dd/yyyy - filastname - comments
 <div><input type="button" onclick="history.go(-1);" value="&laquo; Go Back" /></div>
 
 <cfelse>
-<cfif not isdefined("game_id")>
-	<cfif team_id EQ "">
+<!--- <cfif not isdefined("game_id")> --->
 	<FORM action="#cgi.script_name#" method="post">
 		
 	<table cellspacing="0" cellpadding="2" align="center" border="0" width="99%">
@@ -246,64 +239,49 @@ MODS: mm/dd/yyyy - filastname - comments
 			
 			<select name="team_id">
 				<cfloop query="contactTeams">
-					<option value="#team_id#">#teamname#</option>
+					<option value="#team_id#" <cfif isdefined("team_id") and contactTeams.team_id eq variables.team_id>selected</cfif>>#teamname#</option>
 				</cfloop>
 			</select>
 		
-			<INPUT type="submit" value="Get Games">
+			<INPUT type="submit" value="Select Team">
 		</td> 
 	</tr> 
 	</table>
 	</form>
-	</cfif>
-	<CFIF isDefined("qGetGames") AND qGetGames.RECORDCOUNT>
-		<cfquery datasource="#application.dsn#" name="getTeamInfo">
-			select t.*, c.firstname as head_firstname, c.lastname as Head_lastname, ac.firstname as asst_firstname, ac.lastname as asst_lastname
-			from tbl_team t
-			left join tbl_contact c
-			on t.contactidhead=c.contact_id
-			left join tbl_contact ac
-			on t.contactidasst=ac.contact_id
-			where t.team_id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#team_id#">
-		</cfquery>
-		<cfif isdefined("url.match_day_form_id")>
-			<script language="JavaScript" type="text/javascript">
-				window.open('matchDayFormView.cfm?match_day_form_id=#match_day_form_id#');
-			</script>
-		</cfif>
+	<CFIF isDefined("team_id") and len(trim(team_id))>
+			<cfquery datasource="#application.dsn#" name="getTeamInfo">
+				select t.team_id, t.teamname,dbo.f_getTeamRoster(t.team_id) as roster_id
+				from tbl_team t
+				where t.team_id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#team_id#">
+			</cfquery>
+
 		<div class="notice">
-			To upload a roster select the team and game to upload, if applicable. To View the roster click view, to replace the roster, click remove and then upload.
+			To upload a roster click upload, if applicable. To View the roster click view, to replace the roster, click replace.
 		</div>
 		<div>
-			<span>Working with: #getTeamInfo.teamname#</span> <a href="addTeamRoster.cfm?pmid=54&smid=256">Select a New Team</a>
+			<!--- <span>Working with: #getTeamInfo.teamname#</span> <a href="addTeamRoster.cfm?pmid=54&smid=256">Select a New Team</a> --->
 		<table class="table1" cellpadding="3" cellspacing="0" border="0">
 			<thead>
 			<tr>
-				<th>Game Number</th>
-				<th>Game Time</th>
-				<th>Home Team</th>
-				<th style="text-align:center;">Home Team Roster</th>
-				<th>Visiting Team</th>
-<!--- 				<th style="text-align:center;">Home Score</th>
-				<th style="text-align:center;">Visitor Score</th> --->
-				<th style="text-align:center;">Visiting Team Roster</th>
+				<th>Team Number</th>
+				<th>Team Name</th>
+				<th style="text-align:center;">Team Roster</th>
 			</TR>
 			</thead>
 			<tbody>
 			
-			<cfloop query="qGetGames">
+			<cfloop query="getTeamInfo">
 				<tr>
-					<td>#game_id#</td>
-					<td>#dateformat(game_datetime, "m/d/yyyy")# #timeformat(game_datetime,"h:mm tt")#</td>
-					<td>#home_teamname#</td>
+					<td>#team_id#</td>
+					<td>#teamname#</td>
 					<td style="text-align:center;">
-						<cfif home_roster_id NEQ "">
-							<a target="_blank" href="rosterView.cfm?roster_id=#home_roster_id#">View</a>|<a href="uploadRoster.cfm?game_id=#game_id#&home_team_id=#home_team_id#&team_id=#team_id#" >Replace</a>
+						<cfif roster_id NEQ "">
+							<a target="_blank" href="rosterView.cfm?roster_id=#getTeamInfo.roster_id#">View</a>|<a href="uploadRoster.cfm?team_id=#getTeamInfo.team_id#" >Replace</a>
 						<cfelse>
-							<a  href="uploadRoster.cfm?game_id=#game_id#&home_team_id=#home_team_id#&team_id=#team_id#">Upload</a>
+							<a  href="uploadRoster.cfm?team_id=#team_id#">Upload</a>
 						</cfif>
 					</td>
-					<td>#visitor_teamname#</td>
+					<!--- <td>#visitor_teamname#</td>
 <!--- 					<td style="text-align:center;">#score_home#&nbsp;</td>
 					<td style="text-align:center;">#score_visitor#&nbsp;</td> --->
 					<td style="text-align:center;">
@@ -312,13 +290,13 @@ MODS: mm/dd/yyyy - filastname - comments
 						<cfelse>
 							<a  href="uploadRoster.cfm?game_id=#game_id#&visitor_team_id=#visitor_team_id#&team_id=#team_id#">Upload</a>
 						</cfif>&nbsp;
-					</td>
+					</td> --->
 				</tr>
 			</cfloop>
 			</tbody>
 		</TABLE>
 	</CFIF>
-<cfelse>
+<!--- <cfelse>
 	<cfsavecontent variable="jq_css">
 		<link rel="stylesheet" href="assets/jQuery-ui-1.8.9/css/ui-lightness/jquery-ui-1.8.9.custom.css">
 		<style type="text/css">
@@ -525,7 +503,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		<a href="javascript:void(0);" class="playUpRemove">Remove</a>
 	</div>
 
-</cfif>
+</cfif> --->
 
 </cfif>
 </cfoutput>
