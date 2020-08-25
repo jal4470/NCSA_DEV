@@ -257,7 +257,15 @@ MODS: mm/dd/yyyy - filastname - comments
 	</form>
 	</cfif>
 	<CFIF isDefined("qGetGames") AND qGetGames.RECORDCOUNT>
-		
+		<cfquery datasource="#application.dsn#" name="getTeamInfo">
+			select t.*, c.firstname as head_firstname, c.lastname as Head_lastname, ac.firstname as asst_firstname, ac.lastname as asst_lastname
+			from tbl_team t
+			left join tbl_contact c
+			on t.contactidhead=c.contact_id
+			left join tbl_contact ac
+			on t.contactidasst=ac.contact_id
+			where t.team_id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#team_id#">
+		</cfquery>
 		<cfif isdefined("url.match_day_form_id")>
 			<script language="JavaScript" type="text/javascript">
 				window.open('matchDayFormView.cfm?match_day_form_id=#match_day_form_id#');
@@ -267,7 +275,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			To upload a roster select the team and game to upload, if applicable. To View the roster click view, to replace the roster, click remove and then upload.
 		</div>
 		<div>
-			<a href="addTeamRoster.cfm?pmid=54&smid=256">Select a New Team</a>
+			<span>Working with: #getTeamInfo.teamname#</span> <a href="addTeamRoster.cfm?pmid=54&smid=256">Select a New Team</a>
 		<table class="table1" cellpadding="3" cellspacing="0" border="0">
 			<thead>
 			<tr>
@@ -285,13 +293,12 @@ MODS: mm/dd/yyyy - filastname - comments
 			
 			<cfloop query="qGetGames">
 				<tr>
-					<td><cfif listFind("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21",Session.menuroleID) GTE 1 OR datediff("n",game_datetime,now()) LT 1440><a href="matchDayForm.cfm?team_id=#team_id#&game_id=#game_id#">#game_id#</a><cfelse>#game_id#</cfif></td>
+					<td>#game_id#</td>
 					<td>#dateformat(game_datetime, "m/d/yyyy")# #timeformat(game_datetime,"h:mm tt")#</td>
 					<td>#home_teamname#</td>
 					<td style="text-align:center;">
 						<cfif home_roster_id NEQ "">
-							<a target="_blank" href="rosterView.cfm?roster_id=#home_roster_id#">View</a>|
-							<a  href="removeRoster.cfm?roster_id=#home_roster_id#&team_id=#team_id#">Remove</a>
+							<a target="_blank" href="rosterView.cfm?roster_id=#home_roster_id#">View</a>|<a href="uploadRoster.cfm?game_id=#game_id#&home_team_id=#home_team_id#&team_id=#team_id#" >Replace</a>
 						<cfelse>
 							<a  href="uploadRoster.cfm?game_id=#game_id#&home_team_id=#home_team_id#&team_id=#team_id#">Upload</a>
 						</cfif>
@@ -301,8 +308,7 @@ MODS: mm/dd/yyyy - filastname - comments
 					<td style="text-align:center;">#score_visitor#&nbsp;</td> --->
 					<td style="text-align:center;">
 						<cfif visitor_roster_id NEQ "">
-							<a target="_blank" href="rosterView.cfm?roster_id=#visitor_roster_id#">View</a>
-							<a  href="removeRoster.cfm?roster_id=#home_roster_id#&team_id=#team_id#">Remove</a>
+							<a target="_blank" href="rosterView.cfm?roster_id=#visitor_roster_id#">View</a>|<a href="uploadRoster.cfm?game_id=#game_id#&visitor_team_id=#visitor_team_id#&team_id=#team_id#" >Replace</a>
 						<cfelse>
 							<a  href="uploadRoster.cfm?game_id=#game_id#&visitor_team_id=#visitor_team_id#&team_id=#team_id#">Upload</a>
 						</cfif>&nbsp;

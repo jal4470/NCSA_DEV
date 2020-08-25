@@ -33,29 +33,49 @@
 	select teamName from tbl_team where team_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#roster_team_id#">
 </cfquery>
 <cfset msg = "Upload Roster for #getTeamName.teamName# for game #game_id#">
-
 <!--- form submit --->
-<cfif isdefined("form") AND not structisempty(form)>
+<cfif isdefined("form.cancel")>
+	<cflocation url="addTeamRoster.cfm?team_id=#team_id#" addtoken="No">
+</cfif>
 
-	<!--- saving --->
+<cfif isdefined("form") and isdefined("form.save") >
+	
+	<!--- saving ---> 
 <!--- 	<cfif form.fcontent NEQ ""> --->
-		<cfif form.fcontent EQ "" > 
+		<cfif form.fcontent EQ "" and not isPDFFile(form.fcontent) > 
 			<cfset error = "Please provide a roster in PDF format.">
 		<cfelse>
+
 			<!--- upload file to temp folder --->
-			<cfquery datasource="#application.dsn#" name="getWatermarkDate">
+			<!--- <cfquery datasource="#application.dsn#" name="getWatermarkDate">
 				select watermark_date from tbl_roster where rosterType = 2 and active_flag = 1
 			</cfquery>
-			<cfif getWatermarkDate.recordcount > 
-				<cfset watermark_date = dateformat(getWatermarkDate.watermark_date,"mm/dd/yyyy")>
+			<cfif getWatermarkDate.recordcount >  --->
+			<cfset watermark_date = dateformat(now(),"mm/dd/yyyy")>
+
+			<cfquery name="checkForRoster" datasource="#session.dsn#">
+				select roster_id from tbl_roster where game_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#game_id#">
+				and team_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#team_id#">
+			</cfquery>
+
+			<cfif checkForRoster.recordcount gt 0>
+				<cfstoredproc datasource="#session.dsn#" procedure="p_remove_roster">
+					<cfprocparam cfsqltype="CF_SQL_INTEGER" dbvarname="@roster_id" type="in" value="#checkForRoster.roster_id#">
+				</cfstoredproc>
 			</cfif>
+			
+			<cfquery name="getSeason" datasource="#session.dsn#">
+				select top 1 season_SF, season_Year from v_games_all g with(nolock) inner join tbl_season s with(nolock) on s.season_id = g.season_id where game_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#game_id#">
+			</cfquery>
+
+			<!--- </cfif> --->
 			<!--- <cfdump var="#form#" abort="true"> --->
 			<cffile action="UPLOAD" accept="application/pdf" destination="#expandPath('uploads/temp')#" nameconflict="MAKEUNIQUE" filefield="form.fcontent">
 			<cfpdf action="addWatermark" source="#expandPath('uploads/temp')#\#cffile.serverfile#"  image="assets/images/ncsa_logo_mobile.png"  name="Watermark" foreground="yes" overwrite="yes" position="180,660" opacity="2">
-				<cfpdf action="addFooter" bottomMargin="0.5" name="Watermark" align="right" text="#session.currentseason.sf# #session.currentseason.Year# - League Verified: #watermark_date#" source="Watermark" > 
-				<cfpdf action="addHeader" topMargin="0.5" name="Watermark" align="right" text="NORTHERN COUNTIES SOCCER ASSOCIATION OF NJ (NCSA) #session.currentseason.sf# #session.currentseason.Year#" source="Watermark" > 
-			<!--- <cfcontent type="application/pdf" variable="#ToBinary(Watermark)#" />
-			<cfabort> --->
+			<cfpdf action="addFooter" bottomMargin="0.5" name="Watermark" align="right" text="#getSeason.season_SF# #getSeason.season_Year# - League Verified: #watermark_date#" source="Watermark" > 
+			<cfpdf action="addHeader" topMargin="0.5" name="Watermark" align="right" text="NORTHERN COUNTIES SOCCER ASSOCIATION OF NJ (NCSA)" source="Watermark" > 
+		<!---< cfcontent type="application/pdf" variable="#ToBinary(Watermark)#" /><cfabort>	
+			 --->
 			<cfstoredproc datasource="#session.dsn#" procedure="p_insert_roster">
 				<cfprocparam cfsqltype="CF_SQL_INTEGER" dbvarname="@rosterType" type="In" value="#rosterType#">
 				<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@filename" type="In" null="Yes">
@@ -72,7 +92,7 @@
 			<cfabort> --->
 			<cffile action="DELETE" file="#expandPath('uploads/temp')#\#cffile.serverfile#"> 
 			<cflocation url="addTeamRoster.cfm?team_id=#team_id#" addtoken="No">
-		</cfif>
+		 </cfif> 
 
 		 <!--- --->
 	<!--- </cfif> --->
@@ -118,7 +138,7 @@
 		</TD>
 	</TR> 
 	<tr align="center"><td colspan="2"  >
-			<input type="Submit" name="Save" value="Upload">
+			<input type="Submit" name="Save" value="Upload"><input type="Submit" name="Cancel" value="Cancel">
 		</td>
 	</tr>
 </table>

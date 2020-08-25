@@ -40,71 +40,71 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfloop query="qHomePageSections">
 		
       <cfquery name="PageImage" datasource="#SESSION.DSN#">
-      SELECT image_id, image_desc, image_path
-          FROM tlkp_page_section_image
-       WHERE image_id = <cfqueryparam cfsqltype="cf_sql_integer" VALUE="#qHomePageSections.image_id#">
-    </cfquery>
+	      SELECT image_id, image_desc, image_path
+	          FROM tlkp_page_section_image
+	       WHERE image_id = <cfqueryparam cfsqltype="cf_sql_integer" VALUE="#qHomePageSections.image_id#">
+	    </cfquery>
 
-	<cfif len(trim(qHomePageSections.sectionValue))>
-		<article class="article section_#articleCount#">
-			<div class="container">
-				<header class="article_header"><h2>#qHomePageSections.sectionName#</h2></header>
-				<div class="article_content">
-					<aside class="article_image"><img src="#pageImage.image_path#" alt="#pageImage.image_desc#"></aside>
-					<section class="article_text">#qHomePageSections.sectionValue#</section>
+		<cfif len(trim(qHomePageSections.sectionValue))>
+			<article class="article section_#articleCount#">
+				<div class="container">
+					<header class="article_header"><h2>#qHomePageSections.sectionName#</h2></header>
+					<div class="article_content">
+						<aside class="article_image"><img src="#pageImage.image_path#" alt="#pageImage.image_desc#"></aside>
+						<section class="article_text">#qHomePageSections.sectionValue#</section>
+					</div>
+					<footer class="read_more">Read More</footer>
 				</div>
-				<footer class="read_more">Read More</footer>
-			</div>
-		</article>
-	</cfif>
-<!--- 	<cfif len(trim(qSection2.sectionValue))>
-		<article class="article section_two">
-			<div class="container">
-				<header class="article_header"><h2>#qSection2.sectionName#</h2></header>
-				<div class="article_content">
-					<aside class="article_image"><img src="assets/images/soccer_ball_on_field.jpg" alt="#qSection2.sectionName#"></aside>
-					<section class="article_text">#qSection2.sectionValue#</section>
+			</article>
+		</cfif>
+	<!--- 	<cfif len(trim(qSection2.sectionValue))>
+			<article class="article section_two">
+				<div class="container">
+					<header class="article_header"><h2>#qSection2.sectionName#</h2></header>
+					<div class="article_content">
+						<aside class="article_image"><img src="assets/images/soccer_ball_on_field.jpg" alt="#qSection2.sectionName#"></aside>
+						<section class="article_text">#qSection2.sectionValue#</section>
+					</div>
+					<footer class="read_more">Read More</footer>
 				</div>
-				<footer class="read_more">Read More</footer>
-			</div>
-		</article>
-	</cfif>
-	<cfif len(trim(qSection3.sectionValue))>
-		<article class="article section_three">
-			<div class="container">
-				<header class="article_header"><h2>#qSection3.sectionName#</h2></header>
-				<div class="article_content">
-					<aside class="article_image"><img src="assets/images/soccer_referee.jpg" alt="#qSection3.sectionName#"></aside>
-					<section class="article_text">#qSection3.sectionValue#</section>
+			</article>
+		</cfif>
+		<cfif len(trim(qSection3.sectionValue))>
+			<article class="article section_three">
+				<div class="container">
+					<header class="article_header"><h2>#qSection3.sectionName#</h2></header>
+					<div class="article_content">
+						<aside class="article_image"><img src="assets/images/soccer_referee.jpg" alt="#qSection3.sectionName#"></aside>
+						<section class="article_text">#qSection3.sectionValue#</section>
+					</div>
+					<footer class="read_more">Read More</footer>
 				</div>
-				<footer class="read_more">Read More</footer>
-			</div>
-		</article>
-	</cfif>
-	<cfif len(trim(qSection4.sectionValue))>
-		<article class="article section_four">
-			<div class="container">
-				<header class="article_header"><h2>#qSection4.sectionName#</h2></header>
-				<div class="article_content">
-					<aside class="article_image"><img src="assets/images/soccer_cone_drills.jpg" alt="#qSection4.sectionName#"></aside>
-					<section class="article_text">#qSection4.sectionValue#</section>
+			</article>
+		</cfif>
+		<cfif len(trim(qSection4.sectionValue))>
+			<article class="article section_four">
+				<div class="container">
+					<header class="article_header"><h2>#qSection4.sectionName#</h2></header>
+					<div class="article_content">
+						<aside class="article_image"><img src="assets/images/soccer_cone_drills.jpg" alt="#qSection4.sectionName#"></aside>
+						<section class="article_text">#qSection4.sectionValue#</section>
+					</div>
+					<footer class="read_more">Read More</footer>
 				</div>
-				<footer class="read_more">Read More</footer>
-			</div>
-		</article>
-	</cfif>
-	<cfif len(trim(qSection5.sectionValue))>
-		<article class="article section_five">
-			<div class="container">
-				<header class="article_header"><h2>#qSection5.sectionName#</h2></header>
-				<div class="article_content">
-					<aside class="article_image"><img src="assets/images/soccer_team.jpg" alt="#qSection5.sectionName#"></aside>
-					<section class="article_text">#qSection5.sectionValue#</section>
+			</article>
+		</cfif>
+		<cfif len(trim(qSection5.sectionValue))>
+			<article class="article section_five">
+				<div class="container">
+					<header class="article_header"><h2>#qSection5.sectionName#</h2></header>
+					<div class="article_content">
+						<aside class="article_image"><img src="assets/images/soccer_team.jpg" alt="#qSection5.sectionName#"></aside>
+						<section class="article_text">#qSection5.sectionValue#</section>
+					</div>
+					<footer class="read_more">Read More</footer>
 				</div>
-				<footer class="read_more">Read More</footer>
-			</div>
-		</article> --->
-	</cfif>
+			</article>
+		</cfif> --->
 		<cfset articleCount = articleCount + 1>
 	</cfloop>
 </section>
