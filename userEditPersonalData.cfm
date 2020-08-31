@@ -210,7 +210,18 @@ MODS: mm/dd/yyyy - filastname - comments
 	
 	
 </CFIF><!--- END - REFEREE specific information ------------------------------------------------------------------------ --->
-
+<!--- Coach --->
+<CFIF SESSION.MENUROLEID EQ 29 > 
+	<CFIF isDefined("Form.pass_number")>
+		<CFSET pass_number = Form.pass_number>
+	<CFELSEIF isDefined("qContactInfo.pass_number")>
+		<CFSET pass_number = qContactInfo.pass_number>
+	<CFELSE>
+		<CFSET pass_number = "">
+	</CFIF>
+<CFELSE>
+	<CFSET pass_number = "">
+</CFIF>
 <!--- ----------------------------------------------------------------------------------------------------------- --->
 <!--- Board Member Specific Info.... ---------------------------------------------------------------------------- --->
 <CFIF swBoardMEMBER>
@@ -291,6 +302,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			<cfinvokeargument name="phoneCell" 		value="#VARIABLES.CPhone#">
 			<cfinvokeargument name="phoneFax" 		value="#VARIABLES.Fax#">
 			<cfinvokeargument name="email" 			value="#VARIABLES.Email#">
+			<cfinvokeargument name="pass_number" 	value="#VARIABLES.Pass_Number#">
 			<cfinvokeargument name="createdBy" 		value="#SESSION.USER.CONTACTID#">
 		</cfinvoke>
 

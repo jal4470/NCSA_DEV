@@ -64,7 +64,7 @@
 			<!--- <cfdump var="#form#" abort="true"> --->
 			<cffile action="UPLOAD" accept="application/pdf" destination="#expandPath('uploads/temp')#" nameconflict="MAKEUNIQUE" filefield="form.fcontent">
 			<cfpdf action="addWatermark" source="#expandPath('uploads/temp')#\#cffile.serverfile#"  image="assets/images/ncsa_logo_mobile.png"  name="Watermark" foreground="yes" overwrite="yes" position="180,660" opacity="2">
-			<cfpdf action="addFooter" bottomMargin="0.5" name="Watermark" align="right" text="#session.currentseason.SF# #session.currentseason.Year# - League Verified: #watermark_date#" source="Watermark" > 
+			<cfpdf action="addFooter" bottomMargin="0.25" name="Watermark" align="right" text="#session.currentseason.SF# #session.currentseason.Year# - League Verified: #watermark_date#" source="Watermark" > 
 			<!--- <cfpdf action="addHeader" topMargin="0.5" name="Watermark" align="right" text="NORTHERN COUNTIES SOCCER ASSOCIATION OF NJ (NCSA)" source="Watermark" >  --->
 		<!---< cfcontent type="application/pdf" variable="#ToBinary(Watermark)#" /><cfabort>	
 			 --->

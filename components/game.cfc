@@ -567,6 +567,10 @@ Changes:
 	<cfargument name="coach2" type="string" required="Yes">
 	<cfargument name="coach3" type="string" required="Yes" default="">
 	<cfargument name="coach4" type="string" required="Yes" default="">
+	<cfargument name="coach1pass" type="string" required="Yes">
+	<cfargument name="coach2pass" type="string" required="Yes">
+	<cfargument name="coach3pass" type="string" required="Yes" default="">
+	<cfargument name="coach4pass" type="string" required="Yes" default="">
 	
 	<cfstoredproc datasource="#application.dsn#" procedure="p_save_match_day_form">
 		<cfprocparam cfsqltype="CF_SQL_INTEGER" dbvarname="@game_id" type="In" value="#arguments.game_id#">
@@ -575,6 +579,10 @@ Changes:
 		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@coach2" type="In" value="#arguments.coach2#">
 		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@coach3" type="In" value="#arguments.coach3#" null="#yesnoformat(arguments.coach3 EQ "")#">
 		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@coach4" type="In" value="#arguments.coach4#" null="#yesnoformat(arguments.coach4 EQ "")#">
+		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@coach1pass" type="In" value="#arguments.coach1pass#">
+		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@coach2pass" type="In" value="#arguments.coach2pass#">
+		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@coach3pass" type="In" value="#arguments.coach3pass#" null="#yesnoformat(arguments.coach3pass EQ "")#">
+		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@coach4pass" type="In" value="#arguments.coach4pass#" null="#yesnoformat(arguments.coach4pass EQ "")#">
 		<cfprocparam cfsqltype="CF_SQL_INTEGER" dbvarname="@contact_id" type="In" value="#session.user.contactid#">
 		<cfprocparam cfsqltype="CF_SQL_INTEGER" dbvarname="@match_day_form_id" type="Out" variable="match_day_form_id">
 	</cfstoredproc>
@@ -592,13 +600,15 @@ Changes:
 	<cfargument name="name" type="string" required="Yes">
 	<cfargument name="pass" type="string" required="Yes">
 	<cfargument name="team_id" type="string" required="Yes">
-	
+	<cfargument name="other" type="string" required="No">
+
 	<cfstoredproc datasource="#application.dsn#" procedure="p_save_play_up">
 		<cfprocparam cfsqltype="CF_SQL_INTEGER" dbvarname="@match_day_form_id" type="In" value="#arguments.match_day_form_id#">
 		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@uniform_number" type="In" value="#arguments.uniform_number#">
 		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@name" type="In" value="#arguments.name#">
 		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@pass_number" type="In" value="#arguments.pass#">
 		<cfprocparam cfsqltype="CF_SQL_INTEGER" dbvarname="@team_id" type="In" value="#arguments.team_id#">
+		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@other" type="In" value="#arguments.other#" null="#YesNoFormat(not len(trim(other)))#">
 		<cfprocparam cfsqltype="CF_SQL_INTEGER" dbvarname="@contact_id" type="In" value="#session.user.contactid#">
 		<cfprocparam cfsqltype="CF_SQL_INTEGER" dbvarname="@play_up_id" type="Out" variable="play_up_id">
 	</cfstoredproc>

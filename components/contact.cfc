@@ -286,7 +286,7 @@
 	<CFQUERY name="getuser" datasource="#VARIABLES.DSN#">
 		Select Club_id, FirstName, LastName, Address, City, State, Zipcode, 
 			   PhoneHome, PhoneCell, PhoneWork, PhoneFax, Email,
-			   Active_Yn, username, password, APPROVE_YN, REJECT_COMMENT
+			   Active_Yn, username, password, APPROVE_YN, REJECT_COMMENT,pass_number
 	      from tbl_contact 
 		 where contact_id = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.contactID#">
 	</CFQUERY>
@@ -427,7 +427,8 @@
 <!--- J. Rab 9/10/2012 Added requirement that role must be assigned to display contact --->
 		Select			contact_id, lastName, firstName, active_YN, Approve_YN,
 						email, PHONEHOME, PHONEWORK, PHONECELL, PHONEFAX,
-						CLUB_NAME, roll_assigned
+						CLUB_NAME, roll_assigned,
+						pass_number
 		FROM			v_contacts
 		WHERE			CLUB_ID = <cfqueryparam cfsqltype="cf_sql_numeric" value="#ARGUMENTS.clubID#">
 		AND				APPROVE_YN = 'Y'
@@ -472,7 +473,8 @@
 						state,
 						zipcode ,
 						CLUB_NAME,
-						roll_assigned
+						roll_assigned,
+						pass_number
 		FROM			v_contacts
 		WHERE			APPROVE_YN = 'Y'
 		AND				roll_assigned <> 0
@@ -757,6 +759,7 @@
 	<CFARGUMENT name="phoneCell" required="Yes" type="string">
 	<CFARGUMENT name="phoneFax"  required="Yes" type="string">
 	<CFARGUMENT name="email"	 required="Yes" type="string">
+	<CFARGUMENT name="pass_number"	 required="No" type="string" default="">
 	<CFARGUMENT name="createdBy" required="Yes" type="numeric">
 
 		<cfstoredproc procedure="p_update_contact" datasource="#VARIABLES.DSN#" returncode="Yes">
@@ -772,6 +775,7 @@
 			<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@phoneCell"	 value="#ARGUMENTS.phoneCell#">
 			<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@phoneFax"	 value="#ARGUMENTS.phoneFax#">
 			<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@email"		 value="#ARGUMENTS.email#">
+			<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@pass_number"	 value="#ARGUMENTS.pass_number#" null="#YesNoFormat(Not len(trim(arguments.pass_number)))#">
 			<cfprocparam type="In"  cfsqltype="CF_SQL_NUMERIC" dbvarname="@updatedBy"	 value="#ARGUMENTS.createdBy#">
 			
 		</cfstoredproc>

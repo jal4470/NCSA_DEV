@@ -20,7 +20,8 @@ MODIFICATIONS:
 		refc.firstname + ' ' + refc.lastname as ref_name,
 		asst1c.firstname + ' ' + asst1c.lastname as asstref1_name,
 		asst2c.firstname + ' ' + asst2c.lastname as asstref2_name,
-		dbo.f_get_division(m.team_id) as division
+		dbo.f_get_division(m.team_id) as division,
+		m.coach1pass,m.coach2pass,m.coach3pass,m.coach4pass
 		from tbl_match_day_form m with(nolock) 
 		left join v_games_all g 
 		on m.game_id=g.game_id
@@ -262,23 +263,23 @@ MODIFICATIONS:
 					<table width="100%" border="0" cellpadding="0" cellspacing="0" class="border padding">
 						<tr>
 							<td colspan="3" width="60%"><span class="bold">Print Coaches Names Participating in this Game</span> (as they appear on your US Club passes) (Max 4 Coaches on sideline)</td>
-							<td width="40%" class="bold">Signatures</td>
+							<td width="40%" class="bold">Pass Number</td>
 						</tr>
 						<tr>
 							<td colspan="3">Coach: <span class="input">#getInfo.coach1#</span></td>
-							<td>&nbsp;</td>
+							<td>#getInfo.coach1pass#</td>
 						</tr>
 						<tr>
 							<td colspan="3">Coach: <span class="input">#getInfo.coach2#</span></td>
-							<td>&nbsp;</td>
+							<td>#getInfo.coach2pass#</td>
 						</tr>
 						<tr>
 							<td colspan="3">Coach: <span class="input">#getInfo.coach3#</span></td>
-							<td>&nbsp;</td>
+							<td>#getInfo.coach3pass#</td>
 						</tr>
 						<tr>
 							<td colspan="3">Coach: <span class="input">#getInfo.coach4#</span></td>
-							<td>&nbsp;</td>
+							<td>#getInfo.coach4pass#</td>
 						</tr>
 						<tr>
 							<!---<td colspan="3" class="bold">PLAYERS PLAYING UP - This section lists players you entered online who are playing up per NCSA Rule 4.5.  If you did not complete this section already online, the form has blank lines to insert information on game day.  NOTE: within 24 hours you MUST enter that information ONLINE by creating a new Match Day Form for this game.</td>--->
@@ -298,7 +299,7 @@ MODIFICATIONS:
 								<td><span class="input">#teamname#</span></td>
 							</tr>
 						</cfloop>
-						<cfset numBlanks=9-getPlayUps.recordcount>
+						<!--- <cfset numBlanks=9-getPlayUps.recordcount>
 						<cfif numBlanks GT 0>
 							<cfloop from="1" to="#numBlanks#" index="i">
 							<tr>
@@ -308,20 +309,20 @@ MODIFICATIONS:
 								<td>&nbsp;</td>
 							</tr>
 							</cfloop>
-						</cfif>
+						</cfif> --->
 						<tr>
 							<td colspan="4">&nbsp;</td>
 						</tr>
-						<tr>
+						<!--- <tr>
 							<td colspan="3" class="bold">Referee (Sign to the right to attest to ##7 only - goals are secured):</td>
 							<td>&nbsp;</td>
-						</tr>
-						<tr>
+						</tr> --->
+						<!--- <tr>
 							<td colspan="4">
 							<!---Referee:   Attach both teams' Match Day Forms and US Club Rosters to your Referee Report and (a) mail to  <span class="bold">NCSA Referee Office; P.O.Box 26, Ho-Ho-Kus, NJ 07423</span>; (b) fax all to 201-652-9176 OR (c) scan and email to ncsa.admin@verizon.net within 24 hours of game.--->
 							Referee: Attach both teams' Match Day Forms and US Club Rosters to your Referee Report and within 24 hours of game (a) preferred method - scan and email to ncsanj@gmail.com; (b) fax all to 201-857-0873; or (c) least preferred -  mail to &nbsp;<span class="bold">NCSA Referee Office; P.O.Box 26, Ho-Ho-Kus, NJ 07423</span>
 							</td>
-						</tr>
+						</tr> --->
 					</table>
 				</div>
 				<!--- <div style="font-size:2.5em; font-weight:bold; text-align:center; color:red;">ENJOY THE BEAUTIFUL GAME</div> --->

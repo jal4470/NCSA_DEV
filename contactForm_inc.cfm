@@ -156,6 +156,18 @@ Joe Lechuga - 7-18-2011 - Added Active Flag to form
 					<input type="Hidden" name="Email_ATTRIBUTES" 	value="type=EMAIL~required=1~FIELDNAME=Email">	
 				</TD>
 			</TR>
+			<CFIF SESSION.MENUROLEID EQ 29 > 
+				<TR>
+					<TD align="right"><b>PASS NUMBER</b></TD>
+					<TD>
+						<cfif readOnlyForm EQ true>
+							&nbsp; #pass_number#
+						<cfelse>
+							<input type="Text"  maxlength="100" name="pass_number"  size="25" value="#pass_number#">
+						</cfif>
+					</TD>
+				</TR>
+			</CFIF>
 			<!--- Joe Lechuga 7/15/2011 - Added active_yn field to Edit form --->
 			<cfif isdefined("active_yn") and readOnlyForm EQ false>
 			<TR><TD align="right"><b>Active:</b></TD>
