@@ -26,7 +26,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfset refereeContactID = URL.rcid>
 <CFELSEIF isDefined("FORM.refContactID") AND isNumeric(FORM.refContactID)>
 	<cfset refereeContactID = FORM.refContactID>
-<CFELSEIF SESSION.menuRoleID EQ 25> <!--- logged in as referee, using referee menu --->
+<CFELSEIF isdefined("SESSION.menuRoleID") and SESSION.menuRoleID EQ 25> <!--- logged in as referee, using referee menu --->
 	<cfset refereeContactID = SESSION.USER.CONTACTID>
 <CFELSE>
 	<cfset refereeContactID = 0>
@@ -113,7 +113,9 @@ MODS: mm/dd/yyyy - filastname - comments
 		   Forfeit_Home,  Forfeit_Visitor, 
 		   RefID,		Ref_accept_Date,	Ref_accept_YN,
 		   AsstRefID1,  ARef1AcptDate,		ARef1Acpt_YN,
-		   AsstRefID2,  ARef2AcptDate,		ARef2Acpt_YN, Visitor_CLUB_ID, Home_CLUB_ID,Home_Team_ID,VISITOR_TEAM_ID
+		   AsstRefID2,  ARef2AcptDate,		ARef2Acpt_YN, Visitor_CLUB_ID, Home_CLUB_ID,Home_Team_ID,VISITOR_TEAM_ID,
+		   dbo.f_getTeamRoster(home_team_id) as home_team_roster_id, dbo.f_getTeamRoster(visitor_team_id) as visitor_team_roster_id,
+		   dbo.f_get_MDF(home_team_id, game_id) as home_team_mdf, dbo.f_get_MDF(visitor_team_id, game_id) as visitor_team_mdf
 	  from V_Games with (nolock)
 	 WHERE 
 	 	(  RefID = #VARIABLES.refereeContactID#
@@ -325,10 +327,23 @@ MODS: mm/dd/yyyy - filastname - comments
 							<cfelse>
 								&nbsp;
 							</cfif>
-						<p style="margin: 20px 20px 20px 20px;"><i class="fa fa-envelope" aria-hidden="true"></i><a href="##" class="coachLink" data-id="#Home_CLUB_ID#"> Retrieve All Coaches' Emails</a></p>
+							 <cfset official_game_date = dateformat(GAME_DATE,"mm/dd/yyyy") & ' ' & timeformat(GAME_TIME,"hh:mm:ss t")>
+						 <!--- <cfdump var="#datediff('h',official_game_date,now())#"><cfdump var="#GAME_TIME#"> --->
+						<cfif datediff('h',official_game_date,now()) lte 24 and datediff('h',official_game_date,now()) gte -24>
+							<p style="margin: 20px 20px 20px 20px;"><a href="GameDayDocuments.cfm?home_team_roster_id=#home_team_roster_id#&visitor_team_roster_id=#visitor_team_roster_id#&home_team_mdf=#home_team_mdf#&visitor_team_mdf=#visitor_team_mdf#&game_id=#game_id#" target="_blank" class="yellow_btn"><i class="fa fa-file"></i> Retrieve Game Day Documents</a></p>
+						</cfif>
+						<p style="margin: 20px 20px 20px 20px;"><i class="fa fa-envelope" aria-hidden="true"></i><a href="##" class="coachLink" data-id="#game_id#"> Retrieve All Coaches' Emails</a></p>
 						
 
-						<CFQUERY name="getHomeEmail" datasource="#SESSION.DSN#"> 
+						<CFQUERY name="getAllEmails" datasource="#SESSION.DSN#"> 
+							select email from [dbo].[V_CoachesEmailsByTeam]
+								where teamId =  <cfqueryparam cfsqltype="cf_sql_integer" VALUE="#Home_Team_ID#">
+							UNION
+							select email from [dbo].[V_CoachesEmailsByTeam]
+							where teamId =  <cfqueryparam cfsqltype="cf_sql_integer" VALUE="#Visitor_Team_ID#">
+							group by email
+						</CFQUERY>
+				<!--- 		<CFQUERY name="getHomeEmail" datasource="#SESSION.DSN#"> 
 							select email, teamid from [dbo].[V_CoachesEmailsByTeam]
 							where teamId =  <cfqueryparam cfsqltype="cf_sql_integer" VALUE="#Home_Team_ID#">
 						</CFQUERY>
@@ -337,39 +352,43 @@ MODS: mm/dd/yyyy - filastname - comments
 							select email, teamid from [dbo].[V_CoachesEmailsByTeam]
 							where teamId =  <cfqueryparam cfsqltype="cf_sql_integer" VALUE="#Visitor_Team_ID#">
 						</CFQUERY>
+ --->
 
 						<!--- create list of home coaches --->
-						<cfset home_coach_list = "">
+						<!--- <cfset home_coach_list = "">
 						<cfloop query="#getHomeEmail#">
 							<cfset home_coach_list=listappend(home_coach_list, email, "; ")>	
-						</cfloop>
+						</cfloop> --->
 						
 						<!--- create list of away coaches --->
-						 <cfset away_coach_list = "">
+					<!--- 	 <cfset away_coach_list = "">
 						<cfloop query="#getAwayEmail#">
 							<cfset away_coach_list=listappend(away_coach_list, email, "; ")>	
-						</cfloop>
+						</cfloop> --->
 
 						<!--- Add two lists together, remove duplicates --->
-						 <cfset complete_coach_list = "">
+					<!--- 	 <cfset complete_coach_list = "">
 						<cfloop query="#getAwayEmail#">
 							<cfset complete_coach_list=listappend(complete_coach_list, email, "; ")>	
 						</cfloop>
 						<cfloop query="#getHomeEmail#">
 							<cfset complete_coach_list=listappend(complete_coach_list, email, "; ")>	
 						</cfloop>
-						 <cfset complete_coach_list = listRemoveDuplicates(complete_coach_list, "; ", true)> 
+						 <cfset complete_coach_list = listRemoveDuplicates(complete_coach_list, "; ", true)>  --->
 
-						 <div class="modal email_#Home_CLUB_ID#" id="clubPopup">
+						 <div class="modal email_#game_id#" id="clubPopup">
 							<div class="container">
+
 							<hgroup id="modal_title">
 								<h2>Coaches' Emails</h2>
 							</hgroup>
 							<cfoutput>
-								<button class="yellow_btn coachEmail" data-elem-id="#Home_CLUB_ID#" type="button"><i class="fa fa-envelope" aria-hidden="true"></i> Click here to copy all the emails</button>
-								<div id="CEmail_#Home_CLUB_ID#" class="EmailList">
-									<cfloop list="#complete_coach_list#" index="i" delimiters=";">
-										<div class="coach"><a href="mailto:#i#" target="_blank">#i#</a></div>
+								<button class="yellow_btn coachEmail" data-elem-id="#game_id#" type="button"><i class="fa fa-envelope" aria-hidden="true"></i> Click here to copy all the emails</button><br>
+								
+								<div id="CEmail_#game_id#" class="EmailList">
+									<!--- <cfloop list="#complete_coach_list#" index="i" delimiters=";"> --->
+									<cfloop query="getAllEmails">
+										<div class="coach"><a href="mailto:#email#" target="_blank">#email#</a></div>
 									</cfloop>
 								</div>	
 							</Cfoutput>

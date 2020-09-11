@@ -131,7 +131,9 @@ MODS: mm/dd/yyyy - filastname - comments
 				   vg.AsstRefID1, vg.ARef1Acpt_YN, 
 					  (SELECT LastName + ', ' + FirstName FROM TBL_CONTACT WHERE contact_id = vg.AsstRefID1) AS AR1_name,
 				   vg.AsstRefID2, vg.ARef2Acpt_YN,
-					  (SELECT LastName + ', ' + FirstName FROM TBL_CONTACT WHERE contact_id = vg.AsstRefID2) AS AR2_name
+					  (SELECT LastName + ', ' + FirstName FROM TBL_CONTACT WHERE contact_id = vg.AsstRefID2) AS AR2_name,
+		   dbo.f_getTeamRoster(home_team_id) as home_team_roster_id, dbo.f_getTeamRoster(visitor_team_id) as visitor_team_roster_id,
+		   dbo.f_get_MDF(home_team_id, game_id) as home_team_mdf, dbo.f_get_MDF(visitor_team_id, game_id) as visitor_team_mdf
 			 FROM V_GAMES_all vg  
 			<cfif gameid NEQ "">
 				WHERE vg.GAME_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.gameID#">
@@ -350,6 +352,18 @@ MODS: mm/dd/yyyy - filastname - comments
 					<cfelse>
 						#Virtual_TeamName#
 					</cfif>
+
+				<!--- <cfquery datasource="#application.dsn#" name="getGameDayDoc">
+					select game_day_document_id from TBL_GAME_DAY_DOCUMENTS
+					where game_id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#game_id#">
+				</cfquery> --->
+				<!--- <cfset official_game_date = dateformat(GAME_DATE,"mm/dd/yyyy") & ' ' & timeformat(GAME_TIME,"hh:mm:ss t")>
+				<cfdump var="#datediff('h',official_game_date,now())#"><cfdump var="#GAME_TIME#">   
+				<cfif datediff('h',official_game_date,now()) lte 24 and datediff('h',official_game_date,now()) gte -24>  --->
+				<!--- <cfif getGameDayDoc.RecordCount> --->
+				<p style="margin: 20px 20px 20px 20px;"><a href="ViewGameDayDocs.cfm?game_id=#game_id#" target="_blank" class="yellow_btn"><i class="fa fa-file"></i> Game Day Documents</a></p>
+				<!--- </cfif> --->
+				<!--- </cfif>  --->
 			</TD>
 			<TD width="27%" valign="top" #classValue# >
 				<!--- Head Referee --->

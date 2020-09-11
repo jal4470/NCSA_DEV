@@ -132,7 +132,9 @@ MODS: mm/dd/yyyy - filastname - comments
 <cfif team_id NEQ "">
 	<!--- get games --->
 	<cfquery datasource="#application.dsn#" name="qGetGames">
-		select m.match_day_form_id, g.game_id, game_datetime, score_home, score_visitor, game_code, field_Id, field, visitor_teamname, home_teamname 
+		select m.match_day_form_id, g.game_id, game_datetime, score_home, score_visitor, game_code, field_Id, field, visitor_teamname, home_teamname,
+		   dbo.f_getTeamRoster(home_team_id) as home_team_roster_id, dbo.f_getTeamRoster(visitor_team_id) as visitor_team_roster_id,
+		   dbo.f_get_MDF(home_team_id, g.game_id) as home_team_mdf, dbo.f_get_MDF(visitor_team_id, g.game_id) as visitor_team_mdf 
 		from v_games_all g
 		left join tbl_match_day_form m
 		on g.game_id=m.game_id and m.team_id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#team_id#">
@@ -140,6 +142,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		(visitor=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#team_id#"> or home=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#team_id#">)
 		order by game_datetime asc
 	</cfquery>
+	<!--- <cfdump var="#qGetGames#" abort="true"> --->
 </cfif>
 <!--- <cftry> --->
 <cfif isdefined("game_Id")>
@@ -191,7 +194,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		where game_id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#game_id#">
 		and team_id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#team_id#">
 	</cfquery>
-	
+
 <!--- 	-- select team_id, name as teamname, other_team
 		-- from tbl_play_up where match_day_form_id = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#getForm.match_day_form_id#">
 		-- and team_id = 0
@@ -310,7 +313,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		<div class="notice">
 			To create or revise a Match Day Form, please click game number.  Verify listed coaches and add any others.  Add required info for players playing up.  Once the form is completed, click the "save" button.  To PRINT a Match Day Form, click "VIEW" next to the game and print the PDF version of the form.
 		</div>
-		<table class="table1" cellpadding="3" cellspacing="0" border="0">
+		<table class="table1" cellpadding="3" cellspacing="0" border="0" style="font-size: .9em;">
 			<thead>
 			<tr>
 				<th>Game Number</th>
@@ -334,8 +337,29 @@ MODS: mm/dd/yyyy - filastname - comments
 					<td style="text-align:center;">#score_visitor#&nbsp;</td>
 					<td style="text-align:center;">
 						<cfif match_day_form_id NEQ "">
-							<a target="_blank" href="matchDayFormView.cfm?match_day_form_id=#match_day_form_id#">View</a>
-						</cfif>&nbsp;
+							<div style="border-bottom:solid 1px ##ccc;padding-bottom: 3px;margin: 3px 0 3px 0;">
+							
+								<a target="_blank" href="matchDayFormView.cfm?match_day_form_id=#match_day_form_id#">View MDF</a>
+							
+							</div>
+						</cfif>
+						<div style="margin-top:3px;padding-top:3px;">
+							<cfset official_game_date = dateformat(game_datetime,"mm/dd/yyyy") & ' ' & timeformat(game_datetime,"hh:mm:ss t")>
+							<cfset timerestricted = "26,27,28,29">
+						 		<!---<cfdump var="#datediff('h',official_game_date,now())#"><cfdump var="[#game_datetime#]">  --->
+							<cfif datediff('h',official_game_date,now()) lte 24 and datediff('h',official_game_date,now()) gte -24 and listFindNoCase(timerestricted,session.menuroleID)>
+								<!--- <a href="GameDayDocuments.cfm?home_team_roster_id=#home_team_roster_id#&visitor_team_roster_id=#visitor_team_roster_id#&home_team_mdf=#home_team_mdf#&visitor_team_mdf=#visitor_team_mdf#&game_id=#game_id#" target="_blank">Game Day Docs</a> --->
+								<a href="ViewGameDayDocs.cfm?game_id=#game_id#" target="_blank" class="yellow_btn">Game Day Docs</a>
+							<cfelseif not listFindNoCase(timerestricted,session.menuroleID)>
+	<!--- 								<cfquery datasource="#application.dsn#" name="getGameDayDoc">
+										select game_day_document_id from TBL_GAME_DAY_DOCUMENTS
+										where game_id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#game_id#">
+									</cfquery> --->
+									<!--- <cfif getGameDayDoc.RecordCount> --->
+								<a href="ViewGameDayDocs.cfm?game_id=#game_id#" target="_blank" class="yellow_btn">Game Day Docs</a>
+									<!--- </cfif> --->
+							</cfif>
+						</div>
 					</td>
 				</tr>
 			</cfloop>

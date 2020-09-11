@@ -29,7 +29,9 @@ MODS: mm/dd/yyyy - filastname - comments
 <cfoutput>
 <div id="contentText">
 <H1 class="pageheading">NCSA - Submit Game Report</H1>     <!--- <br> <h2>yyyyyy </h2> --->
-
+<!--- <cfif isdefined("form") and structCount(FORM) >
+	<cfdump var="#form#" abort="true">
+</cfif> --->
 <CFIF isDefined("URL.GID") AND isNumeric(URL.GID)>
 	<CFSET gameID = URL.GID>
 <CFELSEIF isDefined("FORM.gameID") AND isNumeric(FORM.gameID)>
@@ -39,6 +41,12 @@ MODS: mm/dd/yyyy - filastname - comments
 </CFIF>
 <CFSET MSG = "">
 
+<cfif not isdefined("HOMENOPARTICIPATECNT")>
+	<cfset HOMENOPARTICIPATECNT = 0>
+</cfif>
+<cfif not isdefined("VISITORNOPARTICIPATECNT")>
+	<cfset VISITORNOPARTICIPATECNT = 0>
+</cfif>
 <!--- initialize MISCONDUCTS AND INJURIES to hold values while processing forms  --->
 <cfset stMisconducts = structNew()>
 <Cfloop from="1" to="10" index="ix">
@@ -77,9 +85,30 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfset stPlayUpsVisitor[ix].PLAYUPWITHVISITOR = "">
 </cfloop> 
 
+<cfset stNoParticipatesHome = structNew()>
+<cfset stNoParticipatesVisitor = structNew()>
+<cfloop from="1" to="18" index="ix">
 
-<CFIF isDefined("FORM") AND structCount(FORM) AND FORM.MODE EQ "ADD">
+	<cfset stNoParticipatesHome[ix] = structNew()>
+	<cfset stNoParticipatesHome[ix].NoParticipateFROMHOME = "">
+	<cfset stNoParticipatesHome[ix].NoParticipateFROMOTHERHOME = "">
+	<cfset stNoParticipatesHome[ix].NoParticipatePLAYERNAMEHOME = "">
+	<cfset stNoParticipatesHome[ix].NoParticipateTypeHome = "">
+	<cfset stNoParticipatesHome[ix].NoParticipateWITHHOME = "">
 
+	<cfset stNoParticipatesVisitor[ix] = structNew()>
+	<cfset stNoParticipatesVisitor[ix].NoParticipateFROMVISITOR = "">
+	<cfset stNoParticipatesVisitor[ix].NoParticipateFROMOTHERVISITOR = "">
+	<cfset stNoParticipatesVisitor[ix].NoParticipatePLAYERNAMEVISITOR = "">
+	<cfset stNoParticipatesVisitor[ix].NoParticipateTypeVisitor = "">
+	<cfset stNoParticipatesVisitor[ix].NoParticipateWITHVISITOR = "">
+</cfloop> 
+
+
+<!--- <cfif isdefined("FORM")>
+	<cfdump var="#form#">
+</cfif> --->
+<CFIF isDefined("FORM") AND structCount(FORM) and FORM.MODE EQ "Add">
 	<!--- validate form fields --->
 	<cfset ctErrors = 0>
 	<CFIF FORM.GAMESTATUS EQ "P">
@@ -128,6 +157,42 @@ MODS: mm/dd/yyyy - filastname - comments
 		<cfset ctErrors = ctErrors + 1>
 		<cfset msg = msg & "If the visitor team has play ups, you must select a number greater than zero.<br>">
 	</cfif>
+
+	<cfif not isdefined("form.homeNoParticipate")>
+		<cfset ctErrors = ctErrors + 1>
+		<cfset msg = msg & "You must indicate if the home team had and players or coaches not participating.<br>">
+	</cfif>
+	<cfif not isdefined("form.visitorNoParticipate")>
+		<cfset ctErrors = ctErrors + 1>
+		<cfset msg = msg & "You must indicate if the visitor team had and players or coaches not participating.<br>">
+	</cfif>
+	<cfif isdefined("form.homeNoParticipate") AND form.homeNoParticipate EQ "1" AND form.homeNoParticipateCnt EQ "0">
+		<cfset ctErrors = ctErrors + 1>
+		<cfset msg = msg & "If the home team has players or coaches not participating, you must select a number greater than zero.<br>">
+	</cfif>
+	<cfif isdefined("form.visitorNoParticipate") AND form.visitorNoParticipate EQ "1" AND form.visitorNoParticipateCnt EQ "0">
+		<cfset ctErrors = ctErrors + 1>
+		<cfset msg = msg & "If the visitor team has players or coaches not participating, you must select a number greater than zero.<br>">
+	</cfif>
+
+	<cfif isdefined("form.HOMENOPARTICIPATE") AND form.HOMENOPARTICIPATE EQ "1" AND form.HOMENOPARTICIPATECNT EQ "0">
+		<cfset ctErrors = ctErrors + 1>
+		<cfset msg = msg & "Use the Slider to indicate total number of Home coaches and players on MDF and Roster not Participating.<br>">
+		<cfset HOMENOPARTICIPATECNT = 0>
+	<cfelseif isdefined("form.HOMENOPARTICIPATE") AND form.HOMENOPARTICIPATE EQ "1" AND form.HOMENOPARTICIPATECNT GTE 1>
+		<cfset HOMENOPARTICIPATECNT = form.HOMENOPARTICIPATECNT>
+	<cfelse>
+		<cfset HOMENOPARTICIPATECNT = 0>
+	</cfif>
+	<cfif isdefined("form.VISITORNOPARTICIPATE") AND form.VISITORNOPARTICIPATE EQ "1" AND form.VISITORNOPARTICIPATECNT EQ "0">
+		<cfset ctErrors = ctErrors + 1>
+		<cfset msg = msg & "Use the Slider to indicate total number of Visitor coaches and players on MDF and Roster not Participating.<br>">
+		<cfset VISITORNOPARTICIPATECNT = 0>
+	<cfelseif  isdefined("form.VISITORNOPARTICIPATE") AND form.VISITORNOPARTICIPATE EQ "1" AND form.VISITORNOPARTICIPATECNT GTE 1>
+		<cfset VISITORNOPARTICIPATECNT = form.VISITORNOPARTICIPATECNT>
+	
+	</cfif>
+
 
 	<!--- Look for Injuries --->
 	<cfloop list="#FORM.FIELDNAMES#" index="ij">
@@ -341,6 +406,107 @@ MODS: mm/dd/yyyy - filastname - comments
 		</cfif>
 	</cfif>
 
+	<!--- ------------------------------------------------------------------------------------------------------- --->
+		<!--- look for HomeNoParticipate values that were entered --->
+	<cfloop list="#FORM.FIELDNAMES#" index="iHnp">
+		<cfif UCASE(listFirst(ihnp,"_")) EQ "NOPARTICIPATEFROMHOME">
+			<cfset stNoParticipatesHome[listLast(ihnp,"_")].NoParticipateFROMHOME 		 = evaluate(iHnp) >
+		</cfif>
+		<cfif UCASE(listFirst(ihnp,"_")) EQ "NOPARTICIPATETYPEHOME">
+			<cfset stNoParticipatesHome[listLast(ihnp,"_")].NoParticipateTypeHome 	 = evaluate(iHnp) >
+		</cfif>
+		<cfif UCASE(listFirst(ihnp,"_")) EQ "NOPARTICIPATEPLAYERNAMEHOME">
+			<cfset stNoParticipatesHome[listLast(ihnp,"_")].NoParticipatePLAYERNAMEHOME = evaluate(iHnp) >
+		</cfif>
+		<cfif UCASE(listFirst(ihnp,"_")) EQ "NOPARTICIPATEWITHHOME">
+			<cfset stNoParticipatesHome[listLast(ihnp,"_")].NoParticipateWITHHOME		 = evaluate(iHnp) >
+		</cfif>
+		<cfif UCASE(listFirst(ihnp,"_")) EQ "NOPARTICIPATEFROMOTHERHOME">
+			<cfset stNoParticipatesHome[listLast(ihnp,"_")].NoParticipateFROMOTHERHOME		 = evaluate(iHnp) >
+		</cfif>
+	</cfloop> 
+
+	<cfif NOT structIsEmpty(stNoParticipatesHome)>
+		<cfset homeCount = 1>
+		<cfset recCount = 1>
+		<cfif form.homeNoParticipateCnt NEQ 0>
+			<cfset homeCount = form.homeNoParticipateCnt>
+		
+		<!--- Misconduct data was entered were all 4 fields entered? --->
+		<!--- <cfloop collection="#stNoParticipatesHome#" item="ihnp"> --->
+		<cfloop index="ihnp" from="1" to="#homeCount#">
+			<cfset ctValues = 0>
+			<cfif stNoParticipatesHome[ihnp].NoParticipateFROMHOME GTE 0> <!--- play up from --->
+				<cfset ctValues = ctValues + 1> 
+			</cfif>  				
+			<cfif stNoParticipatesHome[ihnp].NoParticipateTypeHome eq "Coach" or stNoParticipatesHome[ihnp].NoParticipateTypeHome eq "Player" > 
+				<cfset ctValues = ctValues + 1> 
+			<cfelseif len(trim(stNoParticipatesHome[ihnp].NoParticipatePLAYERNAMEHOME)) and not len(trim(stNoParticipatesHome[ihnp].NoParticipateTypeHome))>
+				<cfset ctErrors = ctErrors + 1>
+				<cfset MSG = MSG & "Please designate the Home Participant type.<br>">
+				<cfbreak>
+			</cfif>			 		
+			<cfif len(trim(stNoParticipatesHome[ihnp].NoParticipatePLAYERNAMEHOME)) GT 0> 
+				<cfset ctValues = ctValues + 1> 
+			</cfif>		 			
+			<cfif stNoParticipatesHome[ihnp].NoParticipateWITHHOME GT 0> <!--- team id --->
+				<cfset ctValues = ctValues + 1> 
+			</cfif>
+			<cfset recCount = recCount + 1>
+		</cfloop>
+		</cfif>
+	</cfif>
+
+	<!--- look for VisitorNoParticipate values that were entered --->
+	<cfloop list="#FORM.FIELDNAMES#" index="iVnp">
+		<cfif UCASE(listFirst(ivnp,"_")) EQ "NOPARTICIPATEFROMVISITOR">
+			<cfset stNoParticipatesVisitor[listLast(ivnp,"_")].NoParticipateFROMVISITOR 		 = evaluate(iVnp) >
+		</cfif>
+		<cfif UCASE(listFirst(ivnp,"_")) EQ "NOPARTICIPATETYPEVISITOR">
+			<cfset stNoParticipatesVisitor[listLast(ivnp,"_")].NoParticipateTypeVisitor 	 = evaluate(iVnp) >
+		</cfif>
+		<cfif UCASE(listFirst(ivnp,"_")) EQ "NOPARTICIPATEPLAYERNAMEVISITOR">
+			<cfset stNoParticipatesVisitor[listLast(ivnp,"_")].NoParticipatePLAYERNAMEVISITOR = evaluate(iVnp) >
+		</cfif>
+		<cfif UCASE(listFirst(ivnp,"_")) EQ "NOPARTICIPATEWITHVISITOR">
+			<cfset stNoParticipatesVisitor[listLast(ivnp,"_")].NoParticipateWITHVISITOR		 = evaluate(iVnp) >
+		</cfif>
+		<cfif UCASE(listFirst(ivnp,"_")) EQ "NOPARTICIPATEFROMOTHERVISITOR">
+			<cfset stNoParticipatesVisitor[listLast(ivnp,"_")].NoParticipateFROMOTHERVISITOR		 = evaluate(iVnp) >
+		</cfif>
+	</cfloop> 
+
+	<cfif NOT structIsEmpty(stNoParticipatesVisitor)>
+		<cfset visitorCount = 1>
+		<cfset recCount = 1>
+		<cfif form.visitorNoParticipateCnt NEQ 0>
+			<cfset visitorCount = form.visitorNoParticipateCnt>
+		
+		<!--- <cfloop collection="#stNoParticipatesVisitor#" item="ivnp"> --->
+		<cfloop index="ivnp" from="1" to="#visitorCount#">
+			<cfset ctValues = 0>
+			<cfif stNoParticipatesVisitor[ivnp].NoParticipateFROMVISITOR GTE 0> <!--- play up from team id --->
+				<cfset ctValues = ctValues + 1> 
+			</cfif>  				 		
+
+			<cfif  stNoParticipatesVisitor[ihnp].NoParticipateTypeVisitor eq "Coach" or stNoParticipatesVisitor[ihnp].NoParticipateTypeVisitor eq "Player" > 
+				<cfset ctValues = ctValues + 1> 
+			<cfelseif len(trim(stNoParticipatesVisitor[ivnp].NoParticipatePLAYERNAMEVisitor)) and not len(trim(stNoParticipatesVisitor[ivnp].NoParticipateTypeVisitor))>
+				<cfset ctErrors = ctErrors + 1>
+				<cfset MSG = MSG & "Please designate the Visitor Participant type.<br>">
+				<cfbreak>
+			</cfif>	
+			<cfif len(trim(stNoParticipatesVisitor[ivnp].NoParticipatePLAYERNAMEVISITOR)) GT 0> 
+				<cfset ctValues = ctValues + 1> 
+			</cfif>		 			
+			<cfif stNoParticipatesVisitor[ivnp].NoParticipateWITHVISITOR GT 0> <!--- team id --->
+				<cfset ctValues = ctValues + 1> 
+			</cfif> 				
+			<cfset recCount = recCount + 1>
+		</cfloop>
+		</cfif>
+	</cfif>
+
 	<!--- Check if Report already submitted for this game --->
 	<cfquery name="checkGameID" datasource="#Application.DSN#">
 		select game_id
@@ -363,6 +529,10 @@ MODS: mm/dd/yyyy - filastname - comments
 				<cfinvokeargument name="stInjuries" 	value="#stInjuries#" >
 				<cfinvokeargument name="stPlayUpsHome" 	value="#stPlayUpsHome#" >
 				<cfinvokeargument name="stPlayUpsVisitor" 	value="#stPlayUpsVisitor#" >
+				<cfinvokeargument name="homeNoParticipateCnt" value="#homeNoParticipateCnt#">
+				<cfinvokeargument name="visitorNoParticipateCnt" value="#visitorNoParticipateCnt#">
+				<cfinvokeargument name="stNoParticipatesHome" 	value="#stNoParticipatesHome#" >
+				<cfinvokeargument name="stNoParticipatesVisitor" 	value="#stNoParticipatesVisitor#" >
 			</cfinvoke>
 
 			<cfif len(trim(updateReportValue)) AND isNumeric(updateReportValue) AND updateReportValue GT 0>
@@ -379,6 +549,10 @@ MODS: mm/dd/yyyy - filastname - comments
 				<cfinvokeargument name="stInjuries" 	value="#stInjuries#" >
 				<cfinvokeargument name="stPlayUpsHome" 	value="#stPlayUpsHome#" >
 				<cfinvokeargument name="stPlayUpsVisitor" 	value="#stPlayUpsVisitor#" >
+				<cfinvokeargument name="homeNoParticipateCnt" value="#homeNoParticipateCnt#">
+				<cfinvokeargument name="visitorNoParticipateCnt" value="#visitorNoParticipateCnt#">
+				<cfinvokeargument name="stNoParticipatesHome" 	value="#stNoParticipatesHome#" >
+				<cfinvokeargument name="stNoParticipatesVisitor" 	value="#stNoParticipatesVisitor#" >
 			</cfinvoke>
 
 			<cfif len(trim(addReportValue)) AND isNumeric(addReportValue) AND addReportValue GT 0>
@@ -474,6 +648,11 @@ MODS: mm/dd/yyyy - filastname - comments
 		select PlayerName, EventType, PassNo, TeamID, MisConduct_ID, PlayUpFromOther
 		from qRefRptDetails
 		Where EventType = 3
+	</cfquery>
+	<cfquery name="qNoParticipate" dbtype="query">
+		select PlayerName, EventType, TeamID, MisConduct_ID, participantType
+		from qRefRptDetails
+		Where EventType = 4
 	</cfquery>
 	
 <cfelse>
@@ -627,7 +806,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfset HomeTeamClubID =getGame.Home_CLUB_ID>
 	<cfset VisitorTeamClubID = getGame.Visitor_CLUB_ID>
     <!--- get teams available for play up --->
-  <cfquery datasource="#application.dsn#" name="getPlayUpTeams">
+  <!--- <cfquery datasource="#application.dsn#" name="getPlayUpTeams">
     select team_id, club_id, dbo.getteamname(team_id) as teamname
     from tbl_team
     where club_id in (<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#HomeTeamClubID#">,<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#VisitorTeamClubID#">)
@@ -649,29 +828,66 @@ MODS: mm/dd/yyyy - filastname - comments
     	AND gender = 'B'
     </cfif>
     order by teamname
+  </cfquery> --->
+	<cfquery datasource="#application.dsn#" name="getPlayUpTeams">
+	
+		select team_id, club_id,dbo.getteamname(team_id) as teamname --, null as others_seq
+		from tbl_team
+		where 
+		club_id in (<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#HomeTeamClubID#">,<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#VisitorTeamClubID#">)
+   			AND  playLevel not in('R','J','X')
+			AND season_id = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#getGame.season_id#">
+	</cfquery>
+  <cfquery datasource="#application.dsn#" name="getNoParticipateTeams">
+    select team_id, club_id, dbo.getteamname(team_id) as teamname
+    from tbl_team
+    where exists(select 1 from tbl_referee_rpt_header where (homeNoParticipateCnt > 0 or visitorNoParticipateCnt > 0) and team_id = tbl_team.team_id and game_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#VARIABLES.GameID#">)
+    AND season_id = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#session.currentseason.id#">
+
+    order by teamname
   </cfquery>
-<!--- J.Danz 8-26-2014 NCSA15511 - added the below to prepopulate forms given table data. --->
+<!--- J.Danz 8-26-2014 NCSA15511 - added the below to preponplate forms given table data. --->
 <cfif isDefined("qPlayUps")>
 	<cfset homec = 1>
 	<cfset visitc =1>
-<cfloop query="qPlayUps">
-	<cfif teamid eq homeTeamID>
-		<cfset stPlayUpsHome[homec].PLAYUPFROMHOME = misconduct_ID>
-		<cfset stPlayUpsHome[homec].PLAYUPFROMOTHERHOME = PlayUpFromOther>
-		<cfset stPlayUpsHome[homec].PLAYUPPLAYERNAMEHOME = PlayerName>
-		<cfset stPlayUpsHome[homec].PLAYUPPASSNOHOME = PassNo>
-		<cfset stPlayUpsHome[homec].PLAYUPWITHHOME = teamid>
-		<cfset homec = homec + 1>
-	</cfif>
-	<cfif teamid eq visitorTeamID>
-		<cfset stPlayUpsVisitor[visitc].PLAYUPFROMVISITOR = misconduct_ID>
-		<cfset stPlayUpsVisitor[visitc].PLAYUPFROMOTHERVISITOR = PlayUpFromOther>
-		<cfset stPlayUpsVisitor[visitc].PLAYUPPLAYERNAMEVISITOR = PlayerName>
-		<cfset stPlayUpsVisitor[visitc].PLAYUPPASSNOVISITOR = PassNo>
-		<cfset stPlayUpsVisitor[visitc].PLAYUPWITHVISITOR = teamid>
-		<cfset visitc = visitc + 1>
-	</cfif>
-</cfloop>
+	<cfloop query="qPlayUps">
+		<cfif teamid eq homeTeamID>
+			<cfset stPlayUpsHome[homec].PLAYUPFROMHOME = misconduct_ID>
+			<cfset stPlayUpsHome[homec].PLAYUPFROMOTHERHOME = PlayUpFromOther>
+			<cfset stPlayUpsHome[homec].PLAYUPPLAYERNAMEHOME = PlayerName>
+			<cfset stPlayUpsHome[homec].PLAYUPPASSNOHOME = PassNo>
+			<cfset stPlayUpsHome[homec].PLAYUPWITHHOME = teamid>
+			<cfset homec = homec + 1>
+		</cfif>
+		<cfif teamid eq visitorTeamID>
+			<cfset stPlayUpsVisitor[visitc].PLAYUPFROMVISITOR = misconduct_ID>
+			<cfset stPlayUpsVisitor[visitc].PLAYUPFROMOTHERVISITOR = PlayUpFromOther>
+			<cfset stPlayUpsVisitor[visitc].PLAYUPPLAYERNAMEVISITOR = PlayerName>
+			<cfset stPlayUpsVisitor[visitc].PLAYUPPASSNOVISITOR = PassNo>
+			<cfset stPlayUpsVisitor[visitc].PLAYUPWITHVISITOR = teamid>
+			<cfset visitc = visitc + 1>
+		</cfif>
+	</cfloop>
+</cfif>
+<cfif isDefined("qNoParticipate")>
+	<cfset homec = 1>
+	<cfset visitc =1>
+	<cfloop query="qNoParticipate">
+		<cfif teamid eq homeTeamID>
+			<cfset stNoParticipatesHome[homec].NoParticipateFROMHOME = misconduct_ID>
+			<cfset stNoParticipatesHome[homec].NoParticipatePLAYERNAMEHOME = PlayerName>
+			<cfset stNoParticipatesHome[homec].participantType = participantType>
+			<cfset stNoParticipatesHome[homec].NoParticipateWITHHOME = teamid>
+			<cfset homec = homec + 1>
+		</cfif>
+		<cfif teamid eq visitorTeamID>
+			<cfset stNoParticipatesVisitor[visitc].NoParticipateFROMVISITOR = misconduct_ID>
+			<cfset stNoParticipatesVisitor[visitc].NoParticipatePLAYERNAMEVISITOR = PlayerName>
+			<cfset stNoParticipatesVisitor[visitc].participantType = participantType>
+			<cfset stNoParticipatesVisitor[visitc].NoParticipateWITHVISITOR = teamid>
+			<cfset visitc = visitc + 1>
+		</cfif>
+	</cfloop>
 </cfif>
 
 
@@ -926,7 +1142,8 @@ MODS: mm/dd/yyyy - filastname - comments
 				<tr>
 					<td width="50%" valign="top">
 						#REQUIRED#<b>Did Home Team have Play Ups?</b>
-						Yes<input type="radio" value="1" name="homeTeamPlayUps" <cfif homeTeamPlayUps EQ "1">checked="checked"</cfif>> No<input type="radio" value="0" name="homeTeamPlayUps" <cfif homeTeamPlayUps EQ "0">checked="checked"</cfif>>
+						Yes <input type="radio" value="1" name="homeTeamPlayUps" data-value="1" <cfif homeTeamPlayUps EQ "1">checked="checked"</cfif>> 
+						No<input type="radio" value="0" name="homeTeamPlayUps" data-value="0" <cfif homeTeamPlayUps EQ "0">checked="checked"</cfif>>
 						<div class="playUpCnt">
 							<select name="homeTeamPlayUpCnt">
 								<cfloop from="0" to="18" index="i">
@@ -935,12 +1152,16 @@ MODS: mm/dd/yyyy - filastname - comments
 							</select>
 							#REQUIRED#<b>Use slider to indicate how many</b>
 							<div class="homeTeamPlayUpCntLabel" style="font-size:1.2em; font-weight:bold; margin-bottom:5px;">#homeTeamPlayUpCnt#</div>
-							<div class="homeTeamPlayUpCnt" style="width:50%;"></div>
+							<div class="homeTeamPlayUpCnt" style="width:50%;margin:5% 0;"></div>
 						</div>
 					</td>
+
+
+					
 					<td width="50%" valign="top">
 						#REQUIRED#<b>Did Visitor Team have Play Ups?</b>
-						Yes<input type="radio" value="1" name="visitorTeamPlayUps" <cfif visitorTeamPlayUps EQ "1">checked="checked"</cfif>> No<input type="radio" value="0" name="visitorTeamPlayUps" <cfif visitorTeamPlayUps EQ "0">checked="checked"</cfif>>
+						Yes<input type="radio" value="1" name="visitorTeamPlayUps" data-value="1" <cfif visitorTeamPlayUps EQ "1">checked="checked"</cfif>> 
+						No<input type="radio" value="0" name="visitorTeamPlayUps" data-value="0" <cfif visitorTeamPlayUps EQ "0">checked="checked"</cfif>>
 						<div class="playUpCnt">
 							<select name="visitorTeamPlayUpCnt">
 								<cfloop from="0" to="18" index="i">
@@ -949,13 +1170,58 @@ MODS: mm/dd/yyyy - filastname - comments
 							</select>
 							#REQUIRED#<b>Use slider to indicate how many</b>
 							<div class="visitorTeamPlayUpCntLabel" style="font-size:1.2em; font-weight:bold; margin-bottom:5px;">#visitorTeamPlayUpCnt#</div>
-							<div class="visitorTeamPlayUpCnt" style="width:50%;"></div>
+							<div class="visitorTeamPlayUpCnt" style="width:50%;margin:5% 0;"></div>
 						</div>						
 					</td>
+					
+
 				</tr>
-				<TR id="playUpWarning">
-					<td>
+				<TR id="playUpWarning"  class="warning">
+					<td colspan="2">
 					<span class="red">You must enter player data in PLAYERS PLAYING UP Data Entry Section Below</span>
+					</td>
+				</tr>
+
+			</table>
+			<table>
+				<tr>
+					<td width="50%" valign="top">
+						<div >
+							#REQUIRED#<b>Did Home Team have players on the roster or coaches on the MDF who did NOT participate?</b>
+							Yes<input type="radio" value="1" name="homeNoParticipate" data-value="1" <cfif isdefined("homeNoParticipate") and homeNoParticipate EQ "1">checked="checked"</cfif>> No<input type="radio" value="0" name="homeNoParticipate" data-value="0" <cfif isdefined("homeNoParticipate") and  homeNoParticipate EQ "0">checked="checked"</cfif>>
+							<div class="homeNoParticipateSection">
+								<select name="homeNoParticipateCnt">
+									<cfloop from="0" to="18" index="i">
+										<option value="#i#" <cfif isdefined("homeNoParticipateCnt") and homeNoParticipateCnt EQ i>selected="selected"</cfif>>#i#</option>
+									</cfloop>
+								</select>
+								#REQUIRED#<b>Use slider to indicate how many</b>
+								<div class="homeNoParticipateCntLabel" style="font-size:1.2em; font-weight:bold; margin-bottom:5px;">#HOMENOPARTICIPATECNT#</div>
+								<div class="homeNoParticipateCnt" style="width:50%;margin:5% 0;"></div>
+							</div>
+						</div>
+					</td>
+					<td width="50%" valign="top"  >
+						<div>
+							#REQUIRED#<b>Did Visitor Team have players on the roster or coaches on the MDF who did NOT participate?</b>
+							Yes<input type="radio" value="1" name="visitorNoParticipate" data-value="1" <cfif isdefined("visitorNoParticipate") and visitorNoParticipate EQ "1">checked="checked"</cfif>> No<input type="radio" value="0" name="visitorNoParticipate" data-value="0" <cfif isdefined("visitorNoParticipate") and  visitorNoParticipate EQ "0">checked="checked"</cfif>>
+							<div class="visitorNoParticipateSection">
+								<select name="visitorNoParticipateCnt">
+									<cfloop from="0" to="18" index="i">
+										<option value="#i#" <cfif isdefined("visitorNoParticipateCnt") and visitorNoParticipateCnt EQ i>selected="selected"</cfif>>#i#</option>
+									</cfloop>
+								</select>
+								#REQUIRED#<b>Use slider to indicate how many</b>
+								<div class="visitorNoParticipateCntLabel" style="font-size:1.2em; font-weight:bold; margin-bottom:5px;">#visitorNoParticipateCnt#</div>
+								<div class="visitorNoParticipateCnt" style="width:50%;margin:5% 0;"></div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				
+				<TR id="noPartWarning">
+					<td colspan="2">
+					<span class="red">You must enter coach and player data in NOT PARTICIPATING IN GAME Data Entry Section Below.</span>
 					</td>
 				</tr>
 			</table>
@@ -1246,13 +1512,55 @@ MODS: mm/dd/yyyy - filastname - comments
 			</TABLE>
 		</td>
 	</tr>
+
+	<tr id="NoParticipantRow">
+		<td class="tdUnderLine">
+			<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0 >
+				<tr class="tblHeading">
+					<td colspan=4> PLAYERS AND COACHES NOT PARTICIPATING - Using information you noted at game, enter Name and select whether player or coach for the team noted Player or Coach</td>
+					</tr>
+				<tr class="tblHeading">
+					<td >Player <br> (First & Last Name)</td>
+					<td >Select Player or Coach</td>
+					<td >Team Affiliated with</td>
+				</tr>
+
+				<cfloop from="1" to="18" index="i">
+				<tr id="NoParticipateOnHomeRow_#i#">
+					<td>#REQUIRED#<input type="text" name="NoParticipatePlayerNameHome_#i#" <cfif trim(len(stNoParticipatesHome[i].NoParticipatePLAYERNAMEHOME))>value="#stNoParticipatesHome[i].NoParticipatePLAYERNAMEHOME#"<cfelse>value=""</cfif>  size="17" maxlength="50" >
+					</td>
+					<td>#REQUIRED#
+						<select name="NoParticipateTypeHome_#i#">
+							<option value="">Select Participant Type</option>
+							<option value="Player" <cfif trim(len(stNoParticipatesHome[i].NoParticipateTypeHome)) and stNoParticipatesHome[i].NoParticipateTypeHome eq "Player" >selected</cfif>>Player</option>
+							<option value="Coach" <cfif trim(len(stNoParticipatesHome[i].NoParticipateTypeHome)) and stNoParticipatesHome[i].NoParticipateTypeHome eq "Coach" >selected</cfif>>Coach</option>
+						</select>
+					</td>
+					<td>#homeTeam# <input type="hidden" name="NoParticipateWithHome_#i#" value="#homeTeamID#"></td>
+				</tr>
+				</cfloop>
+				<cfloop from="1" to="18" index="i">
+				<tr id="NoParticipateOnVisitorRow_#i#">
+					<td>#REQUIRED#<input type="text" name="NoParticipatePlayerNameVisitor_#i#" <cfif trim(len(stNoParticipatesVisitor[i].NoParticipatePLAYERNAMEVISITOR))>value="#stNoParticipatesVisitor[i].NoParticipatePLAYERNAMEVISITOR#"<cfelse>value=""</cfif> size="17" maxlength="50" ></td>
+					<td>#REQUIRED#
+						<select name="NoParticipateTypeVisitor_#i#">
+							<option value="">Select Participant Type</option>
+							<option value="Player" <cfif trim(len(stNoParticipatesVisitor[i].NoParticipateTypeVisitor)) and stNoParticipatesVisitor[i].NoParticipateTypeVisitor eq "Player" >selected</cfif>>Player</option>
+							<option value="Coach"  <cfif trim(len(stNoParticipatesVisitor[i].NoParticipateTypeVisitor)) and stNoParticipatesVisitor[i].NoParticipateTypeVisitor eq "Coach" >selected</cfif>>Coach</option>
+						</select></td>
+					<td>#VisitorTeam# <input type="hidden" name="NoParticipateWithVisitor_#i#" value="#VisitorTeamID#"></td>
+				</tr>
+				</cfloop>
+			</TABLE>
+		</td>
+	</tr>
 	<tr><td align="left" class="tdUnderLine">
-			<b>Comments</b> <br>
+			<b>Comments - MUST include factual explanation of all Misconduct. </b> <br>
 			<TEXTAREA name="Comments" rows=10  cols=80 >#Trim(Comments)#</TEXTAREA>
 		</td>
 	</tr>
 	<tr><td align="center">
-			<span class="red">NOTE: Printed referee report with roster still needs to be mailed as before.</span>
+			<span class="red">NOTE: By clicking "Submit" and in lieu of signing documents, the Referee certifies (a) that the Referee checked and verified that the goals were secured as noted on the MDF; (b) that the information contained in the Referee Match Report is accurate and complete; and (c) that I will retain original documents from this game for a period of 3 months from game date or last play date of current season, whichever is later.</span>
 			<br>
 			<INPUT type="Button" name="SubmitReport" value="Submit"   onclick="GoSubmit('')"  >
 			<INPUT type="button" value="Back"	 name="Back"   onclick="GoBack()" ID="Button3">
@@ -1272,6 +1580,14 @@ MODS: mm/dd/yyyy - filastname - comments
 			margin-right: 1%;
 			width: 99%;
 		}
+		.homeNoParticipate{
+			display:none;
+			padding: 2% 0;
+		}
+		.visitorNoParticipate{
+			display:none;
+			padding: 2% 0;
+		}
 	</style>
 </cfsavecontent>
 <cfhtmlhead text="#jquery_ui_css#">
@@ -1284,8 +1600,79 @@ MODS: mm/dd/yyyy - filastname - comments
 			//hide select
 			$('select[name=homeTeamPlayUpCnt]').hide();
 			$('select[name=visitorTeamPlayUpCnt]').hide();
+			$(".homeNoParticipate").hide();
+			$(".visitorNoParticipate").hide();
+			$('select[name=homeNoParticipateCnt]').hide();
+			$('select[name=visitorNoParticipateCnt]').hide();
 			$('tr[id=playUpRow],tr[id^=PlayUpOnVisitorRow_],tr[id^=PlayUpOnHomeRow_],tr[id=playUpWarning]').hide();
+			$('tr[id=NoParticipantRow],tr[id^=NoParticipateOnVisitorRow_],tr[id^=NoParticipateOnHomeRow_],tr[id=NoParticipateWarning]').hide();
 			$('input[name^=PlayUpFromOtherVisitor_],input[name^=PlayUpFromOtherHome_]').hide();
+			$(".visitorNoParticipateCntLabel,.visitorNoParticipateCnt,.homeNoParticipateCntLabel,.homeNoParticipateCnt").hide();
+			$("#noPartWarning").hide();
+			
+			$("input[name=visitorTeamPlayUps]").change(function(){
+				if($(this).data("value"))
+				{
+					//$('select[name=visitorNoParticipateCnt]').show();
+					$(".visitorNoParticipate").show();
+				}
+				else 
+				{
+					//$('select[name=visitorNoParticipateCnt]').hide();
+					$(".visitorNoParticipate").hide();
+
+				}
+			});
+
+			$("input[name=homeTeamPlayUps]").change(function(){
+				if($(this).data("value"))
+				{
+				//	$('select[name=homeNoParticipateCnt]').show();
+					$(".homeNoParticipate").show();
+				}
+				else 
+				{
+					//$('select[name=homeNoParticipateCnt]').hide();
+					$(".homeNoParticipate").hide();
+				}
+			});
+			
+			$(document).on("change","input[name=homeNoParticipate]", function(){
+
+				console.log($(this).data("value"));
+				if($(this).data("value"))
+				{
+					//console.log($(this).data("value"));
+					$(".homeNoParticipateCnt,.homeNoParticipateSection").show();
+					$(".homeNoParticipateCntLabel").show();
+					$("#noPartWarning").show();
+				} 
+				else
+				{
+					$(".homeNoParticipateCnt,.homeNoParticipateSection").hide();
+					$(".homeNoParticipateCntLabel").hide();
+					if($(".visitorNoParticipateCnt").is(":hidden"))
+						$("#noPartWarning").hide();
+				}
+			});
+
+			$(document).on("change","input[name=visitorNoParticipate]", function(){
+
+				if($(this).data("value"))
+				{
+					//console.log($(this).data("value"));
+					$(".visitorNoParticipateCnt,.visitorNoParticipateSection").show();
+					$(".visitorNoParticipateCntLabel").show();
+					$("#noPartWarning").show();
+				}
+				else
+				{
+					$(".visitorNoParticipateCnt,.visitorNoParticipateSection").hide();
+					$(".visitorNoParticipateCntLabel").hide();
+					if($(".homeNoParticipateCnt").is(":hidden"))
+						$("#noPartWarning").hide();
+				}
+			});
 
 			$('.homeTeamPlayUpCnt').slider({
 				range:'min',
@@ -1312,6 +1699,32 @@ MODS: mm/dd/yyyy - filastname - comments
 				}
 			});
 
+
+			$('.homeNoParticipateCnt').slider({
+				range:'min',
+				value:<cfoutput>#homeNoParticipateCnt#</cfoutput>,
+				min:0,
+				max:18,
+				step:1,
+				slide:function(event,ui){
+					$('select[name=homeNoParticipateCnt] option[value=' + ui.value + ']').attr('selected','selected');
+					$('.homeNoParticipateCntLabel').text(ui.value);
+					showHideNPTable();
+				}
+			});
+			$('.visitorNoParticipateCnt').slider({
+				range:'min',
+				value:<cfoutput>#visitorNoParticipateCnt#</cfoutput>,
+				min:0,
+				max:18,
+				step:1,
+				slide:function(event,ui){
+					$('select[name=visitorNoParticipateCnt] option[value=' + ui.value + ']').attr('selected','selected');
+					$('.visitorNoParticipateCntLabel').text(ui.value);
+					showHideNPTable();
+				}
+			});
+
 			$('select[name^=PlayUpFromHome_],select[name^=PlayUpFromVisitor_]').change(showHideOtherInput);
 
 			//hide sliders
@@ -1326,17 +1739,47 @@ MODS: mm/dd/yyyy - filastname - comments
 		
 		function showHideSliders(){
 		
-			if($('input[name=homeTeamPlayUps]:checked').val() == '1')
+			if($('input[name=homeTeamPlayUps]:checked').val() == '1'){
 				$('input[name=homeTeamPlayUps]').closest('td').find('.playUpCnt').show();
+				$(".homeNoParticipate").show();
+			}
 			else{
 				$('input[name=homeTeamPlayUps]').closest('td').find('.playUpCnt').hide();
+				$(".homeNoParticipate").hide();
 			}
 			if($('input[name=visitorTeamPlayUps]:checked').val() == '1')
+			{
 				$('input[name=visitorTeamPlayUps]').closest('td').find('.playUpCnt').show();
+				$(".visitorNoParticipate").show();
+			}
 			else{
 				$('input[name=visitorTeamPlayUps]').closest('td').find('.playUpCnt').hide();
-				}
+				$(".visitorNoParticipate").hide();
+			}
+
+			if($('input[name=homeNoParticipate]:checked').val() == '1')
+			{
+				$(".homeNoParticipateCnt,.homeNoParticipateSection").show();
+				$(".homeNoParticipateCntLabel").show();
+			}
+			else{
+				$(".homeNoParticipateCnt,.homeNoParticipateSection").hide();
+				$(".homeNoParticipateCntLabel").hide();
+			}
+
+
+			if($('input[name=visitorNoParticipate]:checked').val() == '1')
+			{
+				$(".visitorNoParticipateCnt,.visitorNoParticipateSection").show();
+				$(".visitorNoParticipateCntLabel").show();
+			}
+			else{
+				$(".visitorNoParticipateCnt,.visitorNoParticipateSection").hide();
+				$(".visitorNoParticipateCntLabel").hide();
+			}
+
 			showHidePUTable();
+			showHideNPTable();
 		}
 
 		function showHidePUTable() {
@@ -1383,6 +1826,52 @@ MODS: mm/dd/yyyy - filastname - comments
 			
 		}
 
+		function showHideNPTable() {
+			var VisitorPU = parseInt($('.visitorNoParticipateCntLabel').text()),
+			HomePU = parseInt($('.homeNoParticipateCntLabel').text()),
+			VisitorChecked = $('input[name=visitorNoParticipate]:checked').val(),
+			HomeChecked = $('input[name=homeNoParticipate]:checked').val(),
+			VisitorCheckVal =$('input[name=visitorNoParticipate]').val(),
+			HomeCheckVal =$('input[name=homeNoParticipate').val();
+			console.log(HomeChecked);
+			console.log(VisitorChecked);
+			//show/hide the entire table based on if there is values
+			if (HomeChecked == 1 || VisitorChecked == 1) 
+				$('tr[id=NoParticipantRow],tr[id=noParticipateWarning]').show();
+			else
+				$('tr[id=NoParticipateRow],tr[id=noParticipateWarning]').hide();
+			
+			//if homePlayUp radio is checked to yes show rows based on HomePU else hide all home rows
+			if (HomeChecked == 1){
+				//show/hide home rows based on value of HomePU
+				for(var i = 1; i <= 18; i++){
+					if(i <= HomePU)
+					{
+						$('tr[id=NoParticipateOnHomeRow_'+i+']').show();
+					}
+					else
+						$('tr[id=NoParticipateOnHomeRow_'+i+']').hide();
+				}
+			} else {
+				//else hide all the home rows
+				$('tr[id^=NoParticipateOnHomeRow_]').hide();
+			}
+
+			//if VisitorNoParticipate radio is checked to yes show rows based on VisitorPU else hide all Visitor rows
+			if (VisitorChecked == 1){
+				//show/hide home rows based on value of VisitorPU
+				for(var i = 1; i <= 18; i++){
+					if(i <= VisitorPU)
+						$('tr[id=NoParticipateOnVisitorRow_'+i+']').show();
+					else
+						$('tr[id=NoParticipateOnVisitorRow_'+i+']').hide();
+				}
+			}else {
+				//else hide all the visitor rows
+				$('tr[id^=NoParticipateOnVisitorRow_]').hide();
+			} 
+			
+		}
 		function showHideOtherInput(){
 			var el = $(this);
 			var inp = el.next('input');

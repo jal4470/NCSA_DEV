@@ -6,6 +6,10 @@ MODIFICATIONS:
 --->
 <cfif isdefined("url.match_day_form_id")>
 	<cfset match_day_form_id=url.match_day_form_id>
+<cfelseif isdefined("home_match_day_form_id") and len(trim(home_match_day_form_id))>
+	<cfset match_day_form_id=home_match_day_form_id>
+<cfelseif isdefined("visitor_match_day_form_id")  and len(trim(visitor_match_day_form_id))>
+	<cfset match_day_form_id=visitor_match_day_form_id>
 </cfif>
 
 
@@ -39,7 +43,7 @@ MODIFICATIONS:
 		on g.asstrefid2=asst2c.contact_id
 		where m.match_day_form_id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#match_day_form_id#">
 	</cfquery>
-	
+
 	<!--- get playing ups --->
 	<cfquery datasource="#application.dsn#" name="getPlayUps">
 		select p.uniform_number, p.name, p.pass_number, dbo.getteamname(t.team_id) as teamname from tbl_play_up p with (nolock) 
@@ -335,9 +339,15 @@ MODIFICATIONS:
 	<cfdocument name="voucherPDF2" format="pdf" marginTop="0.1" marginRight=".3" marginBottom=".3" marginLeft=".3" localurl="true">
 	<cfoutput>#cfdocument_inner#</cfoutput>
 	</cfdocument>
-	
-	<cfheader name="Content-Disposition" 
-	value="inline; filename=match-day-form.pdf">
-	<cfcontent type="application/pdf" variable="#toBinary(voucherPDF2)#">
-	
+
+	<cfif isdefined("home_match_day_form_id")>
+		<cfset home_mdf = "#toBinary(voucherPDF2)#">
+	<cfelseif isdefined("visitor_match_day_form_id")>
+		<cfset visitor_mdf = "#toBinary(voucherPDF2)#">
+	<cfelse>
+		<cfheader name="Content-Disposition" 
+		value="inline; filename=match-day-form.pdf">
+		<cfcontent type="application/pdf" variable="#toBinary(voucherPDF2)#">
+	</cfif>
+		
 </cfif>

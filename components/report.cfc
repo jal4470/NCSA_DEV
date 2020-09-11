@@ -62,7 +62,8 @@
 		SELECT  referee_rpt_detail_ID, referee_rpt_header_ID, game_id, 
 				serial_no, eventType, PlayerName, PassNo, teamid, 
         		misconduct_ID, 
-				createDate, createdBy, updateDate, updatedBy, PlayUpFromOther, dbo.getteamname(misconduct_ID) as PlayUpFromTeamName
+				createDate, createdBy, updateDate, updatedBy, PlayUpFromOther, dbo.getteamname(misconduct_ID) as PlayUpFromTeamName,
+				participantType
 		  FROM  tbl_referee_RPT_detail
 		 WHERE  referee_rpt_header_ID = #ARGUMENTS.refRptHeaderID#
 	</CFQUERY>
@@ -94,6 +95,10 @@
 	<cfargument name="stInjuries" 	 type="struct" required="Yes" >
 	<cfargument name="stPlayUpsHome" 	 type="struct" required="No" >
 	<cfargument name="stPlayUpsVisitor" type="struct" required="No" >
+	<cfargument name="homeNoParticipateCnt" type="numeric" required="No" >
+	<cfargument name="visitorNoParticipateCnt" type="numeric" required="No" >
+	<cfargument name="stNoParticipatesHome" 	 type="struct" required="No" >
+	<cfargument name="stNoParticipatesVisitor" type="struct" required="No" >
 
 	<cfif isDefined("ARGUMENTS.FORMFIELDS.ASSTREF1WRITEIN")>	<CFSET asstRef1WriteIn = trim(ARGUMENTS.FORMFIELDS.ASSTREF1WRITEIN)>  <cfelse> 		<cfset asstRef1WriteIn = ""> </cfif>
 	<cfif isDefined("ARGUMENTS.FORMFIELDS.ASSTREF2WRITEIN")>	<CFSET asstRef2WriteIn = trim(ARGUMENTS.FORMFIELDS.ASSTREF2WRITEIN)>  <cfelse> 		<cfset asstRef2WriteIn = ""> </cfif>
@@ -174,7 +179,7 @@
 			    spectatorCount, 	fieldMarking, 	conductOfficials,	
 			    conductPlayers, 	conductSpectators, 	
 				homeTeamPlayUps, visitorTeamPlayUps, homeTeamPlayUpCnt, visitorTeamPlayUpCnt,
-			    createDate, 	createdBy, 	updateDate, 	updatedBy)
+			    createDate, 	createdBy, 	updateDate, 	updatedBy, homeNoParticipateCnt, visitorNoParticipateCnt)
  		Values (  <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameID#">
 				, <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.xrefGameOfficialID#">
 				, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.StartTime#">
@@ -212,6 +217,8 @@
 				, <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
 				, getdate()
 				, <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
+				, <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.homeNoParticipateCnt#">
+				, <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.visitorNoParticipateCnt#">
 				)
 	</cfquery>
 
@@ -308,78 +315,150 @@
 	<!--- -------------------------------------------------------------- --->
 	<!--- Process HOMETEAM PLAY UPS ------------------------------------------ --->
 	<cfif isDefined("ARGUMENTS.STPLAYUPSHOME")>
-	<cfset EventType = 3> <!---  Type 3=PlayUps	  --->
-	<cfloop collection="#ARGUMENTS.stPlayUpsHome#" item="iM">
-		<CFIF ARGUMENTS.stPlayUpsHome[iM].PLAYUPFROMHOME GTE 0> <!--- 0 is the value for "Other" --->
-			<cfset valPlayerName = ARGUMENTS.stPlayUpsHome[iM].PLAYUPPLAYERNAMEHOME >
-			<cfset valPassNo	 = ARGUMENTS.stPlayUpsHome[iM].PLAYUPPASSNOHOME >
-			<cfset valTeam		 = ARGUMENTS.stPlayUpsHome[iM].PLAYUPWITHHOME >
-			<cfset valPlayUpFrom = ARGUMENTS.stPlayUpsHome[iM].PLAYUPFROMHOME >
-			<cfset valOtherName = ARGUMENTS.stPlayUpsHome[iM].PLAYUPFROMOTHERHOME >
-			<cfset SerialNo   = SerialNo + 1>
-			
-			<cfquery name="insDetailPlayUpHome" datasource="#VARIABLES.DSN#">
-				Insert into TBL_Referee_RPT_Detail
-					 ( referee_RPT_header_ID, Game_ID, Serial_No, EventType, 
-					   PlayerName, PassNo, TeamId, MisConduct_ID,
-					   CreateDate, CreatedBy, UpdateDate, UpDatedBy, PlayUpFromOther	
-					 )
-				 values 
-					 ( <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.refReportHdrID#">
-					 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameID#">
-					 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.SerialNo#">
-					 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.EventType#">
-					 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valPlayerName#">
-					 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valPassNo#">
-					 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.valTeam#">
-					 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.valPlayUpFrom#">
-					 , GetDate()
-					 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
-					 , GetDate()
-					 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
-					 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valOtherName#">
-					 )
-			</cfquery>
-		</CFIF>
-	</cfloop>
+		<cfset EventType = 3> <!---  Type 3=PlayUps	  --->
+		<cfloop collection="#ARGUMENTS.stPlayUpsHome#" item="iM">
+			<CFIF ARGUMENTS.stPlayUpsHome[iM].PLAYUPFROMHOME GTE 0> <!--- 0 is the value for "Other" --->
+				<cfset valPlayerName = ARGUMENTS.stPlayUpsHome[iM].PLAYUPPLAYERNAMEHOME >
+				<cfset valPassNo	 = ARGUMENTS.stPlayUpsHome[iM].PLAYUPPASSNOHOME >
+				<cfset valTeam		 = ARGUMENTS.stPlayUpsHome[iM].PLAYUPWITHHOME >
+				<cfset valPlayUpFrom = ARGUMENTS.stPlayUpsHome[iM].PLAYUPFROMHOME >
+				<cfset valOtherName = ARGUMENTS.stPlayUpsHome[iM].PLAYUPFROMOTHERHOME >
+				<cfset SerialNo   = SerialNo + 1>
+				
+				<cfquery name="insDetailPlayUpHome" datasource="#VARIABLES.DSN#">
+					Insert into TBL_Referee_RPT_Detail
+						 ( referee_RPT_header_ID, Game_ID, Serial_No, EventType, 
+						   PlayerName, PassNo, TeamId, MisConduct_ID,
+						   CreateDate, CreatedBy, UpdateDate, UpDatedBy, PlayUpFromOther	
+						 )
+					 values 
+						 ( <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.refReportHdrID#">
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameID#">
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.SerialNo#">
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.EventType#">
+						 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valPlayerName#">
+						 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valPassNo#">
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.valTeam#">
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.valPlayUpFrom#">
+						 , GetDate()
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
+						 , GetDate()
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
+						 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valOtherName#">
+						 )
+				</cfquery>
+			</CFIF>
+		</cfloop>
 	</cfif>
 	<!--- -------------------------------------------------------------- --->
 	<!--- Process VISITINGTEAM PLAY UPS ------------------------------------------ --->
 	<cfif isDefined("ARGUMENTS.STPLAYUPSVISITOR")>
-	<cfset EventType = 3> <!---  Type 3=PlayUps	  --->
-	<cfloop collection="#ARGUMENTS.stPlayUpsVisitor#" item="iM">
-		<CFIF ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPFROMVISITOR GTE 0> <!--- 0 is the value for "Other" --->
-			<cfset valPlayerName = ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPPLAYERNAMEVISITOR >
-			<cfset valPassNo	 = ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPPASSNOVISITOR >
-			<cfset valTeam		 = ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPWITHVISITOR >
-			<cfset valPlayUpFrom = ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPFROMVISITOR >
-			<cfset valOtherName = ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPFROMOTHERVISITOR >
-			<cfset SerialNo   = SerialNo + 1>
-			
-			<cfquery name="insDetailPlayUpVisitor" datasource="#VARIABLES.DSN#">
-				Insert into TBL_Referee_RPT_Detail
-					 ( referee_RPT_header_ID, Game_ID, Serial_No, EventType, 
-					   PlayerName, PassNo, TeamId, MisConduct_ID,
-					   CreateDate, CreatedBy, UpdateDate, UpDatedBy, PlayUpFromOther	
-					 )
-				 values 
-					 ( <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.refReportHdrID#">
-					 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameID#">
-					 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.SerialNo#">
-					 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.EventType#">
-					 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valPlayerName#">
-					 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valPassNo#">
-					 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.valTeam#">
-					 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.valPlayUpFrom#">
-					 , GetDate()
-					 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
-					 , GetDate()
-					 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
-					 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valOtherName#">
-					 )
-			</cfquery>
-		</CFIF>
-	</cfloop>
+		<cfset EventType = 3> <!---  Type 3=PlayUps	  --->
+		<cfloop collection="#ARGUMENTS.stPlayUpsVisitor#" item="iM">
+			<CFIF ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPFROMVISITOR GTE 0> <!--- 0 is the value for "Other" --->
+				<cfset valPlayerName = ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPPLAYERNAMEVISITOR >
+				<cfset valPassNo	 = ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPPASSNOVISITOR >
+				<cfset valTeam		 = ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPWITHVISITOR >
+				<cfset valPlayUpFrom = ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPFROMVISITOR >
+				<cfset valOtherName = ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPFROMOTHERVISITOR >
+				<cfset SerialNo   = SerialNo + 1>
+				
+				<cfquery name="insDetailPlayUpVisitor" datasource="#VARIABLES.DSN#">
+					Insert into TBL_Referee_RPT_Detail
+						 ( referee_RPT_header_ID, Game_ID, Serial_No, EventType, 
+						   PlayerName, PassNo, TeamId, MisConduct_ID,
+						   CreateDate, CreatedBy, UpdateDate, UpDatedBy, PlayUpFromOther	
+						 )
+					 values 
+						 ( <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.refReportHdrID#">
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameID#">
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.SerialNo#">
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.EventType#">
+						 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valPlayerName#">
+						 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valPassNo#">
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.valTeam#">
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.valPlayUpFrom#">
+						 , GetDate()
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
+						 , GetDate()
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
+						 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valOtherName#">
+						 )
+				</cfquery>
+			</CFIF>
+		</cfloop>
+	</cfif>
+
+	<!--- Process HOMETEAM NO PARTICIPATE ------------------------------------------ --->
+
+	<cfif isDefined("ARGUMENTS.STNOPARTICIPATESHOME")>
+		<cfset EventType = 4> <!---  Type 3=NOPARTICIPATEs	  --->
+		<cfloop collection="#ARGUMENTS.stNOPARTICIPATEsHome#" item="iM">
+			 <!--- 0 is the value for "Other" --->
+				<cfset valPlayerName = ARGUMENTS.stNOPARTICIPATEsHome[iM].NOPARTICIPATEPLAYERNAMEHOME >
+				<cfset valTeam		 = ARGUMENTS.stNOPARTICIPATEsHome[iM].NOPARTICIPATEWITHHOME >
+				<cfset valParticipantType = ARGUMENTS.stNoParticipatesHome[iM].NoParticipateTypeHome>
+				<cfset SerialNo   = SerialNo + 1>
+			<CFIF LEN(TRIM(valPlayerName))> 	
+				<cfquery name="insDetailNoParticipateHome" datasource="#VARIABLES.DSN#">
+					Insert into TBL_Referee_RPT_Detail
+						 ( referee_RPT_header_ID, Game_ID, Serial_No, EventType, 
+						   PlayerName, TeamId, 
+						   CreateDate, CreatedBy, UpdateDate, UpDatedBy, participantType	
+						 )
+					 values 
+						 ( <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.refReportHdrID#">
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameID#">
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.SerialNo#">
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.EventType#">
+						 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valPlayerName#">
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.valTeam#">
+						 , GetDate()
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
+						 , GetDate()
+						 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
+						 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valParticipantType#">
+						 )
+				</cfquery>
+			</CFIF> 
+		</cfloop>
+	</cfif>
+	<!--- -------------------------------------------------------------- --->
+	<!--- Process VISITINGTEAM PLAY UPS ------------------------------------------ --->
+
+	<cfif isDefined("ARGUMENTS.STNOPARTICIPATESVISITOR")>			
+
+		<cfset EventType = 4> <!---  Type 3=NOPARTICIPATEs	  --->
+		<cfloop collection="#ARGUMENTS.STNOPARTICIPATESVISITOR#" item="iM">
+
+			 <!--- 0 is the value for "Other" ---> --->
+				<cfset valPlayerName = ARGUMENTS.stNOPARTICIPATEsVisitor[iM].NOPARTICIPATEPLAYERNAMEVISITOR >
+				<cfset valTeam		 = ARGUMENTS.stNOPARTICIPATEsVisitor[iM].NOPARTICIPATEWITHVISITOR >
+				<cfset valParticipantType = ARGUMENTS.stNOPARTICIPATEsVisitor[iM].NoParticipateTypeVisitor >
+				<cfset SerialNo   = SerialNo + 1>
+				<CFIF LEN(TRIM(valPlayerName))>
+					<cfquery name="insDetailNoParticipateVisitor" datasource="#VARIABLES.DSN#">
+						Insert into TBL_Referee_RPT_Detail
+							 ( referee_RPT_header_ID, Game_ID, Serial_No, EventType, 
+							   PlayerName, TeamId, CreateDate, CreatedBy, UpdateDate, UpDatedBy,participantType
+							 )
+						 values 
+							 ( <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.refReportHdrID#">
+							 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameID#">
+							 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.SerialNo#">
+							 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.EventType#">
+							 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valPlayerName#">
+							 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.valTeam#">
+							 , GetDate()
+							 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
+							 , GetDate()
+							 , <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
+							 , <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valParticipantType#">
+							 )
+					</cfquery>
+					
+				</CFIF>
+		</cfloop>
 	</cfif>
 
 	<cfreturn VARIABLES.refReportHdrID>
@@ -405,6 +484,8 @@
 	<cfargument name="stInjuries" 	 type="struct" required="Yes" >
 	<cfargument name="stPlayUpsHome" 	 type="struct" required="No" >
 	<cfargument name="stPlayUpsVisitor" type="struct" required="No" >
+	<cfargument name="homeNoParticipateCnt" type="numeric" required="No" >
+	<cfargument name="visitorNoParticipateCnt" type="numeric" required="No" >
 
 	<cfscript>
 		// Establish Variables from Form Fields
@@ -454,13 +535,13 @@
 		// Format time
 		StartTime = gameDate & " " & StartHour & ":" & StartMinute & " " & StartMeridian;
 		EndTime   = gameDate & " " & EndHour   & ":" & EndMinute   & " " & EndMeridian;
-
+		//writeDump(arguments);abort;
 		// Convert list of field conditions to a string.
-		fieldCondString = "";
-		for ( ix = 1; ix lte listLen(fieldSpecifics); ix++ ) { 
-			fieldCondString = fieldCondString & ix; 
-		}
-		FieldCondition = fieldCondString;
+		// fieldCondString = "";
+		// for ( ix = 1; ix lte listLen(fieldSpecifics); ix++ ) { 
+		// 	fieldCondString = fieldCondString & ix; 
+		// }
+		// FieldCondition = fieldCondString;
 
 		// Check for late values, default to 0
 		if ( len(trim(htHowLate)) EQ 0      ) { htHowLate = 0;      }
@@ -478,7 +559,7 @@
 	</cfscript>
 
 	<cfquery name="insertRefRptHdr" datasource="#VARIABLES.DSN#">
-	  UPDATE  	tbl_referee_RPT_header,
+	  UPDATE  	tbl_referee_RPT_header
 		 SET  	xref_game_official_id = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.xrefGameOfficialID#">,
 			    StartTime = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.StartTime#">, 	
 			    EndTime = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.EndTime#">,  	
@@ -512,7 +593,9 @@
 				homeTeamPlayUpCnt = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.homeTeamPlayUpCnt#">, 
 				visitorTeamPlayUpCnt = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.visitorTeamPlayUpCnt#">,	
 			    updateDate = getdate(), 	
-			    updatedBy = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">
+			    updatedBy = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">,
+			    homeNoParticipateCnt = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.homeNoParticipateCnt#">,
+			    visitorNoParticipateCnt = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.visitorNoParticipateCnt#">
 	   WHERE  game_id = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameID#">
 	</cfquery>
 
@@ -659,6 +742,70 @@
 		</CFIF>
 	</cfloop>
 	</cfif>
+
+	<!---
+		PROCESS HOME TEAM NOT PARTICIPATING
+	---------------------------------------------->
+	<cfif isDefined("ARGUMENTS.STNOPARTICIPATESHOME")>
+	<cfset EventType = 4> <!---  Type 3=NOPARTICIPATEs	  --->
+	<cfloop collection="#ARGUMENTS.stNOPARTICIPATEsHome#" item="iM">
+		<CFIF ARGUMENTS.stNOPARTICIPATEsHome[iM].NOPARTICIPATEFROMHOME GTE 0> <!--- 0 is the value for "Other" --->
+			<cfset valPlayerName = ARGUMENTS.stNOPARTICIPATEsHome[iM].NOPARTICIPATEPLAYERNAMEHOME >
+			<cfset valTeam		 = ARGUMENTS.stNOPARTICIPATEsHome[iM].NOPARTICIPATEWITHHOME >
+			<cfset valNOPARTICIPATEFrom = ARGUMENTS.stNOPARTICIPATEsHome[iM].NOPARTICIPATEFROMHOME >
+			<cfset valParticipantType = ARGUMENTS.stNOPARTICIPATEsHome[iM].NoParticipateType >
+			<cfset SerialNo   = SerialNo + 1>
+			
+			<cfquery name="insDetailNOPARTICIPATEHome" datasource="#VARIABLES.DSN#">
+		      UPDATE    TBL_Referee_RPT_Detail 
+			     SET    referee_RPT_header_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.refReportHdrID#">, 
+						Serial_No = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.SerialNo#">, 
+						EventType = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.EventType#">, 
+						PlayerName = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valPlayerName#">, 
+						TeamId = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.valTeam#">, 
+						MisConduct_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.valNOPARTICIPATEFrom#">,
+						UpdateDate = GetDate(), 
+						UpDatedBy = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">, 
+						participantType = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valParticipantType#">
+		       WHERE    Game_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameID#">
+			</cfquery>
+		</CFIF>
+	</cfloop>
+	</cfif>
+
+	<!---
+		PROCESS VISITOR TEAM PLAY UPS
+	---------------------------------------------->
+	<cfif isDefined("ARGUMENTS.STPLAYUPSVISITOR")>
+	<cfset EventType = 4> <!---  Type 3=PlayUps	  --->
+	<cfloop collection="#ARGUMENTS.stPlayUpsVisitor#" item="iM">
+		<CFIF ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPFROMVISITOR GTE 0> <!--- 0 is the value for "Other" --->
+			<cfset valPlayerName = ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPPLAYERNAMEVISITOR >
+			<cfset valTeam		 = ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPWITHVISITOR >
+			<cfset valPlayUpFrom = ARGUMENTS.stPlayUpsVisitor[iM].PLAYUPFROMVISITOR >
+			<cfset valParticipantType = ARGUMENTS.stNOPARTICIPATEsVisitor[iM].NoParticipateType >
+			<cfset SerialNo   = SerialNo + 1>
+			
+			<cfquery name="insDetailPlayUpVisitor" datasource="#VARIABLES.DSN#">
+			  UPDATE    TBL_Referee_RPT_Detail
+			     SET    referee_RPT_header_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.refReportHdrID#">, 
+					    Serial_No = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.SerialNo#">, 
+					    EventType = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.EventType#">, 
+					    PlayerName = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valPlayerName#">, 
+					    TeamId = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.valTeam#">, 
+					    MisConduct_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.valPlayUpFrom#">,
+					    CreateDate = GetDate(), 
+					    CreatedBy = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">, 
+					    UpdateDate = GetDate(), 
+					    UpDatedBy = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#">, 
+					    participantType = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.valParticipantType#">
+			   WHERE    Game_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameID#">
+			</cfquery>
+		</CFIF>
+	</cfloop>
+	</cfif>
+	<cfset updateReportValue = 1>
+	<cfreturn updateReportValue>
 
 </cffunction>
 
