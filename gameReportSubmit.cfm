@@ -489,7 +489,7 @@ MODS: mm/dd/yyyy - filastname - comments
 				<cfset ctValues = ctValues + 1> 
 			</cfif>  				 		
 
-			<cfif  stNoParticipatesVisitor[ihnp].NoParticipateTypeVisitor eq "Coach" or stNoParticipatesVisitor[ihnp].NoParticipateTypeVisitor eq "Player" > 
+			<cfif  stNoParticipatesVisitor[ivnp].NoParticipateTypeVisitor eq "Coach" or stNoParticipatesVisitor[ivnp].NoParticipateTypeVisitor eq "Player" > 
 				<cfset ctValues = ctValues + 1> 
 			<cfelseif len(trim(stNoParticipatesVisitor[ivnp].NoParticipatePLAYERNAMEVisitor)) and not len(trim(stNoParticipatesVisitor[ivnp].NoParticipateTypeVisitor))>
 				<cfset ctErrors = ctErrors + 1>

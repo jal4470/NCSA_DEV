@@ -26,7 +26,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfset refereeContactID = URL.rcid>
 <CFELSEIF isDefined("FORM.refContactID") AND isNumeric(FORM.refContactID)>
 	<cfset refereeContactID = FORM.refContactID>
-<CFELSEIF isdefined("SESSION.menuRoleID") and SESSION.menuRoleID EQ 25> <!--- logged in as referee, using referee menu --->
+<CFELSEIF SESSION.menuRoleID EQ 25> <!--- logged in as referee, using referee menu --->
 	<cfset refereeContactID = SESSION.USER.CONTACTID>
 <CFELSE>
 	<cfset refereeContactID = 0>
