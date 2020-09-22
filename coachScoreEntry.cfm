@@ -177,7 +177,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			<tbody>
 			<cfloop query="qGetGames">
 				<tr>
-					<td><cfif session.menuroleid EQ "1" OR (datediff("n",game_datetime,now()) LT 1440 AND score_home EQ "" AND score_visitor EQ "")><a href="coachScoreEntry.cfm?team_id=#team_id#&game_id=#game_id#">#game_id#</a><cfelse>#game_id#</cfif></td>
+					<td><a href="coachScoreEntry.cfm?team_id=#team_id#&game_id=#game_id#">#game_id#</a><cfif session.menuroleid EQ "1" OR (datediff("n",game_datetime,now()) LT 1440 AND score_home EQ "" AND score_visitor EQ "")><a href="coachScoreEntry.cfm?team_id=#team_id#&game_id=#game_id#">#game_id#</a><cfelse>#game_id#</cfif></td>
 					<td>#dateformat(game_datetime, "m/d/yyyy")# #timeformat(game_datetime,"h:mm tt")#</td>
 					<td>#home_teamname#</td>
 					<td>#visitor_teamname#</td>

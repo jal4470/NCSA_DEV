@@ -109,6 +109,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfdump var="#form#">
 </cfif> --->
 <CFIF isDefined("FORM") AND structCount(FORM) and FORM.MODE EQ "Add">
+<!--- 	<cfdump var="#form#" abort="true"> --->
 	<!--- validate form fields --->
 	<cfset ctErrors = 0>
 	<CFIF FORM.GAMESTATUS EQ "P">
@@ -430,7 +431,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		<cfset homeCount = 1>
 		<cfset recCount = 1>
 		<cfif form.homeNoParticipateCnt NEQ 0>
-			<cfset homeCount = form.homeNoParticipateCnt>
+			<cfset homeCount = listLast(form.homeNoParticipateCnt)>
 		
 		<!--- Misconduct data was entered were all 4 fields entered? --->
 		<!--- <cfloop collection="#stNoParticipatesHome#" item="ihnp"> --->
@@ -480,7 +481,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		<cfset visitorCount = 1>
 		<cfset recCount = 1>
 		<cfif form.visitorNoParticipateCnt NEQ 0>
-			<cfset visitorCount = form.visitorNoParticipateCnt>
+			<cfset visitorCount = listLast(form.visitorNoParticipateCnt)>
 		
 		<!--- <cfloop collection="#stNoParticipatesVisitor#" item="ivnp"> --->
 		<cfloop index="ivnp" from="1" to="#visitorCount#">
@@ -832,12 +833,14 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfquery datasource="#application.dsn#" name="getPlayUpTeams">
 	
 		select team_id, club_id,dbo.getteamname(team_id) as teamname --, null as others_seq
-		from tbl_team
+		from tbl_team t
 		where 
 		club_id in (<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#HomeTeamClubID#">,<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#VisitorTeamClubID#">)
    			AND  playLevel not in('R','J','X')
 			AND season_id = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#getGame.season_id#">
+			AND team_id not in(#homeTeamID#,#visitorTeamID#) 
 	</cfquery>
+
   <cfquery datasource="#application.dsn#" name="getNoParticipateTeams">
     select team_id, club_id, dbo.getteamname(team_id) as teamname
     from tbl_team

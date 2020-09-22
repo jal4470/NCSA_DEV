@@ -222,6 +222,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		where club_id= <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#getTeamInfo.club_id#">
 	
 		AND playLevel not in('R','J','X')
+		AND team_id <> <cfqueryparam cfsqltype="cf_sql_integer" value="#team_id#">
 		AND season_id = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#getGame.season_id#">
 	</cfquery>
 
@@ -388,7 +389,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			
 				//Attach autocomplete js to 4 coach input boxes.  Entering characters triggers autocomplete to fetch existing coaches via ajax
 				$('.coachAutocomplete').autocomplete({
-					source:'async_coach_autocomplete.cfm',
+					source:'async_coach_autocomplete.cfm?clubid=<cfoutput>#session.user.clubid#</cfoutput>',
 					minLength:0
 				});
 				

@@ -149,7 +149,7 @@ MODS: mm/dd/yyyy - filastname - comments
 						</cfif>
 					</TD>
 					<TD width="06%"  class="tdUnderLine" valign="top" align="left">
-						<!--- <a href="gameReportSubmit.cfm?gid=#GAME_ID#">#GAME_ID#</a> --->
+						<a href="gameReportSubmit.cfm?gid=#GAME_ID#">#GAME_ID#</a> <!--- --->
 						<cfif qRefRpt.RECORDCOUNT>
 							<cfif listFind("1,2,19,20,21",SESSION.MENUROLEID)> 1=ASSTADMIN, 2=PRESIDENT, 19=GAMESCHAIR, 20=GAMECONDCH, 21=REFDEVELCO
 								<a href="xxxxx.cfm?GameId=#GAME_ID#&RefID=#GameRefID#">#GAME_ID#</a>

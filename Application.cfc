@@ -45,7 +45,7 @@
 	    <cfscript>
 			APPLICATION.sitevars = structNew();
 			Application.sitevars.cfcpath   = "components.";
-			Application.sitevars.homehttp  = "http://#cgi.server_name#";
+			Application.sitevars.homehttp  = "//#cgi.server_name#";
 			Application.sitevars.imagePath = "assets/images/";
 			Application.sitevars.docPath   = "/assets/";
 			Application.sitevars.altColors = "FBFBFB,FFFFFF";
