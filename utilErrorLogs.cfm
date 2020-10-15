@@ -175,22 +175,22 @@ MODS: mm/dd/yyyy - filastname - comments
 		WHERE (	datecreated >= <cfqueryparam cfsqltype="CF_SQL_DATE" value="#VARIABLES.WeekendFrom#">
 		AND datecreated <= <cfqueryparam cfsqltype="CF_SQL_DATE" value="#VARIABLES.weekendtoPlus1#">
 				)
-		ORDER BY
+		ORDER BY datecreated DESC
 			<cfswitch expression="#VARIABLES.sortBy#">
 				<cfcase value="contact_id">
-					contact_id ASC
+					,contact_id ASC
 				</cfcase>
 				<cfcase value="username">
-					username ASC
+					,username ASC
 				</cfcase>
 				<cfcase value="url">
-					url ASC
+					,url ASC
 				</cfcase>
 				<cfcase value="file_name">
-					file_name ASC
+					,file_name ASC
 				</cfcase>
 				<cfdefaultcase>
-					datecreated ASC
+					,datecreated DESC
 				</cfdefaultcase>
 			</cfswitch> 
 	</cfquery>

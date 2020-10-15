@@ -83,11 +83,18 @@ MODS: mm/dd/yyyy - filastname - comments
 <table cellspacing="0" cellpadding="3" align="center" border="0"  width="100%" >
 <tr><td colspan="5" align="left">
 		<span class="red">
-				- Click on the Game number OR "missing" to submit a report
+				<!--- - Click on the Game number OR "missing" to submit a report
 			<br>- "Yes" under RPT in the last column signifies Referee Report for the game has been submitted
 			<br>- "missing" under RPT in the last column signifies Referee Report has not been submitted
 			<br>- Referee report must still be printed and mailed to league office (see instructions on referee login page) 
-			<br>- Passes of red carded players and coaches must be mailed within 24 hours to league office
+			<br>- Passes of red carded players and coaches must be mailed within 24 hours to league office --->
+			- Click on the Game number OR "missing" under RPT to submit a report
+			<br/><br/>
+			-Click on "Yes" under RPT to view completed report
+<br/><br/>
+			- "Yes" under RPT in the last column signifies Referee Report for the game has been submitted
+<br/><br/>
+			- "missing" under RPT in the last column signifies Referee Report has not been submitted
 		</span>
 	</td>
 	<td colspan="3" align="right" valign="bottom">
@@ -149,7 +156,7 @@ MODS: mm/dd/yyyy - filastname - comments
 						</cfif>
 					</TD>
 					<TD width="06%"  class="tdUnderLine" valign="top" align="left">
-						<a href="gameReportSubmit.cfm?gid=#GAME_ID#">#GAME_ID#</a> <!--- --->
+						<!--- <a href="gameReportSubmit.cfm?gid=#GAME_ID#">#GAME_ID#</a> --->
 						<cfif qRefRpt.RECORDCOUNT>
 							<cfif listFind("1,2,19,20,21",SESSION.MENUROLEID)> 1=ASSTADMIN, 2=PRESIDENT, 19=GAMESCHAIR, 20=GAMECONDCH, 21=REFDEVELCO
 								<a href="xxxxx.cfm?GameId=#GAME_ID#&RefID=#GameRefID#">#GAME_ID#</a>

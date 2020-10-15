@@ -83,8 +83,8 @@ MODS: mm/dd/yyyy - filastname - comments
 								team_id="#playUpTeam#"
 								other = "#playUpOther#"
 								returnvariable="play_up_id">
-						<cfelse>
-							<cfthrow message="All Play Up fields are required.  Please go back and try again.">
+						<!--- <cfelse>
+							<cfthrow message="All Play Up fields are required.  Please go back and try again."> --->
 						</cfif>
 					</cfif>
 				</cfloop>
@@ -486,21 +486,21 @@ MODS: mm/dd/yyyy - filastname - comments
 					return false;
 				}
 
-				if($('input[name=playingUp]:checked').val() == '1'){
-					//loop through rows of play ups and see if any are missing values
-					$('##playUpRow .playUp').not('.playUptemplate').each(function(){
-						if($(this).find('input[name^=playUpUniformNumber]').val() == '' ||
-							$(this).find('input[name^=playUpName]').val() == '' ||
-							$(this).find('input[name^=playUpPass]').val() == '' ||
-							$(this).find('select').val() == '')
-						{
-							alert('All play up fields are required');
-							fieldsValid=false;
-							return false;
-						}
-					});
+				// if($('input[name=playingUp]:checked').val() == '1'){
+				// 	//loop through rows of play ups and see if any are missing values
+				// 	$('##playUpRow .playUp').not('.playUptemplate').each(function(){
+				// 		if($(this).find('input[name^=playUpUniformNumber]').val() == '' ||
+				// 			$(this).find('input[name^=playUpName]').val() == '' ||
+				// 			$(this).find('input[name^=playUpPass]').val() == '' ||
+				// 			$(this).find('select').val() == '')
+				// 		{
+				// 			alert('All play up fields are required');
+				// 			fieldsValid=false;
+				// 			return false;
+				// 		}
+				// 	});
 
-				}
+				// }
 				
 				return fieldsValid;
 			}

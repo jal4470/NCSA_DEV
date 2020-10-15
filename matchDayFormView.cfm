@@ -25,7 +25,8 @@ MODIFICATIONS:
 		asst1c.firstname + ' ' + asst1c.lastname as asstref1_name,
 		asst2c.firstname + ' ' + asst2c.lastname as asstref2_name,
 		dbo.f_get_division(m.team_id) as division,
-		m.coach1pass,m.coach2pass,m.coach3pass,m.coach4pass
+		m.coach1pass,m.coach2pass,m.coach3pass,m.coach4pass,
+		m.dateupdated
 		from tbl_match_day_form m with(nolock) 
 		left join v_games_all g 
 		on m.game_id=g.game_id
@@ -330,7 +331,11 @@ MODIFICATIONS:
 					</table>
 				</div>
 				<!--- <div style="font-size:2.5em; font-weight:bold; text-align:center; color:red;">ENJOY THE BEAUTIFUL GAME</div> --->
-				<div style="position:absolute; bottom:0; right:0;">Generated #dateformat(now(),"m/d/yyyy")# #timeformat(now(),"h:mm tt")#</div>
+
+				<div>
+					<span style="position:absolute; bottom:0; left:0;">Recorded on:#datetimeformat(getInfo.dateupdated,"mm/dd/yyyy hh:nn tt")#</span>
+					<span style="position:absolute; bottom:0; right:0;">Generated on: #dateformat(now(),"m/d/yyyy")# #timeformat(now(),"h:mm tt")#</span>
+				</div>
 				</cfoutput>
 			</body>
 		</html>

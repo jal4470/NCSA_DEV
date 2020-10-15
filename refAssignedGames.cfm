@@ -329,8 +329,8 @@ MODS: mm/dd/yyyy - filastname - comments
 							</cfif>
 							 <cfset official_game_date = dateformat(GAME_DATE,"mm/dd/yyyy") & ' ' & timeformat(GAME_TIME,"hh:mm:ss t")>
 						 <!--- <cfdump var="#datediff('h',official_game_date,now())#"><cfdump var="#GAME_TIME#"> --->
-						<cfif datediff('h',official_game_date,now()) lte 24 and datediff('h',official_game_date,now()) gte -24>
-							<p style="margin: 20px 20px 20px 20px;"><a href="GameDayDocuments.cfm?home_team_roster_id=#home_team_roster_id#&visitor_team_roster_id=#visitor_team_roster_id#&home_team_mdf=#home_team_mdf#&visitor_team_mdf=#visitor_team_mdf#&game_id=#game_id#" target="_blank" class="yellow_btn"><i class="fa fa-file"></i> Retrieve Game Day Documents</a></p>
+						<cfif datediff('h',official_game_date,now()) lte 24 and datediff('h',official_game_date,now()) gte -24 or isdefined("url.showlink")>
+							<p style="margin: 20px 20px 20px 20px;"><a href="GameDayDocuments.cfm?game_id=#game_id#" target="_blank" class="yellow_btn"><i class="fa fa-file"></i> Retrieve Game Day Documents</a></p>
 						</cfif>
 						<p style="margin: 20px 20px 20px 20px;"><i class="fa fa-envelope" aria-hidden="true"></i><a href="##" class="coachLink" data-id="#game_id#"> Retrieve All Coaches' Emails</a></p>
 						

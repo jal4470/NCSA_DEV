@@ -63,7 +63,7 @@ MODS: mm/dd/yyyy - filastname - comments
 				ASSTREF1_CONTACT_ID, ASSTREF1_FIRSTNAME, ASSTREF1_LASTNAME, ASSTREF1_ACCEPT_DATE, 
 				ASSTREF2_CONTACT_ID, ASSTREF2_FIRSTNAME, ASSTREF2_LASTNAME, ASSTREF2_ACCEPT_DATE, 
 				COMMENTS, GAMESCHAIRCOMMENTS,
-				CREATEDATE, CREATEDBY, CREATEDFROMPAGE, LOGCREATEDATE, LOGCREATEDBY, UPDATEDATE, UPDATEDBY 
+				CREATEDATE, CREATEDBY, CREATEDFROMPAGE, LOGCREATEDATE, LOGCREATEDBY, UPDATEDATE, UPDATEDBY , GAME_DAY_DOCUMENT
 		  from  TBL_GAME_LOG   
 		 where  GAME_LOG_ID = #VARIABLES.logID#   
 	</cfquery>
@@ -72,8 +72,13 @@ MODS: mm/dd/yyyy - filastname - comments
 			<TD class="tdUnderLine" align="left"> &nbsp; #gameLog.GAME_LOG_ID#</TD>
 			<TD class="tdUnderLine" align="left"> &nbsp; </TD>
 		</tr>
+
 		<tr><TD class="tdUnderLine" align="right"><b>Game ID:</b></TD>
 			<TD class="tdUnderLine" align="left"> &nbsp;  #gameLog.GAME_ID#</TD>
+			<TD class="tdUnderLine" align="left"> &nbsp; </TD>
+		</tr>
+		<tr><TD class="tdUnderLine" align="right"></TD>
+			<TD class="tdUnderLine" align="left"> &nbsp; <a href="ViewGameDayViaLog.cfm?game_log_id=#gameLog.GAME_LOG_ID#" target="_tab">Game Day Document</a></TD>
 			<TD class="tdUnderLine" align="left"> &nbsp; </TD>
 		</tr>
 		<tr><TD class="tdUnderLine" align="right"><b>Game Code:</b></TD>
@@ -370,7 +375,7 @@ MODS: mm/dd/yyyy - filastname - comments
 				CREATEDATE, CREATEDBY, CREATEDFROMPAGE, UPDATEDATE, UPDATEDBY,
 				LOGCREATEDATE, LOGCREATEDBY 
 		  from tbl_refRptHdr_Log   
-		 where REFRPT_HDR_LOG_ID = #logId#   
+		 where REFRPT_HDR_LOG_ID = <cfqueryparam cfsqltype="cf_sql_integer" value="#logId#">   
 	</cfquery>	
 
 		

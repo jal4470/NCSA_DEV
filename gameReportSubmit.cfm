@@ -109,7 +109,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfdump var="#form#">
 </cfif> --->
 <CFIF isDefined("FORM") AND structCount(FORM) and FORM.MODE EQ "Add">
-<!--- 	<cfdump var="#form#" abort="true"> --->
+<!--- <cfdump var="#form#" abort="true"> 	--->
 	<!--- validate form fields --->
 	<cfset ctErrors = 0>
 	<CFIF FORM.GAMESTATUS EQ "P">
@@ -301,7 +301,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		<cfset homeCount = 1>
 		<cfset recCount = 1>
 		<cfif form.homeTeamPlayUpCnt NEQ 0>
-			<cfset homeCount = form.homeTeamPlayUpCnt>
+			<cfset homeCount = listLast(form.homeTeamPlayUpCnt)>
 		
 		<!--- Misconduct data was entered were all 4 fields entered? --->
 		<!--- <cfloop collection="#stPlayUpsHome#" item="ihpu"> --->
@@ -366,8 +366,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		<cfset visitorCount = 1>
 		<cfset recCount = 1>
 		<cfif form.visitorTeamPlayUpCnt NEQ 0>
-			<cfset visitorCount = form.visitorTeamPlayUpCnt>
-		
+			<cfset visitorCount = listLast(form.visitorTeamPlayUpCnt)>
 		<!--- <cfloop collection="#stPlayUpsVisitor#" item="ivpu"> --->
 		<cfloop index="ivpu" from="1" to="#visitorCount#">
 			<cfset ctValues = 0>
@@ -928,8 +927,10 @@ MODS: mm/dd/yyyy - filastname - comments
 <cfif isDefined("FORM.fieldSpecifics")>		<cfset FieldCondition = FORM.fieldSpecifics>		</cfif>
 <cfif isDefined("FORM.homeTeamPlayUps")>		<cfset homeTeamPlayUps = FORM.homeTeamPlayUps>		</cfif>
 <cfif isDefined("FORM.visitorTeamPlayUps")>		<cfset visitorTeamPlayUps = FORM.visitorTeamPlayUps>		</cfif>
-<cfif isDefined("FORM.homeTeamPlayUpCnt")>		<cfset homeTeamPlayUpCnt = FORM.homeTeamPlayUpCnt>		</cfif>
-<cfif isDefined("FORM.visitorTeamPlayUpCnt")>		<cfset visitorTeamPlayUpCnt = FORM.visitorTeamPlayUpCnt>		</cfif>
+<cfif isDefined("FORM.homeTeamPlayUpCnt")>		<cfset homeTeamPlayUpCnt = listLast(FORM.homeTeamPlayUpCnt)>		</cfif>
+<cfif isDefined("FORM.visitorTeamPlayUpCnt")>		<cfset visitorTeamPlayUpCnt = listLast(FORM.visitorTeamPlayUpCnt)>		</cfif>
+<cfif isDefined("FORM.homeTeamPlayUpCnt")>		<cfset homeNoParticipateCnt = listLast(FORM.homeNoParticipateCnt)>		</cfif>
+<cfif isDefined("FORM.visitorTeamPlayUpCnt")>		<cfset visitorNoParticipateCnt = listLast(FORM.visitorNoParticipateCnt)>		</cfif>
 <!--- 
 <cfif isDefined("FORM.injury")>				<cfset injury = FORM.injury>				</cfif>
 <cfif isDefined("FORM.injuryPassNO")>		<cfset injuryPassNO = FORM.injuryPassNO>	</cfif>
@@ -1153,8 +1154,8 @@ MODS: mm/dd/yyyy - filastname - comments
 									<option value="#i#" <cfif homeTeamPlayUpCnt EQ i>selected="selected"</cfif>>#i#</option>
 								</cfloop>
 							</select>
-							#REQUIRED#<b>Use slider to indicate how many</b>
-							<div class="homeTeamPlayUpCntLabel" style="font-size:1.2em; font-weight:bold; margin-bottom:5px;">#homeTeamPlayUpCnt#</div>
+							#REQUIRED#<b>Use dropdown to indicate how many</b>
+							<!--- <div class="homeTeamPlayUpCntLabel" style="font-size:1.2em; font-weight:bold; margin-bottom:5px;">#homeTeamPlayUpCnt#</div> --->
 							<div class="homeTeamPlayUpCnt" style="width:50%;margin:5% 0;"></div>
 						</div>
 					</td>
@@ -1171,8 +1172,8 @@ MODS: mm/dd/yyyy - filastname - comments
 									<option value="#i#" <cfif visitorTeamPlayUpCnt EQ i>selected="selected"</cfif>>#i#</option>
 								</cfloop>
 							</select>
-							#REQUIRED#<b>Use slider to indicate how many</b>
-							<div class="visitorTeamPlayUpCntLabel" style="font-size:1.2em; font-weight:bold; margin-bottom:5px;">#visitorTeamPlayUpCnt#</div>
+							#REQUIRED#<b>Use Dropdown to indicate how many</b>
+							<!--- <div class="visitorTeamPlayUpCntLabel" style="font-size:1.2em; font-weight:bold; margin-bottom:5px;">#visitorTeamPlayUpCnt#</div> --->
 							<div class="visitorTeamPlayUpCnt" style="width:50%;margin:5% 0;"></div>
 						</div>						
 					</td>
@@ -1198,8 +1199,8 @@ MODS: mm/dd/yyyy - filastname - comments
 										<option value="#i#" <cfif isdefined("homeNoParticipateCnt") and homeNoParticipateCnt EQ i>selected="selected"</cfif>>#i#</option>
 									</cfloop>
 								</select>
-								#REQUIRED#<b>Use slider to indicate how many</b>
-								<div class="homeNoParticipateCntLabel" style="font-size:1.2em; font-weight:bold; margin-bottom:5px;">#HOMENOPARTICIPATECNT#</div>
+								#REQUIRED#<b>Use Dropdown to indicate how many</b>
+								<!--- <div class="homeNoParticipateCntLabel" style="font-size:1.2em; font-weight:bold; margin-bottom:5px;">#HOMENOPARTICIPATECNT#</div> --->
 								<div class="homeNoParticipateCnt" style="width:50%;margin:5% 0;"></div>
 							</div>
 						</div>
@@ -1214,8 +1215,8 @@ MODS: mm/dd/yyyy - filastname - comments
 										<option value="#i#" <cfif isdefined("visitorNoParticipateCnt") and visitorNoParticipateCnt EQ i>selected="selected"</cfif>>#i#</option>
 									</cfloop>
 								</select>
-								#REQUIRED#<b>Use slider to indicate how many</b>
-								<div class="visitorNoParticipateCntLabel" style="font-size:1.2em; font-weight:bold; margin-bottom:5px;">#visitorNoParticipateCnt#</div>
+								#REQUIRED#<b>Use Dropdown to indicate how many</b>
+								<!--- <div class="visitorNoParticipateCntLabel" style="font-size:1.2em; font-weight:bold; margin-bottom:5px;">#visitorNoParticipateCnt#</div> --->
 								<div class="visitorNoParticipateCnt" style="width:50%;margin:5% 0;"></div>
 							</div>
 						</div>
@@ -1591,6 +1592,12 @@ MODS: mm/dd/yyyy - filastname - comments
 			display:none;
 			padding: 2% 0;
 		}
+		select{
+			margin:1%;
+		} 
+		body{
+			font-size:1.1em;
+		}
 	</style>
 </cfsavecontent>
 <cfhtmlhead text="#jquery_ui_css#">
@@ -1601,18 +1608,23 @@ MODS: mm/dd/yyyy - filastname - comments
 	<script language="JavaScript" type="text/javascript">
 		$(function(){
 			//hide select
-			$('select[name=homeTeamPlayUpCnt]').hide();
-			$('select[name=visitorTeamPlayUpCnt]').hide();
+			//$('select[name=homeTeamPlayUpCnt]').hide();
+			//$('select[name=visitorTeamPlayUpCnt]').hide();
 			$(".homeNoParticipate").hide();
 			$(".visitorNoParticipate").hide();
-			$('select[name=homeNoParticipateCnt]').hide();
-			$('select[name=visitorNoParticipateCnt]').hide();
+			//$('select[name=homeNoParticipateCnt]').hide();
+			//$('select[name=visitorNoParticipateCnt]').hide();
 			$('tr[id=playUpRow],tr[id^=PlayUpOnVisitorRow_],tr[id^=PlayUpOnHomeRow_],tr[id=playUpWarning]').hide();
 			$('tr[id=NoParticipantRow],tr[id^=NoParticipateOnVisitorRow_],tr[id^=NoParticipateOnHomeRow_],tr[id=NoParticipateWarning]').hide();
 			$('input[name^=PlayUpFromOtherVisitor_],input[name^=PlayUpFromOtherHome_]').hide();
 			$(".visitorNoParticipateCntLabel,.visitorNoParticipateCnt,.homeNoParticipateCntLabel,.homeNoParticipateCnt").hide();
-			$("#noPartWarning").hide();
-			
+			//$("#noPartWarning").hide();
+			$(".playUpCnt").hide();
+			$(".homeNoParticipateCnt,.homeNoParticipateSection").hide();
+			$(".visitorNoParticipateCnt,.visitorNoParticipateSection").hide();
+
+			showHidePUTable();
+			showHideNPTable();
 			$("input[name=visitorTeamPlayUps]").change(function(){
 				if($(this).data("value"))
 				{
@@ -1642,7 +1654,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			
 			$(document).on("change","input[name=homeNoParticipate]", function(){
 
-				console.log($(this).data("value"));
+				//console.log($(this).data("value"));
 				if($(this).data("value"))
 				{
 					//console.log($(this).data("value"));
@@ -1654,9 +1666,12 @@ MODS: mm/dd/yyyy - filastname - comments
 				{
 					$(".homeNoParticipateCnt,.homeNoParticipateSection").hide();
 					$(".homeNoParticipateCntLabel").hide();
-					if($(".visitorNoParticipateCnt").is(":hidden"))
+					$('select[name=homeNoParticipateCnt] option[value=0]').attr('selected','selected');
+					if($(".visitorNoParticipateSection").is(":hidden"))
 						$("#noPartWarning").hide();
+					
 				}
+				showHideNPTable();
 			});
 
 			$(document).on("change","input[name=visitorNoParticipate]", function(){
@@ -1672,70 +1687,95 @@ MODS: mm/dd/yyyy - filastname - comments
 				{
 					$(".visitorNoParticipateCnt,.visitorNoParticipateSection").hide();
 					$(".visitorNoParticipateCntLabel").hide();
-					if($(".homeNoParticipateCnt").is(":hidden"))
+					$('select[name=visitorNoParticipateCnt] option[value=0]').attr('selected','selected')
+					if($(".homeNoParticipateSection").is(":hidden"))
 						$("#noPartWarning").hide();
-				}
-			});
 
-			$('.homeTeamPlayUpCnt').slider({
-				range:'min',
-				value:<cfoutput>#homeTeamPlayUpCnt#</cfoutput>,
-				min:0,
-				max:18,
-				step:1,
-				slide:function(event,ui){
-					$('select[name=homeTeamPlayUpCnt] option[value=' + ui.value + ']').attr('selected','selected');
-					$('.homeTeamPlayUpCntLabel').text(ui.value);
+				}
+				showHideNPTable();
+			});
+			$('select[name=homeTeamPlayUpCnt]').change(function(){
+				$('select[name=homeTeamPlayUpCnt] option[value=' + this.value + ']').attr('selected','selected');
+				$('.homeTeamPlayUpCntLabel').text(this.value);
 					showHidePUTable();
-				}
 			});
-			$('.visitorTeamPlayUpCnt').slider({
-				range:'min',
-				value:<cfoutput>#visitorTeamPlayUpCnt#</cfoutput>,
-				min:0,
-				max:18,
-				step:1,
-				slide:function(event,ui){
-					$('select[name=visitorTeamPlayUpCnt] option[value=' + ui.value + ']').attr('selected','selected');
-					$('.visitorTeamPlayUpCntLabel').text(ui.value);
+			// $('.homeTeamPlayUpCnt').slider({
+			// 	range:'min',
+			// 	value:#homeTeamPlayUpCnt#,
+			// 	min:0,
+			// 	max:18,
+			// 	step:1,
+			// 	slide:function(event,ui){
+			// 		$('select[name=homeTeamPlayUpCnt] option[value=' + ui.value + ']').attr('selected','selected');
+			// 		$('.homeTeamPlayUpCntLabel').text(ui.value);
+			// 		showHidePUTable();
+			// 	}
+			// });
+
+			$('select[name=visitorTeamPlayUpCnt]').change(function(){
+				$('select[name=visitorTeamPlayUpCnt] option[value=' + this.value + ']').attr('selected','selected');
+				$('.visitorTeamPlayUpCntLabel').text(this.value);
 					showHidePUTable();
-				}
 			});
 
+			// $('.visitorTeamPlayUpCnt').slider({
+			// 	range:'min',
+			// 	value:#visitorTeamPlayUpCnt#,
+			// 	min:0,
+			// 	max:18,
+			// 	step:1,
+			// 	slide:function(event,ui){
+			// 		$('select[name=visitorTeamPlayUpCnt] option[value=' + ui.value + ']').attr('selected','selected');
+			// 		$('.visitorTeamPlayUpCntLabel').text(ui.value);
+			// 		showHidePUTable();
+			// 	}
+			// });
 
-			$('.homeNoParticipateCnt').slider({
-				range:'min',
-				value:<cfoutput>#homeNoParticipateCnt#</cfoutput>,
-				min:0,
-				max:18,
-				step:1,
-				slide:function(event,ui){
-					$('select[name=homeNoParticipateCnt] option[value=' + ui.value + ']').attr('selected','selected');
-					$('.homeNoParticipateCntLabel').text(ui.value);
+
+
+			$('select[name=homeNoParticipateCnt]').change(function(){
+				$('select[name=homeNoParticipateCnt] option[value=' + this.value + ']').attr('selected','selected');
+				$('.homeNoParticipateCntLabel').text(this.value);
 					showHideNPTable();
-				}
 			});
-			$('.visitorNoParticipateCnt').slider({
-				range:'min',
-				value:<cfoutput>#visitorNoParticipateCnt#</cfoutput>,
-				min:0,
-				max:18,
-				step:1,
-				slide:function(event,ui){
-					$('select[name=visitorNoParticipateCnt] option[value=' + ui.value + ']').attr('selected','selected');
-					$('.visitorNoParticipateCntLabel').text(ui.value);
+			// $('.homeNoParticipateCnt').slider({
+			// 	range:'min',
+			// 	value:#homeNoParticipateCnt#,
+			// 	min:0,
+			// 	max:18,
+			// 	step:1,
+			// 	slide:function(event,ui){
+			// 		$('select[name=homeNoParticipateCnt] option[value=' + ui.value + ']').attr('selected','selected');
+			// 		$('.homeNoParticipateCntLabel').text(ui.value);
+			// 		showHideNPTable();
+			// 	}
+			// });
+			$('select[name=visitorNoParticipateCnt]').change(function(){
+				$('select[name=visitorNoParticipateCnt] option[value=' + this.value + ']').attr('selected','selected');
+				$('.visitorNoParticipateCntLabel').text(this.value);
 					showHideNPTable();
-				}
 			});
+			// $('.visitorNoParticipateCnt').slider({
+			// 	range:'min',
+			// 	value:#visitorNoParticipateCnt#,
+			// 	min:0,
+			// 	max:18,
+			// 	step:1,
+			// 	slide:function(event,ui){
+			// 		$('select[name=visitorNoParticipateCnt] option[value=' + ui.value + ']').attr('selected','selected');
+			// 		$('.visitorNoParticipateCntLabel').text(ui.value);
+			// 		showHideNPTable();
+			// 	}
+			// });
 
 			$('select[name^=PlayUpFromHome_],select[name^=PlayUpFromVisitor_]').change(showHideOtherInput);
 
 			//hide sliders
-			$('.playUpCnt').hide();
+			//$('.playUpCnt').hide();
 			
 			$('input[name=homeTeamPlayUps],input[name=visitorTeamPlayUps]').click(showHideSliders);
 			
-			showHideSliders();
+			//showHideSliders();
 			$('select[name^=PlayUpFromHome_],select[name^=PlayUpFromVisitor_]').each(showHideOtherInput);
 
 		});
@@ -1744,7 +1784,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		
 			if($('input[name=homeTeamPlayUps]:checked').val() == '1'){
 				$('input[name=homeTeamPlayUps]').closest('td').find('.playUpCnt').show();
-				$(".homeNoParticipate").show();
+				//$(".homeNoParticipate").show();
 			}
 			else{
 				$('input[name=homeTeamPlayUps]').closest('td').find('.playUpCnt').hide();
@@ -1786,58 +1826,66 @@ MODS: mm/dd/yyyy - filastname - comments
 		}
 
 		function showHidePUTable() {
-			var VisitorPU = parseInt($('.visitorTeamPlayUpCntLabel').text()),
-			HomePU = parseInt($('.homeTeamPlayUpCntLabel').text()),
+			var VisitorPU = parseInt($('select[name=visitorTeamPlayUpCnt] option:selected').text()),
+			HomePU = parseInt($('select[name=homeTeamPlayUpCnt] option:selected').text()),
 			VisitorChecked = $('input[name=visitorTeamPlayUps]:checked').val(),
 			HomeChecked = $('input[name=homeTeamPlayUps]:checked').val(),
 			VisitorCheckVal =$('input[name=visitorTeamPlayUps]').val(),
 			HomeCheckVal =$('input[name=homeTeamPlayUps').val();
-
+			console.log(HomeChecked);
 			//show/hide the entire table based on if there is values
 			if (HomeChecked == 1 || VisitorChecked == 1) 
 				$('tr[id=playUpRow],tr[id=playUpWarning]').show();
-			else
+			else{
 				$('tr[id=playUpRow],tr[id=playUpWarning]').hide();
+			}
 			
 			//if homePlayUp radio is checked to yes show rows based on HomePU else hide all home rows
 			if (HomeChecked == 1){
+				$('select[name=homeTeamPlayUpCnt]').parent().show();
 				//show/hide home rows based on value of HomePU
 				for(var i = 1; i <= 18; i++){
 					if(i <= HomePU)
 						$('tr[id=PlayUpOnHomeRow_'+i+']').show();
-					else
+					else{
 						$('tr[id=PlayUpOnHomeRow_'+i+']').hide();
+					}
 				}
 			} else {
 				//else hide all the home rows
 				$('tr[id^=PlayUpOnHomeRow_]').hide();
+				$('select[name=homeTeamPlayUpCnt]').val("0");
+				//$('select[name=homeTeamPlayUpCnt] option[value=0]').attr('selected','selected');
 			}
 
 			//if VisitorPlayUp radio is checked to yes show rows based on VisitorPU else hide all Visitor rows
 			if (VisitorChecked == 1){
+				$('select[name=visitorTeamPlayUpCnt]').parent().show();
 				//show/hide home rows based on value of VisitorPU
 				for(var i = 1; i <= 18; i++){
 					if(i <= VisitorPU)
 						$('tr[id=PlayUpOnVisitorRow_'+i+']').show();
-					else
+					else{
 						$('tr[id=PlayUpOnVisitorRow_'+i+']').hide();
+					}
 				}
 			}else {
 				//else hide all the visitor rows
 				$('tr[id^=PlayUpOnVisitorRow_]').hide();
+				$('select[name=visitorTeamPlayUpCnt]').val("0");
 			} 
 			
 		}
 
 		function showHideNPTable() {
-			var VisitorPU = parseInt($('.visitorNoParticipateCntLabel').text()),
-			HomePU = parseInt($('.homeNoParticipateCntLabel').text()),
+			var VisitorPU = parseInt($('select[name=visitorNoParticipateCnt] option:selected').text()),
+			HomePU = parseInt($('select[name=homeNoParticipateCnt] option:selected').text()),
 			VisitorChecked = $('input[name=visitorNoParticipate]:checked').val(),
 			HomeChecked = $('input[name=homeNoParticipate]:checked').val(),
 			VisitorCheckVal =$('input[name=visitorNoParticipate]').val(),
 			HomeCheckVal =$('input[name=homeNoParticipate').val();
-			console.log(HomeChecked);
-			console.log(VisitorChecked);
+			//console.log(HomeChecked);
+			//console.log(VisitorChecked);
 			//show/hide the entire table based on if there is values
 			if (HomeChecked == 1 || VisitorChecked == 1) 
 				$('tr[id=NoParticipantRow],tr[id=noParticipateWarning]').show();
@@ -1846,6 +1894,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			
 			//if homePlayUp radio is checked to yes show rows based on HomePU else hide all home rows
 			if (HomeChecked == 1){
+				$('select[name=homeNoParticipateCnt]').parent().show();
 				//show/hide home rows based on value of HomePU
 				for(var i = 1; i <= 18; i++){
 					if(i <= HomePU)
@@ -1858,10 +1907,13 @@ MODS: mm/dd/yyyy - filastname - comments
 			} else {
 				//else hide all the home rows
 				$('tr[id^=NoParticipateOnHomeRow_]').hide();
+				$('select[name=homeNoParticipateCnt]').val("0");
+
 			}
 
 			//if VisitorNoParticipate radio is checked to yes show rows based on VisitorPU else hide all Visitor rows
 			if (VisitorChecked == 1){
+				$('select[name=visitorNoParticipateCnt]').parent().show();
 				//show/hide home rows based on value of VisitorPU
 				for(var i = 1; i <= 18; i++){
 					if(i <= VisitorPU)
@@ -1872,6 +1924,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			}else {
 				//else hide all the visitor rows
 				$('tr[id^=NoParticipateOnVisitorRow_]').hide();
+				$('select[name=visitorNoParticipateCnt]').val("0");
 			} 
 			
 		}
