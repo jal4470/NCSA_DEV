@@ -175,13 +175,16 @@ rs.query_str = "";
 					</tr>
 					<CFOUTPUT>
 					<CFLOOP QUERY="getSent" STARTROW="#startrec#" ENDROW="#endrec#">
+					<cfquery name="getOwner" datasource="#application.dsn#">
+						Select username from tbl_contact where contact_Id = (select contactid from tbl_message where message_id = #message_id#)
+					</cfquery>
 					<tr onmouseout="scbg(this, 0);" onmouseover="scbg(this, 1);">
 						<td class="blankrowitem" onclick="location.href='nltr_view_sent_message.cfm?message_id=#message_id#'">#message_desc#</td>
 						<td class="blankrowitem" onclick="location.href='nltr_view_sent_message.cfm?message_id=#message_id#'">#transmission_status#</td>
 						<td class="blankrowitem" onclick="location.href='nltr_view_sent_message.cfm?message_id=#message_id#'">#replyto_email_address#</td>
 						<td class="blankrowitem" onclick="location.href='nltr_view_sent_message.cfm?message_id=#message_id#'">#DATEFORMAT(datecreated,"MM/DD/YYYY")# - #TIMEFORMAT(datecreated,"h:mm tt")#</td>
 						<td class="blankrowitem" onclick="location.href='nltr_view_sent_message.cfm?message_id=#message_id#'">#distribution_list#</td>
-						<td class="blankrowitem" onclick="location.href='nltr_view_sent_message.cfm?message_id=#message_id#'">#owner#</td>
+						<td class="blankrowitem" onclick="location.href='nltr_view_sent_message.cfm?message_id=#message_id#'">#getOwner.username#</td>
 						<td class="blankrowitem" align="center"><cfif transmission_status_id><a href="javascript:void(0)" class="formlink" onclick="doConfirmation(#message_id#)">Remove</a></cfif></td>
 					</tr>
 					</CFLOOP>

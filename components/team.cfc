@@ -102,10 +102,17 @@
 			   HC.PhoneHome AS coachHomePhone,  HC.PhoneCell AS coachCellPhone, HC.EMAIL AS coachEmail,
 			   AC.FirstName AS asstCoachFirstNAme,  AC.LastName AS asstCoachLastName, 
 			   AC.PhoneHome AS asstHomePhone,	AC.PhoneCell AS asstCellPhone,	AC.EMAIL AS asstEmail,
+			   AC2.FirstName AS asst2CoachFirstNAme,  AC2.LastName AS asst2CoachLastName, 
+			   AC2.PhoneHome AS asst2HomePhone,	AC2.PhoneCell AS asst2CellPhone,	AC2.EMAIL AS asst2Email,
+			   AC3.FirstName AS asst3CoachFirstNAme,  AC3.LastName AS asst3CoachLastName, 
+			   AC3.PhoneHome AS asst3HomePhone,	AC3.PhoneCell AS asst3CellPhone,	AC3.EMAIL AS asst3Email,
 			   CL.ClubAbbr, CL.club_id, CL.Club_name
-		  FROM tbl_team T	LEFT JOIN  tbl_contact HC ON HC.contact_id = T.ContactIDHead 
-							LEFT JOIN  tbl_contact AC ON AC.contact_id = T.ContactIDAsst 
-							INNER JOIN tbl_club    CL ON CL.club_id    = T.club_id
+		  FROM tbl_team T	
+				INNER JOIN tbl_club    CL ON CL.club_id    = T.club_id
+		  		LEFT JOIN  tbl_contact HC ON HC.contact_id = T.ContactIDHead 
+				LEFT JOIN  tbl_contact AC ON AC.contact_id = T.ContactIDAsst 
+				LEFT JOIN  tbl_contact AC2 ON AC2.contact_id = T.ContactIDAsst2 
+				LEFT JOIN  tbl_contact AC3 ON AC3.contact_id = T.ContactIDAsst3 
 		 WHERE #useClub#
 		 	<cfif isdefined("arguments.season_id")>
 			AND T.season_id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#arguments.season_id#">
@@ -220,6 +227,8 @@
 	<cfargument name="Gender"       type="string" required="Yes">
 	<cfargument name="HeadCoachID"	type="numeric" required="Yes">
 	<cfargument name="AsstCoachID"	type="numeric" required="Yes">
+	<cfargument name="Asst2CoachID"	type="numeric" required="Yes">
+	<cfargument name="Asst3CoachID"	type="numeric" required="Yes">
 	<cfargument name="nonSundayPlay" type="string" required="Yes">
 	<cfargument name="TeamID"       type="string" required="Yes">
 	<cfargument name="ReqDiv"       type="string" required="Yes">
@@ -236,6 +245,8 @@
 			 , gender		 = '#ARGUMENTS.Gender#'
 			 , ContactIDHead =  #ARGUMENTS.HeadCoachID#
 			 , ContactIDAsst =  #ARGUMENTS.AsstCoachID#
+			 , ContactIDAsst2 =  #ARGUMENTS.Asst2CoachID#
+			 , ContactIDAsst3 =  #ARGUMENTS.Asst3CoachID#
 			 , nonSundayPlay = '#ARGUMENTS.NonSundayPlay#'
 	     Where TEAM_ID 	 	 =  #ARGUMENTS.TeamId#
 	</CFQUERY>
@@ -471,7 +482,9 @@
 		<cfquery datasource="#application.dsn#" name="getTeams">
 			select distinct t.team_id, dbo.getteamname(t.team_id) as teamname from tbl_team t
 			where (t.contactidhead=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#arguments.contact_id#"> 
-			or t.contactidasst=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#arguments.contact_id#">)
+			or t.contactidasst=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#arguments.contact_id#">
+			or t.contactidasst2=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#arguments.contact_id#">
+			or t.contactidasst3=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#arguments.contact_id#">)
 			<cfif isdefined("arguments.season_id")>
 			AND season_id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#arguments.season_id#">
 			</cfif>

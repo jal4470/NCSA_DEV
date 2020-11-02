@@ -1515,10 +1515,10 @@ h3.viewing_info {
   #teams_coaches td {
     width: inherit; } 
 
-  #teams_coaches .division_column { text-align: center; width: 15%; }
-  #teams_coaches .team_column { width: 35%; }
+  #teams_coaches .division_column { text-align: center; width: 10%; }
+  #teams_coaches .team_column { padding-left:2%; width: 10%; }
   #teams_coaches .coach_column,
-  #teams_coaches .asst_coach_column { width: 25%; }
+  #teams_coaches .asst_coach_column {padding-left:2%;  width: 10%; }
 
   #teams_coaches tbody tr:nth-child(even) {
     background-color: #E1E1E1; }

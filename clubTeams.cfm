@@ -56,7 +56,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfinvoke component="#SESSION.sitevars.cfcPath#team" method="getClubTeams" returnvariable="qClubTeams">
 		<cfinvokeargument name="DSN"     value="#SESSION.DSN#">
 		<cfinvokeargument name="clubID"  value="#VARIABLES.clubID#">
-	</cfinvoke>  <!--- <cfdump var="#qClubTeams#"> --->
+	</cfinvoke>  <!--- <cfdump var="#qClubTeams#" abort="true"> --->
 	
 	<CFIF qClubTeams.recordCount>
 
@@ -71,6 +71,8 @@ MODS: mm/dd/yyyy - filastname - comments
 				<th class="team_column">TEAM</th>
 				<th class="coach_column">COACH</th>
 				<th class="asst_coach_column">ASST COACH</th>
+				<th class="asst_coach_column">2nd ASST COACH</th>
+				<th class="asst_coach_column">3rd ASST COACH</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -104,6 +106,32 @@ MODS: mm/dd/yyyy - filastname - comments
 									<li><span>Email:</span> <a href="mailto: #asstEmail#">#asstEmail#</a></li>
 									<li><span>Cell Phone:</span> #asstCellPhone#</li>
 									<li><span>Home Phone:</span> #asstHomePhone#</li>
+								</ul>
+							</div>
+						</div>
+					</td>
+					<td valign="top" class="asst_coach_column">
+						<span class="mobile_only">2nd Asst Coach:</span> <a href="##" class="more_link">#asst2CoachFirstNAme# #asst2CoachLastName#</a>
+						<div class="more_info">
+							<div class="container">
+								<h2>#asst2CoachFirstNAme# #asst2CoachLastName#</h2>
+								<ul class="more_info_list">
+									<li><span>Email:</span> <a href="mailto: #asst2Email#">#asst2Email#</a></li>
+									<li><span>Cell Phone:</span> #asst2CellPhone#</li>
+									<li><span>Home Phone:</span> #asst2HomePhone#</li>
+								</ul>
+							</div>
+						</div>
+					</td>
+					<td valign="top" class="asst_coach_column">
+						<span class="mobile_only">3rd Asst Coach:</span> <a href="##" class="more_link">#asst3CoachFirstNAme# #asst3CoachLastName#</a>
+						<div class="more_info">
+							<div class="container">
+								<h2>#asst3CoachFirstNAme# #asst3CoachLastName#</h2>
+								<ul class="more_info_list">
+									<li><span>Email:</span> <a href="mailto: #asst3Email#">#asst3Email#</a></li>
+									<li><span>Cell Phone:</span> #asst3CellPhone#</li>
+									<li><span>Home Phone:</span> #asst3HomePhone#</li>
 								</ul>
 							</div>
 						</div>

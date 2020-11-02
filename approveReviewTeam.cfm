@@ -53,6 +53,8 @@ MODS: mm/dd/yyyy - filastname - comments
 	<CFSET TeamId			= FORM.TeamID>
 	<CFSET HeadCoachID		= FORM.NEW_HeadCoachID>
 	<CFSET AsstCoachID 		= FORM.NEW_AsstCoachID>
+	<CFSET Asst2CoachID 	= FORM.NEW_Asst2CoachID>
+	<CFSET Asst3CoachID 	= FORM.NEW_Asst3CoachID>
 	<CFSET ORIG_TeamAge		= FORM.ORIG_TeamAge>
 	<CFSET ORIG_PlayLevel	= FORM.ORIG_PlayLevel>
 	<CFSET ORIG_REQDIV		= FORM.ORIG_REQDIV>
@@ -60,6 +62,8 @@ MODS: mm/dd/yyyy - filastname - comments
 	<CFSET ORIG_Gender		= FORM.ORIG_Gender>
 	<CFSET ORIG_HeadCoachId = FORM.ORIG_HeadCoachId>
 	<CFSET ORIG_AsstCoachId = FORM.ORIG_AsstCoachId>
+	<CFSET ORIG_Asst2CoachId = FORM.ORIG_Asst2CoachId>
+	<CFSET ORIG_Asst3CoachId = FORM.ORIG_Asst3CoachId>
 
 	<cfif len(trim(FORM.USSFDiv))>
 		<CFSET USSFDiv			= FORM.USSFDiv>
@@ -103,7 +107,9 @@ MODS: mm/dd/yyyy - filastname - comments
 		   OR (ORIG_USSFDiv NEQ USSFDiv) 
 		   OR (ORIG_Gender NEQ Gender) 
 		   OR (ORIG_HeadCoachId NEQ HeadCoachID) 
-		   OR (ORIG_AsstCoachId NEQ AsstCoachID) >
+		   OR (ORIG_AsstCoachId NEQ AsstCoachID) 
+		   OR (ORIG_Asst2CoachId NEQ Asst2CoachID)
+		   OR (ORIG_Asst3CoachId NEQ Asst3CoachID)>
 			<CFSET swValueChanged = "Y" >
 		<cfelse>
 			<CFSET swValueChanged = "N" >
@@ -118,7 +124,6 @@ MODS: mm/dd/yyyy - filastname - comments
 		</cfif> --->
 		
 		<CFSET CurTime = timeFormat(Now(),"hh:mm:sstt")>
-		
 		<!--- Set DataAccess = New FileAccess ????????????? --->
 		<cfif swValueChanged EQ "Y">
 			<!---  values were changed, check if team is duped, etc..... --->
@@ -161,6 +166,48 @@ MODS: mm/dd/yyyy - filastname - comments
 					</cfinvoke>
 				</CFIF>
 			</CFIF>
+
+			<CFIF Asst2CoachID GT 0>
+				<cfinvoke component="#SESSION.SITEVARS.cfcPath#contact" method="ContactExist" returnvariable="asst2Exist">
+					<cfinvokeargument name="contactid" value="#Asst2CoachID#">
+					<cfinvokeargument name="roleid"    value="#SESSION.CONSTANT.ROLEIDCOACH#">
+					<cfinvokeargument name="clubid"    value="#ClubId#">
+					<cfinvokeargument name="seasonid"  value="#SESSION.REGSEASON.ID#">
+				</cfinvoke>
+				
+				<CFIF asst2Exist.recordCount EQ 0>
+					<!--- no match, so create role for headcoach for this season... --->
+					<cfinvoke component="#SESSION.SITEVARS.cfcPath#contact" method="insertContactRole">
+						<cfinvokeargument name="contactID"   value="#Asst2CoachID#">
+						<cfinvokeargument name="roleID" 	 value="#SESSION.CONSTANT.ROLEIDCOACH#">
+						<cfinvokeargument name="ClubId" 	 value="#ClubId#">
+						<cfinvokeargument name="seasonID"    value="#SESSION.REGSEASON.ID#">
+						<cfinvokeargument name="activeYN"	 value="Y">
+						<cfinvokeargument name="allowGameEdit" value="0">
+					</cfinvoke>
+				</CFIF>
+			</CFIF>
+
+			<CFIF Asst3CoachID GT 0>
+				<cfinvoke component="#SESSION.SITEVARS.cfcPath#contact" method="ContactExist" returnvariable="asst3Exist">
+					<cfinvokeargument name="contactid" value="#Asst3CoachID#">
+					<cfinvokeargument name="roleid"    value="#SESSION.CONSTANT.ROLEIDCOACH#">
+					<cfinvokeargument name="clubid"    value="#ClubId#">
+					<cfinvokeargument name="seasonid"  value="#SESSION.REGSEASON.ID#">
+				</cfinvoke>
+				<CFIF asst3Exist.recordCount EQ 0>
+					<!--- no match, so create role for headcoach for this season... --->
+					<cfinvoke component="#SESSION.SITEVARS.cfcPath#contact" method="insertContactRole">
+						<cfinvokeargument name="contactID"   value="#Asst3CoachID#">
+						<cfinvokeargument name="roleID" 	 value="#SESSION.CONSTANT.ROLEIDCOACH#">
+						<cfinvokeargument name="ClubId" 	 value="#ClubId#">
+						<cfinvokeargument name="seasonID"    value="#SESSION.REGSEASON.ID#">
+						<cfinvokeargument name="activeYN"	 value="Y">
+						<cfinvokeargument name="allowGameEdit" value="0">
+					</cfinvoke>
+				</CFIF>
+			</CFIF>
+
 				
 			<CFQUERY name="teamCount" datasource="#SESSION.DSN#">
 				SELECT COUNT(*) as numberOfTeams
@@ -187,6 +234,8 @@ MODS: mm/dd/yyyy - filastname - comments
 					<cfinvokeargument name="Gender"       value="#VARIABLES.Gender#">
 					<cfinvokeargument name="HeadCoachID"  value="#VARIABLES.HeadCoachID#">
 					<cfinvokeargument name="AsstCoachID"  value="#VARIABLES.AsstCoachID#">
+					<cfinvokeargument name="Asst2CoachID"  value="#VARIABLES.Asst2CoachID#">
+					<cfinvokeargument name="Asst3CoachID"  value="#VARIABLES.Asst3CoachID#">
 					<cfinvokeargument name="nonSundayPlay" value="#VARIABLES.NonSundayPlay#">
 					<cfinvokeargument name="TeamID"       value="#VARIABLES.TeamId#">
 					<cfinvokeargument name="ReqDiv"       value="#VARIABLES.newReqDiv#">
@@ -268,6 +317,9 @@ MODS: mm/dd/yyyy - filastname - comments
 <!--- <CFSET Comments			= RegTeam.Comments> --->
 <CFSET ORIG_HeadCoachId = RegTeam.ContactIDHead>
 <CFSET ORIG_AsstCoachId = RegTeam.ContactIDAsst>
+<CFSET ORIG_Asst2CoachId = RegTeam.ContactIDAsst2>
+<CFSET ORIG_Asst3CoachId = RegTeam.ContactIDAsst3>
+
 <!--- <CFSET SecondTeam		= RegTeam.SecondTeam> --->
 <CFSET NonSundayPlay	= RegTeam.NonSundayPlay>
 
@@ -295,6 +347,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	  FROM TBL_CONTACT c INNER JOIN XREF_CONTACT_ROLE X on x.CONTACT_ID = c.CONTACT_ID
 	 WHERE c.CLUB_ID = #VARIABLES.ClubId#
 	   AND c.CONTACT_ID NOT IN (#valueList(qCoaches.contact_id)#)
+	  group by c.contact_id, c.FirstName, c.lastName
 </CFQUERY> <!--- rs3 --->
 
 <cfinvoke component="#SESSION.SITEVARS.cfcpath#globalVars" method="getListX" returnvariable="lTeamAges">
@@ -321,7 +374,8 @@ MODS: mm/dd/yyyy - filastname - comments
 	<input type="hidden" name="ORIG_Gender"		 value="#VARIABLES.Gender#">
 	<input type="hidden" name="ORIG_HeadCoachId" value="#VARIABLES.ORIG_HeadCoachId#">
 	<input type="hidden" name="ORIG_AsstCoachId" value="#VARIABLES.ORIG_AsstCoachId#">
-
+	<input type="hidden" name="ORIG_Asst2CoachId" value="#VARIABLES.ORIG_Asst2CoachId#">
+	<input type="hidden" name="ORIG_Asst3CoachId" value="#VARIABLES.ORIG_Asst3CoachId#">
 <span class="red">Fields marked with * are required</span>
 <CFSET required = "<FONT color=red>*</FONT>">
 <table cellspacing="0" cellpadding="5" align="left" border="0" width="90%">
@@ -431,6 +485,41 @@ MODS: mm/dd/yyyy - filastname - comments
 				<CFIF qCoaches.RECORDCOUNT>
 					<CFLOOP query="qCoaches">
 						<OPTION value="#contact_id#" <cfif ORIG_AsstCoachID EQ contact_id> selected </cfif> >#LastName#, #FirstName#</OPTION>
+					</CFLOOP>
+				</CFIF>
+			</SELECT>
+		</TD>
+	</TR>
+
+		<TR><TD align="right"> <b>2nd Asst.Coach</b> </TD><!--- #required# --->
+		<TD><SELECT name="NEW_Asst2CoachID" > 
+				<option value="0"> Select contact  </OPTION>
+				<CFIF qOtherContacts.RECORDCOUNT>
+					<CFLOOP query="qOtherContacts">
+						<OPTION value="#contact_id#" <CFIF ORIG_Asst2CoachID EQ contact_id> selected </CFIF> > #LastNAme#, #FirstName#</OPTION>
+					</CFLOOP>
+				</CFIF>
+			    <!--- put in Coaches --->
+				<CFIF qCoaches.RECORDCOUNT>
+					<CFLOOP query="qCoaches">
+						<OPTION value="#contact_id#" <cfif ORIG_Asst2CoachID EQ contact_id> selected </cfif> >#LastName#, #FirstName#</OPTION>
+					</CFLOOP>
+				</CFIF>
+			</SELECT>
+		</TD>
+	</TR>
+	<TR><TD align="right"> <b>3rd Asst.Coach</b> </TD><!--- #required# --->
+		<TD><SELECT name="NEW_Asst3CoachID" > 
+				<option value="0"> Select contact  </OPTION>
+				<CFIF qOtherContacts.RECORDCOUNT>
+					<CFLOOP query="qOtherContacts">
+						<OPTION value="#contact_id#" <CFIF ORIG_Asst3CoachID EQ contact_id> selected </CFIF> > #LastNAme#, #FirstName#</OPTION>
+					</CFLOOP>
+				</CFIF>
+			    <!--- put in Coaches --->
+				<CFIF qCoaches.RECORDCOUNT>
+					<CFLOOP query="qCoaches">
+						<OPTION value="#contact_id#" <cfif ORIG_Asst3CoachID EQ contact_id> selected </cfif> >#LastName#, #FirstName#</OPTION>
 					</CFLOOP>
 				</CFIF>
 			</SELECT>

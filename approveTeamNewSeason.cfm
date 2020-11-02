@@ -12,6 +12,14 @@ MODS: mm/dd/yyyy - filastname - comments
 <cfset mid = 0> <!--- optional =menu id ---> 
 <cfinclude template="_header.cfm">
 <cfinclude template="_checkLogin.cfm">
+
+<cfsavecontent variable="localCss">
+	<style>
+		.address{font-size:.8em;padding-bottom:2px;}
+	</style>
+</cfsavecontent>
+<cfhtmlhead text="#localCss#">
+
 <cfoutput>
 <div id="contentText">
 
@@ -97,15 +105,19 @@ MODS: mm/dd/yyyy - filastname - comments
 		<td width="20%"> EMail </td>
 	</tr>
 	<CFLOOP query="RegisteredTeams">
-	
+		<CFIF len(trim(COMMENTS))>
+			<CFSET swUnderLine = "">
+		<CFELSE>
+			<CFSET swUnderLine = "class=""address""">
+		</CFIF>
 		<tr bgcolor="###setRowColor(SESSION.sitevars.altColors,currentRow)#">
-			<TD>#TEAM_ID#</TD>
-			<TD>#Gender#-#TeamAge#-#PlayLevel#</TD>
-			<TD>#Division#</TD>
-			<TD>#CoachLastName#, #CoachFirstName#</TD>
-			<TD>#CoachAddress#</TD>
-			<TD>#CoachTown#, #CoachState#-#CoachZip#</TD>
-			<TD><!--- #CoachWorkPhone# --->
+			<TD #swUnderLine#>#TEAM_ID#</TD>
+			<TD #swUnderLine#>#Gender#-#TeamAge#-#PlayLevel#</TD>
+			<TD #swUnderLine#>#Division#</TD>
+			<TD #swUnderLine#  title="Head Coach">#CoachLastName#, #CoachFirstName#</TD>
+			<TD #swUnderLine#>#CoachAddress#</TD>
+			<TD #swUnderLine#>#CoachTown#, #CoachState#-#CoachZip#</TD>
+			<TD #swUnderLine#><!--- #CoachWorkPhone# --->
 				<CFIF LEN(TRIM(coachCellPhone))>
 					(c) #coachCellPhone#
 				<CFELSEIF LEN(TRIM(coachHomePhone))>
@@ -116,21 +128,22 @@ MODS: mm/dd/yyyy - filastname - comments
 					n/a
 				</CFIF>
 			</TD>
-			<TD>#CoachEmail#</TD>
+			<TD #swUnderLine#>#CoachEmail#</TD>
 		</tr>
 
 		<CFIF len(trim(COMMENTS))>
 			<CFSET swUnderLine = "">
 		<CFELSE>
-			<CFSET swUnderLine = "class=""tdUnderLine""">
+			<CFSET swUnderLine = "class=""tdUnderLine address""">
 		</CFIF>
+
 		<tr bgcolor="###setRowColor(SESSION.sitevars.altColors,currentRow)#">
 			<td #swUnderLine#><INPUT type=radio value="#TEAM_ID#" name="TeamId"></td>
 			<td #swUnderLine#><cfif approved_yn EQ "Y"> <span class="red">Approved</span> <CFELSE> &nbsp; </CFIF>	</td>
 			<td #swUnderLine#> &nbsp; </td>
 			
 			<CFIF len(trim(AsstCoachLastName))>
-				<td #swUnderLine#>#AsstCoachLastName#, #AsstCoachFirstName# &nbsp;</td>
+				<td #swUnderLine# title="Assistant Coach">#AsstCoachLastName#, #AsstCoachFirstName# &nbsp;</td>
 				<td #swUnderLine#>#AsstAddress#		&nbsp;</td>
 				<td #swUnderLine#>#AsstTown#, #AsstState#-#AsstZIP#		&nbsp;</td>
 				<td #swUnderLine#> <!--- #AsstWorkPhone#	 --->
@@ -148,6 +161,58 @@ MODS: mm/dd/yyyy - filastname - comments
 				<td #swUnderLine#>#AsstEMail# 		&nbsp;</td>
 			<CFELSE>
 				<td #swUnderLine# colspan="5">No assistant coach. </td>
+			</CFIF>
+		</tr>
+		<tr bgcolor="###setRowColor(SESSION.sitevars.altColors,currentRow)#">
+			<td #swUnderLine#> &nbsp; </td>
+			<td #swUnderLine#> &nbsp; </td>
+			<td #swUnderLine#> &nbsp; </td>
+			
+			<CFIF len(trim(Asst2CoachLastName))>
+				<td #swUnderLine#  title="2nd Assistant Coach">#Asst2CoachLastName#, #Asst2CoachFirstName# &nbsp;</td>
+				<td #swUnderLine#>#Asst2Address#		&nbsp;</td>
+				<td #swUnderLine#>#Asst2Town#, #Asst2State#-#Asst2ZIP#		&nbsp;</td>
+				<td #swUnderLine#> <!--- #Asst2WorkPhone#	 --->
+					<CFIF LEN(TRIM(asst2CellPhone))>
+						(c) #asst2CellPhone#
+					<CFELSEIF LEN(TRIM(asst2HomePhone))>
+						(h) #asst2HomePhone#
+					<CFELSEIF LEN(TRIM(asst2WorkPhone))>
+						(w) #asst2WorkPhone#
+					<cfelse>
+						n/a
+					</CFIF>
+					&nbsp;
+				</td>
+				<td #swUnderLine#>#Asst2EMail# 		&nbsp;</td>
+			<CFELSE>
+				<td #swUnderLine# colspan="5">No 2nd assistant coach. </td>
+			</CFIF>
+		</tr>
+		<tr bgcolor="###setRowColor(SESSION.sitevars.altColors,currentRow)#">
+			<td #swUnderLine#> &nbsp; </td>
+			<td #swUnderLine#> &nbsp; </td>
+			<td #swUnderLine#> &nbsp; </td>
+			
+			<CFIF len(trim(Asst3CoachLastName))>
+				<td #swUnderLine#   title="3rd Assistant Coach">#Asst3CoachLastName#, #Asst3CoachFirstName# &nbsp;</td>
+				<td #swUnderLine#>#Asst3Address#		&nbsp;</td>
+				<td #swUnderLine#>#Asst3Town#, #Asst3State#-#Asst3ZIP#		&nbsp;</td>
+				<td #swUnderLine#> <!--- #Asst3WorkPhone#	 --->
+					<CFIF LEN(TRIM(asst3CellPhone))>
+						(c) #asst3CellPhone#
+					<CFELSEIF LEN(TRIM(asst3HomePhone))>
+						(h) #asst3HomePhone#
+					<CFELSEIF LEN(TRIM(asst3WorkPhone))>
+						(w) #asst3WorkPhone#
+					<cfelse>
+						n/a
+					</CFIF>
+					&nbsp;
+				</td>
+				<td #swUnderLine#>#Asst3EMail# 		&nbsp;</td>
+			<CFELSE>
+				<td #swUnderLine# colspan="5">No 3rd assistant coach. </td>
 			</CFIF>
 		</tr>
 		<CFIF len(trim(COMMENTS))>

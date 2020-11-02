@@ -27,9 +27,9 @@ J.Lechuga 3-14-2011 Added Functions to GetMessageDetail to retrieve recipient me
 		           dateupdated,
 		           status_id,
 				   transmission_status,
-				   Distribution_List,
-				   owner
-		      from v_message
+				   (select distribution_list_name from ncsa_reports..tbl_distribution_list where  Distribution_List_id = x.Distribution_List_id) as Distribution_list,
+				   null owner
+		      from v_message x
 		     where sent_date IS NULL
 		       and status_id = 1
 			   and created_via_message_manager_flag=1
@@ -53,8 +53,7 @@ J.Lechuga 3-14-2011 Added Functions to GetMessageDetail to retrieve recipient me
 		           dateupdated,
 		           status_id,
 				   transmission_status,
-				   Distribution_List,
-				   owner
+				   Distribution_List_id
 		  order by DATECREATED DESC
 		  </cfquery>
 		<cfreturn GetDraftMessages>
@@ -83,9 +82,9 @@ J.Lechuga 3-14-2011 Added Functions to GetMessageDetail to retrieve recipient me
 		           dateupdated,
 		           status_id,
 				   dbo.getMessageTransmissionStatus(MESSAGE_ID) AS TRANSMISSION_STATUS,
-				   Distribution_List,
-				   owner
-		      from v_message
+				   (select distribution_list_name from ncsa_reports..tbl_distribution_list where  Distribution_List_id = x.Distribution_List_id) as Distribution_list,
+				   null owner
+		      from v_message x
 		     where sent_date IS NULL
 		       and scheduled_date IS NOT NULL
 		       and status_id = 1
@@ -109,8 +108,7 @@ J.Lechuga 3-14-2011 Added Functions to GetMessageDetail to retrieve recipient me
 		           datecreated,
 		           dateupdated,
 		           status_id,
-				   Distribution_List,
-				   owner
+				   Distribution_List_id
 		  order by DATECREATED DESC
 		  </cfquery>
 		<cfreturn GetScheduledMessages>
@@ -139,9 +137,9 @@ J.Lechuga 3-14-2011 Added Functions to GetMessageDetail to retrieve recipient me
 		           status_id,
 				   dbo.getMessageTransmissionStatus(MESSAGE_ID) AS TRANSMISSION_STATUS,
 				   transmission_status_id,
-				   Distribution_List,
-				   owner
-		      from v_message
+				   (select distribution_list_name from ncsa_reports..tbl_distribution_list where  Distribution_List_id = x.Distribution_List_id) as Distribution_list,
+				   null owner
+		      from v_message x
 		     where sent_date IS NOT NULL
 		       and status_id = 1
 			   and created_via_message_manager_flag=1
@@ -164,8 +162,7 @@ J.Lechuga 3-14-2011 Added Functions to GetMessageDetail to retrieve recipient me
 		           dateupdated,
 		           status_id,
 				   transmission_status_id,
-				   Distribution_List,
-				   owner
+				   Distribution_List_id
 		  order by sent_date desc
 		  </cfquery>
 		<cfreturn GetSentMessages>
@@ -201,9 +198,9 @@ J.Lechuga 3-14-2011 Added Functions to GetMessageDetail to retrieve recipient me
 				   DATECREATED,
 				   DATEUPDATED,
 				   STATUS_ID as MSG_TRANSMISSION_STATUS_ID,
-				   Distribution_List,
-				   owner
-		      from v_message
+				   (select distribution_list_name from ncsa_reports..tbl_distribution_list where  Distribution_List_id = x.Distribution_List_id) as Distribution_list,
+				   null owner
+		      from v_message x
 		     where message_id = #message_id#
 			 group by message_id,
 		           message_desc,
@@ -226,8 +223,7 @@ J.Lechuga 3-14-2011 Added Functions to GetMessageDetail to retrieve recipient me
 				   DATECREATED,
 				   DATEUPDATED,
 				   STATUS_ID,
-				   Distribution_List,
-				   owner
+				   Distribution_List_id
 		  </cfquery>
 		<cfreturn GetMessageDetail>
 	</cffunction>

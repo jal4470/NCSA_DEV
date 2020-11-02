@@ -297,19 +297,54 @@ MODS: mm/dd/yyyy - filastname - comments
 <h2>for #displaySeason# Season </h2>
 
 <!--- Set Starting year to drop down --->
-<cfquery name="getCurrentSeason" datasource="#application.dsn#">
+<!--- <cfquery name="getCurrentSeason" datasource="#application.dsn#">
 	Select season_year, 
 	case when season_SF = 'SPRING' then season_year - 1 else season_year end as Start_Year
 	from tbl_season where currentSeason_yn = 'Y'
-</cfquery> 
+</cfquery>  --->
 <!--- <cfquery name="getCurrentSeason" datasource="#application.dsn#">
 	Select season_year, 
 	season_year as Start_Year
 	from tbl_season where currentSeason_yn = 'Y'
 </cfquery> --->
-<cfif getCurrentSeason.recordcount gt 0>
+<!--- <cfif getCurrentSeason.recordcount gt 0>
 	<CFSET StartYear = getCurrentSeason.Start_Year>
-</cfif>
+</cfif> --->
+<!--- <cfquery name="getRegistrationSeason" datasource="#application.dsn#">
+	Select season_year, 
+	case when season_SF = 'SPRING' then season_year else season_year end as Start_Year,
+	case when season_SF = 'FALL' then season_year + 1 else season_year end as End_Year 
+	from tbl_season where registrationOpen_YN = 'Y'
+</cfquery>
+<cfif getRegistrationSeason.recordcount gt 0>
+	<CFSET StartYear = getRegistrationSeason.Start_Year>
+	<CFSET EndYear = getRegistrationSeason.End_Year>
+<cfelse>
+	<cfquery name="getCurrentSeason" datasource="#application.dsn#">
+		Select season_year, 
+		case when season_SF = 'SPRING' then season_year - 1 else season_year end as Start_Year,
+		case when season_SF = 'FALL' then season_year + 1 else season_year end as End_Year 
+		from tbl_season where currentSeason_yn = 'Y'
+	</cfquery>
+
+	<cfif getCurrentSeason.recordcount gt 0>
+		<CFSET StartYear = getCurrentSeason.Start_Year>
+		<CFSET EndYear = getCurrentSeason.End_Year>
+	</cfif>
+</cfif> --->
+
+<cfquery name="getSeason" datasource="#application.dsn#">
+		Select season_year, 
+		case when season_SF = 'SPRING' then season_year - 1 else season_year end as Start_Year,
+		case when season_SF = 'FALL' then season_year + 1 else season_year end as End_Year 
+		from tbl_season where season_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#seasonId#">
+	</cfquery>
+
+	<cfif getSeason.recordcount gt 0>
+		<CFSET StartYear = getSeason.Start_Year>
+		<CFSET EndYear = getSeason.End_Year>
+	</cfif>
+
 
 <!--- Setup Period array to calculate AGE --->
 <CFSET Period = ArrayNew(1)>
@@ -377,8 +412,8 @@ MODS: mm/dd/yyyy - filastname - comments
 	<CFSET Gender		= qTeamInfo.gender>
 	<CFSET HeadCoachId 	= qTeamInfo.ContactIDHead>
 	<CFSET AsstCoachId 	= qTeamInfo.ContactIDAsst>
-	<CFSET AsstCoachId2 	= qTeamInfo.ContactIDAsst>
-	<CFSET AsstCoachId3 	= qTeamInfo.ContactIDAsst>
+	<CFSET AsstCoachId2 	= qTeamInfo.ContactIDAsst2>
+	<CFSET AsstCoachId3 	= qTeamInfo.ContactIDAsst3>
 	<CFSET ORIG_HeadCoachId	 = qTeamInfo.ContactIDHead>
 	<CFSET ORIG_AsstCoachId	 = qTeamInfo.ContactIDAsst>
 	<CFSET NonSundayPlay	 = qTeamInfo.NonSundayPlay>
@@ -490,6 +525,7 @@ MODS: mm/dd/yyyy - filastname - comments
 
 <CFINVOKE component="#SESSION.SITEVARS.cfcPath#team" method="getPreviousSeasonDivisions" returnvariable="lDivision"> <!--- Divisions --->
 
+
 <!--- Append Jquery to HEAD --->
 <cfhtmlhead text='<script language="JavaScript" type="text/javascript" src="assets/jquery-1.4.2.min.js"></script>'>
 
@@ -542,15 +578,16 @@ MODS: mm/dd/yyyy - filastname - comments
 				<OPTION value="" >Select</OPTION>
 
 				<!--- Initialize year var --->
-				<cfset Year = StartYear + 1>
+				<cfset Year = StartYear>
 				<cfset ageIndx = 1>
 				<CFLOOP list="#lTeamAges#" index="ita">
 					<cfset Age = Period[ageIndx]>
-					<cfif find("FALL", displaySeason)> 
-						<cfset Year = (StartYear + 1) - Age>
-					<cfelse>
+			<!--- 		<cfif find("FALL", displaySeason)>  --->
+						<cfset Year = (StartYear) - Age>
+		<!--- 			<cfelse>
 						<cfset Year = StartYear - Age>
-					</cfif>
+					</cfif> --->
+
 					<OPTION value="#ita#" <CFIF TeamAge EQ ita>selected</CFIF>  >#ita# (#Year#)</OPTION>
 					<!--- Decrement by 1 year --->
 					<cfset Year = Year - 1>
@@ -581,11 +618,11 @@ MODS: mm/dd/yyyy - filastname - comments
 				<cfset ageIndx = 1>
 				<CFLOOP list="#lTeamAges#" index="ita">
 					<cfset Age = Period[ageIndx]>
-					<cfif find("FALL", displaySeason)> 
-						<cfset Year = (StartYear + 1) - Age>
-					<cfelse>
+					<!--- <cfif find("FALL", displaySeason)>  --->
+						<cfset Year = (StartYear) - Age>
+					<!--- <cfelse>
 						<cfset Year = StartYear - Age>
-					</cfif>
+					</cfif> --->
 <!--- 
 					<cfset Year = StartYear - Age> --->
 					<OPTION value="#ita#" <CFIF USSFDiv EQ ita>selected</CFIF>  >#ita#  (#Year#)</OPTION>

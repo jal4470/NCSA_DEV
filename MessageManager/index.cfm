@@ -161,13 +161,16 @@ rs.query_str = "";
 					<CFOUTPUT>
 					
 					<CFLOOP QUERY="getDrafts" STARTROW="#startrec#" ENDROW="#endrec#">
+					<cfquery name="getOwner" datasource="#application.dsn#">
+						Select username from tbl_contact where contact_Id = (select contactid from tbl_message where message_id = #message_id#)
+					</cfquery>
 					<tr onmouseout="scbg(this, 0);" onmouseover="scbg(this, 1);">
 						<td class="blankrowitem" onclick="location.href='Step1.cfm?message_id=#message_id#'">#message_desc#</td>
 						<td class="blankrowitem" onclick="location.href='Step1.cfm?message_id=#message_id#'">Test #TRANSMISSION_STATUS#</td>
 						<td class="blankrowitem" onclick="location.href='Step1.cfm?message_id=#message_id#'">#replyto_email_address#</td>
 						<td class="blankrowitem" onclick="location.href='Step1.cfm?message_id=#message_id#'">#DATEFORMAT(datecreated,"MM/DD/YYYY")# - #TIMEFORMAT(datecreated,"h:mm tt")#</td>
 						<td class="blankrowitem" onclick="location.href='Step1.cfm?message_id=#message_id#'">#Distribution_list#</td>
-						<td class="blankrowitem" onclick="location.href='Step1.cfm?message_id=#message_id#'">#owner#</td>
+						<td class="blankrowitem" onclick="location.href='Step1.cfm?message_id=#message_id#'">#getOwner.username#</td>
 						<td class="blankrowitem" align="center" onclick="doConfirmation(#message_id#)"><a href="javascript:void(0)" class="formlink">Remove</a></td>
 					</tr>
 					</CFLOOP>

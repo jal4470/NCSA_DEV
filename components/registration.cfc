@@ -491,7 +491,8 @@ Ticket NCSA22671 - Added AsstCoachID2,AsstCoachID3,Roster,PrevPlayLevel,ReasonFo
 	<CFQUERY name="registeredTeams" datasource="#VARIABLES.DSN#">
 		SELECT  CL.ClubAbbr, CL.club_id, CL.Club_name,
 			   IsNull(T.Gender,'') + right(T.TeamAge,2) + IsNull(T.PlayLevel,'') + IsNull(T.PlayGroup,'') AS DIVISION, 
-			   T.team_id, T.ContactIDHead, T.ContactIDAsst, T.club_id, T.teamName, 
+			   T.team_id, T.ContactIDHead, T.ContactIDAsst,T.ContactIDAsst2,T.ContactIDAsst3, 
+			   T.club_id, T.teamName, 
 		       --CL.ClubAbbr + '-' + HC.LastName + '-' + T.division AS TEAMNAMEderived,
 			   CL.ClubAbbr + '-' + IsNull(T.Gender,'') + right(T.TeamAge,2) + IsNull(T.PlayLevel,'') + IsNull(T.PlayGroup,'')+ '-' + HC.LastName AS TEAMNAMEderived, 
 			   T.teamAge, T.playLevel, T.gender, T.requestDiv, T.comments, T.USSFDiv, T.season_id, T.suffix, 
@@ -515,11 +516,23 @@ Ticket NCSA22671 - Added AsstCoachID2,AsstCoachID3,Roster,PrevPlayLevel,ReasonFo
 			   AC.FirstName AS asstCoachFirstName,  AC.LastName AS asstCoachLastName, 
 			   AC.address 	AS asstAddress,   	    AC.city AS asstTown, AC.state AS asstState, AC.zipcode AS asstZip, 
 			   AC.phoneWork	AS asstWorkPhone,		AC.phoneHome AS asstHomePhone, 
-			   AC.phoneCell AS asstCellPhone,		AC.phoneFax AS asstFax, AC.email AS asstEmail 
+			   AC.phoneCell AS asstCellPhone,		AC.phoneFax AS asstFax, AC.email AS asstEmail ,
+		
+			   AC2.FirstName AS asst2CoachFirstName,  AC2.LastName AS asst2CoachLastName, 
+			   AC2.address 	AS asst2Address,   	    AC2.city AS asst2Town, AC2.state AS asst2State, AC2.zipcode AS asst2Zip, 
+			   AC2.phoneWork	AS asst2WorkPhone,		AC2.phoneHome AS asst2HomePhone, 
+			   AC2.phoneCell AS asst2CellPhone,		AC2.phoneFax AS asst2Fax, AC2.email AS asst2Email ,
+		
+			   AC3.FirstName AS asst3CoachFirstName,  AC3.LastName AS asst3CoachLastName, 
+			   AC3.address 	AS asst3Address,   	    AC3.city AS asst3Town, AC.state AS asst3State, AC3.zipcode AS asst3Zip, 
+			   AC3.phoneWork	AS asst3WorkPhone,		AC3.phoneHome AS asst3HomePhone, 
+			   AC3.phoneCell AS asst3CellPhone,		AC3.phoneFax AS asst3Fax, AC3.email AS asst3Email 
 			
-		FROM    tbl_team T  LEFT JOIN tbl_contact HC ON HC.contact_id = T.ContactIDHead 
-							LEFT JOIN tbl_contact AC ON AC.contact_id = T.ContactIDAsst 
-						   INNER JOIN tbl_club    CL ON CL.club_id    = T.club_id
+		FROM    tbl_team T INNER JOIN tbl_club    CL ON CL.club_id    = T.club_id 
+				LEFT JOIN tbl_contact HC ON HC.contact_id = T.ContactIDHead 
+				LEFT JOIN tbl_contact AC ON AC.contact_id = T.ContactIDAsst 
+				LEFT JOIN tbl_contact AC2 ON AC2.contact_id = T.ContactIDAsst2
+				LEFT JOIN tbl_contact AC3 ON AC3.contact_id = T.ContactIDAsst3	   
 		WHERE T.season_id = (select season_id from tbl_season where RegistrationOpen_YN = 'Y')
 		  #whereClubID#
 		  #whereTeamID#

@@ -22,31 +22,47 @@
 		<cfset game_id = url.game_id>
 	</cfif>
 
-	<cfquery name="getHomeRostersAndMDFS" datasource="#application.dsn#">
-	  select dbo.f_getTeamRoster(g.team_id) as home_team_roster_id,
-		   dbo.f_get_MDF(g.team_id, g.game_id) as home_team_mdf,g.game_id
-	  from tbl_match_day_form mf inner join xref_Game_Team g on mf.game_id = g.game_id 
-	  where mf.game_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#game_id#"> and isHomeTeam = 1
-	  group by g.team_id,g.game_id
+	<cfquery name="getHomeMDF" datasource="#application.dsn#">
+		  select dbo.f_get_MDF(g.team_id, g.game_id) as home_team_mdf,g.game_id
+		  from tbl_match_day_form mf inner join xref_Game_Team g on mf.game_id = g.game_id 
+		  where mf.game_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#game_id#"> and isHomeTeam = 1
+		  group by g.team_id,g.game_id
 	</cfquery>
 
-	<cfif getHomeRostersAndMDFS.recordcount>
-		<cfset variables.home_team_mdf = getHomeRostersAndMDFS.home_team_mdf>
-		<cfset variables.home_team_roster_id = getHomeRostersAndMDFS.home_team_roster_id>
+	<cfif getHomeMDF.recordcount>
+		<cfset variables.home_team_mdf = getHomeMDF.home_team_mdf>
 	</cfif>
 
-	<cfquery name="getVisitorRostersAndMDFS" datasource="#application.dsn#">
-	  select dbo.f_getTeamRoster(g.team_id) as visitor_team_roster_id,
-		   dbo.f_get_MDF(g.team_id, g.game_id) as visitor_team_mdf,g.game_id
-	  from tbl_match_day_form mf inner join xref_Game_Team g on mf.game_id = g.game_id 
-	  where mf.game_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#game_id#"> and isHomeTeam = 0
-	  group by g.team_id,g.game_id
+	<cfquery name="getHomeRoster" datasource="#application.dsn#">
+		  select dbo.f_getTeamRoster(g.team_id) as home_team_roster_id
+		  from xref_Game_Team g 
+		  where game_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#game_id#"> and isHomeTeam = 1
+	</cfquery>
+	<cfif getHomeRoster.recordcount>
+		<cfset variables.home_team_roster_id = getHomeRoster.home_team_roster_id>
+	</cfif>
+
+	<cfquery name="getVisitorMDF" datasource="#application.dsn#">
+		  select dbo.f_get_MDF(g.team_id, g.game_id) as visitor_team_mdf,g.game_id
+		  from tbl_match_day_form mf inner join xref_Game_Team g on mf.game_id = g.game_id 
+		  where mf.game_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#game_id#"> and isHomeTeam = 0
+		  group by g.team_id,g.game_id
 	</cfquery>
 
-	<cfif getVisitorRostersAndMDFS.recordcount>
-		<cfset variables.visitor_team_mdf = getVisitorRostersAndMDFS.visitor_team_mdf>
-		<cfset variables.visitor_team_roster_id = getVisitorRostersAndMDFS.visitor_team_roster_id>
+	<cfif getVisitorMDF.recordcount>
+		<cfset variables.visitor_team_mdf = getVisitorMDF.visitor_team_mdf>
 	</cfif>
+
+	<cfquery name="getVisitorRoster" datasource="#application.dsn#">
+		    select dbo.f_getTeamRoster(g.team_id) as visitor_team_roster_id
+		  from xref_Game_Team g 
+		  where game_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#game_id#"> and isHomeTeam = 0
+	</cfquery>
+
+	<cfif getVisitorRoster.recordcount>
+		<cfset variables.visitor_team_roster_id = getVisitorRoster.visitor_team_roster_id>
+	</cfif>
+
 
 	<cfset tempPath = ExpandPath("uploads\temp\gamedayforms")>
 

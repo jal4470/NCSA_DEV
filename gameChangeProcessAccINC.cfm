@@ -133,7 +133,10 @@ MODS: mm/dd/yyyy - filastname - comments
 				Delete from TBL_REFEREE_RPT_HEADER 
 				 Where Game_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameID#">
 			</cfquery>
-	
+			<cfquery name="deleteGameDayDoc" datasource="#SESSION.DSN#">
+				Delete from TBL_GAME_DAY_DOCUMENTS 
+				 Where Game_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameID#">
+			</cfquery>
 			<!--- delete officials from the game --->
 			<cfquery name="qGetRefs" datasource="#SESSION.DSN#">
 				SELECT RefID, AsstRefID1, AsstRefID2 FROM V_GAMES WHERE GAME = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameID#">

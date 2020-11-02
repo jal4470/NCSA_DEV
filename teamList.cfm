@@ -56,13 +56,15 @@ MODS: mm/dd/yyyy - filastname - comments
 	
 	<table cellspacing="0" cellpadding="5" align="center" border="0" width="100%">
 		<tr class="tblHeading">
-			<td colspan="4"> #qClubTeams.Club_Name# </td>
+			<td colspan="6"> #qClubTeams.Club_Name# </td>
 		</tr>
 		<tr class="tblHeading">
 			<td> DIVISION   </td>
 			<td> TEAM 		</td>
 			<td> COACH 	    </td>
 			<td> ASST COACH </td>
+			<td> ASST COACH 2 </td>
+			<td> ASST COACH 3 </td>
 		</tr>
 		<CFIF qClubTeams.recordCount>
 			<CFLOOP query="qClubTeams">
@@ -78,6 +80,12 @@ MODS: mm/dd/yyyy - filastname - comments
 					</TD>
 					<td valign="top" class="tdUnderLine">
 						&nbsp; #asstCoachFirstNAme# #asstCoachLastName#
+					</td>
+					<td valign="top" class="tdUnderLine">
+						&nbsp; #asst2CoachFirstNAme# #asst2CoachLastName#
+					</td>
+					<td valign="top" class="tdUnderLine">
+						&nbsp; #asst3CoachFirstNAme# #asst3CoachLastName#
 					</td>
 				</tr>
 			</CFLOOP>

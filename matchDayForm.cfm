@@ -83,8 +83,8 @@ MODS: mm/dd/yyyy - filastname - comments
 								team_id="#playUpTeam#"
 								other = "#playUpOther#"
 								returnvariable="play_up_id">
-						<!--- <cfelse>
-							<cfthrow message="All Play Up fields are required.  Please go back and try again."> --->
+						<cfelse>
+							<cfthrow message="All Play Up fields are required.  Please go back and try again.">
 						</cfif>
 					</cfif>
 				</cfloop>
@@ -179,12 +179,17 @@ MODS: mm/dd/yyyy - filastname - comments
 <!--- 	<cfdump var="#getPlayUpTeams#" abort="true"> --->
 	<!--- get team info --->
 	<cfquery datasource="#application.dsn#" name="getTeamInfo">
-		select t.*, c.firstname as head_firstname, c.lastname as Head_lastname, ac.firstname as asst_firstname, ac.lastname as asst_lastname,c.pass_number as Head_pass_number,ac.pass_number as asst_pass_number
+		select t.*, c.firstname as head_firstname, c.lastname as Head_lastname, ac.firstname as asst_firstname, ac.lastname as asst_lastname,ac2.firstname as asst2_firstname, ac2.lastname as asst2_lastname,ac3.firstname as asst3_firstname, ac3.lastname as asst3_lastname,
+		c.pass_number as Head_pass_number,ac.pass_number as asst_pass_number,ac2.pass_number as asst2_pass_number,ac3.pass_number as asst3_pass_number
 		from tbl_team t
 		left join tbl_contact c
 		on t.contactidhead=c.contact_id
 		left join tbl_contact ac
 		on t.contactidasst=ac.contact_id
+		left join tbl_contact ac2
+		on t.contactidasst2=ac2.contact_id
+		left join tbl_contact ac3
+		on t.contactidasst3=ac3.contact_id
 		where t.team_id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#team_id#">
 	</cfquery>
 <!--- 	<cfdump var="#getTeamInfo#" abort="true"> --->
@@ -258,12 +263,12 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfelse>
 		<cfset coach1="#getTeamInfo.head_firstname# #getTeamInfo.head_lastname#">
 		<cfset coach2="#getTeamInfo.asst_firstname# #getTeamInfo.asst_lastname#">
-		<cfset coach3="">
-		<cfset coach4="">
+		<cfset coach3="#getTeamInfo.asst2_firstname# #getTeamInfo.asst2_lastname#">
+		<cfset coach4="#getTeamInfo.asst3_firstname# #getTeamInfo.asst3_lastname#">
 		<cfset coach1pass="#getTeamInfo.head_pass_number#">
 		<cfset coach2pass="#getTeamInfo.asst_pass_number#">
-		<cfset coach3pass="">
-		<cfset coach4pass="">
+		<cfset coach3pass="#getTeamInfo.asst2_pass_number#">
+		<cfset coach4pass="#getTeamInfo.asst3_pass_number#">
 	</cfif>
 
 	
@@ -330,7 +335,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			
 			<cfloop query="qGetGames">
 				<tr>
-					<td><!--- <a href="matchDayForm.cfm?team_id=#team_id#&game_id=#game_id#">#game_id#</a> ---><cfif listFind("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21",Session.menuroleID) GTE 1 OR datediff("n",game_datetime,now()) LT 1440><a href="matchDayForm.cfm?team_id=#team_id#&game_id=#game_id#">#game_id#</a><cfelse>#game_id#</cfif></td>
+					<td><!---<a href="matchDayForm.cfm?team_id=#team_id#&game_id=#game_id#">#game_id#</a>  ---><cfif listFind("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21",Session.menuroleID) GTE 1 OR datediff("n",game_datetime,now()) LT 1440><a href="matchDayForm.cfm?team_id=#team_id#&game_id=#game_id#">#game_id#</a><cfelse>#game_id#</cfif></td>
 					<td>#dateformat(game_datetime, "m/d/yyyy")# #timeformat(game_datetime,"h:mm tt")#</td>
 					<td>#home_teamname#</td>
 					<td>#visitor_teamname#</td>
@@ -458,49 +463,49 @@ MODS: mm/dd/yyyy - filastname - comments
 				var fieldsValid=true;
 				
 
-				if($("input[name=coach1]").val().length > 0 && $("input[name=coach1pass]").val().length == 0)
+				if($("input[name=coach1]").trim().val().length > 0 && $("input[name=coach1pass]").val().trim().length == 0)
 				{
 					alert('Pass for Coach 1 is required.');
 					fieldsValid=false;
 					return false;
 				}
 
-				if($("input[name=coach2]").val().length > 0 && $("input[name=coach2pass]").val().length == 0)
+				if($("input[name=coach2]").val().trim().length > 0 && $("input[name=coach2pass]").val().trim().length == 0)
 				{
 					alert('Pass for Coach 2 is required.');
 					fieldsValid=false;
 					return false;
 				}
 
-				if($("input[name=coach3]").val().length > 0 && $("input[name=coach3pass]").val().length == 0)
+				if($("input[name=coach3]").trim().val().length > 0 && $("input[name=coach3pass]").val().trim().length == 0)
 				{
 					alert('Pass for Coach 3 is required.');
 					fieldsValid=false;
 					return false;
 				}
 
-				if($("input[name=coach4]").val().length > 0 && $("input[name=coach4pass]").val().length == 0)
+				if($("input[name=coach4]").val().trim().length > 0 && $("input[name=coach4pass]").val().trim().length == 0)
 				{
 					alert('Pass for Coach 4 is required.');
 					fieldsValid=false;
 					return false;
 				}
 
-				// if($('input[name=playingUp]:checked').val() == '1'){
-				// 	//loop through rows of play ups and see if any are missing values
-				// 	$('##playUpRow .playUp').not('.playUptemplate').each(function(){
-				// 		if($(this).find('input[name^=playUpUniformNumber]').val() == '' ||
-				// 			$(this).find('input[name^=playUpName]').val() == '' ||
-				// 			$(this).find('input[name^=playUpPass]').val() == '' ||
-				// 			$(this).find('select').val() == '')
-				// 		{
-				// 			alert('All play up fields are required');
-				// 			fieldsValid=false;
-				// 			return false;
-				// 		}
-				// 	});
+				if($('input[name=playingUp]:checked').val() == '1'){
+					//loop through rows of play ups and see if any are missing values
+					$('##playUpRow .playUp').not('.playUptemplate').each(function(){
+						if($(this).find('input[name^=playUpUniformNumber]').val() == '' ||
+							$(this).find('input[name^=playUpName]').val() == '' ||
+							$(this).find('input[name^=playUpPass]').val() == '' ||
+							$(this).find('select').val() == '')
+						{
+							alert('All play up fields are required');
+							fieldsValid=false;
+							return false;
+						}
+					});
 
-				// }
+				}
 				
 				return fieldsValid;
 			}
