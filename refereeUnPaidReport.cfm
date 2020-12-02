@@ -28,7 +28,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		  from  RefUnPaid r INNER JOIN TBL_TEAM TH 		ON TH.TEAM_ID = R.Home
 							INNER JOIN TBL_CLUB C 		ON C.CLUB_ID = TH.CLUB_ID
 							INNER JOIN TBL_CONTACT CO	ON CO.CONTACT_ID = R.REFID
-		 where  r.seasonid = #SESSION.CURRENTSEASON.ID#
+		 where  r.seasonid = <cfqueryparam cfsqltype="cf_sql_integer" value="#SESSION.CURRENTSEASON.ID#">
 		 ORDER BY C.CLUB_NAME, r.gDate DESC, r.gTime DESC
 	</cfquery> <!--- <cfdump var="#refUnPaid#"> --->
 

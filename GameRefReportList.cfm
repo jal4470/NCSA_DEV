@@ -62,7 +62,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	  from V_Games A  with (nolock)
 	 WHERE RefID = #VARIABLES.refereeContactID#
 	   AND REF_ACCEPT_YN = 'Y'
-	   AND ( GAME_TYPE IS NULL OR GAME_TYPE = 'L')
+	   AND ( GAME_TYPE IS NULL OR GAME_TYPE IN ('L','F','P'))
 	<cfif isDate(GameDateLimit)>
 		AND GAME_Date <= '#VARIABLES.gameDateLimit#'  	
 	</cfif>

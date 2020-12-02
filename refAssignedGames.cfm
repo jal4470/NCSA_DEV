@@ -22,6 +22,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	NOTE! - changes to this page may also have to be included into refAssignedGamesPDF.cfm
 
  --->
+ <cfsetting showdebugoutput="false">
  <CFIF isDefined("URL.rcid") AND isNumeric(URL.rcid)>
 	<cfset refereeContactID = URL.rcid>
 <CFELSEIF isDefined("FORM.refContactID") AND isNumeric(FORM.refContactID)>
@@ -47,9 +48,15 @@ MODS: mm/dd/yyyy - filastname - comments
 			<cfset refereeType = listGetAt(ifm,2,"_")>
 			<cfset gameID = listLast(ifm,"_")>
 			<cfswitch expression="#UCASE(refereeType)#">
-				<cfcase value="REF"> <CFSET gameOfficialTypeID = 1> </cfcase>
-				<cfcase value="AR1"> <CFSET gameOfficialTypeID = 2> </cfcase>
-				<cfcase value="AR2"> <CFSET gameOfficialTypeID = 3> </cfcase>
+				<cfcase value="REF"> 
+						<CFSET gameOfficialTypeID = 1> 
+				</cfcase>
+				<cfcase value="AR1"> 
+						<CFSET gameOfficialTypeID = 2> 
+				</cfcase>
+				<cfcase value="AR2"> 
+						<CFSET gameOfficialTypeID = 3> 
+				</cfcase>
 			</cfswitch> 		<!--- <br>[#GameId#][#confirmingRefID#][#gameOfficialTypeID#]ACCEPT --->
 			<cfquery name="updateGameOfficial" datasource="#session.dsn#">
 				Update XREF_GAME_OFFICIAL
@@ -63,14 +70,16 @@ MODS: mm/dd/yyyy - filastname - comments
 			<cfset refereeType = listGetAt(ifm,2,"_")>
 			<cfset gameID = listLast(ifm,"_")>
 			<cfswitch expression="#UCASE(refereeType)#">
-				<cfcase value="REF"> <CFSET gameOfficialTypeID = 1> </cfcase>
-				<cfcase value="AR1"> <CFSET gameOfficialTypeID = 2> </cfcase>
-				<cfcase value="AR2"> <CFSET gameOfficialTypeID = 3> </cfcase>
+				<cfcase value="REF"> <CFSET gameOfficialTypeID = 1> <CFSET rejected_game_comment = Trim(Evaluate("FORM.REF_REASON_" & GAMEID))> </cfcase>
+				<cfcase value="AR1"> <CFSET gameOfficialTypeID = 2> <CFSET rejected_game_comment = Trim(Evaluate("FORM.AR1_REASON_" & GAMEID))> </cfcase>
+				<cfcase value="AR2"> <CFSET gameOfficialTypeID = 3> <CFSET rejected_game_comment = Trim(Evaluate("FORM.AR2_REASON_" & GAMEID))> </cfcase>
 			</cfswitch> 		<!--- <br>[#GameId#][#confirmingRefID#][#gameOfficialTypeID#]REJECT --->
+			<!--- <cfdump var="#rejected_game_comment#"> --->
 			<cfquery name="updateGameOfficial" datasource="#session.dsn#">
 				Update XREF_GAME_OFFICIAL
 				   set Ref_accept_Date = NULL
 					 , Ref_accept_YN   = 'N'
+					 , REJECTED_GAME_COMMENT = '#rejected_game_comment#'
 				 Where Game_id	   	   = <cfqueryParam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.GameId#">
 				   and contact_id      = <cfqueryParam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.confirmingRefID#">
 				   and game_official_type_id = <cfqueryParam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.gameOfficialTypeID#">
@@ -151,6 +160,7 @@ MODS: mm/dd/yyyy - filastname - comments
 <cfset mid = 0> <!--- optional =menu id ---> 
 <cfinclude template="_header.cfm">
 <cfinclude template="_checkLogin.cfm">
+
 <style>
 /*#refGames td.game_field{
     position: relative !important;
@@ -212,6 +222,115 @@ MODS: mm/dd/yyyy - filastname - comments
 #sort{
 	margin-bottom:10px;
 }
+
+/* Lightbox ****************************************/
+.row > .column {
+  padding: 0 8px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Create four equal columns that floats next to eachother */
+.column {
+  float: left;
+  width: 25%;
+}
+
+/* The Modal (background) */
+.okConfirm {
+   display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 23px;
+    padding-left: 2%;
+    top: 5%;
+    width: auto;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background: #eee;
+    max-height: 350px;
+    min-width: 350px;
+    max-width: 353px;
+    border-radius: 27px 0 27px 0;
+    margin-left: 30%;
+}
+@media screen and (min-width: 320px) and (max-width:780px) {
+  .okConfirm {
+    padding-left: 4%;
+    margin-left: 1%;
+  }
+}
+/* Modal Content */
+.okConfirm-content {
+ 	position: relative;
+	background-color: white;
+	margin: auto;
+	padding: 0;
+	width: 100%;
+	height: 0;
+}
+.okConfirm-container{
+    text-align: center;
+}
+.okConfirm h2{
+	font-size: 1.2em;
+}
+/* The Close Button */
+.close {
+  color: #726102;
+  position: absolute;
+  top: -8px;
+  right: 15px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Caption text */
+.caption-container {
+  text-align: center;
+  background-color: #fff;
+  padding: 2px 16px;
+  color: white;
+}
+
+/*img.demo {
+  opacity: 0.6;
+}*/
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+/*img.hover-shadow {
+  transition: 0.3s;
+}*/
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+/******/
 </style>
 <cfoutput>
 <div id="contentText">
@@ -282,9 +401,9 @@ MODS: mm/dd/yyyy - filastname - comments
 		    <th width="07%" valign="bottom">Div		</th>
 			<th width="18%" valign="bottom">PlayField 	</th>
 			<th width="26%" valign="bottom">Home Team <br> Visitor Team	</th>
-			<th width="15%" valign="bottom">Refs	</th>
-			<th width="7%" valign="bottom" align="left">Accept	</th>
-			<th width="05%" valign="bottom" align="left">Reject	</Th>
+			<th width="10%" valign="bottom">Refs	</th>
+			<th width="5%" valign="bottom" align="center">Accept	</th>
+			<th width="5%" valign="bottom" align="center">Reject	</Th>
 			<!--- <TD width="05%" valign="bottom">Rpt	</TD> --->
 		</TR>
 		</thead>
@@ -395,7 +514,7 @@ MODS: mm/dd/yyyy - filastname - comments
 							</div>
 						</div>
 				</TD>
-				<TD width="25%" colspan="2" class="tdUnderLine" valign="top" align=left>
+				<TD width="25%" colspan="3" class="tdUnderLine" valign="top" >
 						<!--- Start INNER table --->
 						<table align="left" width="100%" border="0" cellpadding="0" cellspacing="0">
 							<!--- ref ref ref ref ref ref ref ref ref ref --->
@@ -411,12 +530,13 @@ MODS: mm/dd/yyyy - filastname - comments
 											<cfelse>
 												#qContactInfo.LastName#, #qContactInfo.firstName#
 											</cfif>
+											<div id="ref-message-#game_id#" data-microtip-position="top-left" data-microtip-size="medium" role="tooltip"></div>
 										<cfelse>
 											n/a
 										</cfif>
 									</cfif> <!--- [#REFID#][#Ref_accept_Date#][#Ref_accept_YN#] --->
 								</td>
-								<td><!--- Ref Accept --->
+								<td  class="accept"><!--- Ref Accept --->
 									<cfif Ref_accept_YN EQ "Y"> <!--- ref accepted, set checked and disable --->
 										<cfset txtDisable = "disabled">	   	
 										<cfset txtChecked = "checked">
@@ -434,9 +554,11 @@ MODS: mm/dd/yyyy - filastname - comments
 										<cfset txtName	  = "">		<!--- this REF is NOT the logged in user, disable the box --->
 										<cfset txtDisable = "disabled">
 									</cfif>
-									<input type="checkbox" #txtDisable# #txtChecked# #txtName#> 
+
+									<input type="checkbox" #txtDisable# #txtChecked# #txtName# data-game='{"game-id": "#GAME_ID#", "accept":"Y","target":"ref-message-#game_id#","comment-field":"ref_reason_#game_id#","uncheck-el-name":"REJECT_REF_#GAME_ID#"}'>
+								
 								</td>
-								<td><!--- Ref Reject --->
+								<td  class="decline"><!--- Ref Reject --->
 									<cfif Ref_accept_YN EQ "Y"> <!--- ref accepted, set checked and disable --->
 										<cfset txtDisable = "disabled">	   	
 										<cfset txtChecked = "">
@@ -454,12 +576,14 @@ MODS: mm/dd/yyyy - filastname - comments
 										<cfset txtName	  = "">		<!--- this REF is NOT the logged in user, disable the box --->
 										<cfset txtDisable = "disabled">
 									</cfif>
-									<input type="checkbox" #txtDisable# #txtChecked# #txtName#> 
+									
+									<input type="checkbox" #txtDisable# #txtChecked# #txtName# data-game='{"game-id": "#GAME_ID#", "accept":"N","target":"ref-message-#game_id#","comment-field":"ref_reason_#game_id#","uncheck-el-name":"CONFIRM_REF_#GAME_ID#"}'>
+									<input type="hidden" name="ref_reason_#game_id#">
 								</td>
 								<!--- <td><cfif refID EQ refereeContactID> <!--- Ref Conf --->
-										<input type="checkbox" <cfif len(trim(Ref_accept_Date)) AND isDate(Ref_accept_Date) AND Ref_accept_YN EQ "N" > disabled checked</cfif> name="REJECT_REF_#GAME_ID#">
+										<input type="checkbox" class="acceptDecline" <cfif len(trim(Ref_accept_Date)) AND isDate(Ref_accept_Date) AND Ref_accept_YN EQ "N" > disabled checked</cfif> name="REJECT_REF_#GAME_ID#">
 									<cfelse>
-										<input type="checkbox" disabled <cfif len(trim(Ref_accept_Date)) AND isDate(Ref_accept_Date) AND Ref_accept_YN EQ "N" >checked</cfif> > 
+										<input type="checkbox" class="acceptDecline" disabled <cfif len(trim(Ref_accept_Date)) AND isDate(Ref_accept_Date) AND Ref_accept_YN EQ "N" >checked</cfif> > 
 									</cfif>
 								</td> --->
 							</tr>
@@ -475,22 +599,23 @@ MODS: mm/dd/yyyy - filastname - comments
 											<cfelse>
 												#qContactInfo1.LastName#, #qContactInfo1.firstName#
 											</cfif>
+											<div id="ar1-message-#game_id#" data-microtip-position="top-left" data-microtip-size="medium" role="tooltip"></div>
 										<cfelse>
 											n/a
 										</cfif>
 									</cfif><!---  [#AsstRefID1#][#ARef1AcptDate#][#ARef1Acpt_YN#] --->
 								</td>
 								<!--- <td><cfif AsstRefId1 EQ refereeContactID> <!--- AssRef 1 Conf --->
-										<input type="checkbox" <cfif len(trim(ARef1AcptDate)) AND isDate(ARef1AcptDate) AND ARef1Acpt_YN EQ "Y"> disabled checked</cfif> name="CONFIRM_AR1_#GAME_ID#">
-									<cfelse>  <input type="checkbox" disabled <cfif len(trim(ARef1AcptDate)) AND isDate(ARef1AcptDate) AND ARef1Acpt_YN EQ "Y">checked</cfif> >
+										<input type="checkbox" class="acceptDecline" <cfif len(trim(ARef1AcptDate)) AND isDate(ARef1AcptDate) AND ARef1Acpt_YN EQ "Y"> disabled checked</cfif> name="CONFIRM_AR1_#GAME_ID#">
+									<cfelse>  <input type="checkbox" class="acceptDecline" disabled <cfif len(trim(ARef1AcptDate)) AND isDate(ARef1AcptDate) AND ARef1Acpt_YN EQ "Y">checked</cfif> >
 									</cfif>
 								</td>
 								<td><cfif AsstRefId1 EQ refereeContactID> <!--- AssRef 1 Conf --->
-										<input type="checkbox" <cfif len(trim(ARef1AcptDate)) AND isDate(ARef1AcptDate) AND ARef1Acpt_YN EQ "N"> disabled checked</cfif> name="REJECT_AR1_#GAME_ID#">
-									<cfelse>  <input type="checkbox" disabled <cfif len(trim(ARef1AcptDate)) AND isDate(ARef1AcptDate) AND ARef1Acpt_YN EQ "N">checked</cfif> >
+										<input type="checkbox" class="acceptDecline" <cfif len(trim(ARef1AcptDate)) AND isDate(ARef1AcptDate) AND ARef1Acpt_YN EQ "N"> disabled checked</cfif> name="REJECT_AR1_#GAME_ID#">
+									<cfelse>  <input type="checkbox" class="acceptDecline" disabled <cfif len(trim(ARef1AcptDate)) AND isDate(ARef1AcptDate) AND ARef1Acpt_YN EQ "N">checked</cfif> >
 									</cfif>
 								</td> --->
-								<td><!--- AR_1 Accept --->
+								<td  class="accept"><!--- AR_1 Accept --->
 									<cfif ARef1Acpt_YN EQ "Y"> <!--- ref accepted, set checked and disable --->
 										<cfset txtDisable = "disabled">	   	
 										<cfset txtChecked = "checked">
@@ -508,9 +633,11 @@ MODS: mm/dd/yyyy - filastname - comments
 										<cfset txtName	  = "">		<!--- this REF is NOT the logged in user, disable the box --->
 										<cfset txtDisable = "disabled">
 									</cfif>
-									<input type="checkbox" #txtDisable# #txtChecked# #txtName#> 
+
+									<input type="checkbox" #txtDisable# #txtChecked# #txtName# data-game='{"game-id": "#GAME_ID#", "accept":"Y","target":"ar1-message-#game_id#","comment-field":"ar1_reason_#game_id#","uncheck-el-name":"REJECT_AR1_#GAME_ID#"}'>
+
 								</td>
-								<td><!--- AR_1 Reject --->
+								<td class="decline"><!--- AR_1 Reject --->
 									<cfif ARef1Acpt_YN EQ "Y"> <!--- ref accepted, set checked and disable --->
 										<cfset txtDisable = "disabled">	   	
 										<cfset txtChecked = "">
@@ -528,7 +655,11 @@ MODS: mm/dd/yyyy - filastname - comments
 										<cfset txtName	  = "">		<!--- this REF is NOT the logged in user, disable the box --->
 										<cfset txtDisable = "disabled">
 									</cfif>
-									<input type="checkbox" #txtDisable# #txtChecked# #txtName#> 
+										
+									<input type="checkbox" #txtDisable# #txtChecked# #txtName# data-game='{"game-id": "#GAME_ID#", "accept":"N","target":"ar1-message-#game_id#","comment-field":"ar1_reason_#game_id#","uncheck-el-name":"CONFIRM_AR1_#GAME_ID#"}'>
+									<div id="ar1-decline-#game_id#"></div>
+									<input type="hidden" name="ar1_reason_#game_id#">
+
 								</td>
 							</tr>
 							<tr><td>AR2:
@@ -542,22 +673,23 @@ MODS: mm/dd/yyyy - filastname - comments
 											<cfelse>
 												#qContactInfo2.LastName#, #qContactInfo2.firstName#
 											</cfif>
+											<div id="ar2-message-#game_id#" data-microtip-position="top-left" data-microtip-size="medium" role="tooltip"></div>
 										<cfelse>
 											n/a
 										</cfif>
 									</cfif> <!--- [#AsstRefID2#][#ARef2AcptDate#][#ARef2Acpt_YN#] --->
 								</td>
 								<!--- <td><cfif AsstRefId2 EQ refereeContactID> <!--- AssRef 2 Conf --->
-										<input type="checkbox" <cfif len(trim(ARef2AcptDate)) AND isDate(ARef2AcptDate) AND ARef2Acpt_YN EQ "Y">disabled checked</cfif> name="CONFIRM_AR2_#GAME_ID#">
-									<cfelse>	<input type="checkbox" disabled <cfif len(trim(ARef2AcptDate)) AND isDate(ARef2AcptDate) AND ARef2Acpt_YN EQ "Y">checked</cfif> >
+										<input type="checkbox" class="acceptDecline" <cfif len(trim(ARef2AcptDate)) AND isDate(ARef2AcptDate) AND ARef2Acpt_YN EQ "Y">disabled checked</cfif> name="CONFIRM_AR2_#GAME_ID#">
+									<cfelse>	<input type="checkbox" class="acceptDecline" disabled <cfif len(trim(ARef2AcptDate)) AND isDate(ARef2AcptDate) AND ARef2Acpt_YN EQ "Y">checked</cfif> >
 									</cfif>
 								</td>
 								<td><cfif AsstRefId2 EQ refereeContactID> <!--- AssRef 2 Conf --->
-										<input type="checkbox" <cfif len(trim(ARef2AcptDate)) AND isDate(ARef2AcptDate) AND ARef2Acpt_YN EQ "N">disabled checked</cfif> name="REJECT_AR2_#GAME_ID#">
-									<cfelse>	<input type="checkbox" disabled <cfif len(trim(ARef2AcptDate)) AND isDate(ARef2AcptDate) AND ARef2Acpt_YN EQ "N">checked</cfif> >
+										<input type="checkbox" class="acceptDecline" <cfif len(trim(ARef2AcptDate)) AND isDate(ARef2AcptDate) AND ARef2Acpt_YN EQ "N">disabled checked</cfif> name="REJECT_AR2_#GAME_ID#">
+									<cfelse>	<input type="checkbox" class="acceptDecline" disabled <cfif len(trim(ARef2AcptDate)) AND isDate(ARef2AcptDate) AND ARef2Acpt_YN EQ "N">checked</cfif> >
 									</cfif>
 								</td> --->
-								<td><!--- AR_2 Accept --->
+								<td class="accept"><!--- AR_2 Accept --->
 									<cfif ARef2Acpt_YN EQ "Y"> <!--- ref accepted, set checked and disable --->
 										<cfset txtDisable = "disabled">	   	
 										<cfset txtChecked = "checked">
@@ -575,9 +707,11 @@ MODS: mm/dd/yyyy - filastname - comments
 										<cfset txtName	  = "">		<!--- this REF is NOT the logged in user, disable the box --->
 										<cfset txtDisable = "disabled">
 									</cfif>
-									<input type="checkbox" #txtDisable# #txtChecked# #txtName#> 
+
+									<input type="checkbox" #txtDisable# #txtChecked# #txtName# data-game='{"game-id": "#GAME_ID#", "accept":"Y","target":"ar2-message-#game_id#","comment-field":"ar2_reason_#game_id#","uncheck-el-name":"REJECT_AR2_#GAME_ID#"}'>
+
 								</td>
-								<td><!--- AR_2 Reject --->
+								<td class="decline"><!--- AR_2 Reject --->
 									<cfif ARef2Acpt_YN EQ "Y"> <!--- ref accepted, set checked and disable --->
 										<cfset txtDisable = "disabled">	   	
 										<cfset txtChecked = "">
@@ -595,7 +729,10 @@ MODS: mm/dd/yyyy - filastname - comments
 										<cfset txtName	  = "">		<!--- this REF is NOT the logged in user, disable the box --->
 										<cfset txtDisable = "disabled">
 									</cfif>
-									<input type="checkbox" #txtDisable# #txtChecked# #txtName#> 
+
+									<input type="checkbox" #txtDisable# #txtChecked# #txtName# data-game='{"game-id": "#GAME_ID#", "accept":"N","target":"ar2-message-#game_id#","comment-field":"ar2_reason_#game_id#","uncheck-el-name":"CONFIRM_AR2_#GAME_ID#"}'>
+									<input type="hidden" name="ar2_reason_#game_id#">
+
 								</td>
 							</tr>
 							</tr>
@@ -623,6 +760,22 @@ MODS: mm/dd/yyyy - filastname - comments
 
 </cfoutput>
 </div>
+<div id="myModal" class="okConfirm">
+  <div class="okConfirm-content">
+  	<div><h2>Are you sure you want to Reject <span class="game"></span>?</h2> <span class="close cursor" >&times;</span></div>
+  
+  	<div class="okConfirm-container">
+      
+			<div>
+				<h3 class="red">Rejecting a game will require a reason.<br> Please provide one below</h3>
+				<textarea cols="32" rows="8" id="reason"></textarea>
+				<button id="okConfirm_submit" class="yellow_btn">Submit</button>
+				<button id="okConfirm_cancel" class="gray_btn">Cancel</button>
+
+	    	</div>
+	  </div>
+	</div>
+</div>
 
 <cfsavecontent variable="cf_footer_scripts">
 <script>
@@ -634,13 +787,64 @@ $(function(){
   	var PopID = '.email_' + ID;
   	$(PopID).addClass('active');
   	$('#veil').addClass('active');
-
-    $('#veil').click(function(){
+	$('#veil').click(function(){
       $(PopID).removeClass("active");
       $('#veil').removeClass('active');
       $('html, body').removeClass('locked');
     });
+  });
+  
+  $("input:checkbox, #veil , .close").change(function(event){
+  		var gameData = $(this).data("game");
+  		var _this = $(this);
+  		$( "input[name=" + gameData["uncheck-el-name"] ).prop( "checked", false );
+  		if(gameData.accept == 'N')
+  		{	
+  			$("#reason").val('');
 
+  			$( _this ).prop( "checked", true );
+  			$('#veil').addClass('active');
+  			$(".okConfirm").show();
+  			$(".game").empty().append("<br>Game " + gameData["game-id"]);
+  			$("#" + gameData["target"]).empty().append("Rejected");
+  			$("#" + gameData["target"]).removeClass("accepted");
+  			$("#" + gameData["target"]).addClass("rejected");
+
+  		} else {
+  			$( _this ).prop( "checked", true );
+  			$("input[name=" + gameData["comment-field"]).val('');
+  			$("#" + gameData["target"]).empty().append("Accepted");
+  			$("#" + gameData["target"]).removeClass("rejected");
+  			$("#" + gameData["target"]).addClass("accepted");
+  		}
+  		
+  		$("#okConfirm_submit").click(function(e){
+  			e.preventDefault();
+  			// console.log($("#reason").val());
+  			// console.log(gameData);
+  			_reason = $("#reason").val();
+  			if(_reason.trim().length == 0)
+  			{
+  				alert('Please provide a valid reason');
+  				return 
+  			}
+  			$("input[name=" + gameData["comment-field"]).val(_reason);
+  			$(".okConfirm").hide();
+  			$('#veil').removeClass('active');
+			$('html, body').removeClass('locked');
+			$("#" + gameData["target"]).attr("aria-label",_reason);
+  		});
+		
+		$('#veil , .close, #okConfirm_cancel').click(function(e){
+			e.preventDefault();
+			$('#veil').removeClass('active');
+			$('html, body').removeClass('locked');
+			$(".okConfirm").hide();
+			$( _this ).prop( "checked", false );
+			$("#" + gameData["target"]).empty().append("");
+  			$("#" + gameData["target"]).removeClass("rejected");
+  			$("#" + gameData["target"]).removeClass("accepted");
+		});
   });
 });
 
@@ -715,6 +919,7 @@ $(function(){
         }
          return succeed;
     }
+
    return false;    
  });
 </script>

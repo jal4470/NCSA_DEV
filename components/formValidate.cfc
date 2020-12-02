@@ -78,7 +78,9 @@
 
 	<CFLOOP LIST="#FORMSTRUCT.FIELDNAMES#" INDEX="NDX" >
 	    <CFSET FormValue = Trim(Evaluate("FORMSTRUCT." & NDX))>
-	
+		<CFIF findNoCase('G_',NDX) or findNoCase('B_',NDX)>
+			<cfset FormValue = listFirst(FormValue)>
+		</CFIF>
 	    <CFIF IsDefined("FORMSTRUCT.#NDX#_ATTRIBUTES")>
 	        <CFSET AttributeList = FORMSTRUCT[NDX & "_ATTRIBUTES"]>
 	        <!--- Loop through the list of attributes and set variables --->

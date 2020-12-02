@@ -10,29 +10,31 @@
 
 
 <!--- get all menus --->
-<cfinvoke
+<!--- <cfinvoke
 	component="#session.sitevars.cfcpath#.menu"
 	method="getAllPrivateMenus"
 	returnvariable="getMenus">
 <cfquery dbtype="query" name="getChildMenus">
-	select * from getMenus
+	select menu_id from getMenus
 	where parent_menu_id is not null
-</cfquery>
-<cfset lallMenus=valuelist(getChildMenus.menu_id)>
-
-<!--- remove other menus for role_id --->
-<cfloop list="#lallMenus#" index="i">
-	<cfif listfind(menulist,i) EQ "0">
-		<!--- remove role --->
-		<cfinvoke
-			component="#session.sitevars.cfcpath#.menu"
-			method="RemoveMenuRole"
-			menu_id="#i#"
-			role_id="#role_id#">
-	</cfif>
-</cfloop>
-	
-	
+</cfquery> --->
+<cfif isdefined("form.selallmenus")>
+	<cfset lallMenus=form.selallmenus>
+	<!---<cfdump var="#form#" abort="true">  --->
+	<!--- remove other menus for role_id --->
+	<cfloop list="#lallMenus#" index="i">
+		<cfif listfind(menulist,i) EQ "0">
+			<!--- remove role --->
+			<cfinvoke
+				component="#session.sitevars.cfcpath#.menu"
+				method="RemoveMenuRole"
+				menu_id="#i#"
+				role_id="#role_id#">
+		</cfif>
+	</cfloop>
+</cfif>
+<!--- <cfdump var="#menulist#" abort="true">	 --->
+<!--- <cfdump var="#menulist#" abort="true">	 --->
 <!--- loop over menus, assign --->
 <cfloop list="#menulist#" index="i">
 	<cfinvoke

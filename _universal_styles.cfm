@@ -9,3 +9,4 @@
 
 <!--- Append to CSS file call --->
 <link rel="stylesheet" href="css/ncsa_2016.css?<cfoutput>#last_modified#</cfoutput>" type="text/css">
+<link rel="stylesheet" href="css/microtip.css?<cfoutput>#last_modified#</cfoutput>" type="text/css">

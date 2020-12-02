@@ -15,6 +15,9 @@ MODS: mm/dd/yyyy - filastname - comments
 <style>
  div{
       margin: 5px;}
+.g-recaptcha{
+  			margin-left: 30%;
+  		}
 .col2_town > input{
 	width: 90%; }
 .col4_state > input{
@@ -83,7 +86,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		margin: 3px; }
 
 </style>
-
+<cfhtmlhead text="<script src='https://www.google.com/recaptcha/api.js' async defer></script>">
 
 <cfoutput>
 <div id="contentText">
@@ -191,23 +194,45 @@ MODS: mm/dd/yyyy - filastname - comments
 
 <cfset swErrors = false>	
 <cfif isdefined("FORM.Save")>
+
+	<cfset theForm = {}>
+	<cfset theForm = structCopy(Form)>
+	<cfset temp=StructDelete(theForm,"G-RECAPTCHA-RESPONSE")>
+	<cfset theForm.fieldnames = replaceNoCase(theForm.fieldnames,",G-RECAPTCHA-RESPONSE","")>
+	<cfset recaptcha = "#form["G-RECAPTCHA-RESPONSE"]#" > 
+	<cfhttp url="https://www.google.com/recaptcha/api/siteverify" method="POST">
+		<cfhttpparam type="formfield" name="secret" value="#Application.sitevars.captchaSecret#">
+		<cfhttpparam type="formfield" name="response" value="#recaptcha#">
+		<cfhttpparam type="formfield" name="remoteip" value="#CGI.REMOTE_ADDR#">
+	</cfhttp>
+	<!--- <cfdump var="#DeserializeJSON(cfhttp.filecontent)#"> --->
+	<cfset captchaResponse = DeserializeJSON(cfhttp.filecontent)>
+
 	<cfinvoke component="#SESSION.sitevars.cfcPath#formValidate" method="validateFields" returnvariable="stValidFields">
-		<cfinvokeargument name="formFields" value="#FORM#">
+		<cfinvokeargument name="formFields" value="#theForm#">
 	</cfinvoke>  <!--- <cfdump var="#stValidFields#"> --->
 	
  	<CFIF stValidFields.errors>
 		<cfset swErrors = true>	
 	</CFIF>
 
+	<cfif captchaResponse.success neq 'YES'>
+		
+		<cfset swErrors = true>
+
+		<CFSET stValidFields.errors = stValidFields.errors + 1>
+		<CFSET stValidFields.errorMessage = stValidFields.errorMessage &  "Something went Wrong! Please try again<br/>">
+	</cfif>
+
 	<!--- ------------------------------------------- --->
 	<!--- if REF fields are available then check them --->
-	<CFIF FORM.Certified EQ "Y">
-		<CFIF isDefined("Form.refCertYear") AND LEN(trim(Form.refCertYear)) neq 4> 
+	<CFIF theForm.Certified EQ "Y">
+		<CFIF isDefined("theForm.refCertYear") AND LEN(trim(theForm.refCertYear)) neq 4> 
 			<cfset swErrors = true>
 			<cfset err = err & " Year first certified must be a 4 digit year.">
 		</CFIF>
 	<CFELSE> <!--- NO was selected --->
-		<CFIF isDefined("Form.refCertYear") AND LEN(trim(Form.refCertYear)) > 
+		<CFIF isDefined("theForm.refCertYear") AND LEN(trim(theForm.refCertYear)) > 
 			<cfset swErrors = true>
 			<cfset err = err & " Year first certified must be blank if USSF Certified is No.">
 		</CFIF>
@@ -355,10 +380,12 @@ MODS: mm/dd/yyyy - filastname - comments
 		<div class="Heading">&nbsp;</div>
 		<cfif swErrors>
 <!--- 			<TR><TD colspan="3" align="left" class="red"> --->
-					<b>Please correct the following errors and submit again.</b>
-					<br>
-					#stValidFields.errorMessage#
-					#err#
+					<div class="red">
+						<b>Please correct the following errors and submit again.</b>
+						<br>
+						#stValidFields.errorMessage#
+						#err#
+					</div>
 			<!--- 	</td>
 			</TR> --->
 		</cfif>
@@ -659,7 +686,12 @@ MODS: mm/dd/yyyy - filastname - comments
 		<CFIF swShowSave>
 <!--- 			<tr><td colspan="3" align="center"> --->
 					<!--- <span class="red"> Please allow several days for action on your application; for questions, contact NCSA Administrator. <br>Please also register to be a referee for NCSA at its calendar site <a href="http://www.assignbyweb.com/ncsa" target="_blank">www.assignbyweb.com/ncsa</a> 	</span>  --->
-					<div class="questions">For questions, contact NCSA Administrator.</div>
+			<div class="questions">For questions, contact NCSA Administrator.</div>
+			<div class="row form_field">
+				<div class="col">
+					<div class="g-recaptcha" data-sitekey="#Application.sitevars.captchaSiteKey#"></div>
+				</div>
+			</div>
 			<div class="row button">
 				<div class="col">
 					<button type="submit" name="Save" value="Save" class="yellow_btn">Save</button>

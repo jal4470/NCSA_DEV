@@ -32,6 +32,11 @@ body {
   font-family: 'Roboto', Arial, sans-serif;
   overflow-x: hidden;
 }
+@media screen and (min-width: 320px) and (max-width:780px) {
+  body {
+    zoom:3;
+  }
+}
 main {
   display: block;
 }
@@ -166,7 +171,9 @@ body:before {
 
 #page_body {
   background: #fff;
-  position: relative; }
+  position: relative; 
+  min-width: 400px;
+}
 
 #sidebar { 
   background: #E1E1E1;
@@ -201,7 +208,9 @@ body:before {
   z-index: 101; }
   #veil.active {
     opacity: .75;
-    visibility: visible; }
+    visibility: visible; 
+    z-index:0;
+  }
 
 #popup_veil {
   background: transparent;
@@ -209,10 +218,12 @@ body:before {
   visibility: visible;
 }
 
-@media screen and (min-width: 480px) {
+@media screen and (min-width: 320px) {
   #content > .container {
     overflow: hidden;
-    padding: 20px; }
+    padding: 20px; 
+    min-width:390px;
+  }
 }
 @media screen and (min-width: 768px) {
   #page_header {
@@ -900,7 +911,8 @@ button{
     bottom: 0; left: 0;
   text-align: center;
   text-transform: uppercase;
-  width: 100%; }
+  width: 100%; 
+  min-width: 400px;}
 /*  #ticker > .container {
     padding: 0 20px; }*/
 
@@ -1897,9 +1909,10 @@ h3.viewing_info {
 @media screen and (min-width: 480px) {
   #schedule_table td.game_type {
     display: inline-block;
-    width: 49%; }
+    width: 49%; 
+    min-width:300px;}
 }
-@media screen and (min-width: 640px) {
+/*@media screen and (min-width: 640px) {
   #schedule_table tr {
     float: left;
     width: 49%; }
@@ -1908,13 +1921,13 @@ h3.viewing_info {
   #schedule_table td.game_type {
     display: block;
     width: 100%; }
-}
+}*/
 @media screen and (min-width: 768px) {
   #schedule_table tr {float: none;width: 100%; } 
 }
-@media screen and (min-width: 960px) {
+/*@media screen and (min-width: 960px) {
   #schedule_table tr {float: left;width: 49%; }
-}
+}*/
 @media screen and (min-width: 1024px) {
   .schedule_cta_wrapper {
     clear: none;
@@ -2230,4 +2243,38 @@ h3.viewing_info_board {
   table { padding:0;margin:0;width: 100%; font-size: 12px; }
   table th, table td { border-bottom: 1px solid #999;padding:0;margin:0; }
 
+}
+
+input[type=checkbox]{
+              height:20px; width:20px; margin:0; padding:0; margin-top:2px; border:0;
+            }
+.accepted{
+  color: green;
+  font-size:.8em;
+  font-weight:bold;
+}
+.rejected{
+  color: #c83349;
+  font-size:.8em;
+  font-weight:bold;
+}
+#schedule_table td.accept{
+  border: 1px solid #fff;
+  height: 20%;
+  padding: 0px;
+  margin: 0px;
+  width: 20%;
+  background-color:green;
+  margin-bottom:1px;
+  border-radius: 2px;
+}
+#schedule_table td.decline{
+  border: 1px solid #fff;
+  height: 20%;
+  padding: 0px;
+  margin: 0px;
+  width: 20%;
+  background-color: #c83349;
+  margin-bottom: 1px;
+  border-radius: 2px;
 }

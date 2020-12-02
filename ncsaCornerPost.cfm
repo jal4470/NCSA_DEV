@@ -151,7 +151,9 @@ MODS: mm/dd/yyyy - filastname - comments
   			color:#334d55;
     		font-family: 'Roboto', Arial, sans-serif;
   		}
-
+  		.g-recaptcha{
+  			margin-left: 30%;
+  		}
   		
 </style>
 
@@ -209,6 +211,14 @@ MODS: mm/dd/yyyy - filastname - comments
 
 <cfset swErr = false>	
 <cfset msg = "">
+<!--- <cfif isdefined("Form")>
+	<cfdump var="#form#">
+	<cfdump var="#cgi#">
+</cfif> --->
+
+<!--- <cfif isdefined("form") and structKeyExists(FORM,"submit")>
+	
+</cfif> --->
 
 <cfif IsDefined("FORM.BACK")>
 	<!--- ncsaCornerList.cfm ? tid=#VARIABLES.TopicID# & trid=#VARIABLES.mainThreadID# <CFABORT> --->
@@ -275,6 +285,20 @@ MODS: mm/dd/yyyy - filastname - comments
 
 
 <cfif IsDefined("FORM.POSTREPLY")>
+
+	<cfset recaptcha = FORM["g-recaptcha-response"] >
+	<cfhttp url="https://www.google.com/recaptcha/api/siteverify" method="POST">
+		<cfhttpparam type="formfield" name="secret" value="#Application.sitevars.captchaSecret#">
+		<cfhttpparam type="formfield" name="response" value="#recaptcha#">
+		<cfhttpparam type="formfield" name="remoteip" value="#CGI.REMOTE_ADDR#">
+	</cfhttp>
+	<!--- <cfdump var="#DeserializeJSON(cfhttp.filecontent)#"> --->
+	<cfset captchaResponse = DeserializeJSON(cfhttp.filecontent)>
+	<cfif captchaResponse.success neq 'YES'>
+		<CFSET msg = msg & "Something went Wrong! Please try again<br/>">
+		<cfset swErr = true>	
+	</cfif>
+	
 	<CFSET MODE = "REPLY">
 	<CFIF isDefined("FORM.POSTEDBY") and LEN(TRIM(FORM.POSTEDBY)) GT 0>
 		<!--- ok --->	
@@ -503,8 +527,16 @@ MODS: mm/dd/yyyy - filastname - comments
 			<span class="red">Postings will be displayed after being reviewed for objectionable language</span>
 		</td>
 	</tr>
-
-	<tr>
+	<cfif  Mode NEQ "DISPLAY"> 
+		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+		<tr>	
+			<td colspan="2">
+				<div class="g-recaptcha" data-sitekey="#Application.sitevars.captchaSiteKey#"></div>
+				<input type="hidden" name="captcha">
+			</td>
+		</tr>
+		<tr>
+	</cfif>	
     	<TD class="tdUnderLine" colspan="2">
 			<cfswitch expression="#Mode#">
 				<cfcase value= "DISPLAY">	<INPUT class="submitButton" type="submit"  Name="REPLY" value="Reply"	>

@@ -159,7 +159,7 @@ Changes:
 			<CFIF isDefined("ARGUMENTS.notLeague") AND ARGUMENTS.notLeague EQ "Y">
 				and GAME_TYPE IN ('F','C','N','P') <!--- ALL but League --->
 			<CFELSEIF isDefined("ARGUMENTS.notLeague") AND ARGUMENTS.notLeague EQ "N">
-				and ( GAME_TYPE IS NULL OR GAME_TYPE = 'L') <!--- LEAGUE only --->
+				and ( GAME_TYPE IS NULL OR GAME_TYPE IN('L','P')) <!--- LEAGUE only --->
 			</CFIF>
 			
 			<cfif arguments.seasonID NEQ "">

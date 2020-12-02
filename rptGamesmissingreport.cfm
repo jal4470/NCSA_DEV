@@ -49,7 +49,8 @@ MODS: mm/dd/yyyy - filastname - comments
 	 WHERE g.season_id = #SESSION.CURRENTSEASON.ID#
 		   AND xgo.game_official_type_id = 1	
 		   AND xgo.refReportSbm_YN <> 'Y'
-		   AND g.game_type is NULL    
+		   --AND g.game_type is NULL    
+		   AND ( g.game_type is null or g.game_type = '' or g.game_type in('L','F','P') )
 		   AND (	g.game_date >= <cfqueryparam cfsqltype="CF_SQL_DATE" value="#WeekendFrom#"> 
 		   		AND g.game_date <= <cfqueryparam cfsqltype="CF_SQL_DATE" value="#WeekendTo#"> 
 				)

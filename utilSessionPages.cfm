@@ -48,7 +48,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		Select p.dt_access_date, p.user_id, p.session_id, p.ip_address, p.url, c.username, p.siteAccessLog_ID
 		  FROM cpc_pageAccessLog p INNER JOIN tbl_Contact c ON c.contact_id = p.user_id
 		 WHERE p.siteAccessLog_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.accessLogID#">
-		 ORDER BY p.dt_access_date, dbo.formatDateTime(p.dt_access_date,'HH:MM 24') 
+		 ORDER BY p.dt_access_date
 	</cfquery>
 
 	<cfif qPagesAccessed.recordCount EQ 0>
@@ -58,8 +58,8 @@ MODS: mm/dd/yyyy - filastname - comments
 			Select p.dt_access_date, p.user_id, p.session_id, p.ip_address, p.url, c.username, p.siteAccessLog_ID
 			  FROM cpc_pageAccessLog p INNER JOIN tbl_Contact c ON c.contact_id = p.user_id
 			 WHERE p.SESSION_ID = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.sessionID#">
-			   AND p.dt_access_date >= <cfqueryparam cfsqltype="CF_SQL_DATE" value="#VARIABLES.date#">
-			 ORDER BY p.dt_access_date, dbo.formatDateTime(p.dt_access_date,'HH:MM 24') 
+			   AND datediff(d, p.dt_access_date,<cfqueryparam cfsqltype="CF_SQL_DATE" value="#VARIABLES.date#">) = 0
+			 ORDER BY p.dt_access_date
 		</cfquery>
 	</cfif>
 

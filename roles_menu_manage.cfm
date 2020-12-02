@@ -64,6 +64,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		});
 		
 		$('form[name=theForm]').submit(function(){
+			$('select[name=selAssignedMenus] option').attr("data-select", "true").find("option").prop("selected", true);
 			$('select[name=selAssignedMenus] option').attr('selected','selected');
 		});
 	});

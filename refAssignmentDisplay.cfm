@@ -55,7 +55,7 @@ NOTE!!! any changes to this template may also need to be made to the refAssignDi
 <cfquery name="qGetGames" datasource="#SESSION.DSN#">
 		select G.GAME_ID, G.GAME_DATE, G.GAME_TIME, G.Division, G.HOME_TEAMNAME, G.VISITOR_TEAMNAME, G.fieldAbbr, G.GAME_TYPE,
 		       G.RefID, C.FirstName,  C.LastName, C.PhoneCell, C.PhoneHome, C.Email, G.Virtual_TeamName,
-			   G.Ref_accept_Date, G.Ref_accept_YN, 'REF' as refType
+			   G.Ref_accept_Date, G.Ref_accept_YN, G.REF_REJECTED_GAME_COMMENT as rejected_game_comment, 'REF' as refType
 		  from V_Games G with (nolock)  inner JOIN TBL_CONTACT C  ON C.CONTACT_ID  = g.REFID
 		 Where G.GAME_DATE between <cfqueryparam cfsqltype="CF_SQL_DATE" value="#VARIABLES.WeekendFrom#"> 
 		 					   and <cfqueryparam cfsqltype="CF_SQL_DATE" value="#VARIABLES.WeekendTo#"> 
@@ -64,7 +64,7 @@ NOTE!!! any changes to this template may also need to be made to the refAssignDi
 	UNION
 		select G.GAME_ID, G.GAME_DATE, G.GAME_TIME, G.Division, G.HOME_TEAMNAME, G.VISITOR_TEAMNAME, G.fieldAbbr, G.GAME_TYPE,
 			   G.AsstRefID1, C1.FirstName, C1.LastName, C1.PhoneCell, C1.PhoneHome, C1.Email,  G.Virtual_TeamName,
-			   G.ARef1AcptDate,   G.ARef1Acpt_YN, 'AR1' as refType
+			   G.ARef1AcptDate,   G.ARef1Acpt_YN,G.AR1_REJECTED_GAME_COMMENT as rejected_game_comment, 'AR1' as refType
 		  from V_Games G with (nolock)   inner JOIN TBL_CONTACT C1 ON C1.CONTACT_ID = g.AsstRefID1
 		 Where G.GAME_DATE between <cfqueryparam cfsqltype="CF_SQL_DATE" value="#VARIABLES.WeekendFrom#"> 
 		 					   and <cfqueryparam cfsqltype="CF_SQL_DATE" value="#VARIABLES.WeekendTo#"> 
@@ -73,7 +73,7 @@ NOTE!!! any changes to this template may also need to be made to the refAssignDi
 	UNION
 		select G.GAME_ID, G.GAME_DATE, G.GAME_TIME, G.Division, G.HOME_TEAMNAME, G.VISITOR_TEAMNAME, G.fieldAbbr, G.GAME_TYPE,
 			   G.AsstRefID2, C2.FirstName, C2.LastName, C2.PhoneCell, C2.PhoneHome, C2.Email, G.Virtual_TeamName,
-			   G.ARef2AcptDate,   G.ARef2Acpt_YN, 'AR2' as refType
+			   G.ARef2AcptDate,   G.ARef2Acpt_YN,G.AR2_REJECTED_GAME_COMMENT as rejected_game_comment, 'AR2' as refType
 		  from V_Games G with (nolock)   inner JOIN TBL_CONTACT C2 ON C2.CONTACT_ID = g.AsstRefID2
 		 Where G.GAME_DATE between <cfqueryparam cfsqltype="CF_SQL_DATE" value="#VARIABLES.WeekendFrom#"> 
 		 					   and <cfqueryparam cfsqltype="CF_SQL_DATE" value="#VARIABLES.WeekendTo#"> 
@@ -97,7 +97,7 @@ NOTE!!! any changes to this template may also need to be made to the refAssignDi
 		<FORM name="refAssgnDisplay" action="refAssignmentDisplay.cfm" method="post">
 			<input type="hidden" name="assignmentStatus" value="#VARIABLES.assignmentStatus#">
 			<B>From</B> &nbsp;
-			<INPUT name="WeekendFrom" value="#VARIABLES.WeekendFrom#" size="9" readonly> 
+			<INPUT name="WeekendFrom" value="#VARIABLES.WeekendFrom#" size="9"> 
 			<input type="Hidden" name="DOWfrom"  value="">
 			&nbsp;  <cfset dpMM = datePart("m",VARIABLES.WeekendFrom)-1>
 					<cfset dpYYYY = datePart("yyyy",VARIABLES.WeekendFrom)>
@@ -108,7 +108,7 @@ NOTE!!! any changes to this template may also need to be made to the refAssignDi
 					</a>
 			&nbsp;&nbsp;&nbsp;
 			<B>To</B> &nbsp;
-			<INPUT name="WeekendTo" value="#VARIABLES.WeekendTo#" size="9" readonly>
+			<INPUT name="WeekendTo" value="#VARIABLES.WeekendTo#" size="9">
 			<input type="Hidden" name="DOWto"  value="">
 			&nbsp;  <cfset dpMM = datePart("m",VARIABLES.WeekendTo)-1>
 					<cfset dpYYYY = datePart("yyyy",VARIABLES.WeekendTo)>
@@ -193,6 +193,11 @@ NOTE!!! any changes to this template may also need to be made to the refAssignDi
 				<TD width="22%" class="tdUnderLine" >#HOME_TEAMNAME#</TD>
 				<TD width="22%" class="tdUnderLine" >#fieldAbbr#</TD>
 			</TR>
+			<cfif len(trim(rejected_game_comment))>
+				<TR bgcolor="##fefbd8">
+					<td colspan="7" align="center">Comments:#rejected_game_comment#</td>
+				</TR>
+			</cfif>
 		</CFLOOP>
 	</table>
 	</cfsavecontent>

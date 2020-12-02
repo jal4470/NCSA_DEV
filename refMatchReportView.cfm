@@ -141,7 +141,7 @@ MODS: mm/dd/yyyy - filastname - comments
 				WHERE (	  vg.game_date >= <cfqueryparam cfsqltype="CF_SQL_DATE" value="#WeekendFrom#">
 					  AND vg.game_date <= <cfqueryparam cfsqltype="CF_SQL_DATE" value="#WeekendTo#">
 					   )
-				  AND ( vg.game_type is null or vg.game_type = '' or vg.game_type = 'L') 	
+				  AND ( vg.game_type is null or vg.game_type = '' or vg.game_type in('L','F','P') ) 	
 					  <cfif refID GT 0>
 						  AND vg.RefID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.refID#">
 					  </cfif>

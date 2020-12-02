@@ -19,7 +19,7 @@ MODS: mm/dd/yyyy - filastname - comments
     -o-box-sizing: border-box; }
 body {
     font-family: 'Roboto', Arial, sans-serif;
-    padding: .5in;
+    /*padding: .5in;*/
     margin: 0; }
 h2 {
     color: #000;

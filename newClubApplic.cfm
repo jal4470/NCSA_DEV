@@ -17,6 +17,9 @@ MODS: mm/dd/yyyy - filastname - comments
 <style>
 	div{
       margin: 5px;}
+   .g-recaptcha{
+  			margin-left: 30%;
+  		}
    #label{
    		display: block;
    		font-weight: bold;
@@ -108,8 +111,9 @@ MODS: mm/dd/yyyy - filastname - comments
 
  }
 </style>
-
+<cfhtmlhead text="<script src='https://www.google.com/recaptcha/api.js' async defer></script>">
 <cfoutput>
+
 <div id="contentText">
 
 <h1 class="pageheading">Application by a New Club to Participate in NCSA League</h1>
@@ -227,54 +231,54 @@ MODS: mm/dd/yyyy - filastname - comments
 	<CFSET comments = "">
 </CFIF>
 
-<CFIF isDefined("FORM.B_Team_07")>  <CFSET B_Team_07  =trim(FORM.B_Team_07)>  <CFELSE> <CFSET B_Team_07  =""> </CFIF>
-<CFIF isDefined("FORM.B_Team_08")>  <CFSET B_Team_08  =trim(FORM.B_Team_08)>  <CFELSE> <CFSET B_Team_08  =""> </CFIF>
-<CFIF isDefined("FORM.B_Team_09")>  <CFSET B_Team_09  =trim(FORM.B_Team_09)>  <CFELSE> <CFSET B_Team_09  =""> </CFIF>
-<CFIF isDefined("FORM.B_Team_10")>  <CFSET B_Team_10  =trim(FORM.B_Team_10)>  <CFELSE> <CFSET B_Team_10  =""> </CFIF>
-<CFIF isDefined("FORM.B_Team_11")>  <CFSET B_Team_11  =trim(FORM.B_Team_11)>  <CFELSE> <CFSET B_Team_11  =""> </CFIF>
-<CFIF isDefined("FORM.B_Team_12")>  <CFSET B_Team_12  =trim(FORM.B_Team_12)>  <CFELSE> <CFSET B_Team_12  =""> </CFIF>
-<CFIF isDefined("FORM.B_Team_13")>  <CFSET B_Team_13  =trim(FORM.B_Team_13)>  <CFELSE> <CFSET B_Team_13  =""> </CFIF>
-<CFIF isDefined("FORM.B_Team_14")>  <CFSET B_Team_14  =trim(FORM.B_Team_14)>  <CFELSE> <CFSET B_Team_14  =""> </CFIF>
-<CFIF isDefined("FORM.B_Team_15")>  <CFSET B_Team_15  =trim(FORM.B_Team_15)>  <CFELSE> <CFSET B_Team_15  =""> </CFIF>
-<CFIF isDefined("FORM.B_Team_16")>  <CFSET B_Team_16  =trim(FORM.B_Team_16)>  <CFELSE> <CFSET B_Team_16  =""> </CFIF>
-<CFIF isDefined("FORM.B_Team_17")>  <CFSET B_Team_17  =trim(FORM.B_Team_17)>  <CFELSE> <CFSET B_Team_17  =""> </CFIF>
-<CFIF isDefined("FORM.B_Team_18")>  <CFSET B_Team_18  =trim(FORM.B_Team_18)>  <CFELSE> <CFSET B_Team_18  =""> </CFIF>
-<CFIF isDefined("FORM.B_Level_07")> <CFSET B_Level_07 =trim(FORM.B_Level_07)> <CFELSE> <CFSET B_Level_07 =""> </CFIF>
-<CFIF isDefined("FORM.B_Level_08")> <CFSET B_Level_08 =trim(FORM.B_Level_08)> <CFELSE> <CFSET B_Level_08 =""> </CFIF>
-<CFIF isDefined("FORM.B_Level_09")> <CFSET B_Level_09 =trim(FORM.B_Level_09)> <CFELSE> <CFSET B_Level_09 =""> </CFIF>
-<CFIF isDefined("FORM.B_Level_10")> <CFSET B_Level_10 =trim(FORM.B_Level_10)> <CFELSE> <CFSET B_Level_10 =""> </CFIF>
-<CFIF isDefined("FORM.B_Level_11")> <CFSET B_Level_11 =trim(FORM.B_Level_11)> <CFELSE> <CFSET B_Level_11 =""> </CFIF>
-<CFIF isDefined("FORM.B_Level_12")> <CFSET B_Level_12 =trim(FORM.B_Level_12)> <CFELSE> <CFSET B_Level_12 =""> </CFIF>
-<CFIF isDefined("FORM.B_Level_13")> <CFSET B_Level_13 =trim(FORM.B_Level_13)> <CFELSE> <CFSET B_Level_13 =""> </CFIF>
-<CFIF isDefined("FORM.B_Level_14")> <CFSET B_Level_14 =trim(FORM.B_Level_14)> <CFELSE> <CFSET B_Level_14 =""> </CFIF>
-<CFIF isDefined("FORM.B_Level_15")> <CFSET B_Level_15 =trim(FORM.B_Level_15)> <CFELSE> <CFSET B_Level_15 =""> </CFIF>
-<CFIF isDefined("FORM.B_Level_16")> <CFSET B_Level_16 =trim(FORM.B_Level_16)> <CFELSE> <CFSET B_Level_16 =""> </CFIF>
-<CFIF isDefined("FORM.B_Level_17")> <CFSET B_Level_17 =trim(FORM.B_Level_17)> <CFELSE> <CFSET B_Level_17 =""> </CFIF>
-<CFIF isDefined("FORM.B_Level_18")> <CFSET B_Level_18 =trim(FORM.B_Level_18)> <CFELSE> <CFSET B_Level_18 =""> </CFIF>
-<CFIF isDefined("FORM.G_Team_07")>  <CFSET G_Team_07  =trim(FORM.G_Team_07)>  <CFELSE> <CFSET G_Team_07  =""> </CFIF>
-<CFIF isDefined("FORM.G_Team_08")>  <CFSET G_Team_08  =trim(FORM.G_Team_08)>  <CFELSE> <CFSET G_Team_08  =""> </CFIF>
-<CFIF isDefined("FORM.G_Team_09")>  <CFSET G_Team_09  =trim(FORM.G_Team_09)>  <CFELSE> <CFSET G_Team_09  =""> </CFIF>
-<CFIF isDefined("FORM.G_Team_10")>  <CFSET G_Team_10  =trim(FORM.G_Team_10)>  <CFELSE> <CFSET G_Team_10  =""> </CFIF>
-<CFIF isDefined("FORM.G_Team_11")>  <CFSET G_Team_11  =trim(FORM.G_Team_11)>  <CFELSE> <CFSET G_Team_11  =""> </CFIF>
-<CFIF isDefined("FORM.G_Team_12")>  <CFSET G_Team_12  =trim(FORM.G_Team_12)>  <CFELSE> <CFSET G_Team_12  =""> </CFIF>
-<CFIF isDefined("FORM.G_Team_13")>  <CFSET G_Team_13  =trim(FORM.G_Team_13)>  <CFELSE> <CFSET G_Team_13  =""> </CFIF>
-<CFIF isDefined("FORM.G_Team_14")>  <CFSET G_Team_14  =trim(FORM.G_Team_14)>  <CFELSE> <CFSET G_Team_14  =""> </CFIF>
-<CFIF isDefined("FORM.G_Team_15")>  <CFSET G_Team_15  =trim(FORM.G_Team_15)>  <CFELSE> <CFSET G_Team_15  =""> </CFIF>
-<CFIF isDefined("FORM.G_Team_16")>  <CFSET G_Team_16  =trim(FORM.G_Team_16)>  <CFELSE> <CFSET G_Team_16  =""> </CFIF>
-<CFIF isDefined("FORM.G_Team_17")>  <CFSET G_Team_17  =trim(FORM.G_Team_17)>  <CFELSE> <CFSET G_Team_17  =""> </CFIF>
-<CFIF isDefined("FORM.G_Team_18")>  <CFSET G_Team_18  =trim(FORM.G_Team_18)>  <CFELSE> <CFSET G_Team_18  =""> </CFIF>
-<CFIF isDefined("FORM.G_Level_07")> <CFSET G_Level_07 =trim(FORM.G_Level_07)> <CFELSE> <CFSET G_Level_07 =""> </CFIF>
-<CFIF isDefined("FORM.G_Level_08")> <CFSET G_Level_08 =trim(FORM.G_Level_08)> <CFELSE> <CFSET G_Level_08 =""> </CFIF>
-<CFIF isDefined("FORM.G_Level_09")> <CFSET G_Level_09 =trim(FORM.G_Level_09)> <CFELSE> <CFSET G_Level_09 =""> </CFIF>
-<CFIF isDefined("FORM.G_Level_10")> <CFSET G_Level_10 =trim(FORM.G_Level_10)> <CFELSE> <CFSET G_Level_10 =""> </CFIF>
-<CFIF isDefined("FORM.G_Level_11")> <CFSET G_Level_11 =trim(FORM.G_Level_11)> <CFELSE> <CFSET G_Level_11 =""> </CFIF>
-<CFIF isDefined("FORM.G_Level_12")> <CFSET G_Level_12 =trim(FORM.G_Level_12)> <CFELSE> <CFSET G_Level_12 =""> </CFIF>
-<CFIF isDefined("FORM.G_Level_13")> <CFSET G_Level_13 =trim(FORM.G_Level_13)> <CFELSE> <CFSET G_Level_13 =""> </CFIF>
-<CFIF isDefined("FORM.G_Level_14")> <CFSET G_Level_14 =trim(FORM.G_Level_14)> <CFELSE> <CFSET G_Level_14 =""> </CFIF>
-<CFIF isDefined("FORM.G_Level_15")> <CFSET G_Level_15 =trim(FORM.G_Level_15)> <CFELSE> <CFSET G_Level_15 =""> </CFIF>
-<CFIF isDefined("FORM.G_Level_16")> <CFSET G_Level_16 =trim(FORM.G_Level_16)> <CFELSE> <CFSET G_Level_16 =""> </CFIF>
-<CFIF isDefined("FORM.G_Level_17")> <CFSET G_Level_17 =trim(FORM.G_Level_17)> <CFELSE> <CFSET G_Level_17 =""> </CFIF>
-<CFIF isDefined("FORM.G_Level_18")> <CFSET G_Level_18 =trim(FORM.G_Level_18)> <CFELSE> <CFSET G_Level_18 =""> </CFIF>
+<CFIF isDefined("FORM.B_Team_07")>  <CFSET B_Team_07  =trim(listFirst(FORM.B_Team_07))>  <CFELSE> <CFSET B_Team_07  =""> </CFIF>
+<CFIF isDefined("FORM.B_Team_08")>  <CFSET B_Team_08  =trim(listFirst(FORM.B_Team_08))>  <CFELSE> <CFSET B_Team_08  =""> </CFIF>
+<CFIF isDefined("FORM.B_Team_09")>  <CFSET B_Team_09  =trim(listFirst(FORM.B_Team_09))>  <CFELSE> <CFSET B_Team_09  =""> </CFIF>
+<CFIF isDefined("FORM.B_Team_10")>  <CFSET B_Team_10  =trim(listFirst(FORM.B_Team_10))>  <CFELSE> <CFSET B_Team_10  =""> </CFIF>
+<CFIF isDefined("FORM.B_Team_11")>  <CFSET B_Team_11  =trim(listFirst(FORM.B_Team_11))>  <CFELSE> <CFSET B_Team_11  =""> </CFIF>
+<CFIF isDefined("FORM.B_Team_12")>  <CFSET B_Team_12  =trim(listFirst(FORM.B_Team_12))>  <CFELSE> <CFSET B_Team_12  =""> </CFIF>
+<CFIF isDefined("FORM.B_Team_13")>  <CFSET B_Team_13  =trim(listFirst(FORM.B_Team_13))>  <CFELSE> <CFSET B_Team_13  =""> </CFIF>
+<CFIF isDefined("FORM.B_Team_14")>  <CFSET B_Team_14  =trim(listFirst(FORM.B_Team_14))>  <CFELSE> <CFSET B_Team_14  =""> </CFIF>
+<CFIF isDefined("FORM.B_Team_15")>  <CFSET B_Team_15  =trim(listFirst(FORM.B_Team_15))>  <CFELSE> <CFSET B_Team_15  =""> </CFIF>
+<CFIF isDefined("FORM.B_Team_16")>  <CFSET B_Team_16  =trim(listFirst(FORM.B_Team_16))>  <CFELSE> <CFSET B_Team_16  =""> </CFIF>
+<CFIF isDefined("FORM.B_Team_17")>  <CFSET B_Team_17  =trim(listFirst(FORM.B_Team_17))>  <CFELSE> <CFSET B_Team_17  =""> </CFIF>
+<CFIF isDefined("FORM.B_Team_18")>  <CFSET B_Team_18  =trim(listFirst(FORM.B_Team_18))>  <CFELSE> <CFSET B_Team_18  =""> </CFIF>
+<CFIF isDefined("FORM.B_Level_07")> <CFSET B_Level_07 =trim(listFirst(FORM.B_Level_07))> <CFELSE> <CFSET B_Level_07 =""> </CFIF>
+<CFIF isDefined("FORM.B_Level_08")> <CFSET B_Level_08 =trim(listFirst(FORM.B_Level_08))> <CFELSE> <CFSET B_Level_08 =""> </CFIF>
+<CFIF isDefined("FORM.B_Level_09")> <CFSET B_Level_09 =trim(listFirst(FORM.B_Level_09))> <CFELSE> <CFSET B_Level_09 =""> </CFIF>
+<CFIF isDefined("FORM.B_Level_10")> <CFSET B_Level_10 =trim(listFirst(FORM.B_Level_10))> <CFELSE> <CFSET B_Level_10 =""> </CFIF>
+<CFIF isDefined("FORM.B_Level_11")> <CFSET B_Level_11 =trim(listFirst(FORM.B_Level_11))> <CFELSE> <CFSET B_Level_11 =""> </CFIF>
+<CFIF isDefined("FORM.B_Level_12")> <CFSET B_Level_12 =trim(listFirst(FORM.B_Level_12))> <CFELSE> <CFSET B_Level_12 =""> </CFIF>
+<CFIF isDefined("FORM.B_Level_13")> <CFSET B_Level_13 =trim(listFirst(FORM.B_Level_13))> <CFELSE> <CFSET B_Level_13 =""> </CFIF>
+<CFIF isDefined("FORM.B_Level_14")> <CFSET B_Level_14 =trim(listFirst(FORM.B_Level_14))> <CFELSE> <CFSET B_Level_14 =""> </CFIF>
+<CFIF isDefined("FORM.B_Level_15")> <CFSET B_Level_15 =trim(listFirst(FORM.B_Level_15))> <CFELSE> <CFSET B_Level_15 =""> </CFIF>
+<CFIF isDefined("FORM.B_Level_16")> <CFSET B_Level_16 =trim(listFirst(FORM.B_Level_16))> <CFELSE> <CFSET B_Level_16 =""> </CFIF>
+<CFIF isDefined("FORM.B_Level_17")> <CFSET B_Level_17 =trim(listFirst(FORM.B_Level_17))> <CFELSE> <CFSET B_Level_17 =""> </CFIF>
+<CFIF isDefined("FORM.B_Level_18")> <CFSET B_Level_18 =trim(listFirst(FORM.B_Level_18))> <CFELSE> <CFSET B_Level_18 =""> </CFIF>
+<CFIF isDefined("FORM.G_Team_07")>  <CFSET G_Team_07  =trim(listFirst(FORM.G_Team_07))>  <CFELSE> <CFSET G_Team_07  =""> </CFIF>
+<CFIF isDefined("FORM.G_Team_08")>  <CFSET G_Team_08  =trim(listFirst(FORM.G_Team_08))>  <CFELSE> <CFSET G_Team_08  =""> </CFIF>
+<CFIF isDefined("FORM.G_Team_09")>  <CFSET G_Team_09  =trim(listFirst(FORM.G_Team_09))>  <CFELSE> <CFSET G_Team_09  =""> </CFIF>
+<CFIF isDefined("FORM.G_Team_10")>  <CFSET G_Team_10  =trim(listFirst(FORM.G_Team_10))>  <CFELSE> <CFSET G_Team_10  =""> </CFIF>
+<CFIF isDefined("FORM.G_Team_11")>  <CFSET G_Team_11  =trim(listFirst(FORM.G_Team_11))>  <CFELSE> <CFSET G_Team_11  =""> </CFIF>
+<CFIF isDefined("FORM.G_Team_12")>  <CFSET G_Team_12  =trim(listFirst(FORM.G_Team_12))>  <CFELSE> <CFSET G_Team_12  =""> </CFIF>
+<CFIF isDefined("FORM.G_Team_13")>  <CFSET G_Team_13  =trim(listFirst(FORM.G_Team_13))>  <CFELSE> <CFSET G_Team_13  =""> </CFIF>
+<CFIF isDefined("FORM.G_Team_14")>  <CFSET G_Team_14  =trim(listFirst(FORM.G_Team_14))>  <CFELSE> <CFSET G_Team_14  =""> </CFIF>
+<CFIF isDefined("FORM.G_Team_15")>  <CFSET G_Team_15  =trim(listFirst(FORM.G_Team_15))>  <CFELSE> <CFSET G_Team_15  =""> </CFIF>
+<CFIF isDefined("FORM.G_Team_16")>  <CFSET G_Team_16  =trim(listFirst(FORM.G_Team_16))>  <CFELSE> <CFSET G_Team_16  =""> </CFIF>
+<CFIF isDefined("FORM.G_Team_17")>  <CFSET G_Team_17  =trim(listFirst(FORM.G_Team_17))>  <CFELSE> <CFSET G_Team_17  =""> </CFIF>
+<CFIF isDefined("FORM.G_Team_18")>  <CFSET G_Team_18  =trim(listFirst(FORM.G_Team_18))>  <CFELSE> <CFSET G_Team_18  =""> </CFIF>
+<CFIF isDefined("FORM.G_Level_07")> <CFSET G_Level_07 =trim(listFirst(FORM.G_Level_07))> <CFELSE> <CFSET G_Level_07 =""> </CFIF>
+<CFIF isDefined("FORM.G_Level_08")> <CFSET G_Level_08 =trim(listFirst(FORM.G_Level_08))> <CFELSE> <CFSET G_Level_08 =""> </CFIF>
+<CFIF isDefined("FORM.G_Level_09")> <CFSET G_Level_09 =trim(listFirst(FORM.G_Level_09))> <CFELSE> <CFSET G_Level_09 =""> </CFIF>
+<CFIF isDefined("FORM.G_Level_10")> <CFSET G_Level_10 =trim(listFirst(FORM.G_Level_10))> <CFELSE> <CFSET G_Level_10 =""> </CFIF>
+<CFIF isDefined("FORM.G_Level_11")> <CFSET G_Level_11 =trim(listFirst(FORM.G_Level_11))> <CFELSE> <CFSET G_Level_11 =""> </CFIF>
+<CFIF isDefined("FORM.G_Level_12")> <CFSET G_Level_12 =trim(listFirst(FORM.G_Level_12))> <CFELSE> <CFSET G_Level_12 =""> </CFIF>
+<CFIF isDefined("FORM.G_Level_13")> <CFSET G_Level_13 =trim(listFirst(FORM.G_Level_13))> <CFELSE> <CFSET G_Level_13 =""> </CFIF>
+<CFIF isDefined("FORM.G_Level_14")> <CFSET G_Level_14 =trim(listFirst(FORM.G_Level_14))> <CFELSE> <CFSET G_Level_14 =""> </CFIF>
+<CFIF isDefined("FORM.G_Level_15")> <CFSET G_Level_15 =trim(listFirst(FORM.G_Level_15))> <CFELSE> <CFSET G_Level_15 =""> </CFIF>
+<CFIF isDefined("FORM.G_Level_16")> <CFSET G_Level_16 =trim(listFirst(FORM.G_Level_16))> <CFELSE> <CFSET G_Level_16 =""> </CFIF>
+<CFIF isDefined("FORM.G_Level_17")> <CFSET G_Level_17 =trim(listFirst(FORM.G_Level_17))> <CFELSE> <CFSET G_Level_17 =""> </CFIF>
+<CFIF isDefined("FORM.G_Level_18")> <CFSET G_Level_18 =trim(listFirst(FORM.G_Level_18))> <CFELSE> <CFSET G_Level_18 =""> </CFIF>
 
 
 <cfset swShowForm = true>
@@ -284,10 +288,39 @@ MODS: mm/dd/yyyy - filastname - comments
 
 
 <CFIF isDefined("FORM.SUBMIT")>
-	<cfinvoke component="#SESSION.sitevars.cfcPath#formValidate" method="validateFields" returnvariable="stValidFields">
-		<cfinvokeargument name="formFields" value="#FORM#">
-	</cfinvoke>  <!--- <cfdump var="#stValidFields#"> --->
+	<!--- <cfdump var="#form["G-RECAPTCHA-RESPONSE"]#" abort="true">  --->
+	<!--- <cfdump var="#Application#" abort="true"> --->
+	<!--- --->
+	<cfset theForm = {}>
+	<cfset theForm = structCopy(Form)>
+
+	<cfset temp=StructDelete(theForm,"G-RECAPTCHA-RESPONSE")>
+	<cfset theForm.fieldnames = replaceNoCase(theForm.fieldnames,",G-RECAPTCHA-RESPONSE","")>
+	<cfset recaptcha = "#form["G-RECAPTCHA-RESPONSE"]#" > 
+	<cfhttp url="https://www.google.com/recaptcha/api/siteverify" method="POST">
+		<cfhttpparam type="formfield" name="secret" value="#Application.sitevars.captchaSecret#">
+		<cfhttpparam type="formfield" name="response" value="#recaptcha#">
+		<cfhttpparam type="formfield" name="remoteip" value="#CGI.REMOTE_ADDR#">
+	</cfhttp>
+	<!--- <cfdump var="#DeserializeJSON(cfhttp.filecontent)#"> --->
+	<cfset captchaResponse = DeserializeJSON(cfhttp.filecontent)>
+
+	<cftry>
+		<cfinvoke component="#SESSION.sitevars.cfcPath#formValidate" method="validateFields" returnvariable="stValidFields">
+			<cfinvokeargument name="formFields" value="#theForm#">
+		</cfinvoke> <!--- <cfdump var="#stValidFields#">  --->
+		<cfcatch>
+			<cfdump var="#cfcatch#">
+		</cfcatch>
+	</cftry>
+ 	<!---<cfdump var="#recaptcha#" abort="true">  --->
+ 	
 	
+	<cfif captchaResponse.success neq 'YES'>
+		<CFSET stValidFields.errors = stValidFields.errors + 1>
+		<CFSET stValidFields.errorMessage = stValidFields.errorMessage &  "Something went Wrong! Please try again<br/>">
+	</cfif>
+
 	<CFIF stValidFields.errors>
 		<SPAN class="red">
 			<b>Please correct the following errors and submit again.</b>
@@ -297,26 +330,26 @@ MODS: mm/dd/yyyy - filastname - comments
 	<CFELSE>
 		<!--- all fields passed validation, INSERT new club request --->
 		<CFSET stNewInfo = structNew()>
-		<CFSET stNewInfo.ClubName 		= FORM.ClubName>
-		<CFSET stNewInfo.ClubAddress 	= FORM.ClubAddress>
-		<CFSET stNewInfo.clubTown 		= FORM.clubTown>
-		<CFSET stNewInfo.clubState 		= FORM.clubState>
-		<CFSET stNewInfo.clubZip 		= FORM.clubZip>
-		<CFSET stNewInfo.USSFCertReferees = FORM.USSFCertReferees>
-		<CFSET stNewInfo.HomeFieldFull 	= FORM.HomeFieldFull>
-		<CFSET stNewInfo.HomeFieldSmall = FORM.HomeFieldSmall>
-		<CFSET stNewInfo.comments 		= FORM.comments>
-		<CFSET stNewInfo.PresFname 		= FORM.PresFname>
-		<CFSET stNewInfo.PresLname 		= FORM.PresLname>
-		<CFSET stNewInfo.PresAddress 	= FORM.PresAddress>
-		<CFSET stNewInfo.PresTown 		= FORM.PresTown>
-		<CFSET stNewInfo.PresState 		= FORM.PresState>
-		<CFSET stNewInfo.PresZip 		= FORM.PresZip>
-		<CFSET stNewInfo.PresHomePhone 	= FORM.PresHomePhone>
-		<CFSET stNewInfo.PresFax 		= FORM.PresFax>
-		<CFSET stNewInfo.PresWorkPhone 	= FORM.PresWorkPhone>
-		<CFSET stNewInfo.PresCellPhone 	= FORM.PresCellPhone>
-		<CFSET stNewInfo.PresEmail 		= FORM.PresEmail>
+		<CFSET stNewInfo.ClubName 		= theForm.ClubName>
+		<CFSET stNewInfo.ClubAddress 	= theForm.ClubAddress>
+		<CFSET stNewInfo.clubTown 		= theForm.clubTown>
+		<CFSET stNewInfo.clubState 		= theForm.clubState>
+		<CFSET stNewInfo.clubZip 		= theForm.clubZip>
+		<CFSET stNewInfo.USSFCertReferees = theForm.USSFCertReferees>
+		<CFSET stNewInfo.HomeFieldFull 	= theForm.HomeFieldFull>
+		<CFSET stNewInfo.HomeFieldSmall = theForm.HomeFieldSmall>
+		<CFSET stNewInfo.comments 		= theForm.comments>
+		<CFSET stNewInfo.PresFname 		= theForm.PresFname>
+		<CFSET stNewInfo.PresLname 		= theForm.PresLname>
+		<CFSET stNewInfo.PresAddress 	= theForm.PresAddress>
+		<CFSET stNewInfo.PresTown 		= theForm.PresTown>
+		<CFSET stNewInfo.PresState 		= theForm.PresState>
+		<CFSET stNewInfo.PresZip 		= theForm.PresZip>
+		<CFSET stNewInfo.PresHomePhone 	= theForm.PresHomePhone>
+		<CFSET stNewInfo.PresFax 		= theForm.PresFax>
+		<CFSET stNewInfo.PresWorkPhone 	= theForm.PresWorkPhone>
+		<CFSET stNewInfo.PresCellPhone 	= theForm.PresCellPhone>
+		<CFSET stNewInfo.PresEmail 		= theForm.PresEmail>
 		
 		<CFIF isDefined("SESSION.regseason.ID")>
 			<CFSET stNewInfo.seasonID = SESSION.regseason.ID>
@@ -353,8 +386,8 @@ MODS: mm/dd/yyyy - filastname - comments
 			<CFSET stTeams.G.17 = structNew()>
 			<CFSET stTeams.G.18 = structNew()>
 
-		<CFLOOP collection="#FORM#" item="iTm">
-			<!--- find all the "B_" and "G_" FORM fields --->
+		<CFLOOP collection="#theForm#" item="iTm">
+			<!--- find all the "B_" and "G_" theForm fields --->
 			<CFIF listFirst(iTm,"_") EQ "B" OR listFirst(iTm,"_") EQ "G" >
 				<!--- skip "_ATTRIBUTES" --->
 				<CFIF listLast(iTm,"_") NEQ "ATTRIBUTES">
@@ -469,6 +502,7 @@ MODS: mm/dd/yyyy - filastname - comments
 <CFIF swShowForm>
 <div class="newClubApp">
 	<FORM name="newClubAppl" action="newClubApplic.cfm"  method="post">
+			<!--- ====================================================================== --->		
 	
 	<span class="red">Fields marked with * are required</span>
 	<CFSET required = "<FONT color=red>*</FONT>">
@@ -512,7 +546,9 @@ MODS: mm/dd/yyyy - filastname - comments
 				<input type="Hidden" name="clubZip_ATTRIBUTES" value="type=ZIPCODE~required=1~FIELDNAME=Club Zip">
 			</div>	
 		</div>
+
 		<!--- ====================================================================== --->
+
 		<div class="Heading">
 			President Info
 		</div>
@@ -535,12 +571,14 @@ MODS: mm/dd/yyyy - filastname - comments
 					<input type="Hidden" name="PresAddress_ATTRIBUTES" value="type=NOSPECIALCHAR~required=1~FIELDNAME=President Address">	
 			</div>
 		</div>
+
 		<div class="row form_field"> 
 			<div class="col2_town">
 				<div id="label"><label> #required# Town</label></div>
 					<input id="input" maxlength="30" name="PresTown" value="#PresTown#" >		
 					<input type="Hidden" name="PresTown_ATTRIBUTES" value="type=NOSPECIALCHAR~required=1~FIELDNAME=President Town">
 			</div>
+
 <!--- 		</div>
 		<div class="row form_field">  --->
 			<div class="col4_state">
@@ -548,13 +586,14 @@ MODS: mm/dd/yyyy - filastname - comments
 					<input maxlength="2" name="PresState" value="#PresState#" >
 					<input type="Hidden" name="PresState_ATTRIBUTES" value="type=STATE~required=1~FIELDNAME=President State">	
 			</div>
+
 			<div class="col4_zip">
 				<div id="label2"><label> #required# Zip</label></div>	
 					<input maxlength="10" size="10" name="PresZip" value="#PresZip#" >
 					<input type="Hidden" name="PresZip_ATTRIBUTES" value="type=ZIPCODE~required=1~FIELDNAME=President Zip Code">
-				</div>		
-			</div>
+			</div>		
 		</div>
+
 		<div class="name row form_field"> 
 			<div class="col2" id="first">
 				<div id="label2"><label> #required# Home Phone</label></div>
@@ -567,6 +606,7 @@ MODS: mm/dd/yyyy - filastname - comments
 					<input type="Hidden" name="PresCellPhone_ATTRIBUTES" value="type=PHONE~required=0~FIELDNAME=President Cell Phone">	
 			</div>
 		</div>
+
 		<div class="name row form_field">
 			<div class="col2" id="first">
 				<div id="label2"><label>Fax</label></div>
@@ -585,6 +625,7 @@ MODS: mm/dd/yyyy - filastname - comments
 					<input type="Hidden" name="PresEmail_ATTRIBUTES" value="type=EMAIL~required=1~FIELDNAME=President Email">
 			</div>	
 		</div>
+
 		<!--- ====================================================================== --->
 		<div class="Heading">
 			Field/Team Info
@@ -594,6 +635,7 @@ MODS: mm/dd/yyyy - filastname - comments
 					<input maxlength="25" size="3" name="USSFCertReferees" value="#USSFCertReferees#" >
 					<input type="Hidden" name="USSFCertReferees_ATTRIBUTES" value="type=NUMERIC~required=1~FIELDNAME=USS Cert. Refs">	
 			</div>
+
 			<div class="row form_field">
 				<div class="col2_home">
 					<div id="labelHome"> #required# Home Fields - Full Sided</div>
@@ -631,6 +673,7 @@ MODS: mm/dd/yyyy - filastname - comments
 
 				</font>
 		</div>
+
 		<div class="tdUnderLine">
 			<table cellSpacing=0 cellPadding=0 border=1 align="center" id="tblTeam">
 				<TR class="Heading"">
@@ -858,7 +901,7 @@ MODS: mm/dd/yyyy - filastname - comments
 				<input type="Hidden" name="G_Level_18_ATTRIBUTES" value="type=PLAYLEVEL~required=0~FIELDNAME=Girls 18 Level">	
 				
 		</div>
-		<!--- ====================================================================== --->
+
 		<div class="Heading">
 			Comment/Resume/History
 		</div>
@@ -867,6 +910,9 @@ MODS: mm/dd/yyyy - filastname - comments
 				<TEXTAREA id="textarea" name="Comments"  rows=8 cols=75>#Trim(Comments)#</TEXTAREA>
 			</div>
 		</div>
+
+
+
 		<div class="row form_field">
 			<div class="col">
 				<font size=2 color="red">
@@ -875,9 +921,16 @@ MODS: mm/dd/yyyy - filastname - comments
 				</font>
 			</div>
 		</div>
+		
+		<div class="row form_field">
+			<div class="col">
+				<div class="g-recaptcha" data-sitekey="#Application.sitevars.captchaSiteKey#"></div>
+			</div>
+		</div>
+
 		<div class="row button">
 			<div class="col">
-				<button type="submit" class="yellow_btn" value="Submit" size="38" name="Submit" onclick="">Submit</button>
+				<button type="submit" class="yellow_btn" value="Submit" size="38" name="Submit" >Submit</button>
 			</div>
 		</div>
 	 </FORM>

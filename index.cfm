@@ -18,7 +18,7 @@ MODS: mm/dd/yyyy - filastname - comments
   	  FROM TBL_PAGE_SECTION
   	  WHERE pageID = #pageID#
 </cfquery>
-
+<!--- <cfdump var="#qHomePageSections#" abort="true"> --->
 <section id="homepage_slideshow" class="slider">
 	<div class="container">
 		<ul class="slider_content bxslider">

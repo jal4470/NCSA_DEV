@@ -53,7 +53,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		   and exists(Select 1 
 		   				from V_Games 
 					   where Division = <CFQUERYPARAM cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.divSelected#">
-						 and (game_type is null or game_type in ('',' ','P','Q','S','I','R','L')) 
+						 and (game_type is null or game_type in ('',' ','Q','S','I','R','L','P')) 
 				   		 and Home_TEAM_ID = T.TEAM_ID 
 					  ) 
 		union 
@@ -63,7 +63,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		   and exists(Select 1 
 		    		    from V_Games 
 					   where Division = <CFQUERYPARAM cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.divSelected#">
-						 and (game_type is null or game_type in ('',' ','P','Q','S','I','R','L' )) 
+						 and (game_type is null or game_type in ('',' ','Q','S','I','R','L','P' )) 
 						 and Visitor_TEAM_ID = T.TEAM_ID )
 	</CFQUERY><!--- <cfdump var="#DivTeams#"> --->
 	<CFSET ctTotalTeams = DivTeams.recordCount>
@@ -99,20 +99,25 @@ MODS: mm/dd/yyyy - filastname - comments
 		Select Home_TEAM_ID		, SCORE_HOME
 			 , Visitor_TEAM_ID	, SCORE_VISITOR
 			 , game_date		, game_time
-			 , GAME_ID			, FieldAbbr
+			 , GAME_ID			, FieldAbbr,
+			 game_type
 		  from V_Games
 		 Where Division = <CFQUERYPARAM cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.divSelected#">
 		   and SCORE_HOME is not Null 
 		   and SCORE_VISITOR is not Null
-		   and (game_type is null or game_type in ('',' ','P','Q','S','I','R','L' ) )
+		   and (game_type is null or game_type in ('',' ','Q','S','I','R','L','P' ) )
 		 order by Home_TEAM_ID
 	</CFQUERY> <!--- <cfdump var="#scores#"> --->
 	
 
 	<CFLOOP query="scores">
-		<CFSET HScore = SCORE_HOME>
-		<CFSET VScore = SCORE_VISITOR>
-
+		<cfif game_type neq 'P'>
+			<CFSET HScore = SCORE_HOME>
+			<CFSET VScore = SCORE_VISITOR>
+		<cfelse>
+			<CFSET HScore = 0>
+			<CFSET VScore = 0>
+		</cfif>
 		<!--- <CFIF mid(trim(divSelected), 2, 2) EQ "07" or mid(trim(divSelected), 2, 2) EQ "08"  >
 			<CFSET HScore = 0>
 			<CFSET VScore = 0>
@@ -132,7 +137,7 @@ MODS: mm/dd/yyyy - filastname - comments
 
 		<CFSCRIPT>
 			// Calculate Statistics
-			If ( HScore > VScore)		// ---  HOME Side Won  ---
+			If ( HScore > VScore and Game_type NEQ 'P')		// ---  HOME Side Won  ---
 				{	HWin	= 1;
 					HLoss	= 0;
 					HDrawn	= 0;
@@ -147,7 +152,7 @@ MODS: mm/dd/yyyy - filastname - comments
 					VDrawn	= 0;
 					VPoints	= 0;
 				}
-			If ( HScore < VScore )		// ---  VISITING Side Won  ---
+			If ( HScore < VScore  and Game_type NEQ 'P')		// ---  VISITING Side Won  ---
 				{	HWin	= 0;
 					HLoss	= 1;
 					HDrawn	= 0;
@@ -162,7 +167,7 @@ MODS: mm/dd/yyyy - filastname - comments
 						VPoints = 3;
 					}
 				}
-			If ( HScore == VScore )		 // ---   Game Drawn   ---
+			If ( HScore == VScore  and Game_type NEQ 'P')		 // ---   Game Drawn   ---
 				{	HWin	= 0;
 					HLoss	= 0;
 					HDrawn	= 1;
@@ -172,24 +177,29 @@ MODS: mm/dd/yyyy - filastname - comments
 					VDrawn	= 1;
 					VPoints	= 1;
 				}
-			// ---   standings HOME TEAM  ---
-			arrStandings[HomeIndex][3] 		= arrStandings[HomeIndex][3]	 + 1;		 // Game Played, simple Accumulation
-			arrStandings[HomeIndex][4] 		= arrStandings[HomeIndex][4]	 + HWin;	 // Wins
-			arrStandings[HomeIndex][5] 		= arrStandings[HomeIndex][5]	 + HLoss;	 // Loss
-			arrStandings[HomeIndex][6] 		= arrStandings[HomeIndex][6]	 + HDrawn;	 // Drawn
-			arrStandings[HomeIndex][7] 		= arrStandings[HomeIndex][7]	 + HPoints;	 // Points
-			arrStandings[HomeIndex][8] 		= arrStandings[HomeIndex][8]	 + HScore;	 // GF - Goals For
-			arrStandings[HomeIndex][9] 		= arrStandings[HomeIndex][9]	 + VScore;	 // GA - Goals Against
-			// ---   standings VISITING TEAM  ---
-			arrStandings[VisitorIndex][3] 	= arrStandings[VisitorIndex][3]	 + 1;		 // Game Played, simple Accumulation
-			arrStandings[VisitorIndex][4] 	= arrStandings[VisitorIndex][4]	 + VWin;	 // Wins
-			arrStandings[VisitorIndex][5] 	= arrStandings[VisitorIndex][5]	 + VLoss;	 // Loss
-			arrStandings[VisitorIndex][6] 	= arrStandings[VisitorIndex][6]	 + VDrawn;	 // Drawn
-			arrStandings[VisitorIndex][7] 	= arrStandings[VisitorIndex][7]	 + VPoints;  // Points
-			arrStandings[VisitorIndex][8] 	= arrStandings[VisitorIndex][8]	 + VScore;	 // GF - Goals For
-			arrStandings[VisitorIndex][9] 	= arrStandings[VisitorIndex][9]	 + HScore;	 // GA - Goals Against
+			if(game_type neq 'P')
+			{
+				// ---   standings HOME TEAM  ---
+				arrStandings[HomeIndex][3] 		= arrStandings[HomeIndex][3]	 + 1;		 // Game Played, simple Accumulation
+				arrStandings[HomeIndex][4] 		= arrStandings[HomeIndex][4]	 + HWin;	 // Wins
+				arrStandings[HomeIndex][5] 		= arrStandings[HomeIndex][5]	 + HLoss;	 // Loss
+				arrStandings[HomeIndex][6] 		= arrStandings[HomeIndex][6]	 + HDrawn;	 // Drawn
+				arrStandings[HomeIndex][7] 		= arrStandings[HomeIndex][7]	 + HPoints;	 // Points
+				arrStandings[HomeIndex][8] 		= arrStandings[HomeIndex][8]	 + HScore;	 // GF - Goals For
+				arrStandings[HomeIndex][9] 		= arrStandings[HomeIndex][9]	 + VScore;	 // GA - Goals Against
+				// ---   standings VISITING TEAM  ---
+				arrStandings[VisitorIndex][3] 	= arrStandings[VisitorIndex][3]	 + 1;		 // Game Played, simple Accumulation
+				arrStandings[VisitorIndex][4] 	= arrStandings[VisitorIndex][4]	 + VWin;	 // Wins
+				arrStandings[VisitorIndex][5] 	= arrStandings[VisitorIndex][5]	 + VLoss;	 // Loss
+				arrStandings[VisitorIndex][6] 	= arrStandings[VisitorIndex][6]	 + VDrawn;	 // Drawn
+				arrStandings[VisitorIndex][7] 	= arrStandings[VisitorIndex][7]	 + VPoints;  // Points
+				arrStandings[VisitorIndex][8] 	= arrStandings[VisitorIndex][8]	 + VScore;	 // GF - Goals For
+				arrStandings[VisitorIndex][9] 	= arrStandings[VisitorIndex][9]	 + HScore;	 // GA - Goals Against
+			}
 			// -- game details HOME ---
+
 			stGameDetails[Home_TEAM_ID][game_id]				= structNew();
+			stGameDetails[Home_TEAM_ID][game_id].Game_Type 		= game_type;
 			stGameDetails[Home_TEAM_ID][game_id].VteamID 		= Visitor_TEAM_ID;
 			stGameDetails[Home_TEAM_ID][game_id].standings 		= arrStandings[VisitorIndex][2];
 			stGameDetails[Home_TEAM_ID][game_id].Date   		= GAME_DATE;
@@ -199,6 +209,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			stGameDetails[Home_TEAM_ID][game_id].Vscore 		= SCORE_VISITOR;
 			// -- game details VISITOR ---
 			stGameDetails[Visitor_TEAM_ID][game_id]				= structNew();
+			stGameDetails[Visitor_TEAM_ID][game_id].Game_type   = game_type;
 			stGameDetails[Visitor_TEAM_ID][game_id].VteamID 	= Home_TEAM_ID;
 			stGameDetails[Visitor_TEAM_ID][game_id].standings 	= arrStandings[HomeIndex][2];
 			stGameDetails[Visitor_TEAM_ID][game_id].Date   		= GAME_DATE;
@@ -322,9 +333,9 @@ MODS: mm/dd/yyyy - filastname - comments
 								<CFSET listGameOrd = ArrayToList( StructSort( stGameDetails[arrStandings[srtIdx][1]], "text", "ASC", "DATE" ) ) >
 								<CFSET ctLOOP = 1>
 								<CFLOOP list="#listGameOrd#" index="gid">
-	 							<tr id="TRD#iTeam##ctLoop#" class="clearfix">
+	 							<tr id="TRD#iTeam##ctLoop#" class="clearfix" #iif(stGameDetails[teamID][gid].game_type eq 'P',de('style="font-style:italic;"'),de(''))#>
 	 								<td class="game_opponent"><span class="mobile_only">Opponent:</span> #repeatstring("&nbsp;",5)#  vs. #stGameDetails[teamID][gid].standings#  @  #stGameDetails[teamID][gid].field#</td>
-	 								<td class="game_number"><span class="mobile_only">Game##:</span> #GID#</td>
+	 								<td class="game_number"><span class="mobile_only">Game##:</span> #GID# #iif(stGameDetails[teamID][gid].game_type eq 'P',de('(P)'),de(''))#</td>
 	 								<td class="game_date"><span class="mobile_only">Date:</span> #dateFormat(stGameDetails[teamID][gid].Date,"mm/dd/yy")#</td>
 	 								<td class="game_time"><span class="mobile_only">Time:</span> #timeFormat(stGameDetails[teamID][gid].Time,"hh:mm tt")#</td>
 	 								<td class="game_goals_for"><span class="mobile_only">Goals For:</span> #stGameDetails[teamID][gid].Hscore#</td>
