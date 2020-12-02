@@ -52,6 +52,8 @@
 			Application.siteVars.tblHeading = "3399CC";
 			Application.sitevars.tempPath = "C:\inetpub\wwwroot\NCSA\uploads\temp";
 			Application.sitevars.adAssets = "C:\inetpub\wwwroot\NCSA\uploads\ad_assets";
+			Application.sitevars.captchaSiteKey = "6LduJe0ZAAAAAHGdpCeCQRLcmW7ApNHv7Jew0HGC";
+			Application.sitevars.captchaSecret = "6LduJe0ZAAAAAGLIFdHLKG_L4mFAA0ITjAfPQOpB";
 	    </cfscript>
 
 	 </cffunction>
