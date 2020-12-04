@@ -288,6 +288,7 @@ MODS: mm/dd/yyyy - filastname - comments
 
 
 <CFIF isDefined("FORM.SUBMIT")>
+	<!--- <cfdump var="#form#"> --->
 	<!--- <cfdump var="#form["G-RECAPTCHA-RESPONSE"]#" abort="true">  --->
 	<!--- <cfdump var="#Application#" abort="true"> --->
 	<!--- --->
@@ -318,7 +319,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	
 	<cfif captchaResponse.success neq 'YES'>
 		<CFSET stValidFields.errors = stValidFields.errors + 1>
-		<CFSET stValidFields.errorMessage = stValidFields.errorMessage &  "Something went Wrong! Please try again<br/>">
+		<CFSET stValidFields.errorMessage = stValidFields.errorMessage &  "You must click the &quot;I'm not a robot box&quot; below in order to submit a completed form<br/>">
 	</cfif>
 
 	<CFIF stValidFields.errors>

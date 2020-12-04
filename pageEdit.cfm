@@ -576,7 +576,9 @@ get the max Page Order Number --->
 
 
 <cfsavecontent variable="cf_footer_scripts">
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<!--- <script src="//cdn.tinymce.com/4/tinymce.min.js"></script> --->
+
+<script src="js\vendor\tinymce\tinymce.min.js"></script>
 
 <script>
 $(function() {

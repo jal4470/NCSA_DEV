@@ -221,7 +221,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		<cfset swErrors = true>
 
 		<CFSET stValidFields.errors = stValidFields.errors + 1>
-		<CFSET stValidFields.errorMessage = stValidFields.errorMessage &  "Something went Wrong! Please try again<br/>">
+		<CFSET stValidFields.errorMessage = stValidFields.errorMessage &  "You must click the &quot;I'm not a robot box&quot; below in order to submit a completed form<br/>">
 	</cfif>
 
 	<!--- ------------------------------------------- --->
@@ -392,7 +392,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		<cfif isDefined("VARIABLES.MSG") AND len(trim(msg)) >
 			<!--- <TR><TD colspan="3" align="left" class="red"> --->
 					<b>#msg#</b>
-	
+					<cfif not swShowSave><cfabort></cfif>
 		</cfif>
 		
 		<CFSET swShowRoles = FALSE>	
@@ -578,9 +578,20 @@ MODS: mm/dd/yyyy - filastname - comments
 					#refDob#
 				</CFIF>
 			</div>
+			<cfquery name="getGradeDesignation" datasource="#application.dsn#">
+			select grade_code, grade_desc from tlkp_grade_designation
+			</cfquery>
 			<div class="col2"><label>#required# Grade</label>
 			<CFIF isDefined("swAllowRefEntry") AND swAllowRefEntry>
-					<input maxlength="5" name="Grade"  value="#Grade#" >
+					<!--- <input maxlength="5" name="Grade"  value="#Grade#" > --->
+				<div class="select_box">
+					<select name="Grade" id="grade">
+						<option value=""> Select a Grade </option>
+						<cfloop query="getGradeDesignation">
+							<option value="#grade_code#" #iif(grade eq grade_code,de("selected=selected"),de(""))#>#Grade_code# - #Grade_Desc#</option>
+						</cfloop>
+					</select>
+				</div>
 					<input type="Hidden" name="Grade_ATTRIBUTES" value="type=GENERIC~required=1~FIELDNAME=Grade">	
 				<CFELSE>
 					#Grade#
@@ -592,7 +603,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			<CFIF isDefined("swAllowRefEntry") AND swAllowRefEntry>
 				<div class="select_box">
 					<SELECT name="StateRegisteredIn"  > 
-						<OPTION value="" selected>select state</OPTION>
+						<OPTION value="" selected>Select a State</OPTION>
 						<cfloop from="1" to="#arrayLen(arrStates)#" index="iSt">
 							<OPTION value="#arrStates[iSt][1]#" <cfif StateRegisteredIn EQ arrStates[iSt][1]>selected</cfif> >#arrStates[iSt][1]#</OPTION>
 						</cfloop>
@@ -606,7 +617,8 @@ MODS: mm/dd/yyyy - filastname - comments
 			<div class="col2 select_ref"><label>#required# USSF Certified</label>
 			<CFIF isDefined("swAllowRefEntry") AND swAllowRefEntry>
 				<div class="select_box">
-					<SELECT name="Certified" > 
+					<SELECT name="Certified" id="certified" > 
+						<OPTION VALUE="">Select One</OPTION>
 						<OPTION value="Y" <cfif Certified EQ "Y">selected</cfif> > Yes</OPTION>
 						<OPTION value="N" <cfif Certified EQ "N">selected</cfif> > No</OPTION>
 					</SELECT>
@@ -702,4 +714,20 @@ MODS: mm/dd/yyyy - filastname - comments
 
 </cfoutput>
 </div>
+<cfsavecontent variable="cf_footer_scripts">
+	<script>
+		$(function(){
+
+			checkCertified($("#certified"));
+
+			$("#certified").change(function() {
+				checkCertified($(this));
+			});
+			function checkCertified(_selected){
+				if(_selected.find(':selected').val() == 'N')
+					$("input[name=refCertYear]").val('');
+			}
+		});
+	</script>
+</cfsavecontent>
 <cfinclude template="_footer.cfm">

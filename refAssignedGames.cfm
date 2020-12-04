@@ -744,7 +744,7 @@ MODS: mm/dd/yyyy - filastname - comments
 </TABLE>
 <!--- <Cfdump var="#variables#"><Cfabort> --->
 	<div class="form_btn">
-		<button id="accept" name="Accept" class="yellow_btn" type="submit">Accept</button>
+		<button id="accept" name="Accept" class="yellow_btn" type="submit">Submit</button>
 	</div>
 
 	</div>
@@ -768,6 +768,7 @@ MODS: mm/dd/yyyy - filastname - comments
       
 			<div>
 				<h3 class="red">Rejecting a game will require a reason.<br> Please provide one below</h3>
+				<div id="modal_error" class="red"></div>
 				<textarea cols="32" rows="8" id="reason"></textarea>
 				<button id="okConfirm_submit" class="yellow_btn">Submit</button>
 				<button id="okConfirm_cancel" class="gray_btn">Cancel</button>
@@ -809,6 +810,7 @@ $(function(){
   			$("#" + gameData["target"]).empty().append("Rejected");
   			$("#" + gameData["target"]).removeClass("accepted");
   			$("#" + gameData["target"]).addClass("rejected");
+  			$("#modal_error").empty();
 
   		} else {
   			$( _this ).prop( "checked", true );
@@ -825,7 +827,7 @@ $(function(){
   			_reason = $("#reason").val();
   			if(_reason.trim().length == 0)
   			{
-  				alert('Please provide a valid reason');
+  				$("#modal_error").empty().append('"' + _reason +  ' is not valid. Please provide a valid reason');
   				return 
   			}
   			$("input[name=" + gameData["comment-field"]).val(_reason);

@@ -295,10 +295,10 @@ MODS: mm/dd/yyyy - filastname - comments
 	<!--- <cfdump var="#DeserializeJSON(cfhttp.filecontent)#"> --->
 	<cfset captchaResponse = DeserializeJSON(cfhttp.filecontent)>
 	<cfif captchaResponse.success neq 'YES'>
-		<CFSET msg = msg & "Something went Wrong! Please try again<br/>">
+		<CFSET msg = msg & "You must click the &quot;I'm not a robot box&quot; below in order to submit a completed form<br/>">
 		<cfset swErr = true>	
 	</cfif>
-	
+
 	<CFSET MODE = "REPLY">
 	<CFIF isDefined("FORM.POSTEDBY") and LEN(TRIM(FORM.POSTEDBY)) GT 0>
 		<!--- ok --->	

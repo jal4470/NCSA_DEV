@@ -264,9 +264,18 @@ MODS: mm/dd/yyyy - filastname - comments
 	</TR>
 	<TR><TD align="right"><b>EMail</b></TD>				<TD>#EMail#</TD>		
 	</TR>
-
 	<TR><TD align="right">#required#<b>Grade</b></TD>
-		<TD><input maxlength="5" name="Grade" value="#Grade#" >
+		<TD>
+			<cfquery name="getGradeDesignation" datasource="#application.dsn#">
+				select grade_code, grade_desc from tlkp_grade_designation
+			</cfquery>
+			<select name="Grade" id="grade">
+				<option value=""> Select a Grade </option>
+				<cfloop query="getGradeDesignation">
+					<option value="#grade_code#" #iif(grade eq grade_code,de("selected=selected"),de(""))#>#Grade_code# - #Grade_Desc#</option>
+				</cfloop>
+			</select>
+			<!--- <input maxlength="5" name="Grade" value="#Grade#" > --->
 			<input type="Hidden" name="Grade_ATTRIBUTES" 	value="type=GENERIC~required=1~FIELDNAME=GRADE">	
 		</TD>
 	</TR>
