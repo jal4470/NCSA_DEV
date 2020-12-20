@@ -441,8 +441,6 @@ Ticket NCSA22671 - Added AsstCoachID2,AsstCoachID3,Roster,PrevPlayLevel,ReasonFo
 	<cfreturn registeredClubs >
 </cffunction>
 
-
-
 <!--- =================================================================== --->
 <cffunction name="getRegisteredTeams" access="remote" returntype="query">
 	<!--- --------
@@ -751,6 +749,7 @@ Ticket NCSA22671 - Added AsstCoachID2,AsstCoachID3,Roster,PrevPlayLevel,ReasonFo
 			<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@soccerID"		value="#ARGUMENTS.SoccerID#">
 			<cfprocparam type="In" cfsqltype="CF_SQL_VARCHAR" dbvarname="@approved_yn" value="#arguments.approved#">
 			<cfprocparam type="In" cfsqltype="CF_SQL_VARCHAR" dbvarname="@second_team_id" value="#arguments.secondTeam#" null="#YesNoFormat(arguments.secondTeam eq '')#">
+			<cfprocparam type="In" cfsqltype="CF_SQL_NUMERIC" dbvarname="@prior_team_id" value="#ARGUMENTS.PriorTeamID#">
 			<cfprocparam type="Out" cfsqltype="CF_SQL_NUMERIC" dbvarname="@new_team_id" variable="newTeamID">
 		</cfstoredproc> 
 

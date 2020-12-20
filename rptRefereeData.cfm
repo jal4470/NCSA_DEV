@@ -138,12 +138,16 @@ YIELD: all info, like coach report, but with additional ref info also
 			<INPUT type="Submit" name="getRefs" value="Go">
 		</form>
 		</td>
+		<td colspan="5" align="right">
+			<a href="rptRefereeData_csv.cfm?sortBy=#sortBy#&selCert=#selCert#&selState=#selState#">Download Ref info</a>
+			<br>(IE users, please save the file before opening it.)
+		</td>
 	</tr>
 	<tr class="tblHeading">
 		<TD width="21%" valign="bottom">Referee</TD>
 		<TD width="18%" valign="bottom">City/State </TD>
 		<TD width="03%" valign="bottom">Cert </TD>
-		<TD width="06%" valign="bottom">Sate Reg </TD>
+		<TD width="06%" valign="bottom">State Reg </TD>
 		<TD width="06%" valign="bottom">Age </TD>
 		<TD width="06%" valign="bottom">Yrs Ref </TD>
 		<TD width="05%" valign="bottom">NCSA Level </TD>

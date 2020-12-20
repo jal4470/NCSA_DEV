@@ -229,29 +229,42 @@ MODS: mm/dd/yyyy - filastname - comments
 </cfif>
 
 <cfif IsDefined("FORM.POST")>
+	<cfset recaptcha = FORM["g-recaptcha-response"] >
+	<cfhttp url="https://www.google.com/recaptcha/api/siteverify" method="POST">
+		<cfhttpparam type="formfield" name="secret" value="#Application.sitevars.captchaSecret#">
+		<cfhttpparam type="formfield" name="response" value="#recaptcha#">
+		<cfhttpparam type="formfield" name="remoteip" value="#CGI.REMOTE_ADDR#">
+	</cfhttp>
+	<!--- <cfdump var="#DeserializeJSON(cfhttp.filecontent)#"> --->
+	<cfset captchaResponse = DeserializeJSON(cfhttp.filecontent)>
+	
 	<CFSET MODE = "ADD">
-	<CFIF isDefined("FORM.POSTEDBY") and LEN(TRIM(FORM.POSTEDBY)) GT 0>
+
+	<CFIF isDefined("FORM.POSTEDBY")>
 		<!--- ok --->	
 		<CFSET PostedBy = FORM.POSTEDBY> 
 	<CFELSE>
 		<CFSET msg = msg & "Posted by is a required field.<BR>">
 		<cfset swErr = true>	
 	</CFIF>
-	<CFIF isDefined("FORM.MESSAGE") and LEN(TRIM(FORM.MESSAGE)) GT 0>
+	<CFIF isDefined("FORM.MESSAGE")>
 		<!--- ok --->	
 		<CFSET Message = FORM.MESSAGE> 
 	<CFELSE>
 		<CFSET msg = msg & "Message is a required field.<BR>">
 		<cfset swErr = true>	
 	</CFIF>
-	<CFIF isDefined("FORM.Subject") and LEN(TRIM(FORM.Subject)) GT 0>
+	<CFIF isDefined("FORM.Subject")>
 		<!--- ok --->	
 		<CFSET subject = FORM.Subject> 
 	<CFELSE>
 		<CFSET msg = msg & "subject is a required field.<BR>">
 		<cfset swErr = true>	
 	</CFIF>
-
+	<cfif captchaResponse.success neq 'YES'>
+		<CFSET msg = msg & "You must click the &quot;I'm not a robot box&quot; below in order to submit a completed form<br/>">
+		<cfset swErr = true>	
+	</cfif>
 	<CFIF NOT swErr>
 		<CFQUERY name="insertSubject" datasource="#SESSION.DSN#">
 			Insert Into TBL_Forum
@@ -364,11 +377,11 @@ MODS: mm/dd/yyyy - filastname - comments
 
 
 <cfswitch expression="#MODE#">
-	<cfcase value="ADD">
+<!--- 	<cfcase value="ADD">
 		<cfset Subject	= "" >
 		<cfset Message	= "" >
 		<cfset PostedBy	= "" >
-	</cfcase>
+	</cfcase> --->
 	<cfcase value="DISPLAY">
 		<cfquery name="qForum" datasource="#SESSION.DSN#">
 			Select f.TopicID, f.RefThread, f.MainThread, f.Subject
@@ -494,7 +507,7 @@ MODS: mm/dd/yyyy - filastname - comments
 				#PostedBy#
 			<cfelse>
 				<span class="red">  Please include your FULL NAME in "Posted by", Anonymous Posts will be discarded.  </span>	
-					<br/><br/><INPUT class="replyInput"  name="PostedBy">
+					<br/><br/><INPUT class="replyInput"  name="PostedBy" value="#PostedBy#">
 			</cfif>		
 		</td>
 

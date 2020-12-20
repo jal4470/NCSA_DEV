@@ -392,7 +392,6 @@ MODS: mm/dd/yyyy - filastname - comments
 		<cfif isDefined("VARIABLES.MSG") AND len(trim(msg)) >
 			<!--- <TR><TD colspan="3" align="left" class="red"> --->
 					<b>#msg#</b>
-					<cfif not swShowSave><cfabort></cfif>
 		</cfif>
 		
 		<CFSET swShowRoles = FALSE>	
@@ -581,7 +580,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			<cfquery name="getGradeDesignation" datasource="#application.dsn#">
 			select grade_code, grade_desc from tlkp_grade_designation
 			</cfquery>
-			<div class="col2"><label>#required# Grade</label>
+			<div class="col2"><label>#required# USSF Referee Grade</label>
 			<CFIF isDefined("swAllowRefEntry") AND swAllowRefEntry>
 					<!--- <input maxlength="5" name="Grade"  value="#Grade#" > --->
 				<div class="select_box">
@@ -653,7 +652,7 @@ MODS: mm/dd/yyyy - filastname - comments
 				</div>
 			</div>
 		</CFIF>
-		<CFIF isDefined("SESSION.MENUROLEID") AND SESSION.MENUROLEID EQ 1 >
+		<!--- <CFIF isDefined("SESSION.MENUROLEID") AND SESSION.MENUROLEID EQ 1 >
 		<!--- only show to admin --->
 			<div class="row form_field">
 				<div class="col">
@@ -661,7 +660,7 @@ MODS: mm/dd/yyyy - filastname - comments
 				<input type="Text"  maxlength="4" name="refNcsaLevel" 	value="#refNcsaLevel#">
 				</div>
 			</div>
-		</CFIF>
+		</CFIF> --->
 	</CFIF> <!--- END Referee specific info -------------------------------------------------------------------- --->
 
 	<!--- ----------------------------------------------------------------------------------------------------------- --->

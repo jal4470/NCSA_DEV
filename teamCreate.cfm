@@ -392,7 +392,6 @@ MODS: mm/dd/yyyy - filastname - comments
 	<CFSET teamID = 0>
 </CFIF>
 
-
 <!--- <cfdump var="#FORM#"><cfdump var="#URL#">
 </cfoutput>  </div>  <cfinclude template="_footer.cfm">
 <CFABORT><cfoutput> --->
@@ -550,7 +549,7 @@ MODS: mm/dd/yyyy - filastname - comments
 <table cellspacing="0" cellpadding="5" align="left" border="0" width="90%">
 
 	<tr class="tblHeading">
-		<TD colspan="2">Team Info for #VARIABLES.clubName#:</TD>
+		<TD colspan="2">Team Info for #VARIABLES.clubName# <cfif teamId neq 0>- Prior Team #teamId#</cfif>:</TD>
 	</tr>
 		<cfif len(Trim(errMessage))>
 			<TR><TD colspan="3" align="Center" class="red">

@@ -800,35 +800,39 @@ MODS: mm/dd/yyyy - filastname - comments
 	<CFSET required = "<FONT color=red>*</FONT>" >
 	<table cellspacing="0" cellpadding="5" align="center" border="0" style="table-layout:fixed;width:100%;"> 
 		<tr class="tblHeading">
-			<TD>&nbsp;</td>
+			<TD colspan="4">&nbsp;</td>
 		</tr>
-		<tr><TD><b>Game:</b> 		#VARIABLES.GameID#								#repeatString("&nbsp;",10)#
+		<tr><TD colspan="4"><b>Game:</b> 		#VARIABLES.GameID#								#repeatString("&nbsp;",10)#
 				<b>Date/Time:</b>   #VARIABLES.GameDate# - #VARIABLES.GameTime#		#repeatString("&nbsp;",10)#
 	 			<b>Field:</b> 		#VARIABLES.FieldAbbr#
 			</td>
 		</tr>
-		<tr><td><b>Division:</b>  #VARIABLES.Division#	 											#repeatString("&nbsp;",10)#
+		<tr><td colspan="4"><b>Division:</b>  #VARIABLES.Division#	 											#repeatString("&nbsp;",10)#
 				<b>Home:</b> 	  #VARIABLES.HomeTeam# vs. <b>Visitor:</b> #VARIABLES.VisitorTeam#	#repeatString("&nbsp;",10)#
 				<b>Score:</b> (H) #VARIABLES.HomeScore# - (V) #VARIABLES.VisitorScore#
 			</TD>
 		</TR>
 		<TR><TD><b>Referee:</B> 
-				#VARIABLES.RefereeLastName#, #VARIABLES.RefereeName# &nbsp;&nbsp; <b>Grade:</b> #VARIABLES.Grade#
-				#repeatString("&nbsp;",10)#
+				#VARIABLES.RefereeLastName#, #VARIABLES.RefereeName# </TD><TD><b>USSF Referee Grade:</b> #VARIABLES.Grade#
+				<!--- #repeatString("&nbsp;",10)# --->
+	 	</TD><TD colspan="2"></TD></TR>
+	 	<TR><TD>		
 	 			<b>Asst Ref 1:</b>
 				<cfif len(trim(AsstRefId1)) EQ 0 OR AsstRefId1 EQ 0>
 					<input type="text" name="AsstRef1WriteIn" value="#VARIABLES.AsstRef1writein#" maxlength="100" >
 				<cfelse>
-					#VARIABLES.AR1LastName#, #VARIABLES.AR1Name# &nbsp;&nbsp; <b>Grade:</b> #VARIABLES.AR1Grade#
+					#VARIABLES.AR1LastName#, #VARIABLES.AR1Name#</TD><TD><b>USSF Referee Grade:</b> #VARIABLES.AR1Grade#
 				</cfif>	
-				#repeatString("&nbsp;",10)#
+		</TD><TD></TD></TR>
+	 	<TR><TD>
+				<!--- #repeatString("&nbsp;",10)# --->
 				<b>Asst Ref 2:</b> 
 				<cfif len(trim(AsstRefId2)) eq 0 OR AsstRefId2 EQ 0>
 					<input type="text" name="AsstRef2WriteIN" value="#AsstRef2writein#" maxlength="100" >
 				<cfelse>
-					#VARIABLES.AR2LastName#, #VARIABLES.AR2Name# &nbsp;&nbsp; <b>Grade:</b> #VARIABLES.AR2Grade#
+					#VARIABLES.AR2LastName#, #VARIABLES.AR2Name#</TD><TD><b>USSF Referee Grade:</b> #VARIABLES.AR2Grade#
 				</cfif>	
-			</TD>
+			</TD><TD colspan="2"></TD>
 		</TR>
 	</table><!--- end top table --->
 

@@ -45,6 +45,7 @@ Joe Lechuga - 7/25/2011 - Changed Report 53 to Competition Evaluation - Sportsma
 						<br>8. <a href="rptAppTeamSummary.cfm">	  Approved Team Summary </a> 		(Board)
 						<br>9. <a href="rptRegSeasonAppTeams.cfm">Registration Season Report</a> (Board and Clubs)
 						<br>9a. <a href="rptTeamRegInfo.cfm">Team Registration Information</a>
+						<br>9b. <a href="rptTeamCreatedSeason.cfm">Created Teams By Season</a>
 						<br>11. <a href="rptfieldAvail.cfm">	  Field Availability Report </a> (Board)	
 						<br>12. <a href="rptBoardmembers.cfm">	  Board List</a> (Board)		
 			
@@ -80,8 +81,12 @@ Joe Lechuga - 7/25/2011 - Changed Report 53 to Competition Evaluation - Sportsma
 						<br>35 <a href="rptMatchRptPasses.cfm">			Passes/Rosters Status Report </a>
 						<br>36 <a href="rptClubRefs.cfm">   	Referee Contacts not through NCSA Club</a>
 						<br>37 <a href="rptNoMDF.cfm">Match Day Form Not Completed</a>
+						<br>37a <a href="rptGDDNotCreated.cfm">Game Day Documents file Not Created</a>
+						<br>37b <a href="rptGDDIncomplete.cfm">Game Day Documents file Not Complete</a>
+						<br>37c <a href="rptGDDNCByDatetime.cfm">Game Day Documents not submitted by game time</a>
+						<br>37d <a href="rptRosterStatus.cfm">Status of Roster Uploaded</a>
 						<br>38 <a href="rptPlayingUp.cfm">Players Playing Up - Data List</a>
-						<br>38a<a href="rptPlayUpRefReport.cfm">Players Playing Up - Data list From Referee Report</a>
+						<br>38a <a href="rptPlayUpRefReport.cfm">Players Playing Up - Data list From Referee Report</a>
 						<br>39 <a href="rptRefereeRptPlayingUp.cfm">Referee Reporting of Players Playing Up</a>
 						<br>39a <a href="rptRefereeRptNotParticipating.cfm">Referee Reporting of Players/Coaches NOT Participating</a>
 						<br>39b <a href="rptNotParticipating.cfm">Players/Coaches Not Participating - Data List</a>

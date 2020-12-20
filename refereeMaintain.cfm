@@ -264,13 +264,13 @@ MODS: mm/dd/yyyy - filastname - comments
 	</TR>
 	<TR><TD align="right"><b>EMail</b></TD>				<TD>#EMail#</TD>		
 	</TR>
-	<TR><TD align="right">#required#<b>Grade</b></TD>
+	<TR><TD align="right">#required#<b>USSF Referee Grade</b></TD>
 		<TD>
 			<cfquery name="getGradeDesignation" datasource="#application.dsn#">
 				select grade_code, grade_desc from tlkp_grade_designation
 			</cfquery>
 			<select name="Grade" id="grade">
-				<option value=""> Select a Grade </option>
+				<option value=""> Select a USSF Referee Grade </option>
 				<cfloop query="getGradeDesignation">
 					<option value="#grade_code#" #iif(grade eq grade_code,de("selected=selected"),de(""))#>#Grade_code# - #Grade_Desc#</option>
 				</cfloop>

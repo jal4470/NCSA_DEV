@@ -402,7 +402,7 @@ br><h2>yyyyyy </h2>
 				</td>
 				<td width="85%" align="left">		
 					<font class="data">#RefereeLastName#, #RefereeName#</font>
-					<font class="title">&nbsp;&nbsp;Grade:</font>
+					<font class="title">&nbsp;&nbsp;USSF Referee Grade:</font>
 					<font class="data">#Grade#</font>
 				</td>
 			</tr>
@@ -411,7 +411,7 @@ br><h2>yyyyyy </h2>
 				<td align="left">
 					<cfif len(Trim(AR1LastName))>
 						<font class="data">#AR1LastName#, #AR1Name#</font>
-						<font class="title">&nbsp;&nbsp;Grade:</font>
+						<font class="title">&nbsp;&nbsp;USSF Referee Grade:</font>
 						<font class="data">#AR1Grade#</font>
 					<cfelseif len(trim(AsstRef1WriteIn))>
 						<font class="data">#AsstRef1WriteIn#</font>
@@ -425,7 +425,7 @@ br><h2>yyyyyy </h2>
 				<td align="left">
 					<cfif len(Trim(AR2LastName))>
 						<font class="data">#AR2LastName#, #AR2Name#</font>
-						<font class="title">&nbsp;&nbsp;Grade:</font>
+						<font class="title">&nbsp;&nbsp;USSF Referee Grade:</font>
 						<font class="data">#AR2Grade#</font>
 					<cfelseif len(trim(AsstRef2WriteIn))>
 						<font class="data">#AsstRef2WriteIn#</font>

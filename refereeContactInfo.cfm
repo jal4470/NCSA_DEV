@@ -110,21 +110,25 @@ MODS: mm/dd/yyyy - filastname - comments
 					<option value="AGE" <cfif sortBy EQ "AGE">selected</cfif> >Age</option>
 					<option value="YRSERVICE" <cfif sortBy EQ "YRSERVICE">selected</cfif> >Years of Service</option>
 				</select>
+				<div class="filter_submit">
+	        		<INPUT type="Submit" name="getRefs" value="Go"> 
+	        	</div>
 		    </div>
-
-		    <div class="filter_submit">
-	        	<INPUT type="Submit" name="getRefs" value="Go"> 
-	        </div>
-
         </FORM>
+		
 
-        <FORM name="refContInfo" action="refereeContactInfoPDF.cfm" method="post" style="float: right;display:inline-block;" target="_blank">
-        	<input type="hidden" name="selState" value="#selState#">
-        	<input type="hidden" name="selCert" value="#selCert#">
-        	<input type="hidden" name="sortOrder" value="#sortBy#">
-			<input type="Submit" name="printme" value="Printer Friendly" >
-		</FORM>
+	        <FORM name="refContInfo" action="refereeContactInfoPDF.cfm" method="post" style="display:inline-block;" target="_blank">
+	        	<input type="hidden" name="selState" value="#selState#">
+	        	<input type="hidden" name="selCert" value="#selCert#">
+	        	<input type="hidden" name="sortOrder" value="#sortBy#">
+				<input type="Submit" name="printme" value="Printer Friendly" >
+			</FORM>
 
+		<span style="float:right;display:inline-block;">
+			<a href="refereeContactInfo_csv.cfm?sortBy=#sortBy#&selCert=#selCert#&selState=#selState#">Download Ref info</a>
+			<br><small>(IE users, please save the file before opening it.)</small>
+		</span>
+		
     </div>
 </section>
 

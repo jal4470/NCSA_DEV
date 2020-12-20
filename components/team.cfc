@@ -301,13 +301,35 @@
 	<cfargument name="updContactID"	type="numeric" required="Yes">
 	<cfargument name="TeamID"       type="string" required="Yes">
 
-	<CFQUERY name="approveTeam" datasource="#SESSION.DSN#">
-		Update TBL_TEAM
-		   set Approved_YN	= 'Y'
-	 		 , updateDate = getdate()
-			 , upDatedBy  = #ARGUMENTS.updContactID#
-		 Where TEAM_ID 	  = #ARGUMENTS.TeamId#					
+	<CFQUERY name="getPreviousSeasonRoster" datasource="#SESSION.DSN#">
+		select r.content,r.roster_id from tbl_roster r inner join tbl_registration_team_log lg on r.team_id = lg.prior_team_id 
+		where lg.new_team_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#arguments.TEAMID#">
+		and exists(select 1 from tbl_season where season_id = lg.new_season_id and season_SF = 'SPRING')
 	</CFQUERY>
+	
+	<cfset Watermark = "">
+	<cfif getPreviousSeasonRoster.recordCount gt 0>
+<!--- 		<cfpdf action="addWatermark" source="#getPreviousSeasonRoster.content#"  image="assets/images/ncsa_logo_mobile.png"  name="Watermark" foreground="yes" overwrite="yes" position="180,660" opacity="2" showonprint="true"> --->
+		<cfset tempPath = ExpandPath("uploads\temp\gamedayforms")>
+		<cfset bin=true>
+		<cfset roster_id = getPreviousSeasonRoster.roster_id>
+		<cfset watermark_date = dateformat(now(),"mm/dd/yyyy")>
+		<cfinclude template="../rosterView.cfm">
+	
+		<cffile action="write" output="#roster#" file="#tempPath#\roster#arguments.teamID#.pdf">
+
+		<cfpdf action="addFooter" bottomMargin="0.25" leftMargin=".25" name="Watermark" align="left" text="#session.regseason.SF# #(session.regseason.Year)# League Verified: #watermark_date#" source="#tempPath#\roster#arguments.teamID#.pdf"  showonprint="true"> 	
+
+	</cfif>
+
+	<cfstoredproc procedure="p_approveTeam" datasource="#SESSION.DSN#">
+		<cfprocresult name="PDF" >
+		<cfprocparam type = "IN" dbvarname = "@teamId"  CFSQLType = "CF_SQL_INTEGER"  value = "#arguments.teamId#"> 
+		<cfprocparam type = "IN" dbvarname = "@updContactID" CFSQLType = "CF_SQL_INTEGER" value = "#arguments.updContactID#">
+		<cfprocparam type = "IN" cfsqltype="CF_SQL_VARBINARY" dbvarname="@content" value="#ToBinary(Watermark)#" null="#YesNoFormat(not len(trim(Watermark)))#">
+	</cfstoredproc>
+
+
 </cffunction>
 
 
