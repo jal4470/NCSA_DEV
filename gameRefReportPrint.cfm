@@ -12,6 +12,17 @@ MODS: mm/dd/yyyy - filastname - comments
 9/8/2014	-	J. Danz	- 15511 - added players playing up section to this report view if there are any players playing up.
  --->
  
+<cfset GameDate		= "" >
+<cfset GameTime		= "" >
+<cfset HomeScore	= "" >
+<cfset VisitorScore	= "" >
+<cfset HomeTeam		= "" >
+<cfset VisitorTeam	= "" >
+<cfset HomeTeamID	= "" >
+<cfset VisitorTeamID = "" >
+<cfset PlayField	 = "" >
+<cfset Division		 = "" >
+
 <cfset mid = 0> <!--- optional =menu id ---> 
 <!--- <cfinclude template="_header.cfm"> --->
 <cfinclude template="_checkLogin.cfm">
@@ -321,6 +332,9 @@ br><h2>yyyyyy </h2>
 		<cfset State	= qField.State>
 		<cfset Zip		= qField.ZIPCODE>
 	</cfif>
+<cfelse>
+	No Referee Report Submitted!!
+	<cfabort>
 </cfif>
 
 

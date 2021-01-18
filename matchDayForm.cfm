@@ -463,7 +463,7 @@ MODS: mm/dd/yyyy - filastname - comments
 				var fieldsValid=true;
 				
 
-				if($("input[name=coach1]").trim().val().length > 0 && $("input[name=coach1pass]").val().trim().length == 0)
+				if($("input[name=coach1]").val().trim().length > 0 && $("input[name=coach1pass]").val().trim().length == 0)
 				{
 					alert('Pass for Coach 1 is required.');
 					fieldsValid=false;
@@ -477,7 +477,7 @@ MODS: mm/dd/yyyy - filastname - comments
 					return false;
 				}
 
-				if($("input[name=coach3]").trim().val().length > 0 && $("input[name=coach3pass]").val().trim().length == 0)
+				if($("input[name=coach3]").val().trim().length > 0 && $("input[name=coach3pass]").val().trim().length == 0)
 				{
 					alert('Pass for Coach 3 is required.');
 					fieldsValid=false;

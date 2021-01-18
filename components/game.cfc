@@ -38,7 +38,8 @@ Changes:
 	<cfargument name="orderBy"	type="string"  required="no" default="" >
 	<cfargument name="notLeague" type="string" required="no" default="" >  <!--- Y=F,C,N,P  N=L, ''=ALL GAMES  --->
 	<cfargument name="seasonID"  type="string" required="no" default="" >
-	
+	<cfargument name="Official"  type="string" required="no" default="" >
+
 	<CFSET useOrderBy = "">
 	<CFSET useGame = "">
 	<CFSET useClub = "">
@@ -123,6 +124,12 @@ Changes:
 				comments, gamesChairComments 
 		  FROM  V_GAMES_ALL with (nolock) 
 		WHERE 1=1
+
+			<cfif LEN(TRIM(ARGUMENTS.Official)) NEQ '' and isNumeric(Arguments.Official)>
+				AND (RefId = <cfqueryparam cfsqltype="cf_sql_integer" value="#arguments.official#">
+					OR AsstRefID1 = <cfqueryparam cfsqltype="cf_sql_integer" value="#arguments.official#">
+					OR AsstRefID2 = <cfqueryparam cfsqltype="cf_sql_integer" value="#arguments.official#">)
+			</cfif>
 			<CFIF ARGUMENTS.clubID GT 0>
 				<CFIF swHomeGameOnly>
 					and ( Home_CLUB_ID = #ARGUMENTS.clubID# )
@@ -265,14 +272,15 @@ Changes:
 	<cfargument name="VisitorTeamID"	 type="numeric" required="Yes" >
 	<cfargument name="ContactID"		 type="numeric" required="Yes" >
 	<cfargument name="Script_Name"		 type="string"  required="Yes" >
-
+	<cfargument name="virtualTeamName" 	 type="string" required="No" >
 	<!--- Create the record in the log before changing the games information --->
+
 	<cfinvoke component="site" method="WriteGameLogRecord">
 		<cfinvokeargument name="GameID" 	 value="#ARGUMENTS.GameId#">
 		<cfinvokeargument name="ContactID" 	 value="#ARGUMENTS.ContactID#">
 		<cfinvokeargument name="Script_Name" value="#ARGUMENTS.Script_Name#">
 	</cfinvoke> 
-
+<cftry>
 	<CFQUERY name="updateGAME" datasource="#VARIABLES.DSN#">
 		UPDATE TBL_GAME
 		   SET game_date = <cfqueryparam cfsqltype="CF_SQL_DATE" value="#ARGUMENTS.GameDate#">
@@ -282,7 +290,17 @@ Changes:
 			 , GamesChairComments	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#ARGUMENTS.GamesChairComments#">
 		 Where Game_ID   = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.GameId#">
 	</CFQUERY>
-		
+
+	<CFIF arguments.virtualTeamName neq "">
+		<CFQUERY name="updateVirtualTeam" datasource="#variables.DSN#">
+			update XREF_GAME_TEAM 
+				set virtual_TeamName = <cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.virtualTeamName#">
+				where 
+					team_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#arguments.visitorTeamID#"> 
+				and 
+					game_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#arguments.GameId#">
+		</CFQUERY>
+	</CFIF>
 	<cfif ARGUMENTS.HomeTeamID NEQ ARGUMENTS.ORIGHomeTeamID>
 		<cfstoredproc procedure="p_set_game_team" datasource="#VARIABLES.DSN#">
 			<cfprocparam type="In" dbvarname="@orig_team_id" cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ORIGHomeTeamID#">
@@ -299,6 +317,10 @@ Changes:
 			<cfprocparam type="In" dbvarname="@home_yn" 	 cfsqltype="CF_SQL_VARCHAR"	value="N">
 		</cfstoredproc>
 	</cfif>
+<cfcatch>
+	<cfdump var="#cfcatch#" abort="true">
+</cfcatch>
+</cftry>
 </cffunction>
 
 
@@ -447,6 +469,7 @@ Changes:
 <cffunction name="uploadGames" access="public" returntype="string">
 	<!--- --------
 		01/06/09 - AArnone - Load TBL_GAME and XREF_GAME_TEAM with data from TBL_GAME_UPLOAD
+		12/27/2020 - J LECHUGA - Added Game type to upload process
 	----- --->
 	<cfset loadNewGameText = "">
 	
@@ -480,7 +503,7 @@ Changes:
 		
 			<!--- get games to load --->	
 			<CFQUERY name="qNewGames" datasource="#VARIABLES.DSN#">
-				SELECT gu.gameCode, gu.division, gu.field, 	gu.gameDate, gu.gameTime
+				SELECT gu.gameCode, gu.division, gu.field, 	gu.gameDate, gu.gameTime, gu.game_type
 				  FROM TBL_GAME_UPLOAD gu  
 			</CFQUERY>
 			<!--- SELECT gameCode, division, field, gameDate, gameTime, HomeTeamID, VisitorTeamID FROM TBL_GAME_UPLOAD --->
@@ -498,7 +521,7 @@ Changes:
 		
 				<CFQUERY name="qInsertNewGame" datasource="#VARIABLES.DSN#">
 					INSERT into TBL_GAME
-						(game_code, season_id, game_date, game_time, division_id, field_id, createdby, createDate)
+						(game_code, season_id, game_date, game_time, division_id, field_id, createdby, createDate,game_type)
 					VALUES
 						( <cfqueryparam cfsqltype="CF_SQL_VARCHAR"   value="#gameCode#" >
 						, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#VARIABLES.currentSeasonID#" >
@@ -508,6 +531,7 @@ Changes:
 						, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#VARIABLES.fieldID#" >
 						, 0
 						, getDate()
+						, <cfqueryparam cfsqltype="CF_SQL_VARCHAR"   value="#game_type#" >
 						)
 				</CFQUERY>
 			</CFLOOP>
@@ -517,35 +541,68 @@ Changes:
 				SELECT (SELECT game_id FROM TBL_GAME WHERE game_code = gu.gameCode AND season_id = #VARIABLES.currentSeasonID#) AS GAME_ID
 					   ,gu.HomeTeamID    ,(SELECT CLUB_ID FROM TBL_TEAM WHERE TEAM_ID = gu.HomeTeamID)    AS HomeTeamClubID
 					   ,gu.VisitorTeamID ,(SELECT CLUB_ID FROM TBL_TEAM WHERE TEAM_ID = gu.VisitorTeamID) AS VisitorTeamClubID
+					   , gu.HomeTeamName, gu.VisitorTeamName
 				  FROM TBL_GAME_UPLOAD gu  
 			</CFQUERY>
 			<!--- INSERT TEAMS into XREF_GAME_TEAM --->
 			<CFLOOP query="qNewGameTeams">
 					<!--- Do HOME team --->
-					<CFQUERY name="qInsertNewGame" datasource="#VARIABLES.DSN#">
-						INSERT into XREF_GAME_TEAM
-							(season_id, game_id, club_id, Team_ID, IsHomeTeam)
-						VALUES
-							( <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#VARIABLES.currentSeasonID#" >
-							, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#GAME_ID#" >
-							, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#HomeTeamClubID#" >	
-							, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#HomeTeamID#" >
-							, 1
-							)
-					</CFQUERY><!--- VARIABLES.clubID VARIABLES.GameId--->
-		
-					<!--- Do VISITING team --->
-					<CFQUERY name="qInsertNewGame" datasource="#VARIABLES.DSN#">
-						INSERT into XREF_GAME_TEAM
-							(season_id, game_id, club_id, Team_ID, IsHomeTeam)
-						VALUES
-							( <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#VARIABLES.currentSeasonID#" >
-							, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#GAME_ID#" >
-							, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#VisitorTeamClubID#" >
-							, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#VisitorTeamID#" >
-							, 0
-							)
-					</CFQUERY><!--- VARIABLES.clubID VARIABLES.GameId--->
+					<CFIF HomeTeamID eq 830>
+						<CFQUERY name="qInsertNewGame" datasource="#VARIABLES.DSN#">
+							INSERT into XREF_GAME_TEAM
+								(season_id, game_id, club_id, Team_ID, IsHomeTeam, virtual_TeamName)
+							VALUES
+								( <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#VARIABLES.currentSeasonID#" >
+								, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#GAME_ID#" >
+								, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#HomeTeamClubID#" >	
+								, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#HomeTeamID#" >
+								, 1
+								, <cfqueryparam cfsqltype="CF_SQL_VARCHAR"   value="#HomeTeamName#" >
+								)
+						</CFQUERY>
+					<CFELSE>
+						<CFQUERY name="qInsertNewGame" datasource="#VARIABLES.DSN#">
+							INSERT into XREF_GAME_TEAM
+								(season_id, game_id, club_id, Team_ID, IsHomeTeam)
+							VALUES
+								( <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#VARIABLES.currentSeasonID#" >
+								, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#GAME_ID#" >
+								, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#HomeTeamClubID#" >	
+								, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#HomeTeamID#" >
+								, 1
+								)
+						</CFQUERY><!--- VARIABLES.clubID VARIABLES.GameId--->
+					</CFIF>
+
+
+					<CFIF VisitorTeamID eq 830>
+						<!--- Do VISITING team --->
+						<CFQUERY name="qInsertNewGame" datasource="#VARIABLES.DSN#">
+							INSERT into XREF_GAME_TEAM
+								(season_id, game_id, club_id, Team_ID, IsHomeTeam, virtual_TeamName)
+							VALUES
+								( <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#VARIABLES.currentSeasonID#" >
+								, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#GAME_ID#" >
+								, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#VisitorTeamClubID#" >
+								, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#VisitorTeamID#" >
+								, 0
+								, <cfqueryparam cfsqltype="CF_SQL_VARCHAR"   value="#VisitorTeamName#" >
+								)
+						</CFQUERY><!--- VARIABLES.clubID VARIABLES.GameId--->
+					<CFELSE>
+						<!--- Do VISITING team --->
+						<CFQUERY name="qInsertNewGame" datasource="#VARIABLES.DSN#">
+							INSERT into XREF_GAME_TEAM
+								(season_id, game_id, club_id, Team_ID, IsHomeTeam)
+							VALUES
+								( <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#VARIABLES.currentSeasonID#" >
+								, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#GAME_ID#" >
+								, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#VisitorTeamClubID#" >
+								, <cfqueryparam cfsqltype="CF_SQL_NUMERIC"   value="#VisitorTeamID#" >
+								, 0
+								)
+						</CFQUERY><!--- VARIABLES.clubID VARIABLES.GameId--->
+					</CFIF>
 			</CFLOOP>
 			<cfset loadNewGameText = "Games Upload Completed!">
 	<CFELSE>

@@ -441,6 +441,8 @@ Ticket NCSA22671 - Added AsstCoachID2,AsstCoachID3,Roster,PrevPlayLevel,ReasonFo
 	<cfreturn registeredClubs >
 </cffunction>
 
+
+
 <!--- =================================================================== --->
 <cffunction name="getRegisteredTeams" access="remote" returntype="query">
 	<!--- --------

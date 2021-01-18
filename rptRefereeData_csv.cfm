@@ -26,8 +26,8 @@ YIELD: all info, like coach report, but with additional ref info also
 	select DISTINCT STATEREGISTEREDIN from qGetRefs 
 </cfquery>
 
-<cfif isDefined("FORM.sortOrder")>
-	<cfset sortBy = FORM.sortOrder >
+<cfif isDefined("URL.sortBy")>
+	<cfset sortBy = URL.sortBy >
 <cfelse>
 	<cfset sortBy = "NAME" >
 </cfif>
@@ -41,13 +41,13 @@ YIELD: all info, like coach report, but with additional ref info also
 	<cfdefaultcase> 	<cfset orderByCol = " LastName, FirstNAme " >	</cfdefaultcase>
 </cfswitch>
 
-<cfif isDefined("FORM.selCert")>
-	<cfset selCert = FORM.selCert >
+<cfif isDefined("URL.selCert")>
+	<cfset selCert = URL.selCert >
 <cfelse>
 	<cfset selCert = "" >
 </cfif>
-<cfif isDefined("FORM.selState")>
-	<cfset selState = FORM.selState >
+<cfif isDefined("URL.selState")>
+	<cfset selState = URL.selState >
 <cfelse>
 	<cfset selState = "" >
 </cfif>
@@ -81,7 +81,7 @@ YIELD: all info, like coach report, but with additional ref info also
 <CFIF isDefined("qGetRefs") AND qGetRefs.RECORDCOUNT >
 	<CFSET filename = "#SESSION.USER.CONTACTID#RefData.csv" >
 	<CFSET output = "">
-	<CFSET output = output & "Referee,City State,Cert,State Reg,Age,Yrs Ref,NCSA Level,Grade Level,Phone Number" & chr(13) & chr(10) >
+	<CFSET output = output & "Referee,City State,Cert,State Reg,Age,Yrs Ref,NCSA Level,Grade Level,Phone Number,Comments" & chr(13) & chr(10) >
 	<CFLOOP query="qGetRefs">
 		<cfif len(trim(CERTIFIED_1ST_YEAR))>
 			<cfset yrsCert = datePart("yyyy",now()) - CERTIFIED_1ST_YEAR>
@@ -93,7 +93,7 @@ YIELD: all info, like coach report, but with additional ref info also
 		<cfelse>
 			<cfset yrsAge = 0>
 		</cfif>
-			<CFSET output = output & """#LastName#, #FirstNAme#"",""#CITY#, #STATE#"",""#CERTIFIED_YN#"",""#STATEREGISTEREDIN#"",""#VARIABLES.yrsAge#"",""#VARIABLES.yrsCert#"",""#REF_LEVEL#"",""#GRADE#"",""[H: #trim(phoneHome)#][C: #trim(phoneCell)#][W: #trim(phoneWork)#][F: #trim(phoneFax)#]"" ">
+			<CFSET output = output & """#LastName#, #FirstNAme#"",""#CITY#, #STATE#"",""#CERTIFIED_YN#"",""#STATEREGISTEREDIN#"",""#VARIABLES.yrsAge#"",""#VARIABLES.yrsCert#"",""#REF_LEVEL#"",""#GRADE#"",""[H: #trim(phoneHome)#][C: #trim(phoneCell)#][W: #trim(phoneWork)#][F: #trim(phoneFax)#]"",, ""#ADDITIONAL_REF_INFO#"" ">
 			<cfset output = output & chr(13) & chr(10)>
 	</CFLOOP>
 </CFIF>

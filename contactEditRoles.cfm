@@ -90,6 +90,9 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfinvoke component="#SESSION.SITEVARS.cfcPath#contact" method="getClubContacts" returnvariable="clubContacts">
 		<cfinvokeargument name="clubID" value="#club_id#">
 	</cfinvoke>
+	<cfquery name="clubContacts" dbtype="query">
+		select * from clubContacts where active_yn = 'Y'
+	</cfquery>
 </cfif>
  
 <cfif contact_id NEQ "">

@@ -71,6 +71,8 @@
 	</cfquery>
 	<cfif getWatermarkDate.recordcount > 
 		<cfset watermark_date = dateformat(getWatermarkDate.watermark_date,"mm/dd/yyyy")>
+	<cfelse>
+		<cfset watermark_date = "">
 	</cfif>
 </cfif>
 

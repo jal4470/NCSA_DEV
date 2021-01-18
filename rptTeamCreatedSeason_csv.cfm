@@ -80,7 +80,7 @@
 			   T.teamFormed as teamFormed,
 			   T.teamAvailability as teamAvailability,
 			   T.soccerID as soccerID,
-			   case when lg.prior_team_id = 0 then 'N/A' else convert(varchar,lg.prior_team_id) end as prior_team_id, 
+			   case when lg.prior_team_id = 0 then null else convert(varchar,lg.prior_team_id) end as prior_team_id, 
 			   case when lg.prior_team_id = 0 then 'N/A' else (select teamName from tbl_team where team_id = lg.prior_team_id) end as prior_team_name, 
 			   case when lg.prior_season_id is not null then
 			   	(select SeasonCode from tbl_season where season_id = lg.prior_season_id) 

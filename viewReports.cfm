@@ -85,6 +85,7 @@ Joe Lechuga - 7/25/2011 - Changed Report 53 to Competition Evaluation - Sportsma
 						<br>37b <a href="rptGDDIncomplete.cfm">Game Day Documents file Not Complete</a>
 						<br>37c <a href="rptGDDNCByDatetime.cfm">Game Day Documents not submitted by game time</a>
 						<br>37d <a href="rptRosterStatus.cfm">Status of Roster Uploaded</a>
+						<br>37e <a href="rptRosterStatusReg.cfm">Status of Roster Uploaded(Registration Season)</a>
 						<br>38 <a href="rptPlayingUp.cfm">Players Playing Up - Data List</a>
 						<br>38a <a href="rptPlayUpRefReport.cfm">Players Playing Up - Data list From Referee Report</a>
 						<br>39 <a href="rptRefereeRptPlayingUp.cfm">Referee Reporting of Players Playing Up</a>

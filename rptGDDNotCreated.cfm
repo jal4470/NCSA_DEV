@@ -78,7 +78,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfif swContinue>
 		<cfquery name="qMissingGDD" datasource="#SESSION.DSN#">
 			select g.Game_id, 
-				DIVISION, g.game_datetime, HOME_TEAMNAME, VISITOR_TEAMNAME, 
+				DIVISION, g.game_datetime, HOME_TEAMNAME, VISITOR_TEAMNAME, FIELD,
 				(select firstName + ' ' + lastName as RefName 
 				from tbl_contact
 				where contact_id = g.refId) as RefName, 
@@ -90,7 +90,7 @@ MODS: mm/dd/yyyy - filastname - comments
 					TBL_GAME_DAY_DOCUMENTS gdd 
 						on g.game_id = gdd.game_id
 			where gdd.game_id is null -- No Game Day Document
-				and g.type in('L','F','P') 
+				and (g.type in('L','F','P') or g.type is null)
 				and g.Ref_accept_YN = 'Y' -- For Head Ref that accepted
 			   	and (g.home_club_id <> 1 and g.visitor_club_id <> 1)
 		   <cfif isdefined("form.gosingle")>
@@ -171,6 +171,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			<th>Date</th>
 			<th>Home Team</th>
 			<th>Visitor Team</th>
+			<th>Playfield</th>
 			<th>Referee</th>
 			<th>Referee Email</th>
 		</tr>
@@ -189,6 +190,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			<td>#dateformat(game_datetime,"m/d/yyyy")# #timeformat(game_datetime, "h:mm tt")#</td>
 			<td>#HOME_TEAMNAME#</td>
 			<td>#VISITOR_TEAMNAME#</td>
+			<td>#FIELD#</td>
 			<td>#refName#</td>
 			<td><a href="mailto:#refEmail#">#refEmail#</a></td>
 		</tr>

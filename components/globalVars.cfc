@@ -366,7 +366,6 @@ MODS: mm/dd/yyyy - filastname - comments
 				returnX = ClubStatesArray;				
 			</CFSCRIPT>
 		</cfcase>
-
 		<cfdefaultcase>
 			<CFSET returnX = "Incorrect listtype used:[" & ucase(ARGUMENTS.listType) & "] check against cfc values.">
 		</cfdefaultcase>

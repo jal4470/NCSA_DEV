@@ -48,26 +48,37 @@ MODS: mm/dd/yyyy - filastname - comments
 	<CFELSE>
 		<CFSET newFieldID = FORM.ORIGGameFieldID>
 	</CFIF>
+
+	<CFIF ISDEFINED("FORM.virtualTeamName")>
+		<cfset virtualTeamName = FORM.virtualTeamName>
+	<CFELSE>
+		<cfset virtualTeamName = "">
+	</CFIF>
+
 	<CFSET GameTime = FORM.GameHour & ":" & FORM.GameMinute & " " & FORM.GameMeridian>
 
-	<cfinvoke component="#SESSION.SITEVARS.cfcPath#game" method="updateGameScedule">
-		<cfinvokeargument name="GameId"			    value="#FORM.GameId#">
-		<cfinvokeargument name="GameDate"		    value="#FORM.GameDate#">
-		<cfinvokeargument name="GameTime"		    value="#VARIABLES.GameTime#">
-		<cfinvokeargument name="GameFieldID"	    value="#VARIABLES.newFieldID#">
-		<cfinvokeargument name="Comments"		    value="#FORM.Comments#">
-		<cfinvokeargument name="GamesChairComments" value="#FORM.GamesChairComments#">
-		<cfinvokeargument name="ORIGHomeTeamID"	    value="#FORM.ORIGHomeTeamID#">
-		<cfinvokeargument name="HomeTeamID"		    value="#FORM.HomeTeam#">
-		<cfinvokeargument name="ORIGVisitorTeamID"  value="#FORM.ORIGVisitorTeamID#">
-		<cfinvokeargument name="VisitorTeamID"	    value="#FORM.VisitorTeam#">
-		<cfinvokeargument name="ContactID"		    value="#SESSION.USER.CONTACTID#">
-		<cfinvokeargument name="Script_Name"	    value="#CGI.SCRIPT_NAME#">
-	</cfinvoke>
-		<!--- <cfinvokeargument name="HomeTeamID"		    value="#FORM.HomeTeamID#">
-		<cfinvokeargument name="VisitorTeamID"	    value="#FORM.VisitorTeamID#"> --->
-	<CFSET msg = "This game has been updated.">
+	<cftry>
 
+		<cfinvoke component="#SESSION.SITEVARS.cfcPath#game" method="updateGameScedule">
+			<cfinvokeargument name="GameId"			    value="#FORM.GameId#">
+			<cfinvokeargument name="GameDate"		    value="#FORM.GameDate#">
+			<cfinvokeargument name="GameTime"		    value="#VARIABLES.GameTime#">
+			<cfinvokeargument name="GameFieldID"	    value="#VARIABLES.newFieldID#">
+			<cfinvokeargument name="Comments"		    value="#FORM.Comments#"> 
+			<cfinvokeargument name="GAMESCHAIRCOMMENTS"		    value="#FORM.GAMESCHAIRCOMMENTS#"> 
+			<cfinvokeargument name="ORIGHOMETEAMID"		    value="#FORM.ORIGHOMETEAMID#">
+			<cfinvokeargument name="HomeTeamID"		    value="#FORM.HomeTeam#">
+			<cfinvokeargument name="ORIGVisitorTeamID"  value="#FORM.ORIGVisitorTeamID#">
+			<cfinvokeargument name="VisitorTeamID"	    value="#FORM.VisitorTeam#">
+			<cfinvokeargument name="ContactID"		    value="#SESSION.USER.CONTACTID#">
+			<cfinvokeargument name="Script_Name"	    value="#CGI.SCRIPT_NAME#">
+			<cfinvokeargument name="virtualTeamName"	value="#variables.virtualTeamName#">
+		</cfinvoke>
+			<!--- <cfinvokeargument name="HomeTeamID"		    value="#FORM.HomeTeamID#">
+			<cfinvokeargument name="VisitorTeamID"	    value="#FORM.VisitorTeamID#"> --->
+		<CFSET msg = "This game has been updated.">
+	<cfcatch><cfdump var="#cfcatch#" abort="true"></cfcatch>
+	</cftry>
 	<!--- <cfdump var="#FORM#">
 	<CFABORT> --->
 	
@@ -337,7 +348,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			<CFIF GameType EQ "C" OR GameType EQ "N">
 				<!--- non league or state cup Game --->
 				<input type="Hidden" name="VisitorTeam"  value="#VARIABLES.VisitorTeamId#"> 
-				<input type="text"   name="VisitorTeam" Disabled size="25"  value="#VARIABLES.virtualTeamName#"> 
+				<input type="text"   name="virtualTeamName" size="25"  value="#VARIABLES.virtualTeamName#"> 
 			
 			<CFELSEIF GameType EQ "F">
 				<!--- Friendly Game --->

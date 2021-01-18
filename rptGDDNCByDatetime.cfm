@@ -87,17 +87,19 @@ MODS: mm/dd/yyyy - filastname - comments
 				from tbl_contact
 				where contact_id = g.refId) as RefEmail, 
 				dbo.f_getMissingGameDayDocs(g.game_id) as missing_doc,
-				gdd.GAME_DAY_DOCUMENT_ID
+				gdd.GAME_DAY_DOCUMENT_ID,
+				gdd.datecreated,
+				game_datetime
 			from v_games_all g 
 				inner join 
 					TBL_GAME_DAY_DOCUMENTS gdd 
 						on g.game_id = gdd.game_id
-				where gdd.game_id is null and g.type in('L','F','P') --and refId is not null
+				where (g.type in('L','F','P') or g.type is null) --and refId is not null
 				and g.Ref_accept_YN = 'Y'
 				and 
-				datediff(hh,game_datetime,gdd.datecreated) > 0
+				datediff(mi,game_datetime,gdd.datecreated) > 0
 				and 
-				len(dbo.f_getMissingGameDayDocs(g.game_id)) = 0 -- 37c
+				(HOME_MDF_DATE IS NOT NULL AND VISITOR_MDF_DATE IS NOT NULL AND HOME_ROSTER_DATE IS NOT NULL AND VISITOR_ROSTER_DATE IS NOT NULL) -- 37c
 				and 
 				GAME_DAY_DOCUMENT_ID IS NOT NULL
 			   	and (g.home_club_id <> 1 and g.visitor_club_id <> 1)
@@ -107,9 +109,7 @@ MODS: mm/dd/yyyy - filastname - comments
 				<cfif Session.MenuRoleID EQ 28 OR Session.MenuRoleID EQ 27 OR Session.MenuRoleID EQ 26 OR Session.MenuRoleID EQ 25>
 					and f.club_id = <cfqueryparam cfsqltype="cf_sql_numeric" value="#SESSION.USER.CLUBID#">
 				</cfif>
-
-				   and datediff(d,<cfqueryparam cfsqltype="CF_SQL_DATE" value="#WeekendFrom#">,g.game_datetime) >= 0
-				   and datediff(d,g.game_datetime,<cfqueryparam cfsqltype="CF_SQL_DATE" value="#weekendto#">) >= 0
+				   and cast(g.game_datetime as date) between <cfqueryparam cfsqltype="CF_SQL_DATE" value="#WeekendFrom#"> and <cfqueryparam cfsqltype="CF_SQL_DATE" value="#weekendto#">
 		   		<cfif len(trim(gameDiv))>
 				    and G.Division = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.gameDiv#">
 		   		</cfif>

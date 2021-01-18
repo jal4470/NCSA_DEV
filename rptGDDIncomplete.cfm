@@ -74,7 +74,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		<cfset swContinue = false>
 		<cfset errMsg = "Game number must be a valid number.">
 	</CFIF>
-
+  
 	<cfif swContinue>
 		<cfquery name="qIncompleteGDD" datasource="#SESSION.DSN#">
 			select g.Game_id, 
@@ -94,7 +94,7 @@ MODS: mm/dd/yyyy - filastname - comments
 				where gdd.game_id is not null and (g.type in('L','F','P') or g.type is null) --and refId is not null
 				and g.Ref_accept_YN = 'Y'
 				and 
-				len(dbo.f_getMissingGameDayDocs(g.game_id)) > 0 -- 37b
+				(VISITOR_MDF_DATE IS NULL OR VISITOR_ROSTER_DATE IS NULL OR HOME_MDF_DATE IS NULL OR HOME_ROSTER_DATE IS NULL) -- 37b
 				and GAME_DAY_DOCUMENT_ID IS NOT NULL
 			   	and (g.home_club_id <> 1 and g.visitor_club_id <> 1)
 		   <cfif isdefined("form.gosingle")>
@@ -103,9 +103,8 @@ MODS: mm/dd/yyyy - filastname - comments
 				<cfif Session.MenuRoleID EQ 28 OR Session.MenuRoleID EQ 27 OR Session.MenuRoleID EQ 26 OR Session.MenuRoleID EQ 25>
 					and f.club_id = <cfqueryparam cfsqltype="cf_sql_numeric" value="#SESSION.USER.CLUBID#">
 				</cfif>
-
-				   and datediff(d,<cfqueryparam cfsqltype="CF_SQL_DATE" value="#WeekendFrom#">,g.game_datetime) >= 0
-				   and datediff(d,g.game_datetime,<cfqueryparam cfsqltype="CF_SQL_DATE" value="#weekendto#">) >= 0
+				and cast(g.game_datetime as date) between <cfqueryparam cfsqltype="CF_SQL_DATE" value="#WeekendFrom#"> and <cfqueryparam cfsqltype="CF_SQL_DATE" value="#weekendto#">
+				 
 		   		<cfif len(trim(gameDiv))>
 				    and G.Division = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.gameDiv#">
 		   		</cfif>

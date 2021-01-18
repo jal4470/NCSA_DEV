@@ -138,7 +138,7 @@ YIELD: all info, like coach report, but with additional ref info also
 	<tr><td colspan="3" align="right">
 		<form action="rptRefereeDataQuickinfo.cfm" method="post">
 			<b>State Registered:</b>
-			<select name="selState">
+			<select name="selState" class="filter">
 				<option value="" <cfif selState EQ "">selected</cfif> >All</option>
 				<cfloop query="qStateReg">
 					<cfif LEN(TRIM(STATEREGISTEREDIN))>
@@ -148,7 +148,7 @@ YIELD: all info, like coach report, but with additional ref info also
 			</select>
 
 			<b>Certified:</b>
-			<select name="selCert">
+			<select name="selCert"  class="filter">
 				<option value="" <cfif selCert EQ "">selected</cfif> >All</option>
 				<option value="Y" <cfif selCert EQ "Y">selected</cfif> >Yes</option>
 				<option value="N" <cfif selCert EQ "N">selected</cfif> >No</option>
@@ -156,7 +156,7 @@ YIELD: all info, like coach report, but with additional ref info also
 
 
 			<b>Sort By:</b>
-			<select name="sortOrder">
+			<select name="sortOrder"  class="filter">
 				<option value="NAME" <cfif sortBy EQ "NAME">selected</cfif> >Name</option>
 				<option value="TOWN" <cfif sortBy EQ "TOWN">selected</cfif> >Town</option>
 				<option value="RSTATE" <cfif sortBy EQ "RSTATE">selected</cfif> >Registered State</option>
@@ -212,4 +212,23 @@ YIELD: all info, like coach report, but with additional ref info also
 
 </cfoutput>
 </div>
+<cfsavecontent variable="cf_footer_scripts">
+<cfoutput>
+<script language="JavaScript" type="text/javascript" src="assets/jquery.tablesorter.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="assets/jquery-ui-1.12.1.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="assets/jquery.tablesorter.min.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+	$(function(){
+    
+    $(".filter").change(function() {
+        this.form.submit();
+    	});
+		
+	});
+</script>
+</cfoutput>
+</cfsavecontent>
+
+
 <cfinclude template="_footer.cfm">

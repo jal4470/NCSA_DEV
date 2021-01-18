@@ -6,7 +6,8 @@
 	Purpose: Combine all Game Day docs
 	
 
-
+	CHANGES
+	Ticket 19 - Added Bit values to stored procedure to track date when rosters/MDFS where added to the Game Day Document
  --->
 <cfset mid = 0> <!--- optional =menu id ---> 
 <cfinclude template="_header.cfm">
@@ -31,6 +32,7 @@
 
 	<cfif getHomeMDF.recordcount>
 		<cfset variables.home_team_mdf = getHomeMDF.home_team_mdf>
+		<!--- <cfset hasHomeMdf = 1 > --->
 	</cfif>
 
 	<cfquery name="getHomeRoster" datasource="#application.dsn#">
@@ -38,8 +40,9 @@
 		  from xref_Game_Team g 
 		  where game_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#game_id#"> and isHomeTeam = 1
 	</cfquery>
-	<cfif getHomeRoster.recordcount>
+	<cfif getHomeRoster.recordcount and getHomeRoster.home_team_roster_id neq ''>
 		<cfset variables.home_team_roster_id = getHomeRoster.home_team_roster_id>
+		<!--- <cfset hasHomeRoster = 1 > --->
 	</cfif>
 
 	<cfquery name="getVisitorMDF" datasource="#application.dsn#">
@@ -51,6 +54,7 @@
 
 	<cfif getVisitorMDF.recordcount>
 		<cfset variables.visitor_team_mdf = getVisitorMDF.visitor_team_mdf>
+		<!--- <cfset hasVisitorMDF = 1>	 --->
 	</cfif>
 
 	<cfquery name="getVisitorRoster" datasource="#application.dsn#">
@@ -59,8 +63,9 @@
 		  where game_id = <cfqueryparam cfsqltype="cf_sql_integer" value="#game_id#"> and isHomeTeam = 0
 	</cfquery>
 
-	<cfif getVisitorRoster.recordcount>
+	<cfif getVisitorRoster.recordcount and getVisitorRoster.visitor_team_roster_id neq ''>
 		<cfset variables.visitor_team_roster_id = getVisitorRoster.visitor_team_roster_id>
+		<!--- <cfset hasVisitorRoster = 1 > --->
 	</cfif>
 
 
@@ -79,10 +84,13 @@
 			<cffile action="write" output="#error#" file="#tempPath#\vmdf#game_id#.pdf">
 		</cfif>
 	<cfelse>
+		<cfset hasVisitorMDF = 0>
 		<cfset pdf_error = "VISITOR MATCH DAY FORM NOT PROVIDED AS OF #datetimeformat(now(),'MM/DD/YYYY HH:NN TT')# WHEN LAST UPDATED BY THE REFEREE! THIS PAGE WILL NOT UPDATE UNTIL REFEREE UPDATES IT">
 		<cfdocument name="error" format="PDF"><DIV style="color:red;font-weight:bold;"><cfoutput>#pdf_error#</cfoutput></DIV></cfdocument>
 		<cffile action="write" output="#error#" file="#tempPath#\vmdf#game_id#.pdf">
 	</cfif>
+	
+
 	<cfif  isdefined("variables.visitor_team_roster_id") and len(trim(variables.visitor_team_roster_id))>
 		<cfset roster = "">
 		<cfset roster_id=#variables.visitor_team_roster_id#>
@@ -91,10 +99,13 @@
 		<cffile action="write" output="#visitor_team_roster_bin#" file="#tempPath#\vtr#game_id#.pdf">
 		<cfset hasVisitorRoster = 1 >
 	<cfelse>
+		<cfset hasVisitorRoster = 0 >
 		<cfset pdf_error = "VISITOR TEAM ROSTER NOT PROVIDED AS OF #datetimeformat(now(),'MM/DD/YYYY HH:NN TT')# WHEN LAST UPDATED BY THE REFEREE! THIS PAGE WILL NOT UPDATE UNTIL REFEREE UPDATES IT">
 		<cfdocument name="error" format="PDF"><DIV style="color:red;font-weight:bold;"><cfoutput>#pdf_error#</cfoutput></DIV></cfdocument>
 		<cffile action="write" output="#error#" file="#tempPath#\vtr#game_id#.pdf">
 	</cfif>
+
+
 	<cfif  isdefined("variables.home_team_mdf") and isnumeric(variables.home_team_mdf)>
 		<cfset home_match_day_form_id=#variables.home_team_mdf#>
 		<cfset visitor_match_day_form_id="">
@@ -105,6 +116,7 @@
 			<cffile action="write" output="#home_team_mdf_bin#" file="#tempPath#\hmdf#game_id#.pdf">
 			<cfset hasHomeMdf = 1 >
 		<cfelse>
+			<cfset hasHomeMdf = 0 >
 			<cfdocument name="error" format="PDF"><DIV style="color:red;font-weight:bold;"><cfoutput>#pdf_error#</cfoutput></DIV></cfdocument>
 			<cffile action="write" output="#error#" file="#tempPath#\hmdf#game_id#.pdf">
 		</cfif>
@@ -113,6 +125,8 @@
 		<cfdocument name="error" format="PDF"><DIV style="color:red;font-weight:bold;"><cfoutput>#pdf_error#</cfoutput></DIV></cfdocument>
 		<cffile action="write" output="#error#" file="#tempPath#\hmdf#game_id#.pdf">
 	</cfif>
+	
+
 	<cfif  isdefined("variables.home_team_roster_id") and len(trim(variables.home_team_roster_id))>
 		<cfset roster = "">
 		<cfset roster_id=#variables.home_team_roster_id#>
@@ -121,6 +135,7 @@
 		<cffile action="write" output="#home_team_roster_bin#" file="#tempPath#\htr#game_id#.pdf">
 		<cfset hasHomeRoster = 1 >
 	<cfelse>
+		<cfset hasHomeRoster = 0 >
 		<cfset pdf_error = "HOME TEAM ROSTER NOT PROVIDED AS OF #datetimeformat(now(),'MM/DD/YYYY HH:NN TT')# WHEN LAST UPDATED BY THE REFEREE! THIS PAGE WILL NOT UPDATE UNTIL REFEREE UPDATES IT">
 		<cfdocument name="error" format="PDF"><DIV style="color:red;font-weight:bold;"><cfoutput>#pdf_error#</cfoutput></DIV></cfdocument>
 		<cffile action="write" output="#error#" file="#tempPath#\htr#game_id#.pdf">
@@ -138,6 +153,10 @@
 	<cfstoredproc datasource="#session.dsn#" procedure="P_UPSERT_GAME_DAY_DOC">
 		<cfprocparam cfsqltype="CF_SQL_INTEGER" dbvarname="@game_id" type="In" value="#game_id#">
 		<cfprocparam cfsqltype="CF_SQL_LONGVARBINARY" dbvarname="@content" type="In" value="#ToBinary(GameDayDoc)#">
+		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@hasVisitorMDF" type="In" value="#hasVisitorMdf#">
+		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@hasVisitorRoster" type="In" value="#hasVisitorRoster#">
+		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@hasHomeMDF"  type="In" value="#hasHomeMdf#">
+		<cfprocparam cfsqltype="CF_SQL_VARCHAR" dbvarname="@hasHomeRoster"  type="In" value="#hasHomeRoster#">
 	</cfstoredproc>
 			
 	<cffile action="delete" file="#tempPath#\vmdf#game_id#.pdf">

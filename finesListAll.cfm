@@ -317,7 +317,7 @@ select club_id, club_name from tbl_club order by club_name ASC
 		<cfset RecPrinted = "">
 		<cfset TotalAmount = TotalAmount + fineAmount >
 		
-		<tr bgcolor="###setRowColor(SESSION.sitevars.altColors,currentRow)#" onclick="SubmitForm(#FINE_Id#)"	onmouseover="this.style.cursor='hand'" 	>
+		<tr bgcolor="###setRowColor(SESSION.sitevars.altColors,currentRow)#" onclick="SubmitForm(#FINE_Id#)"	onmouseover="this.style.cursor='pointer'" 	>
 			<TD width="25" class="tdUnderLine" valign="top">  #FINE_Id#					</TD>
 			<TD width="35" class="tdUnderLine" valign="top">  <cfif GAME_ID GT 0>#Game_id#<cfelse>&nbsp;</cfif></TD>
 			<TD width="110" class="tdUnderLine" valign="top">  

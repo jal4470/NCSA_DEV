@@ -154,6 +154,10 @@ MODS: mm/dd/yyyy - filastname - comments
 		<cfset GameTime = GameTime & "00 AM">
 	</CFIF>
 
+	<CFIF isDefined("form.VIRTUALTEAMNAME")>
+		<cfset VirtTeamName = form.VirtualTeamName>
+	</CFIF>
+
 	<cfset FinedTeamID = FORM.FinedTeamID >
 	<cfset swApprove = true >
 	<cfif FineTeam EQ "Y" >
@@ -176,6 +180,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		<CFABORT> --->
 
 	<cfif swApprove>
+
 		<cfinvoke component="#SESSION.SITEVARS.cfcPath#GAME" method="insertGame" returnvariable="NEW_GAME_ID">
 			<cfinvokeargument name="HomeTeamID"		value="#VARIABLES.HteamID#">
 			<cfinvokeargument name="VisitorTeamID"  value="#VARIABLES.VteamID#">
@@ -203,9 +208,10 @@ MODS: mm/dd/yyyy - filastname - comments
 						 , ApprovedTime = getdate() 
 						 , updatedBy    = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#SESSION.USER.CONTACTID#">
 						 , updateDate   = getdate() 
+						 , virtual_VisitorTeamName = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#VARIABLES.VirtTeamName#">
 					 WHERE game_request_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#VARIABLES.gameReqID#">
 			</CFQUERY>
-			
+
 			<cfif GameType EQ "C" OR GameType EQ "N">
 				<!--- for state cup and non-league games put in virtual team name --->
 				<CFQUERY name="qUpdateVirtTeamName" datasource="#SESSION.DSN#">
@@ -216,7 +222,7 @@ MODS: mm/dd/yyyy - filastname - comments
 					   AND isHomeTeam = 0
 				</CFQUERY>
 			</cfif>
-	
+
 	
 			<cfif FineTeam EQ "Y">
 				<cfset Amount = 0>
@@ -383,7 +389,8 @@ MODS: mm/dd/yyyy - filastname - comments
 				<CFIF len(trim(VARIABLES.VteamName))>
 					#VARIABLES.VteamName#
 				<CFELSEIF len(trim(VARIABLES.VirtTeamName))>
-					#VARIABLES.VirtTeamName#
+					<input type="Text" name="VirtualTeamName" value="#VARIABLES.VirtTeamName#">
+<!--- 					<input type="hidden" name="TeamId" value="#VisitorTeam_ID#"> --->
 				<CFELSE>
 					&nbsp;
 				</CFIF>

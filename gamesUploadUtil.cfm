@@ -7,6 +7,7 @@
 	
 MODS: mm/dd/yyyy - filastname - comments
 02/24/09 - aarnone - changed gametime validation to require AM or PM
+12/27/2020 - J LECHUGA - Added Game type to upload process
 --->
 
 <cfsetting RequestTimeout = "500"> 
@@ -25,8 +26,9 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cflocation url="loginHome.cfm?rid=#SESSION.MENUROLEID#">
 </CFIF>
 
-<CFSET destinationPath = GetDirectoryFromPath(ExpandPath("*.*")) & "uploads">
+<CFSET destinationPath = ExpandPath("\uploads")>
 <CFSET errorFilePath   = destinationPath & "\uploadGamesError.csv">
+<!--- <cfdump var="#errorFilePath#" abort="true"> --->
 
 <!--- [#destinationPath#] <br> [#errorFilePath#] --->
 
@@ -36,14 +38,17 @@ MODS: mm/dd/yyyy - filastname - comments
 	<!--- ------------------------------------------------------------------------
 		STEP 1: upload selected file, read it and load records into temp table
 	-------------------------------------------------------------------------- --->
-	<cffile action="upload"				
-			destination="#destinationPath#"
-			nameConflict="overwrite"	
-			fileField="Form.file_to_be_uploaded">
+	<cftry>
+		<cffile action="upload"				
+				destination="#destinationPath#"
+				nameConflict="overwrite"	
+				fileField="Form.file_to_be_uploaded">
+		<cfcatch><cfdump var="#cfcatch#" abort="true"></cfcatch>
+	</cftry>
 			<!--- [[[<cfdump var="#cffile#">]]] 
 					struct: SERVERDIRECTORY  E:\Inetpub\virtualwwwroot\v3\uploads  
 							SERVERFILE 		 test2.xls  --->
-
+<!--- 	<cfdump var="#FORM#" abort="true"> --->
 	<cffile action="READ" 
 			file="#cffile.SERVERDIRECTORY#\#cffile.SERVERFILE#" 
 			variable="fileStuff">
@@ -65,7 +70,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	<!--- Create Error File --->
 	<CFSET tempfile = errorFilePath >
 	<CFSET output = "">
-	<CFSET output = "Num,Div,Date,Time,Field,Visitor,TeamV,Home,TeamH,Error Comments" />
+	<CFSET output = "Num,Div,Date,Time,Field,Visitor,TeamV,Home,TeamH,Type,Error comments" />
 	<CFFILE ACTION="WRITE" FILE="#tempfile#" OUTPUT="#output#" nameconflict="OVERWRITE"  />
 
 	<cfloop list="#fileStuff#" index="irec" delimiters="#delims#">
@@ -78,12 +83,14 @@ MODS: mm/dd/yyyy - filastname - comments
 				<cfset ctError = ctError + 1>
 				<cfset errMSG = errMSG & ctLoop & " - First Column heading is not ''NUM'' check file.<br>">
 				<cfbreak> <!--- exit loop, dont go any further with this file --->
+			<CFELSE>
+				<CFSET numCols = listLen(irec,",")>
 			</CFIF> 	
 		<CFELSE>
 			<!--- Header OK, check next record, Validate it --->		
 			<cfset ctLoop = ctLoop + 1>
-
-			<cfif listLen(iRec) EQ 9> <!--- The file should have 9 columns --->
+			<!--- <cfdump var="#listLen("Num,Div,Date,Time,Field,Visitor,TeamV,Home,TeamH,Type",",")#" abort="true"> --->
+			<cfif listLen(iRec) EQ numCols> <!--- The file should have 10 columns --->
 				<CFSET swErr = false>
 				<!--- set vars w/values from current record read --->
 				<cfset gameNO    	 = trim(listGetAt(irec,1))>
@@ -95,6 +102,7 @@ MODS: mm/dd/yyyy - filastname - comments
 				<cfset teamVisitName = trim(listGetAt(iRec,7))>
 				<cfset teamHome  	 = trim(listGetAt(iRec,8))>
 				<cfset teamHomeName  = trim(listGetAt(iRec,9))>
+				<cfset type  		 = trim(listGetAt(iRec,10))>
 				<!--- validate --->
 				<CFIF NOT isNumeric(gameNO) and len(trim(gameNO)) GT 0>
 					<CFSET swErr = true>
@@ -103,7 +111,13 @@ MODS: mm/dd/yyyy - filastname - comments
 					<CFSET output = "#iRec#,bad gameNo">
 					<CFFILE ACTION="APPEND" FILE="#tempfile#" OUTPUT="#output#" />
 				</CFIF>
-
+				<CFIF (NOT len(trim(type)) or len(trim(type)) gt 1)>
+					<CFSET swErr = true>
+					<cfset ctError = ctError + 1>			<!--- <br> <b>bad gameNo!!!!!!! 1 </b> --->
+					<cfset errMSG = errMSG &  ctLoop & " - " & gameNo & " - please supply a valid game type<br>">
+					<CFSET output = "#iRec#,bad game type">
+					<CFFILE ACTION="APPEND" FILE="#tempfile#" OUTPUT="#output#" />
+				</CFIF>
 				<CFIF NOT isNumeric(teamHome) and len(trim(teamHome)) GT 0>
 					<CFSET swErr = true>
 					<cfset ctError = ctError + 1>			<!--- <br> <b>bad teamNO!!!!!!!! 2 </b> --->
@@ -165,15 +179,15 @@ MODS: mm/dd/yyyy - filastname - comments
 						<!--- <CFIF gameNO LT '1021'>
 							<br> #gameNo# [<cfdump var="#gameTime#">] [#listLast(gameTime," ")#] [#right(gameTime,2)#] --->
 
-					<CFIF listFindNoCase(ttvalues, right(trim(gameTime),2) ) EQ 0>
-						<CFSET swErr = true>
-						<cfset ctError = ctError + 1>			<!--- <br> <b>bad time!!!!!! 5 </b> --->
-						<cfset errMSG = errMSG &  ctLoop & " - " & gameNo & " - bad time no AM/PM<br>">
-						<CFSET output = "#iRec#,bad Time">
-						<CFFILE ACTION="APPEND" FILE="#tempfile#" OUTPUT="#output#" />
-					<CFELSE>
-						<cfset gameTime = GameDate & " " & TimeFormat(gameTime,"hh:mm tt")> 
-					</CFIF>
+				<CFIF listFindNoCase(ttvalues, right(trim(gameTime),2) ) EQ 0>
+					<CFSET swErr = true>
+					<cfset ctError = ctError + 1>			<!--- <br> <b>bad time!!!!!! 5 </b> --->
+					<cfset errMSG = errMSG &  ctLoop & " - " & gameNo & " - bad time no AM/PM<br>">
+					<CFSET output = "#iRec#,bad Time">
+					<CFFILE ACTION="APPEND" FILE="#tempfile#" OUTPUT="#output#" />
+				<CFELSE>
+					<cfset gameTime = GameDate & " " & TimeFormat(gameTime,"hh:mm tt")> 
+				</CFIF>
 
 						<!--- <cfelse>
 							<cfbreak>	
@@ -215,7 +229,7 @@ MODS: mm/dd/yyyy - filastname - comments
 							  ( gameCode		, division		, field
 							  , gameDate		, gameTime
 							  , HomeTeamID	, VisitorTeamID
-							  , createDate	, createdBy)
+							  , createDate	, createdBy,game_type , HomeTeamName, VisitorTeamName)
 							VALUES
 							  ( <cfqueryparam value="#trim(gameNO)#" 	cfsqltype="CF_SQL_VARCHAR"   null="#yesNoFormat(NOT(len(trim(gameNO))))#">
 							  , <cfqueryparam value="#trim(division)#" 	cfsqltype="CF_SQL_VARCHAR"   null="#yesNoFormat(NOT(len(trim(division))))#">
@@ -226,6 +240,9 @@ MODS: mm/dd/yyyy - filastname - comments
 							  , <cfqueryparam value="#trim(teamVisit)#" cfsqltype="CF_SQL_INTEGER"   null="#yesNoFormat(NOT(len(trim(teamVisit))))#">
 							  , <cfqueryparam value="#now()#" 		cfsqltype="CF_SQL_TIMESTAMP" >
 							  , <cfqueryparam value="#SESSION.USER.CONTACTID#" cfsqltype="CF_SQL_INTEGER"   >
+							  , <cfqueryparam value="#type#" cfsqltype="CF_SQL_CHAR"  null="#yesNoFormat(NOT(len(trim(type))))#" >
+							  , <cfqueryparam value="#teamHomeName#" cfsqltype="CF_SQL_CHAR"  null="#yesNoFormat(NOT(len(trim(teamHomeName))))#" >
+							  , <cfqueryparam value="#teamVisitName#" cfsqltype="CF_SQL_CHAR"  null="#yesNoFormat(NOT(len(trim(teamVisitName))))#" >
 							  ) 
 					</CFQUERY> 
 					<cfset ctInsert = ctInsert + 1>

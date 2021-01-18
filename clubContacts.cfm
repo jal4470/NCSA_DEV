@@ -69,7 +69,9 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfinvoke component="#SESSION.sitevars.cfcPath#contact" method="getClubContacts" returnvariable="qClubContacts">
 		<cfinvokeargument name="clubID"  value="#VARIABLES.clubID#">
 	</cfinvoke>  
-	
+	<cfquery name="qContacts" dbtype="query">
+		select * from qContacts where active_yn = 'Y'
+	</cfquery>
 	<CFIF qClubContacts.recordCount>
 		<table cellspacing="0" cellpadding="5" align="center" border="0" width="100%">
 			<tr class="tblHeading">

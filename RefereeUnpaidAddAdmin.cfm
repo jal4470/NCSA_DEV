@@ -1,153 +1,7 @@
-<!--- 
-	FileName:	refereeUnpaidAdd.cfm
-	Created on: mm/dd/2008
-	Created by: aarnone@capturepoint.com
-	
-	Purpose: [purpose of the file]
-	
-MODS: mm/dd/yyyy - filastname - comments
-03/09/09 - aarnone - changed to insert all unpaid refs, match report no longer updates xref_game_official
-05/01/09 - aarnone - added check for numeric on amount. (25$ tested greater than 0)
- --->
  
 <cfset mid = 0> <!--- optional =menu id ---> 
 <cfinclude template="_header.cfm">
 <cfinclude template="_checkLogin.cfm">
-<script language="JavaScript" src="DatePicker.js"></script>
-<cfoutput>
-<div id="contentText">
-
-<H1 class="pageheading">NCSA - Referee Unpaid</H1>
- <!--- <br><h2>yyyyyy </h2> --->
-
-<cfset swError = false>
-
-<cfif isDefined("URL.msg")>
-	<cfset errMsg  = URL.msg >
-<cfelse>
-	<cfset errMsg  = "" >
-</cfif>
-
-<!--- <cfdump var="#session#"> --->
-
-<CFIF isDefined("FORM.ADDUNPAID")>
-	<cfif FORM.unPaidRefID LTE 0>
-		<cfset swError = true>
-		<cfset errMsg  = errMsg & "Pleas select the unpaid referee.<br> ">
-	</cfif>
-	<!--- <cfif FORM.RefAmountOwed LTE 0>
-		<cfset swError = true>
-		<cfset errMsg  = errMsg & "Amount owed is required.<br> ">
-	</cfif> --->
-	<cfif len(trim(FORM.RefAmountOwed)) EQ 0>
-		<cfset swError = true>
-		<cfset errMsg  = errMsg & "Amount owed is required.<br> ">
-	<cfelseif NOT isNumeric(Trim(FORM.RefAmountOwed))>
-		<cfset swError = true>
-		<cfset errMsg  = errMsg & "Amount owed must be a number.<br> ">
-	<cfelseif isNumeric(Trim(FORM.RefAmountOwed)) AND Trim(FORM.RefAmountOwed) LTE 0>
-		<cfset swError = true>
-		<cfset errMsg  = errMsg & "Amount owed must be a number greater than 0.<br> ">
-	</cfif>
-
-	
-	<cfif len(trim(FORM.Comments)) LT 1>
-		<cfset swError = true>
-		<cfset errMsg  = errMsg & "Please enter the reason for being unpaid in the comment field below.<br> ">
-	</cfif>
-	<CFIF isDefined("FORM.RefPosition") and FORM.RefPosition LT 1>
-		<cfset swError = true>
-		<cfset errMsg  = errMsg & "Please select referee position from the drop down list below.<br>">
-	</CFIF>
-
-	<CFIF NOT swError>
-		<CFIF isDefined("FORM.unPaidRefID") AND len(trim(FORM.unPaidRefID)) >
-			<!--- <cfif FORM.unPaidRefID EQ FORM.refID>
-					<!--- the selected REF is the Head ref --->
-					<cfquery name="UpdGameOff" datasource="#SESSION.DSN#">
-						Update XREF_GAME_OFFICIAL
-						   set RefPaid_YN 	= 'N'
-							 , RefPaid_AMT 	= 0
-							 , RefAmountOwed  = <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.refAmountOwed#">
-							 , RefPaidComment = <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#Trim(FORM.Comments)#">
-						 where Game_ID 		= <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#FORM.GameID#">
-						   AND contact_id   = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#FORM.unPaidRefID#">
-						   AND game_official_type_id = 1
-					</cfquery> 
-			<cfelseif FORM.unPaidRefID EQ FORM.ar1id>
-					<!--- the selected REF is AR1 --->
-					<cfquery name="UpdGameOff" datasource="#SESSION.DSN#">
-						Update XREF_GAME_OFFICIAL
-						   set RefPaid_YN 	= 'N'
-							 , RefPaid_AMT 	= 0
-							 , RefAmountOwed  = <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.refAmountOwed#">
-							 , RefPaidComment = <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#Trim(FORM.Comments)#">
-						 where Game_ID 		= <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#FORM.GameID#">
-						   AND contact_id   = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#FORM.unPaidRefID#">
-						   AND game_official_type_id = 2
-					</cfquery> 
-			<cfelseif FORM.unPaidRefID EQ FORM.ar2id>
-					<!--- the selected REF is AR2 --->
-					<cfquery name="UpdGameOff" datasource="#SESSION.DSN#">
-						Update XREF_GAME_OFFICIAL
-						   set RefPaid_YN 	= 'N'
-							 , RefPaid_AMT 	= 0
-							 , RefAmountOwed  = <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.refAmountOwed#">
-							 , RefPaidComment = <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#Trim(FORM.Comments)#">
-						 where Game_ID 		= <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#FORM.GameID#">
-						   AND contact_id   = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#FORM.unPaidRefID#">
-						   AND game_official_type_id = 3
-					</cfquery> 
-			<cfelse> --->
-				<!--- the selected REF is someone not assigned to the game. --->
-				
-				<!--- 03/09/09 - changed to insert all unpaid refs, match report no longer updates xref_game_official --->
-				<cfquery name="qAddUnPaidRef" datasource="#session.dsn#">
-					INSERT into RefUnPaid
-						( REFID, COMMENTS, RefGameDateUnpaid, RefPosition, RefAmountOwed,
-						  STATUS, GAME, GDATE, GTIME, SEASONID,
-						  FIELDID, FIELD, FIELDABBR, DIVISION, HOME, VISITOR,
-						  ADDBYUSER, DATEADDED, TIMEADDED, 
-						  UPDBYUSER, DATEUPDATED, TIMEUPDATED
-						)
-					VALUES 
-						( <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.unPaidRefID#">
-						, <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#Trim(FORM.Comments)#">
-						, <cfqueryParam cfsqltype="CF_SQL_DATE"	   value="#dateFormat(FORM.dateRefed,"mm/dd/yyyy")#">
-						, <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#FORM.RefPosition#">
-						, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#Trim(FORM.refAmountOwed)#">
-						, <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="U" >
-						, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.gameID#">
-						, <cfqueryParam cfsqltype="CF_SQL_DATE"	   value="#dateFormat(FORM.GameDate,"mm/dd/yyyy")#">
-						, <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#dateFormat(FORM.GameDate,"mm/dd/yyyy")# #timeFormat(FORM.GameTime,"hh:mm tt")#">
-						, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.gameSeasonID#">
-						, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.fieldID#">
-						, <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#FORM.FieldName#">
-						, <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#FORM.FieldAbbr#">
-						, <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#FORM.Division#">
-						, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.HteamID#">
-						, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.VteamID#">
-						, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#SESSION.USER.CONTACTID#">
-						, getDate()
-						, getDate()
-						, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#SESSION.USER.CONTACTID#">
-						, getDate()
-						, getDate()
-						)
-				</cfquery>
-			<!--- </cfif> --->
-			<cflocation url="refereeUnpaidAdd.cfm?msg='Unpaid request was added.'">
-			
-		</CFIF> <!--- END - IF isDefined("FORM.unPaidRefID") AND len(trim(FORM.unPaidRefID)) --->
-	</CFIF>	<!--- END - if NOT swError --->
-</CFIF>	<!--- END - IF isDefined("FORM.ADDUNPAID") --->
-
-
-<CFIF isDefined("FORM.gameID") AND isNumeric(FORM.gameID)>
-	<cfset gameID = FORM.gameID>
-<CFELSE>
-	<cfset gameID = "">
-</CFIF>
 
 <cfset gameDate = "">
 <cfset gameTime = "">
@@ -176,6 +30,9 @@ MODS: mm/dd/yyyy - filastname - comments
 <cfset ar1PaidAmt = "">
 <cfset ar2PaidAmt = "">
 
+
+
+<cfset swError = false>
 <cfif isDefined("FORM.unPaidRefID")>
 	<cfset unPaidRefID = FORM.unPaidRefID >
 <cfelse>
@@ -206,11 +63,98 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfset dateRefed = dateFormat(now(),"mm/dd/yyyy")>
 </cfif>
 
+<CFIF ISDEFINED("FORM.SAVEUNPAID")>
+	<!--- <cfdump var="#form#" abort="true"> --->
+	<cfset errMsg = "">
+	<cfset swError = false>
+	<cfif FORM.RefID LTE 0>
+		<cfset swError = true>
+		<cfset errMsg  = errMsg & "Please select the unpaid referee.<br> ">
+	</cfif>
+	<!--- <cfif FORM.RefAmountOwed LTE 0>
+		<cfset swError = true>
+		<cfset errMsg  = errMsg & "Amount owed is required.<br> ">
+	</cfif> --->
+	<cfif len(trim(FORM.RefAmountOwed)) EQ 0>
+		<cfset swError = true>
+		<cfset errMsg  = errMsg & "Amount owed is required.<br> ">
+	<cfelseif NOT isNumeric(Trim(FORM.RefAmountOwed))>
+		<cfset swError = true>
+		<cfset errMsg  = errMsg & "Amount owed must be a number.<br> ">
+	<cfelseif isNumeric(Trim(FORM.RefAmountOwed)) AND Trim(FORM.RefAmountOwed) LTE 0>
+		<cfset swError = true>
+		<cfset errMsg  = errMsg & "Amount owed must be a number greater than 0.<br> ">
+	</cfif>
+
+	<cfif len(trim(FORM.Comments)) LT 1>
+		<cfset swError = true>
+		<cfset errMsg  = errMsg & "Please enter the reason for being unpaid in the comment field below.<br> ">
+	</cfif>
+	<CFIF isDefined("FORM.RefPosition") and FORM.RefPosition LT 1>
+		<cfset swError = true>
+		<cfset errMsg  = errMsg & "Please select referee position from the drop down list below.<br>">
+	</CFIF>
+
+	<CFIF NOT swError>
+		<cftry>
+			<cfquery name="qAddUnPaidRef" datasource="#session.dsn#">
+				INSERT into RefUnPaid
+					( REFID, COMMENTS, RefGameDateUnpaid, RefPosition, RefAmountOwed,
+					  STATUS, GAME, GDATE, GTIME, SEASONID,
+					  FIELDID, FIELD, FIELDABBR, DIVISION, HOME, VISITOR,
+					  ADDBYUSER, DATEADDED, TIMEADDED, 
+					  UPDBYUSER, DATEUPDATED, TIMEUPDATED
+					)
+				VALUES 
+					( <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.RefID#">
+					, <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#Trim(FORM.Comments)#">
+					, <cfqueryParam cfsqltype="CF_SQL_DATE"	   value="#dateFormat(FORM.dateRefed,"mm/dd/yyyy")#">
+					, <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#FORM.RefPosition#">
+					, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#Trim(FORM.refAmountOwed)#">
+					, <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="U" >
+					, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.game_ID#">
+					, <cfqueryParam cfsqltype="CF_SQL_DATE"	   value="#dateFormat(FORM.GameDate,"mm/dd/yyyy")#">
+					, <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#dateFormat(FORM.GameDate,"mm/dd/yyyy")# #timeFormat(FORM.GameTime,"hh:mm tt")#">
+					, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.gameSeasonID#">
+					, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.fieldID#">
+					, <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#FORM.FieldName#">
+					, <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#FORM.FieldAbbr#">
+					, <cfqueryParam cfsqltype="CF_SQL_VARCHAR" value="#FORM.Division#">
+					, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.HteamID#">
+					, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#FORM.VteamID#">
+					, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#SESSION.USER.CONTACTID#">
+					, getDate()
+					, getDate()
+					, <cfqueryParam cfsqltype="CF_SQL_INTEGER" value="#SESSION.USER.CONTACTID#">
+					, getDate()
+					, getDate()
+					)
+			</cfquery> 
+			<cflocation url="refereeUnpaidAddEdit.cfm?msg=Unpaid%20request%20was%20Added&go=go">
+			<cfcatch>
+				<cfdump var="#cfcatch#">
+				<cfdump var="#form#">
+				<cfabort>
+			</cfcatch>
+		</cftry>
+		
+	</cfif>
+</CFIF>
+
+
+
+
+<CFIF isDefined("FORM.game_ID") AND isNumeric(FORM.game_ID)>
+	<cfset gameID = FORM.game_ID>
+<CFELSE>
+	<cfset gameID = "">
+</CFIF>
+
+
 <CFIF gameID GT 0>
 	<cfinvoke component="#SESSION.SITEVARS.cfcPath#GAME" method="getGameSchedule" returnvariable="qGameInfo">
 		<cfinvokeargument name="gameID"		value="#VARIABLES.gameID#">  
-		<cfinvokeargument name="Official"		value="#SESSION.user.ContactID#">  
-	</cfinvoke>  <!--- <cfdump var="#qGameInfo#"> --->
+	</cfinvoke>  
 </CFIF>
 
 <CFIF isDefined("qGameInfo.recordCount") AND qGameInfo.recordCount GT 0>
@@ -225,6 +169,7 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfset VteamID   = qGameInfo.Visitor_Team_ID>
 	<cfset HteamName = qGameInfo.Home_TeamName>
 	<cfset HteamID   = qGameInfo.Home_Team_ID>
+	<cfset dateRefed = qGameInfo.GAME_TIME>
 
 	<cfinvoke component="#SESSION.SITEVARS.cfcPath#GAME" method="GetGameOfficial" returnvariable="qGameOfficials">
 		<cfinvokeargument name="gameID"		value="#VARIABLES.gameID#">
@@ -259,13 +204,34 @@ MODS: mm/dd/yyyy - filastname - comments
 		</cfloop>
 	</cfif>
 <cfelseif isDefined("qGameInfo.recordCount") AND qGameInfo.recordCount EQ 0>
-	<cfset errMsg = errMsg & "No game to which this referee is assigned can be located for the Game number entered." >
+	<cfset errMsg = "No game found for the Game number entered." >
+	<cflocation url="refereeUnpaidAddEdit.cfm?msg=#urlencodedformat(errMsg)#&go=go">
 </CFIF>
 
-<FORM name="unpaidref" action="refereeUnpaidAdd.cfm" method="post">
-<!--- <input type="Hidden" name="gameID" value="#VARIABLES.gameID#"> --->
-<table cellspacing="0" cellpadding="5" align="center" border="0" width="100%">
-	<tr class="tblHeading">
+
+<!--- Add Unpaid Form --->
+<cfif isDefined("qGameInfo") and qGameInfo.recordCount>
+
+	<cfsavecontent variable="custom_css">
+  <link rel="stylesheet" type="text/css" href="assets/themes/jquery-ui-1.12.1/jquery-ui-1.12.1.min.css">
+  <style>
+  	 .button-group{
+  	 	height: 20%;
+	    float: right;
+	    margin-right: 42%;
+	    padding-top: 2%;
+  	 }
+  	</style>
+</cfsavecontent>
+<cfhtmlhead text="#custom_css#">
+
+	<cfoutput>
+	<div id="contentText">
+		<H1 class="pageheading">NCSA - Referee Unpaid - ADD</H1>
+		<FORM action="#cgi.script_name#" method="post">	
+
+		<table cellspacing="0" cellpadding="5" align="center" border="0" width="100%">
+<!--- 	<tr class="tblHeading">
 		<TD colspan="5"> &nbsp;	</TD>
 	</tr>
 	<tr><TD colspan="5"> 
@@ -277,16 +243,14 @@ MODS: mm/dd/yyyy - filastname - comments
 	<tr><TD colspan="5">
 			<hr size="1">
 		</TD>
-	</tr>
-
-	<cfif len(trim(errMsg))>
-		<tr><TD colspan="5">
-				<span class="red"><b>#errMsg#</b></span>
-			</TD>
-		</tr>
-	</cfif>
-
-	<cfif isDefined("qGameInfo") and qGameInfo.recordCount>
+	</tr>--->
+	<cftry>
+		<cfif isdefined("errMsg") and len(trim(errMsg))>
+			<tr><TD colspan="5">
+					<span class="red"><b>#errMsg#</b></span>
+				</TD>
+			</tr>
+		</cfif><!---  <cfdump var="#qGameInfo#" abort="true"> --->
 		<tr class="tblHeading">
 			<td width="10%">Game</td>
 			<td width="10%">Div</td>
@@ -294,16 +258,17 @@ MODS: mm/dd/yyyy - filastname - comments
 			<td width="40%">Teams</td>
 			<td width="20%">Field</td>
 		</tr>
-		<tr><td>#gameID#</td>
-			<td>#division#</td>
-			<td>#gameDate# @ #gameTime#</td>
-			<td>(H) #HteamName#
-				<br>
-				(V) #VteamName#
-			</td>
-			<td>#fieldAbbr#</td>
-		</tr>
 		
+			<tr><td>#gameID#</td>
+				<td>#division#</td>
+				<td>#gameDate# @ #gameTime#</td>
+				<td>(H) #HteamName#
+					<br>
+					(V) #VteamName#
+				</td>
+				<td>#fieldAbbr#</td>
+			</tr>
+	
 		<tr><td colspan="5">
 				<table cellspacing="0" cellpadding="3" align="center" border="0" width="100%">
 					<tr class="tblHeading">
@@ -358,7 +323,7 @@ MODS: mm/dd/yyyy - filastname - comments
 				</table>
 			</td>
 		</tr>
-
+		<input type="Hidden" name="game_ID" value="#VARIABLES.gameID#">
 		<input type="Hidden" name="gameDate" value="#VARIABLES.gameDate#">
 		<input type="Hidden" name="gameTime" value="#VARIABLES.gameTime#">
 		<input type="Hidden" name="gameSeasonID"  value="#VARIABLES.gameSeasonID#">
@@ -370,14 +335,17 @@ MODS: mm/dd/yyyy - filastname - comments
 		<input type="Hidden" name="HteamName" value="#VARIABLES.HteamName#">
 		<input type="Hidden" name="VteamID"   value="#VARIABLES.VteamID#">
 		<input type="Hidden" name="HteamID"   value="#VARIABLES.HteamID#">
-		<input type="Hidden" name="refID" value="#VARIABLES.refID#">
+<!--- 		<input type="Hidden" name="refID" value="#VARIABLES.refID#"> --->
 		<input type="Hidden" name="ar1id" value="#VARIABLES.ar1id#">
 		<input type="Hidden" name="ar2id" value="#VARIABLES.ar2id#">
 		<input type="Hidden" name="RefName" value="#VARIABLES.RefName#">
 		<input type="Hidden" name="AR1Name" value="#VARIABLES.AR1Name#">
 		<input type="Hidden" name="AR2Name" value="#VARIABLES.AR2Name#">
 		
-
+		<cfcatch>
+				<cfdump var="#cfcatch#" abort="true">
+			</cfcatch>
+		</cftry>
 
 		<tr><td colspan="5"><hr size="1"> </td>
 		</tr>
@@ -386,33 +354,39 @@ MODS: mm/dd/yyyy - filastname - comments
 					<tr><td valign="top">
 							<b>Game date to be Paid for:</b>
 							<br>
-							<input size="9" name="dateRefed" value="#VARIABLES.dateRefed#" readonly >
-							<input size="3" name="DOW"  value="#DateFormat(VARIABLES.dateRefed,"ddd")#" disabled>
-							&nbsp;  <cfset dpMM = datePart("m",VARIABLES.dateRefed)-1>
+							<input size="9" name="dateRefed" value="#dateformat(VARIABLES.dateRefed,"mm/dd/yyyy")#">
+							<!--- <input size="3" name="DOW"  value="#DateFormat(VARIABLES.dateRefed,"ddd")#" disabled> --->
+							<!--- &nbsp;  <cfset dpMM = datePart("m",VARIABLES.dateRefed)-1>
 									<cfset dpYYYY = datePart("yyyy",VARIABLES.dateRefed)>
 								<a href="javascript:show_calendar('unpaidref.dateRefed','unpaidref.DOW','#dpMM#','#dpYYYY#' );" 
 										onmouseover="window.status='Date Picker';return true;" 
 										onmouseout="window.status='';return true;"> 
 									<img src="#SESSION.siteVars.imagePath#cal.gif" width="20" height="18" alt="" border="0">
-								</a>
+								</a> --->
 							<br><br>
 
 							<CFIF SESSION.MENUROLEID EQ 25> <!--- 25=ref menu --->
 								<input type="Hidden" name="unPaidRefID" value="#SESSION.USER.CONTACTID#">
 							<cfelse>
+								<cftry>
 								<!--- get referees --->
 								<cfinvoke component="#SESSION.SITEVARS.cfcPath#CONTACT" method="getReferees" returnvariable="qRefInfo">
 								</cfinvoke>
 								<B>Select the unpaid Referee:</B>
-								<br> <SELECT name="unPaidRefID" ID="RefID"> 
+								<br> <SELECT name="RefID" ID="RefID"> 
 										<OPTION value="" ><b>Select the Unpaid Referee</b></OPTION>
-										<cfloop query="qRefInfo"><!--- <cfif refId EQ CONTACT_ID>selected</cfif> --->
-											<OPTION value="#CONTACT_ID#" <cfif CONTACT_ID EQ VARIABLES.unPaidRefID>selected</cfif> >#LASTNAME#, #FIRSTNAME#</OPTION>
+										<cfloop query="qRefInfo"><!---  --->
+											<OPTION value="#CONTACT_ID#" <cfif refId EQ CONTACT_ID>selected</cfif>>#LASTNAME#, #FIRSTNAME#</OPTION>
 										</cfloop>
 									</SELECT>
 								<br><br>
-							</CFIF>
+								<cfcatch>
+									<cfdump var="#cfcatch#" abort="true">
+								</cfcatch>
+							</cftry>
 
+							</CFIF>
+							<cftry>
 							<B>Referee Position:</B>
 							<cfquery name="qRefPositions" datasource="#SESSION.DSN#">
 								SELECT GAME_OFFICIAL_TYPE_ID, GAME_OFFICIAL_TYPE_NAME
@@ -422,11 +396,14 @@ MODS: mm/dd/yyyy - filastname - comments
 							<br> <SELECT name="RefPosition" ID="RefPos"> 
 									<OPTION value="0" ><b>Select Position</b></OPTION>
 									<cfloop query="qRefPositions">
-										<OPTION value="#GAME_OFFICIAL_TYPE_ID#" <cfif GAME_OFFICIAL_TYPE_ID EQ VARIABLES.RefPosition>selected</cfif> >#GAME_OFFICIAL_TYPE_NAME#</OPTION>
+										<OPTION value="#GAME_OFFICIAL_TYPE_ID#" >#GAME_OFFICIAL_TYPE_NAME#</OPTION>
 									</cfloop>
 								</SELECT>
 							<br><br>
-					
+							<cfcatch>
+								<cfdump var="#cfcatch#" abort="true">
+							</cfcatch>
+							</cftry>
 							<b>Amount Owed:</b>
 							<br><input type="Text" name="refAmountOwed" value="#VARIABLES.refAmountOwed#">
 						</td>
@@ -438,18 +415,29 @@ MODS: mm/dd/yyyy - filastname - comments
 				</table>
 			</td>
 		</tr>
-		
-		<tr><TD colspan="5" align="center">
-				<input type="Submit" name="AddUnPaid" value="Add Unpaid Ref">
-			</TD>
-		</tr>
+		</cfoutput>
+	
+		</table>	
+
+		<DIV class="button-group"><INPUT TYPE="SUBMIT" NAME="SAVEUNPAID" VALUE="SAVE"><INPUT TYPE="BUTTON" NAME="CANCEL" VALUE="CANCEL"></DIV>
+		</FORM>
+		</DIV>	
 	</cfif>
-</table>	
-</FORM>
+	<cfsavecontent variable="cf_footer_scripts">
+		<cfoutput>
+			<script language="JavaScript" type="text/javascript" src="assets/jquery-ui-1.12.1.min.js"></script>
+			<script language="JavaScript" type="text/javascript">
+				$(function(){
+					$('input[name=dateRefed]').datepicker();
 
+					$("input[name=CANCEL]").click(function(){
+						console.log("Canceling");
+						let _redirect_to = "refereeUnpaidAddEdit.cfm";
+						window.location.href = _redirect_to;
+					});
 
-	
-	
-</cfoutput>
-</div>
+				});
+			</script>
+		</cfoutput>
+	</cfsavecontent>
 <cfinclude template="_footer.cfm">

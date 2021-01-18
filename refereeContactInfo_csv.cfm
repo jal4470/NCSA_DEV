@@ -26,8 +26,8 @@ YIELD: all info, like coach report, but with additional ref info also
 	select DISTINCT STATEREGISTEREDIN from qGetRefs 
 </cfquery>
 
-<cfif isDefined("FORM.sortOrder")>
-	<cfset sortBy = FORM.sortOrder >
+<cfif isDefined("URL.sortBy")>
+	<cfset sortBy = URL.sortBy >
 <cfelse>
 	<cfset sortBy = "NAME" >
 </cfif>
@@ -41,13 +41,13 @@ YIELD: all info, like coach report, but with additional ref info also
 	<cfdefaultcase> 	<cfset orderByCol = " LastName, FirstNAme " >	</cfdefaultcase>
 </cfswitch>
 
-<cfif isDefined("FORM.selCert")>
-	<cfset selCert = FORM.selCert >
+<cfif isDefined("URL.selCert")>
+	<cfset selCert = URL.selCert >
 <cfelse>
 	<cfset selCert = "" >
 </cfif>
-<cfif isDefined("FORM.selState")>
-	<cfset selState = FORM.selState >
+<cfif isDefined("URL.selState")>
+	<cfset selState = URL.selState >
 <cfelse>
 	<cfset selState = "" >
 </cfif>
@@ -77,14 +77,6 @@ YIELD: all info, like coach report, but with additional ref info also
 	order by #orderByCol#
 </cfquery>
 
-
-
-	<TD width="20%" class="tdUnderLine" align=Left>		#LastName#, #FirstName#			</td>
-			<TD width="15%" class="tdUnderLine" align=Left>		#CITY#		</td>
-			<TD width="10%" class="tdUnderLine" align=center>   #State#		</td>
-			<TD width="25%" class="tdUnderLine" align=Left> 	#Email#		</td>
-			<TD width="15%" class="tdUnderLine" align=Left> 	#phoneCell# </td>
-			<TD width="15%" class="tdUnderLine" align=Left> 	#phoneHome#	</td>
 
 <!--- create download file --->	
 <CFIF isDefined("qGetRefs") AND qGetRefs.RECORDCOUNT >

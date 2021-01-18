@@ -6,7 +6,7 @@
 	Purpose: [purpose of the file]
 	
 MODS: mm/dd/yyyy - filastname - comments
-
+12/27/2020 - J LECHUGA - Added Game type to upload process
  --->
  
 <cfset mid = 0> <!--- optional =menu id ---> 
@@ -21,30 +21,34 @@ MODS: mm/dd/yyyy - filastname - comments
 
 <CFQUERY name="qGetLoadedGames" datasource="#SESSION.DSN#">
 	SELECT  G.GAME_CODE   AS Num
-		 , G.DIVISION_ID AS Div
+		 , G.DIVISION AS Div
+		 , ISNULL(G.GAME_TYPE,'L') AS TYPE
 	     , G.GAME_DATE   AS Date     
 		 , G.GAME_TIME   AS Time
 	     , F.FIELDABBR   AS Field   
 	     , (SELECT top 1 TEAM_ID  FROM XREF_GAME_TEAM 
 					 WHERE game_id = G.GAME_ID AND IsHomeTeam = 0 ) 
 			AS Visitor
-	     , (SELECT top 1 teamname FROM TBL_TEAM 
+	     , case when (SELECT top 1 TEAM_ID 	FROM XREF_GAME_TEAM 
+					 WHERE game_id = G.GAME_ID AND IsHomeTeam = 0 )  = 830 then G.virtual_teamName else (SELECT top 1 teamname FROM TBL_TEAM 
 					 WHERE team_id = ( SELECT top 1 TEAM_ID FROM XREF_GAME_TEAM 
-					 					WHERE game_id = G.GAME_ID AND IsHomeTeam = 0 ) ) 
+					 					WHERE game_id = G.GAME_ID AND IsHomeTeam = 0 ) ) end
 	     	AS TeamV
 		 , (SELECT top 1 TEAM_ID 	FROM XREF_GAME_TEAM 
 					 WHERE game_id = G.GAME_ID AND IsHomeTeam = 1 ) 
 	     	AS Home
-		 , (SELECT top 1 teamname FROM TBL_TEAM 
+		 , case when (SELECT top 1 TEAM_ID 	FROM XREF_GAME_TEAM 
+					 WHERE game_id = G.GAME_ID AND IsHomeTeam = 1 )  = 830 then  G.virtual_teamName else (SELECT top 1 teamname FROM TBL_TEAM 
 					 WHERE team_id = ( SELECT top 1 TEAM_ID FROM XREF_GAME_TEAM 
-					 					WHERE game_id = G.GAME_ID AND IsHomeTeam = 1 ) ) 
-			AS TeamH
-	  FROM TBL_GAME G 
+					 					WHERE game_id = G.GAME_ID AND IsHomeTeam = 1 ) ) end 
+			AS TeamH,
+			G.game_id
+	  FROM V_GAMES_ALL G 
 	  			INNER JOIN TBL_FIELD F on F.FIELD_ID = G.FIELD_ID
 	 WHERE G.SEASON_ID = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#SESSION.CurrentSeason.ID#">
 	 ORDER BY G.GAME_CODE
 </CFQUERY>
-
+<!--- <cfdump var="#qGetLoadedGames#" abort="true"> --->
 <!---
 <cfset thisPath=ExpandPath("*.*")>
 <cfset thisDirectory=GetDirectoryFromPath(thisPath)>
@@ -56,11 +60,11 @@ MODS: mm/dd/yyyy - filastname - comments
 <CFSET tempfile = "#GetDirectoryFromPath(ExpandPath("*.*"))#\uploads\downloadGamesFile.csv" >
 <!--- The "spaces" in the text below are TAB characters. Do not change them to spaces otherwise the Excel export will not work.--->
 <CFSET output = "">
-<CFSET output = output & "Num,Div,Date,Time,Field,Visitor,TeamV,Home,TeamH" >
+<CFSET output = output & "Num,Div,Date,Time,Field,Visitor,TeamV,Home,TeamH,Type" >
 <CFFILE ACTION="WRITE" FILE="#tempfile#" OUTPUT="#output#" nameconflict="OVERWRITE"  >
 
 <CFLOOP query="qGetLoadedGames">
-	<CFSET output = "#Num#,#Div#,#dateFormat(Date,"mm/dd/yyyy")#,#timeFormat(Time,"hh:mm tt")#,#Field#,#Visitor#,#TeamV#,#Home#,#TeamH#">
+	<CFSET output = "#Num#,#Div#,#dateFormat(Date,"mm/dd/yyyy")#,#timeFormat(Time,"hh:mm tt")#,#Field#,#Visitor#,#TeamV#,#Home#,#TeamH#,#Type#">
 	<CFFILE ACTION="APPEND" FILE="#tempfile#" OUTPUT="#output#" >
 </CFLOOP>
 
@@ -79,7 +83,8 @@ MODS: mm/dd/yyyy - filastname - comments
 		<td width="05%"> <b>Visitor</b></td>
 		<td width="25%"> <b>TeamV</b>  </td>
 		<td width="10%"> <b>Home</b>   </td>
-		<td width="25%"> <b>TeamH</b>  </td>
+		<td width="25%"> <b>TeamH</b>  </td>		
+		<td width="05%"> <b>Type</b>    </td>
 	</tr>
 </table>
 
@@ -96,6 +101,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			<td width="25%" class="tdUnderLine"> #TeamV#	</td>
 			<td width="10%" class="tdUnderLine"> #Home#		</td>
 			<td width="25%" class="tdUnderLine"> #TeamH#	</td>
+			<td width="05%" class="tdUnderLine"> #Type#		</td>
 		</tr>
 	</CFLOOP>
 </table>

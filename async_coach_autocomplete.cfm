@@ -4,7 +4,7 @@
 <cfinvoke
 	component="#application.sitevars.cfcpath#.contact"
 	method="getClubContactRoleX"
-	clubid="#url.clubid#"
+	clubid="#session.user.clubid#"
 	roleid="29"
 	returnvariable="coaches">
 

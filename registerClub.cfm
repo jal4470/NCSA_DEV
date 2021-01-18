@@ -153,6 +153,12 @@ MODS: mm/dd/yyyy - filastname - comments
 	<cfinvokeargument name="clubID"  value="#VARIABLES.clubid#">
 </cfinvoke>  
 
+<cfquery name="qContacts" dbtype="query">
+	select * from qContacts where active_yn = 'Y'
+</cfquery>
+
+<!--- <cfdump var="#qContacts#"> --->
+
 
 
 <CFQUERY name="qWasClubRegd" datasource="#SESSION.DSN#">
