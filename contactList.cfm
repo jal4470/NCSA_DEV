@@ -216,7 +216,7 @@ MODS: mm/dd/yyyy - filastname - comments
 			<CFLOOP query="clubRequestedContacts">
 				<CFIF ROLE_ID NEQ 25>
 					<tr bgcolor="###setRowColor(SESSION.sitevars.altColors,currentRow)#"> 
-					<TD width="02%" class="tdUnderLine" valign="middle">&nbsp;  </TD> 
+					<TD class="tdUnderLine" valign="middle">&nbsp;  </TD> 
 					<TD width="30%" class="tdUnderLine" valign="middle"> 
 						<!--- <CFIF ROLE_ID EQ 25>
 							<!--- its a referee --->
@@ -297,18 +297,18 @@ MODS: mm/dd/yyyy - filastname - comments
 			</tr>
 		</table>
 
-		<div style="overflow:auto;height:350px;border:1px ##cccccc solid;">
+		<div >
 		<table cellspacing="0" cellpadding="5" align="left" border="0" width="98%">
 			<CFLOOP query="clubContacts">
 				<tr bgcolor="###setRowColor(SESSION.sitevars.altColors,currentRow)#"> 
-					<TD width="02%" class="tdUnderLine" valign="middle">&nbsp;  </TD> 
-					<TD width="30%" class="tdUnderLine" valign="middle"> 
+					<TD class="tdUnderLine" valign="middle">&nbsp;  </TD> 
+					<TD class="tdUnderLine" valign="middle"> 
 						<A href="contactEdit.cfm?c=#contact_ID#&cid=#VARIABLES.Clubselected#">#LastName#, #firstName#</A> <cfif active_yn eq 'N'><span style="color:red;font-style:italic;">Inactive</span></cfif>
 					</TD>
-					<TD width="50%" class="tdUnderLine">
+					<TD class="tdUnderLine">
 						#club_Name#<!--- #VARIABLES.clubName# --->
 					</td>
-					<TD width="18%" class="tdUnderLine">
+					<TD class="tdUnderLine">
 						&nbsp; <!--- #ACTIVE_YN# - #APPROVE_YN# --->
 					</td>  
 				</tr>

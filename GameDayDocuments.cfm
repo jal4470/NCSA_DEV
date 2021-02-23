@@ -149,7 +149,7 @@
 	    	<cfpdfparam source="#tempPath#\hmdf#game_id#.pdf">
 	    	<cfpdfparam source="#tempPath#\htr#game_id#.pdf">
 	</cfpdf>
-
+	
 	<cfstoredproc datasource="#session.dsn#" procedure="P_UPSERT_GAME_DAY_DOC">
 		<cfprocparam cfsqltype="CF_SQL_INTEGER" dbvarname="@game_id" type="In" value="#game_id#">
 		<cfprocparam cfsqltype="CF_SQL_LONGVARBINARY" dbvarname="@content" type="In" value="#ToBinary(GameDayDoc)#">

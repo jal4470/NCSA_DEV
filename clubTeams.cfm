@@ -12,7 +12,16 @@ MODS: mm/dd/yyyy - filastname - comments
 
 <cfset mid = 2>
 <cfinclude template="_header.cfm">
-
+<style>
+	.close{
+		float: right;
+		padding: 2%;
+		background: #aaa;
+		border-radius: 58%;
+		margin: 4%;
+		color: white;
+		cursor: pointer;
+	}
 </style>
 
 <div id="contentText">
@@ -87,6 +96,7 @@ MODS: mm/dd/yyyy - filastname - comments
 					<td valign="top" class="coach_column">
 						<span class="mobile_only">Coach:</span> <a href="##" class="more_link">#coachFirstName# #coachLastName#</a>
 						<div class="more_info">
+							<div class="close">X</div>
 							<div class="container">
 								<h2>#coachFirstName# #coachLastName#</h2>
 								<ul class="more_info_list">
@@ -100,6 +110,7 @@ MODS: mm/dd/yyyy - filastname - comments
 					<td valign="top" class="asst_coach_column">
 						<span class="mobile_only">Asst Coach:</span> <a href="##" class="more_link">#asstCoachFirstNAme# #asstCoachLastName#</a>
 						<div class="more_info">
+							<div class="close">X</div>
 							<div class="container">
 								<h2>#asstCoachFirstNAme# #asstCoachLastName#</h2>
 								<ul class="more_info_list">
@@ -113,6 +124,7 @@ MODS: mm/dd/yyyy - filastname - comments
 					<td valign="top" class="asst_coach_column">
 						<span class="mobile_only">2nd Asst Coach:</span> <a href="##" class="more_link">#asst2CoachFirstNAme# #asst2CoachLastName#</a>
 						<div class="more_info">
+							<div class="close">X</div>
 							<div class="container">
 								<h2>#asst2CoachFirstNAme# #asst2CoachLastName#</h2>
 								<ul class="more_info_list">
@@ -126,6 +138,7 @@ MODS: mm/dd/yyyy - filastname - comments
 					<td valign="top" class="asst_coach_column">
 						<span class="mobile_only">3rd Asst Coach:</span> <a href="##" class="more_link">#asst3CoachFirstNAme# #asst3CoachLastName#</a>
 						<div class="more_info">
+							<div class="close">X</div>
 							<div class="container">
 								<h2>#asst3CoachFirstNAme# #asst3CoachLastName#</h2>
 								<ul class="more_info_list">
@@ -163,8 +176,13 @@ MODS: mm/dd/yyyy - filastname - comments
 
 </cfoutput>
 </div>
-
+<cfsavecontent variable="cf_footer_scripts">
 <script language="javascript">
+$(function(){
+	$('.close').click(function(){
+		$(".more_info").fadeOut(1000).removeClass('active');
+	});
+});
 /*var cForm = document.standing.all;*/
 var lastRow;
 function DisplayDetail(idx)
@@ -190,7 +208,7 @@ function DisplayDetail(idx)
 	lastRow = idx;
 }
 </script>
-
+</cfsavecontent>
 
 <cfinclude template="_footer.cfm">
 

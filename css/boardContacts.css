@@ -1,0 +1,241 @@
+	/* div{
+		margin: 5px;
+	} */
+	.card{
+		display:none;
+	}
+	#contentText p{
+	text-indent: 3em;
+	text-align: justify;
+	margin: 0 1%;
+	line-height:1.4em;
+	}
+	h1.pageheading {
+		text-align:center;
+	}
+	#address{
+		font-size: 1em;
+		padding: 5px;
+	}
+
+	.full_address{
+		text-align: center;
+		width: 97%;
+	}
+
+	.addl_head{
+		margin-bottom: 5px;
+		text-align: center;
+	}
+	.addl_info{
+		text-indent: 30px; 
+		margin-bottom: 5px;
+	}
+	#address{
+		line-height: 1.2em;
+		font-size: 1.15em;
+		font-weight: 300;
+		font-family: 'Roboto', Arial, sans-serif;
+	}
+	.board-category{
+		width: 100%;
+		margin-left: 22%;
+		min-width: 370px;
+		margin-top: 2%;
+		margin-bottom: 4%;
+	}
+
+	#board_contact{
+		width: 100%;
+	}
+	#board_contact th.title {
+		width: 35%;
+	}
+    #board_contact th.responsibility {
+		width: 35%;
+    }
+
+	#board_contact td.title {
+		text-align: center;
+		padding-left: 0%;
+	}
+	#board_contact td {
+		font-size:1em;
+	}
+	span.mobile_only{
+		text-align: left;
+		padding-left: 5%;
+	}   
+
+	.close{
+        float: right;
+        padding: 1%;
+        background: #666;
+        border-radius: 51%;
+        margin: 4%;
+        color: white;
+        cursor: pointer;
+        width: 23px;
+        text-align: center;
+        font-size: 1.1em;
+	}
+	.ow{
+		overflow-wrap: break-word;
+		width: 280px;
+		font-size: 1em;
+	}
+	.select_box {
+		background: #fff;
+		border: 1px solid #ddd;
+		color: #1a1a1a;
+		cursor: pointer;
+		display: block;
+		float: left;
+		font: 16px 'Roboto', Arial, sans-serif;
+		height: 40px;
+		margin-bottom: 10px;
+		max-width: 300px;
+		outline: 0;
+		overflow: hidden;
+		position: relative;
+		width: 100%;
+	}
+	.additional-info{
+		width: 100%;
+		line-height: 28px;
+		margin-top: 5%;
+		text-align: center;
+	}
+	/* @media screen (max-width:768px) and (min-width: 399px) {
+		.ow{
+			overflow-wrap: break-word;
+			width: 286px;
+		}
+		.no_mobile{
+			display:none;
+		}
+	} */
+
+	@media screen and (max-width: 1027px) {
+
+		.board-category {
+            width: 100%;
+            margin-left: auto;
+            min-width: 320px;
+            margin-top: 2%;
+            margin-bottom: 4%;
+		}
+		.card{
+			display:block;
+			width: 100%;
+			max-width: 880px;
+			border: solid 1px #ccc;
+			border-radius: 0 12px 0 12px;
+			margin: 3% 0;
+		}
+		.no_mobile{
+			display:none;
+		}
+		.full_address{
+			width: 100%;
+		}
+		.select_box{
+			width:100%;
+		}
+
+		.addl_info {
+			text-indent: 1em;
+			text-align: justify;
+			margin: 0 1%;
+			line-height: 21px;
+			font-size: 1em;		
+		}
+		.name{
+			margin-left: -6%;
+		}
+		h3.viewing_info_board {
+			width: 111%;
+			margin: 20px -20px;
+			padding: 10px 17px;
+		}
+		#contentText {
+			background: #fff;
+			font-size: .875em;
+			margin: 0;
+			padding: 20px;
+			margin-right: 39px;
+			min-width:320px;
+		}
+		.ow{
+			overflow-wrap: break-word;
+			width: 100%;
+			padding: 0 6%;
+			padding-bottom: 4%;
+			line-height: 21px;
+		}
+		.select_box {
+			background: #fff;
+			border: 1px solid #ddd;
+			color: #1a1a1a;
+			cursor: pointer;
+			display: block;
+			float: left;
+			font: 16px 'Roboto', Arial, sans-serif;
+			height: 40px;
+			margin-bottom: 10px;
+            max-width: 385px;
+			outline: 0;
+			overflow: hidden;
+			position: relative;
+			width: 100%;
+		}
+
+		.select_box2{
+			margin-left: 1%;
+			max-width: 295px;
+			padding: 13px 10px;
+			width: 108%;
+		}
+        .select-button {
+            width: 100%;max-width: 380px;
+        }
+		.coach_column {
+			display: block;
+			float: left;
+			margin-bottom: 6px;
+			padding: 5px;
+			text-align: center;
+			width: 100%;
+		}
+		div.mobile_only {
+			border-bottom: 1px solid #ddd;
+			color: #999;
+			display: block;
+			font-size: 12px;
+			margin-bottom: 4%;
+			text-transform: uppercase;
+			margin-left: 0px;
+			width: 100%;
+			margin-top: 0px;
+			padding-left: 3%;
+			padding-bottom:2%;
+		}
+		div.title {
+			background: #FFDD5A;
+			border-radius: 2px 10px;
+			color: #111;
+			display: block;
+			font-weight: bold;
+			padding: 3%;
+			text-align: center;
+			width: 100%;
+		}
+		.more_link2{
+			margin-left: 3%;
+			padding-bottom: 2%;
+		}
+		.additional-info {
+			margin-top: 15%;
+		}
+
+	}

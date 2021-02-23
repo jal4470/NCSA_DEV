@@ -41,7 +41,7 @@
  	<cfquery name="refUnPaidAdded" datasource="#SESSION.DSN#">
 		select  
 			    CASE r.RefPosition WHEN 1 THEN 'REF' WHEN 2 THEN 'AR1' WHEN 3 THEN 'AR2' END as RefPosition,
-				r.REFID, co.FirstNAME, co.LastName,
+				r.REFID, co.FirstNAME, co.LastName,co.address, co.city, co.state, co.zipcode,
 				r.GAME,  r.GDATE,  r.GTIME, r.DIVISION, r.COMMENTS,
 				r.FIELD, r.FIELDABBR, 
 				dbo.getTeamName(r.HOME)    AS HomeTeamName,
@@ -72,9 +72,9 @@
 	<CFSET filename = "#SESSION.USER.CONTACTID#RefereeUnpaid.csv" >
 	<CFSET output = "">
 
-	<CFSET output = output & "Referee,Pos,Owed,Game,'Date/Time/Field',Div,Teams,Comments" & chr(13) & chr(10) >
+	<CFSET output = output & "Referee,Address,City,State,Zip,Pos,Owed,Game,'Date/Time/Field',Div,Teams,Comments" & chr(13) & chr(10) >
 	<CFLOOP query="refUnPaidAdded">
-			<CFSET output = output & """#LastName#, #FirstNAME#"",""#RefPosition#"",""#dollarFormat(RefAmountOwed)#"",""#GAME#"",""[#dateFormat(RefGameDateUnpaid,"mm/dd/yyyy")#]/[#timeFormat(GTIME,"hh:mm tt")#]/[#FieldAbbr#]"",""#Division#"",""(H) #HomeTeamName# vs. (V) #VisitorTeamName#"",""#Comments#""">
+			<CFSET output = output & """#LastName#, #FirstNAME#"",""#address#"",""#city#"",""#state#"",""#zipcode#"",""#RefPosition#"",""#dollarFormat(RefAmountOwed)#"",""#GAME#"",""[#dateFormat(RefGameDateUnpaid,"mm/dd/yyyy")#]/[#timeFormat(GTIME,"hh:mm tt")#]/[#FieldAbbr#]"",""#Division#"",""(H) #HomeTeamName# vs. (V) #VisitorTeamName#"",""#Comments#""">
 			<cfset output = output & chr(13) & chr(10)>
 	</CFLOOP>
 </CFIF>

@@ -23,21 +23,23 @@
 		08/07/08 - AArnone - New function: getBoardMemberInfo Returns a list of board members
 	----- --->
 	<cfargument name="dsn"		 type="string"  required="Yes">
-	<!--- <CFARGUMENT name="xrefContactRoleID" type="numeric" required="no" default=0> --->
+	<CFARGUMENT name="board_category_id" type="numeric" required="no" default=0>
 	<CFARGUMENT name="RoleID"		 type="numeric" required="no" default=0>
 	<CFARGUMENT name="ContactID"	 type="numeric" required="no" default=0>
 	<CFARGUMENT name="boardMemberID" type="numeric" required="no" default=0>
-	
+	<CFARGUMENT name="active_yn" type="string" required="no" default="Y">
 	<CFQUERY name="qBoardMemInfo" datasource="#VARIABLES.DSN#">
-		SELECT  DISTINCT 
+		SELECT
 				bmi.boardmember_id, 
 				bmi.sequence, 
 				bmi.NCSA_Phone 		AS ncsaPhone, 
 				bmi.NCSA_Fax   		AS ncsaFax, 
 				bmi.NCSA_Email 		AS ncsaEmail,
 				bmi.NCSA_Title		AS Title,
+				bmi.Responsibility_Desc,
 				bmi.Active_YN,
-				r.roleDisplayName 	AS Role, 	
+				bmi.board_category_id,
+				(select board_category_desc from tlkp_board_category where board_category_id = bmi.board_category_id) as board_category_desc,
 				r.roleType,
 				c.CONTACT_ID,
 				c.FirstName, c.LastName, 
@@ -49,22 +51,54 @@
 				c.phoneFax			AS contactPhoneFax,
 				c.email				AS contactEmail
 		FROM 	tbl_BoardMember_info bmi 
-				INNER JOIN xref_contact_role xcr ON xcr.contact_ID = bmi.contact_ID AND xcr.role_id = bmi.role_id
+				INNER JOIN xref_contact_role xcr ON xcr.contact_ID = bmi.contact_ID 
 				INNER JOIN tbl_contact c ON c.contact_id = xcr.contact_id 
-				INNER JOIN tlkp_role r ON r.role_id = xcr.role_id
-				where 1=1
-		<cfif isDefined("ARGUMENTS.RoleID") AND ARGUMENTS.RoleID GT 0>
-			AND xcr.role_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.RoleID#"> 
+				INNER JOIN tlkp_role r ON r.role_id = xcr.role_id and r.roleType = 'BU'
+				where xcr.club_id =1 and r.roleType = 'BU'
+		<cfif arguments.active_yn eq 'Y' and ARGUMENTS.ContactID eq 0 and ARGUMENTS.boardMemberID eq 0>
+			AND bmi.active_yn = 'Y'
 		</cfif>
+
 		<cfif isDefined("ARGUMENTS.ContactID") AND ARGUMENTS.ContactID GT 0>
 			AND xcr.contact_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.ContactID#"> 
 		</cfif>
 		<cfif isDefined("ARGUMENTS.boardMemberID") AND ARGUMENTS.boardMemberID GT 0>
 			AND bmi.boardmember_id = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.boardMemberID#"> 
 		</cfif>
-		ORDER BY bmi.sequence 
+		<cfif arguments.board_category_id neq 0>
+			AND bmi.board_category_id = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.board_category_id#"> 
+		</cfif>
+		UNION 
+		SELECT
+				bmi.boardmember_id, 
+				bmi.sequence, 
+				'' 		AS ncsaPhone, 
+				'' 	  		AS ncsaFax, 
+				'' 	 		AS ncsaEmail,
+				bmi.NCSA_Title		AS Title,
+				bmi.Responsibility_Desc,
+				bmi.Active_YN,
+				bmi.board_category_id,
+				(select board_category_desc from tlkp_board_category where board_category_id = bmi.board_category_id) as board_category_desc,
+				null,
+				0,
+				'VACANT', '', 
+				'', 	 '', 
+				'', 	 '', 
+				''			AS contactPhoneHome,
+				''			AS contactPhoneWork,
+				''		AS contactPhoneCell,
+				''			AS contactPhoneFax,
+				''				AS contactEmail
+		FROM tbl_BoardMember_info bmi
+		where bmi.contact_id = 0
+		ORDER BY 2
 	</CFQUERY>
-		<!--- FROM 	tbl_BoardMember_info bmi 
+		<!--- 
+		-- <cfif isDefined("ARGUMENTS.RoleID") AND ARGUMENTS.RoleID GT 0>
+		-- 	AND xcr.role_ID = <cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#ARGUMENTS.RoleID#"> 
+		-- </cfif>
+		FROM 	tbl_BoardMember_info bmi 
 					INNER JOIN xref_contact_role xcr ON xcr.xref_contact_role_ID = bmi.xref_contact_role_ID 
 					INNER JOIN tbl_contact c		 ON c.contact_id = xcr.contact_id 
 					INNER JOIN tlkp_role r			 ON r.role_id = xcr.role_id
@@ -85,18 +119,17 @@
 	----- --->
 	<CFARGUMENT name="boardMemberID" type="numeric" required="yes">
 	<CFARGUMENT name="sequence"		 type="numeric" required="no">
-	<CFARGUMENT name="ncsaPhone"	 type="string" required="yes" >
-	<CFARGUMENT name="ncsaFax"		 type="string" required="yes" >
-	<CFARGUMENT name="ncsaEmail"	 type="string" required="yes" >
 	<CFARGUMENT name="ncsaTitle"	 type="string" required="yes" >
-	
+	<CFARGUMENT name="Responsibility_Desc"	 type="string" required="no" defualt="" >
+	<CFARGUMENT name="board_category_id"	 type="numeric" required="yes" >
+	<CFARGUMENT name="contact_id"	 type="numeric" required="yes" >
 	<cfstoredproc procedure="p_update_boardmember_info" datasource="#VARIABLES.DSN#" returncode="Yes">
 		<cfprocparam type="In"  cfsqltype="CF_SQL_NUMERIC" dbvarname="@boardmember_id" value="#ARGUMENTS.boardMemberID#"> 
 		<cfprocparam type="In"  cfsqltype="CF_SQL_NUMERIC" dbvarname="@sequence" 	   value="#ARGUMENTS.sequence#"> 
-		<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@NCSA_Phone"     value="#ARGUMENTS.ncsaPhone#">
-		<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@NCSA_Fax"	   value="#ARGUMENTS.ncsaFax#">
-		<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@NCSA_Email"	   value="#ARGUMENTS.ncsaEmail#">
 		<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@NCSA_Title"	   value="#ARGUMENTS.ncsaTitle#">
+		<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@Responsibility_Desc"	   value="#ARGUMENTS.Responsibility_Desc#">
+		<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@board_category_id"	   value="#ARGUMENTS.board_category_id#">
+		<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@contact_id"	   value="#ARGUMENTS.contact_id#">
 	</cfstoredproc>
 
 </cffunction>
@@ -109,22 +142,18 @@
 		12/15/08 - aa - replacred xrefContactRoleID with RoleID and ContactID
 	----- --->
 	<!--- <CFARGUMENT name="xrefContactRoleID" type="numeric" required="no" default=0> --->
-	<CFARGUMENT name="RoleID" 		 type="numeric" required="yes">
 	<CFARGUMENT name="sequence"		 type="numeric" required="no">
-	<CFARGUMENT name="ncsaPhone"	 type="string" required="yes" >
-	<CFARGUMENT name="ncsaFax"		 type="string" required="yes" >
-	<CFARGUMENT name="ncsaEmail"	 type="string" required="yes" >
-	<CFARGUMENT name="ncsaTitle"	 type="string" required="yes" >
 	<CFARGUMENT name="ContactID" 	 type="numeric" required="YES">
-	
+	<CFARGUMENT name="Responsibility_Desc"	 type="string" required="no" default="" >
+	<CFARGUMENT name="board_category_id"	 type="numeric" required="yes" >
+	<CFARGUMENT name="ncsaTitle"	 type="string" required="no" default="" >
+
 	<cfstoredproc procedure="p_insert_boardmember_info" datasource="#VARIABLES.DSN#" returncode="Yes">
-		<cfprocparam type="In"  cfsqltype="CF_SQL_NUMERIC" dbvarname="@role_ID" 		value="#ARGUMENTS.RoleID#"> 
 		<cfprocparam type="In"  cfsqltype="CF_SQL_NUMERIC" dbvarname="@sequence" 	   value="#ARGUMENTS.sequence#"> 
-		<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@NCSA_Phone"     value="#ARGUMENTS.ncsaPhone#">
-		<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@NCSA_Fax"	   value="#ARGUMENTS.ncsaFax#">
-		<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@NCSA_Email"	   value="#ARGUMENTS.ncsaEmail#">
-		<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@NCSA_Title"	   value="#ARGUMENTS.ncsaTitle#">
 		<cfprocparam type="In"  cfsqltype="CF_SQL_NUMERIC" dbvarname="@contact_ID" 		value="#ARGUMENTS.ContactID#"> 
+		<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@Responsibility_Desc"	   value="#ARGUMENTS.Responsibility_Desc#">
+		<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@board_category_id"	   value="#ARGUMENTS.board_category_id#">
+		<cfprocparam type="In"  cfsqltype="CF_SQL_VARCHAR" dbvarname="@ncsaTitle"	   value="#ARGUMENTS.ncsaTitle#">
 		<cfprocparam type="Out" cfsqltype="CF_SQL_NUMERIC" dbvarname="@boardmember_id" variable="boardMemberID">
 	</cfstoredproc>
 	

@@ -330,16 +330,17 @@ MODS: mm/dd/yyyy - filastname - comments
 	ul.dropdown-menu li{
 	  padding:5px 0px;
 	}
-/*	.red_btn{
+	.red_btn{
 		background-color: #ff3333;
 		margin: 5px 0px 5px 5px;
+		border-color:gray;
 	}
 	.modal_hidden{
 		display:none;
 	}
 	.modal_active{
 		display:block;
-	}*/
+	}
 </style>
 <cfoutput>
 <div id="contentText">
@@ -395,17 +396,21 @@ get the max Page Order Number --->
       FROM tlkp_page_section_image
 </cfquery>
 
-
+<!--- <cfdump var="#form#"> --->
 <!--- added to make sure sectionID is correct, did not always give correct sectionID on save --->
 <CFIF isDefined("FORM.maxID")>
 	<cfset newMaxSectionID = form.maxID> 
 <cfelse>
 	<cfset newMaxSectionID = getSectionID.maxSectionID + 1> 
 </CFIF>
+<cftry>
+<CFIF isDefined("form.FIELDNAMES") and FindNoCase("DeleteThis_",form.FIELDNAMES)>
+	<cfset deleteSectionID = ListLast(ListGetAt(form.fieldNames,ListContainsNoCase(form.FIELDNAMES,"DeleteThis_")),"_")>
+	<CFQUERY name="deleteSectionName" datasource="#SESSION.DSN#">
+		Delete from TBL_PAGE_SECTION where sectionID = <cfqueryparam cfsqltype="cf_sql_integer" value="#deleteSectionID#">
+	</CFQUERY> 
+<CFELSEIF isDefined("form.FIELDNAMES") and FindNoCase("Save_",form.FIELDNAMES)> 
 
-
-
-<CFIF isDefined("FORM")> 
 	<CFLOOP collection="#FORM#" item="iFm">
 		<!--- loop form looking for "SAVE"s --->
 		<CFIF ucase(listFirst(ifm,"_")) EQ "SAVE">
@@ -462,6 +467,8 @@ get the max Page Order Number --->
 
 	</CFLOOP>
 </CFIF>
+<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+</cftry>
 
 <FORM action="pageEdit.cfm" method="post" id="pageEdit">
 
@@ -506,15 +513,16 @@ get the max Page Order Number --->
 				 WHERE pageID = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#VARIABLES.pageIDselected#">
 				 ORDER BY pageOrder
 			</cfquery>
+			<!--- <cfdump var="#qPageSections#"> --->
 		<div id="add_div"><!--- needed div for add button functionality --->
  		<cfloop query="qPageSections">
  			<div class="pageSections">
  				<div class="container_modal">
 				<div class="Heading" data-page-order="#PageOrder#" data-max-id="#newMaxSectionID#">
 					Number #PageOrder#
-					<button type="submit" class="yellow_btn page" value="Submit" id="submit" size="38" name="Save_#sectionID#" onclick="">Save</button>
-					<button type="button" class="grey_btn previewBtn" value="Preview" size="38" name="preview_#sectionID#"  data-section-id="#sectionID#" onclick="">Preview</button>
-<!--- 					<button type="button" class="red_btn delete" id="delete" value="Delete" size="38" name="delete_#sectionID#" data-section-id="#sectionID#" onclick="">Delete</button> --->
+					<button type="submit" class="yellow_btn page" value="Submit" id="submit" size="38" name="Save_#sectionID#" >Save</button>
+					<button type="button" class="grey_btn previewBtn" value="Preview" size="38" name="preview_#sectionID#"  data-section-id="#sectionID#" >Preview</button>
+					<button type="submit" class="red_btn delete" id="delete" value="Delete" size="38" name="DeleteThis_#SECTIONID#" data-section-id="#SECTIONID#" >Delete</button>
 					<div class="closebtn"><i class="fa fa-times" aria-hidden="true"></i></div>
 				</div>
 				<div class="row PopTitle">
@@ -583,11 +591,13 @@ get the max Page Order Number --->
 <script>
 $(function() {
 
-	// $('.delete').click(function(event){
-	// 	$('#modaldelete').removeClass('modal_hidden');
-	// 	$('#modaldelete').addClass('modal_active');
-	// 	$('#veil').addClass('active');
-	// });
+	$('.delete').click(function(event){
+		// $('#modaldelete').removeClass('modal_hidden');
+		// $('#modaldelete').addClass('modal_active');
+		// $('#veil').addClass('active');
+
+		return confirm("are you sure you want to delete this article?");
+	});
 	//creates another div for entering new page content
 	$('#add').on('click', function(event){
 		 event.preventDefault();
@@ -649,7 +659,7 @@ $(function() {
 	      }else{
 	      	var oldText = $('#'+sectionVal).html();
 	      }
-	      console.log(oldText);
+	   //   console.log(oldText);
       	  $('#'+sectionVal).replaceWith(div);
       	  $(div).empty().append(oldText);	
 	    }

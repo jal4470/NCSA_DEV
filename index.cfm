@@ -18,18 +18,23 @@ MODS: mm/dd/yyyy - filastname - comments
   	  FROM TBL_PAGE_SECTION
   	  WHERE pageID = #pageID#
 </cfquery>
+<cfquery name="getsliderimages" datasource="#SESSION.DSN#">
+	select image_path from tlkp_page_section_image where include_in_slider = 1;
+</cfquery>
 <!--- <cfdump var="#qHomePageSections#" abort="true"> --->
 <section id="homepage_slideshow" class="slider">
 	<div class="container">
 		<ul class="slider_content bxslider">
-			<li class="slider_item">
-				<img src="assets/images/soccer_action.jpg">
-				<!--- <span class="slider_title">Birth Year Mandate Information</span> --->
-			</li>
-			<li class="slider_item">
+			<cfloop query="getsliderimages">
+				<li class="slider_item">
+					<img src="#image_path#">
+					<!--- <span class="slider_title">Birth Year Mandate Information</span> --->
+				</li>
+			</cfloop>
+			<!--- <li class="slider_item">
 				<img src="assets/images/soccer_team.jpg">
 				<!--- <span class="slider_title">Spring #DateFormat(now(), 'yyyy')# Flight Winners</span> --->
-			</li>
+			</li> --->
 		</ul>
 		<span class="arrow_left slider_arrow"></span>
 		<span class="arrow_right slider_arrow"></span>
@@ -72,8 +77,8 @@ MODS: mm/dd/yyyy - filastname - comments
 		    mode: 'fade',
 		    auto: ($(".bxslider li").length > 1) ? true: false,
 		    controls: ($(".bxslider li").length > 1) ? true: false,
-		    pause: 4000,
-		    speed: 1000,
+		    pause: 6000,
+		    speed: 2000,
 		    pager: false,
 		    nextSelector: '.arrow_right',
 		    prevSelector: '.arrow_left',
