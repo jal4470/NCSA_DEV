@@ -46,6 +46,7 @@ MODS: mm/dd/yyyy - filastname - comments
 		<cfinvokeargument name="VisitorTeamID"	    value="#FORM.VisitorTeamID#">
 		<cfinvokeargument name="ContactID"		    value="#SESSION.USER.CONTACTID#">
 		<cfinvokeargument name="Script_Name"	    value="#CGI.SCRIPT_NAME#">
+		<cfinvokeargument name="virtualTeamName"	value="">
 	</cfinvoke>
 	<CFSET msg = "This game has been updated.">
  	<cflocation url="gameList.cfm?tf=1&cid=#FORM.cid#&div=#FORM.div#&wefrom=#FORM.wefrom#&weto=#FORM.weto#&gidok=#FORM.GameId#&gg=1">
